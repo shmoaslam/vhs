@@ -18,7 +18,7 @@ using VHS.Interface;
 
 namespace VHS.Controllers
 {
-    //Dharmendra
+    //DharmendraYadav
     public class AccountController : Controller
     {
         private IAccount _lgoin;
