@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="section header-section dark bg-image-3">
+    <div class="overlay"></div>
+    <div class="container clearfix centered">
+        <div class="col-lg-8 centered aligncenter">
+            <div class="centralizing-wrapper">
+                <div class="centralized-content">
+                    <h1>Contact Us</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section bordered">
+    <div class="container clearfix">
+        <div class="col-lg-4 col-sm-4 col-xs-12 centered">
+            <div class="icons map"></div>
+            <p class="uppercase black">Address</p>
+            <p>
+                285 Lexington Ave<br />
+                New York, NY 12001
+            </p>
+        </div>
+        <div class="col-lg-4 col-sm-4 col-xs-12 centered">
+            <div class="icons smartphone"></div>
+            <p class="uppercase black">Phone</p>
+            <p><span>(845)</span>&nbsp;<span>123</span>-<span>4567</span></p>
+        </div>
+        <div class="col-lg-4 col-sm-4 col-xs-12 centered">
+            <div class="icons mail"></div>
+            <p class="uppercase black">Email</p>
+            <p>
+                Applications here:<br />
+                <a href="mailto:info@peekskill.com" title="">info@peekskill.com</a>
+            </p>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container clearfix centered">
+        <div class="col-lg-12">
+            <h3 class="header">Drop Us A Line</h3>
+            <p class="sub-heading">We'll get back to you as soon as possible!</p>
+        </div>
+    </div>
+    <div class="container clearfix centered">
+        <div class="col-lg-8 col-md-9 col-sm-12 aligncenter centered">
+            <form class="form-part" method="post" action="contact.php" name="contactform" id="contactform" autocomplete="off">
+                <input name="name" type="text" id="name" size="30" title="Name" />
+                <input name="email" type="text" id="email" size="30" title="Email" />
+                <textarea name="comments" cols="40" rows="3" id="comments" title="Tell us what you think!"></textarea>
+                <div class="input-wrapper clearfix">
+                    <input type="submit" class="send-btn" value="Send" id="submit" name="Submit" />
+                    <span id="message"></span>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<div id="map"></div>
+

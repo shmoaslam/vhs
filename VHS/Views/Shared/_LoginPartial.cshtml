@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated && HttpContext.Current.Session["Name"] != null)
+{
+
+    <li>@Html.ActionLink("My Profile", "Index", "Profile")</li>
+    <li>@Html.ActionLink("Change Password", "ChangePassword", "Account")</li>
+    <li>
+        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm"}))
+        {
+            @Html.AntiForgeryToken()
+            <a href="javascript:document.getElementById('logoutForm').submit()">Sign Out</a>
+        }
+    </li>
+}
+
+else
+{
+    <li>@Html.ActionLink("Sign up", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+    <li>@Html.ActionLink("Login", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+}
+
+
+
+
+
+
+

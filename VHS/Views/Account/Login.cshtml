@@ -1,0 +1,93 @@
+﻿
+@model VHS.Services.LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="section header-section dark bg-image-login">
+    <div class="overlay"></div>
+    <div class="container clearfix centered">
+        <div class="col-lg-8 centered aligncenter">
+            <div class="centralizing-wrapper">
+                <div class="centralized-content">
+                    <h1></h1>
+                    <p class="uppercase"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container clearfix centered">
+        <div class="col-lg-12">
+            <h3 class="header">Sign in</h3>
+            <div class="head-underline"> </div>
+            <!--<p class="sub-heading"></p>-->
+        </div>
+    </div>
+     <div class="container clearfix centered">
+        <div class="col-lg-5 col-md-5 col-sm-12 aligncenter centered">
+            @using (Ajax.BeginForm("Login", "Account", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccess", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
+            {
+                <p class="sub-heading" id="errormessage" style="display:none"><span class="error-msg"> Username/Password does not match</span></p>
+                    @Html.AntiForgeryToken()
+                    @Html.TextBoxFor(m => m.EmailId, new {placeholder = "Email id" })
+                    @Html.ValidationMessageFor(m => m.EmailId, "", new { @class = "text-danger" })
+                    @Html.PasswordFor(m => m.Password ,new { placeholder = "Password" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    <div class="input-wrapper clearfix">
+                        <input type="submit" class="send-btn" value="Submit" id="submit" name="Submit" />
+                        <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
+                    </div>
+                    <div class="input-wrapper clearfix">
+                        <span id="message"><a href="">Forgot Password?</a></span>
+                    </div>
+                    <div class="input-wrapper clearfix">
+                        <span id="message"><br />OR</span>
+                    </div>
+                    <div class="input-wrapper clearfix">
+                        @Html.ActionLink("Sign in with Facebook", "Facebook", "Account", new { @class = "send-btn" })
+                    </div>
+                <div class="input-wrapper clearfix">
+                    <span id="message"><br />Don't have an account?<br />
+                        @Html.ActionLink("Sign up now", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+                    </span>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<script>
+    $(document).ready(function () {
+
+        $("#loginLink").addClass("active");
+    });
+    //Show the Forgot Password  Div:-
+    function ShowForgotPassword() {
+        window.location.href = '@Url.Action("ForgotPassword", "Account")';
+    }
+    //Show the Success:-
+    function fnBegin() {
+        $('#imgLoader').show();
+        //Show any loder when process start:-
+    }
+    function fnSuccess(response, status, xhr) {
+        if (response == "1") {
+            window.location.href = '@Url.Action("Index", "Home")';
+        }
+        else if (response == "2") {
+            $('#imgLoader').hide();
+            $("#errormessage").show();
+
+        }
+    }
+    function fnFailure(xhr, status, err) {
+        $('#imgLoader').hide();
+        alert("'failure occured!!.Please try after '")
+    }
+    function fnComplete() {
+        if (response != "1") {
+            $('#imgLoader').hide();
+        }
+    }
+</script>

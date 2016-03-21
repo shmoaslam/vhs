@@ -1,0 +1,92 @@
+﻿@model VHS.Services.ViewModel.PropertyRMViewModel
+@{
+    ViewBag.Title = "Assign";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="section">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Assign Property to RM</h2>
+            @if (Model.proppertyVMList.Count > 0)
+            {
+                foreach (var item in Model.proppertyVMList)
+                {
+
+                    <div class="col-md-3">
+
+                        <h4>@item.PropertyName</h4>
+                        <p>@item.ShortInfo</p>
+
+                        <p>
+                            @if (item.PropertImageList.Count() > 0)
+                            {
+                                <img src="~/UploadFile/PropertyImage/@item.PropertImageList[0].ImageName" width="250" alt="@item.PropertImageList[0].ImageName" />
+                            }
+                            else
+                            {
+                                <img src="#" width="250" alt="No Image Available" />
+                            }
+
+                        </p>
+                        @{
+                            var id = "hdnPropertyId" + item.PropertyId;
+                            var imageId = "imgLoader" + item.PropertyId;
+                        }
+                        @using (Ajax.BeginForm("Assign", "ManageRm", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccess", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
+                        {
+
+                            <label>Select RM</label>
+                            @Html.DropDownListFor(m => m.RmId, new SelectList(Model.SelectedRm, "Value", "Text"), "--select--", new { id = "ddlRm", @onchange = "GetPropertyId(" + item.PropertyId + ")" })
+                            <span style="color:red">@Html.ValidationMessageFor(model => model.RmId)</span>
+                            @Html.HiddenFor(m => m.hdnPropertyId, new { id = id })
+                            <p><span id="@imageId" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</span><input type="submit" class="send-btn" value="Assign" id="assign-to-rm" name="assign-to-rm" /></p>
+
+
+                        }
+                    </div>
+                                }
+                            }
+
+
+
+        </div>
+    </div>
+</div>
+<script>
+    var proId= "";
+    $(document).ready(function () {
+
+        $("#loginLink").addClass("active");
+    });
+    //get PropertyId:-
+    function GetPropertyId(propertyId) {
+        proId = propertyId;
+        $('#hdnPropertyId' + propertyId).val(propertyId)
+    }
+    //Show the Success:-
+    function fnBegin() {
+        $('#imgLoader' + proId).show();
+        //Show any loder when process start:-
+    }
+    function fnSuccess(response, status, xhr) {
+        if (response == "1") {
+            $('#imgLoader' + proId).hide();
+            alert('Property Assigned sucessfully');
+        }
+        else if (response == "2") {
+            $('#imgLoader' + proId).hide();
+            alert('Error occured during assigne RM, please try later');
+
+
+        }
+    }
+    function fnFailure(xhr, status, err) {
+        $('#imgLoader' + proId).hide();
+        alert("'failure occured!!.Please try after '" + err.text)
+    }
+    function fnComplete() {
+        if (response != "1") {
+            $('#imgLoader' + proId).hide();
+        }
+    }
+</script>

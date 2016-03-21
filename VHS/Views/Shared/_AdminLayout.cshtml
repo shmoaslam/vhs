@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <!--[if IE]> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <![endif]-->
+    <title>Velvett Homestays</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="author" content="weibergmedia">
+    <meta name="Description" content="Hudson – Responsive Retina-Ready HTML5 Portfolio" />
+    <link href="~/Content/reset.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/contact.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/Content/styles.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/Content/flexslider.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/Content/jquery.fancybox.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/Content/magnific-popup.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="~/Content/responsive-mobilefirst.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="http://fonts.googleapis.com/css?family=Lato:400,400italic,600" rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Playfair+Display:400,400italic,600,700" rel="stylesheet" type="text/css" />
+    <script src="js/modernizr.js" type="text/javascript"></script>
+
+
+</head>
+<body>
+
+    <!-- start main nav -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><img src="~/Images/logo.png" width="100" alt="velvett homestays" /></a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li id="Admin" class="active">@Html.ActionLink("Home", "Index", "Admin")</li>
+                    <li id="ManageRm"  class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Manage RM
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Show RMs", "Show", "ManageRm")</li>
+                            <li>@Html.ActionLink("Create RM", "Create", "ManageRm")</li>
+                            <li>@Html.ActionLink("Update RM", "Update", "ManageRm")</li>
+                            <li>@Html.ActionLink("Arrange / Transfer Property to RM", "Arrange", "ManageRm")</li>
+                            <li>@Html.ActionLink("Block RM", "Block", "ManageRm")</li>
+                            <li>@Html.ActionLink("Suspend RM", "Suspend", "ManageRm")</li>
+                        </ul>
+                    </li>
+                    <li id="liManagePropert" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Manage Property
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Approved Properties", "Approve", "ManageProperty")</li>
+                            <li>@Html.ActionLink("Waiting for Approval", "Waiting", "ManageProperty")</li>
+                            <li>@Html.ActionLink("Delete Property", "Delete", "ManageProperty")</li>
+                            <li>@Html.ActionLink("Assign Property", "Assign", "ManageProperty")</li>
+                        </ul>
+                    </li>
+                    <li id="liBookings" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Bookings
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Approved Bookings", "Approve", "ManageBooking")</li>
+                            <li>@Html.ActionLink("Waiting for Approval", "Waiting", "ManageBooking")</li>
+                            <li>@Html.ActionLink("Cancelled Bookings", "Cancelled", "ManageBooking")</li>
+                        </ul>
+                    </li>
+                    <li id="liManageUser" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Manage Users
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Show Users", "Show", "ManageUser")</li>
+                            <li>@Html.ActionLink("Update User", "Update", "ManageUser")</li>
+                            <li>@Html.ActionLink("Delete User", "Delete", "ManageUser")</li>
+                        </ul>
+                    </li>
+                    <li id="liTravelAmbassadaor" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Travel Ambassador
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Add Travel Ambassador", "Create", "TravelAmbassador")</li>
+                            <li>@Html.ActionLink("Approve Travel Ambassador Review", "ApproveReview", "TravelAmbassador")</li>
+                            <li>@Html.ActionLink("Edit Travel Ambassador Review", "EditReview", "TravelAmbassador")</li>
+                            <li>@Html.ActionLink("Delete Travel Ambassador Review", "DeleteReview", "TravelAmbassador")</li>
+                            <li>@Html.ActionLink("Delete Travel Ambassador Account", "DeleteAccount", "TravelAmbassador")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="liTravelBeats">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Travel Beats
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Add Travel Beats Travel Ambassador", "Create", "TravelBeats")</li>
+                            <li>@Html.ActionLink("Edit Travel Beats", "Edit", "TravelBeats")</li>
+                            <li>@Html.ActionLink("Delete Travel Beats", "Delete", "TravelBeats")</li>
+                        </ul>
+                    </li>
+                    <li id="liTravelBeats">@Html.ActionLink("Reports", "Index", "Report")</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="jumbotron">
+    </div>
+    <div class="container">
+        @RenderBody()
+
+    </div>
+
+
+    <footer>
+        <div class="container-fluid">
+            <p> Copyright © 2016. All rights reserved. </p>
+        </div>
+    </footer>
+    <!-- end content -->
+    <script src="@Url.Content("~/Scripts/jquery-1.11.2.min.js")" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+    @*<script src="~/Scripts/jquery-1.11.2.min.js" type="text/javascript"></script>*@
+    <script src="~/Scripts/jquery-easing-1.3.js" type="text/javascript"></script>
+    <script src="~/Scripts/retina.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.touchSwipe.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.isotope2.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.ba-bbq.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/packery-mode.pkgd.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.isotope.load.js" type="text/javascript"></script>
+   <script src="~/scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/main2.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.form.js" type="text/javascript"></script>
+    <script src="~/Scripts/input.fields.js" type="text/javascript"></script>
+    <script src="~/Scripts/preloader.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <script defer src="~/Scripts/jquery.flexslider-min.js"></script>
+    <script src="~/Scripts/jquery.magnific-popup.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.fitvids.js" type="text/javascript"></script>
+    <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <script>
+        alert('@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString()');
+        var controllerName='@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+        $("#"+controllerName)
+        $('#myNavbar ul li').click(function (e) {
+            $('#myNavbar li').removeClass('active');
+            $(this).addClass('active');
+        });
+    </script>
+
+</body>
+</html>

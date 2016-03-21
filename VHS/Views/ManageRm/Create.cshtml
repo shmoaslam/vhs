@@ -1,0 +1,81 @@
+﻿@model VHS.Services.RegisterViewModel
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="section">
+    <div class="container clearfix centered">
+        <div class="col-lg-12">
+            <h3 class="header">Create RM</h3>
+            <div class="head-underline"></div>
+            <p class="sub-heading"><span class="required">*</span>Mandatory fields</p>
+        </div>
+    </div>
+    <div class="container clearfix centered">
+        <div class="col-lg-4 col-md-4 col-sm-12 aligncenter">
+            <p class="sub-heading" id="errormessage" style="display:none"><span id="spnMessage" class="error-msg"></span></p>
+            @using (Ajax.BeginForm("Create", "ManageRm", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccess", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
+            {
+                <label>Name<span class="required">*</span></label>
+                @Html.AntiForgeryToken()
+                @Html.TextBoxFor(m => m.Name, new { placeholder = "Name" })
+                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                <label>Email<span class="required">*</span></label>
+                @Html.TextBoxFor(m => m.EmailId, new { placeholder = "Email Id" })
+                @Html.ValidationMessageFor(m => m.EmailId, "", new { @class = "text-danger" })
+                <label>Contact No.<span class="required">*</span></label>
+                @Html.TextBoxFor(m => m.Mobile, new { placeholder = "Mobile" })
+                @Html.ValidationMessageFor(m => m.Mobile, "", new { @class = "text-danger" })
+                <div class="input-wrapper clearfix text-center">
+                    <input type="submit" class="send-btn" value="Create RM" id="create-rm" name="create-rm" />
+                    <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
+                </div>
+
+
+            }
+        </div>
+
+    </div>
+
+
+</section>
+<script>
+    $(document).ready(function () {
+
+        $("#loginLink").addClass("active");
+    });
+    //Show the Forgot Password  Div:-
+    function ShowForgotPassword() {
+        window.location.href = '@Url.Action("ForgotPassword", "Account")';
+    }
+    //Show the Success:-
+    function fnBegin() {
+        $('#imgLoader').show();
+        //Show any loder when process start:-
+    }
+    function fnSuccess(response, status, xhr) {
+        if (response == "1") {
+            $('#imgLoader').hide();
+            $("#errormessage").show();
+            $("#spnMessage").empty();
+            $("#spnMessage").text('RM created Sucessfully.');
+        }
+        else if (response == "2") {
+            $('#imgLoader').hide();
+            $("#errormessage").show();
+            $("#spnMessage").empty();
+            $("#spnMessage").text('Error during registration please try later');
+
+        }
+    }
+    function fnFailure(xhr, status, err) {
+        $('#imgLoader').hide();
+        alert("'failure occured!!.Please try after '")
+    }
+    function fnComplete() {
+        if (response != "1") {
+            $('#imgLoader').hide();
+        }
+    }
+</script>

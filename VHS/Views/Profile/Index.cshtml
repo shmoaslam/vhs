@@ -1,0 +1,154 @@
+﻿@using MvcCheckBoxList.Model
+@model VHS.Services.ViewModel.ProfileViewModel
+@{
+    ViewBag.Title = "Register";
+}
+<section class="section header-section dark bg-image-login">
+    <div class="overlay"></div>
+    <div class="container clearfix centered">
+        <div class="col-lg-8 centered aligncenter">
+            <div class="centralizing-wrapper">
+                <div class="centralized-content">
+                    <h1></h1>
+                    <p class="uppercase"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container clearfix centered">
+        <div class="col-lg-12">
+            <h3 class="header">Edit Profile</h3>
+            <div class="head-underline"> </div>
+            <!--<p class="sub-heading"></p>-->
+        </div>
+    </div>
+
+    <div class="container clearfix centered">
+        <div class="col-lg-5 col-md-5 col-sm-12 aligncenter">
+
+            <p class="sub-heading">
+                <span id="spnProfileMessage" class="error-msg">
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        @TempData["ErrorMessage"].ToString();
+                    }
+                </span>
+            </p>
+
+            @using (Html.BeginForm("UpdateProfile", "Profile", FormMethod.Post, new { @class = "form-part" }))
+            {
+                <label>Name</label>
+                @Html.TextBoxFor(m => m.Name)
+                @*@Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })*@
+                <label>Email</label>
+                @Html.TextBoxFor(m => m.EmailId)
+                @*@Html.ValidationMessageFor(m => m.EmailId, "", new { @class = "text-danger" })*@
+                <label>Password</label><span class="cpsw"><a href="">Change password</a></span>
+                @Html.PasswordFor(m => m.EmailId)
+                <label>Telephone</label>
+                @Html.TextBoxFor(m => m.Telephone)
+                @*@Html.ValidationMessageFor(m => m.Telephone, "", new { @class = "text-danger" })*@
+                <label>Mobile</label>
+                @Html.TextBoxFor(m => m.Mobile)
+                @*@Html.ValidationMessageFor(m => m.Mobile, "", new { @class = "text-danger" })*@
+                <label>Address</label>
+                @Html.TextAreaFor(m => m.Address)
+                @*<textarea name="address" id="address"></textarea>*@
+                <label>City</label>
+                @Html.TextBoxFor(m => m.City)
+                <label>Zipcode</label>
+                @Html.TextBoxFor(m => m.ZipCode)
+                <div class="input-wrapper clearfix text-center">
+                    <input type="submit" class="send-btn" value="Update" id="update" name="Update" />
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="container clearfix centered">
+        <h4>Additional Information</h4>
+        <div class="col-lg-5 col-md-5 col-sm-12 aligncenter">
+            <p class="sub-heading">
+                <span class="error-msg">
+                    <span id="spnProfileMessage" class="error-msg">
+                        @if (TempData["ErrorMessageAdditional"] != null)
+                        {
+                            @TempData["ErrorMessageAdditional"].ToString();
+                        }
+                    </span>
+                </span>
+            </p>
+            @using (Html.BeginForm("UpdateProfileAdditionalInfo", "Profile", FormMethod.Post, new { @class = "form-part" }))
+            {
+                <label>Date of Birth</label>
+                @Html.TextBoxFor(m => m.BirthDay)
+                <label>Anniversary</label>
+                @Html.TextBoxFor(m => m.Anniversary)
+                <label>Travel Preference</label>
+                @*for (int i = 0; i <= Model.TravelPreferenceObj.Count; i++)
+                    {
+                        <label class="half-label">
+                            @Html.CheckBoxFor(m => Model.TravelPreferenceObj[i].IsChecked)
+                            <span> @Html.(m =>Model.TravelPreferenceObj[i])</span>
+                        </label>
+
+                    }*@
+                <p>
+                    @Html.CheckBoxListFor(model => model.TravelPreferenceObj.PostedTravelPreference.TravelPrefIds,
+                                  model => model.TravelPreferenceObj.AvailableTravelPreference,
+                                 TravelPreferences => TravelPreferences.id,
+                                  TravelPreferences => TravelPreferences.Name,
+                                  model => model.TravelPreferenceObj.SelectedravelPreference,
+                                  Position.Horizontal)
+                </p>
+                @*<p>
+                    <label class="half-label"><input type="checkbox" name="business"><span>Business</span></label>
+                    <label class="half-label"><input type="checkbox" name="leisure"><span>Leisure</span></label>
+                    <label class="half-label"><input type="checkbox" name="business cum leisure"><span>Business cum Leisure</span></label>
+                    <label class="half-label"><input type="checkbox" name="family holiday"><span>Family Holiday</span></label>
+                    <label class="half-label"><input type="checkbox" name="honeymoon"><span>Honeymoon</span></label>
+                    <label class="half-label"><input type="checkbox" name="anniversary"><span>Anniversary</span></label>
+                    <label class="half-label"><input type="checkbox" name="birthday celebration"><span>Birthday Celebration</span></label>
+                    <label class="half-label"><input type="checkbox" name="adventure"><span>Adventure</span></label>
+                    <label class="half-label"><input type="checkbox" name="road trip"><span>Road trip</span></label>
+                    <label class="half-label"><input type="checkbox" name="educational trip"><span>Educational trip</span></label>
+                    <label class="half-label"><input type="checkbox" name="wedding"><span>Wedding</span></label>
+                    <label class="half-label"><input type="checkbox" name="luxury"><span>Luxury</span></label>
+                    <label class="half-label"><input type="checkbox" name="budget"><span>Budget</span></label>
+                    <label class="half-label"><input type="checkbox" name="backpacking"><span>Backpacking</span></label>
+                    <label class="half-label"><input type="checkbox" name="hiking"><span>Hiking</span></label>
+                    <label class="half-label"><input type="checkbox" name="luxury train"><span>Luxury Train</span></label>
+                    <label class="full-label"><input type="checkbox" name="corporate retreat"><span>Corporate Retreat</span></label>
+                </p>*@
+                <label>Office Telephone</label>
+                @Html.TextBoxFor(m => m.WorkTelephone)
+                <label>Preferred method of contact</label>
+                @Html.DropDownListFor(m => m.PrefContactId, new SelectList(Model.PrefContactMethod, "Value", "Text"), "Select")
+                @*<select>
+                    <option value="0">Select</option>
+                    <option value="Email">Email</option>
+                    <option value="Mobile">Mobile</option>
+                    <option value="Telephone">Telephone</option>
+                </select>*@
+                <label>Preferred calling time</label>
+                @*<select>
+                    <option value="0">Select</option>
+                    <option value="am">AM</option>
+                    <option value="pm">PM</option>
+                </select>*@
+                @Html.DropDownListFor(m => m.CallTimeId, new SelectList(Model.PrefCalltime, "Value", "Text"), "Select")
+                <label>Upload ID document</label>
+                @Html.TextBoxFor(m => m.Document, new { type = "file", multiple = "multiple" })
+                <div class="input-wrapper clearfix text-center">
+                    <input type="submit" class="send-btn" value="Update" id="update" name="Update" />
+                </div>
+
+            }
+        </div>
+
+
+    </div>
+</section>

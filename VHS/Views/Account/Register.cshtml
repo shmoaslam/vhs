@@ -1,0 +1,111 @@
+﻿@model VHS.Services.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="section header-section dark bg-image-login">
+    <div class="overlay"></div>
+    <div class="container clearfix centered">
+        <div class="col-lg-8 centered aligncenter">
+            <div class="centralizing-wrapper">
+                <div class="centralized-content">
+                    <h1></h1>
+                    <p class="uppercase"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container clearfix centered">
+        <div class="col-lg-12">
+            <h3 class="header">Sign up</h3>
+            <div class="head-underline"> </div>
+            <p class="sub-heading">Sign up now to join the millions of happy Guests who love the ideal (and cheaper) alternative to hotels that a Velvett Homestays offers.</p>
+        </div>
+    </div>
+    <div class="container clearfix centered">
+        <div class="col-lg-5 col-md-5 col-sm-12 aligncenter centered">
+            @using (Ajax.BeginForm("Register", "Account", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccess", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
+            {
+                <p class="sub-heading" id="errormessage" style="display:none"><span id="spnMessage" class="error-msg"></span></p>
+                @Html.AntiForgeryToken()
+                @*@Html.TextBoxFor(m => m.Name, new { placeholder = "Name" })
+                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                @Html.TextAreaFor(m => m.Address, new { placeholder = "Your Address" })
+                @Html.TextBoxFor(m => m.Telephone, new { placeholder = "Telephone" })
+                @Html.ValidationMessageFor(m => m.Telephone, "", new { @class = "text-danger" })
+                @Html.TextBoxFor(m => m.Mobile, new { placeholder = "Mobile" })
+                @Html.ValidationMessageFor(m => m.Mobile, "", new { @class = "text-danger" })*@
+                @Html.TextBoxFor(m => m.EmailId, new { placeholder = "Email Id" })
+                @Html.ValidationMessageFor(m => m.EmailId, "", new { @class = "text-danger" })
+                @Html.PasswordFor(m => m.Password, new { placeholder = "Password" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                <br />
+                <br />
+                @*@Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Confirm password" })
+                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })*@
+                <div class="input-wrapper clearfix">
+                    <label>
+                        <input class="checkbox" data-val="true" data-val-required="The bTermsCondition field is required." id="bTermsCondition" name="bTermsCondition" type="checkbox" value="true">
+                     
+                
+                        @*<input type="checkbox" />*@
+                        <span>I accept terms & conditions</span>
+                    </label>
+                </div>
+                    <div class="input-wrapper clearfix">
+                        <input type="submit" class="send-btn" value="Sign up" id="signup" name="signup" />
+                        <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
+                    </div>
+            }
+            <div class="input-wrapper clearfix">
+                <span id="message">OR</span>
+            </div>
+            <div class="input-wrapper clearfix">
+                @Html.ActionLink("Sign in with Facebook", "Facebook", "Account", new { @class = "send-btn" })
+            </div>
+            @Html.CheckBoxFor(m => m.bTermsCondition, new { @class = "checkbox" })
+        </div>
+    </div>
+</section>
+<script>
+    $(document).ready(function () {
+
+        $("#loginLink").addClass("active");
+    });
+    //Show the Forgot Password  Div:-
+    function ShowForgotPassword() {
+        window.location.href = '@Url.Action("ForgotPassword", "Account")';
+    }
+    //Show the Success:-
+    function fnBegin() {
+        $('#imgLoader').show();
+        //Show any loder when process start:-
+    }
+    function fnSuccess(response, status, xhr) {
+        if (response == "1") {
+            $('#imgLoader').hide();
+            $("#errormessage").show();
+            $("#spnMessage").empty();
+            $("#spnMessage").text('Sucessfully registered please go to login.');
+        }
+        else if (response == "2") {
+            $('#imgLoader').hide();
+            $("#errormessage").show();
+            $("#spnMessage").empty();
+            $("#spnMessage").text('Error during registration please try later');
+            
+        }
+    }
+    function fnFailure(xhr, status, err) {
+        $('#imgLoader').hide();
+        alert("'failure occured!!.Please try after '")
+    }
+    function fnComplete() {
+        if (response != "1") {
+            $('#imgLoader').hide();
+        }
+    }
+</script>
+
