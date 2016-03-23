@@ -21,12 +21,12 @@ namespace VHS.Controllers
 
     public class AccountController : Controller
     {
-        private IAccount _lgoin;
+        private IAccount _login;
 
 
         public AccountController(IAccount login)
         {
-            _lgoin = login;
+            _login = login;
         }
 
         //
@@ -49,7 +49,7 @@ namespace VHS.Controllers
             {
                 return Json(loginmodel);
             }
-            var result = _lgoin.CheckLogin(loginmodel);
+            var result = _login.CheckLogin(loginmodel);
             if (result.LoginId != 0)
             {
 
@@ -85,7 +85,7 @@ namespace VHS.Controllers
             if (ModelState.IsValid)
             {
                 int userType = Convert.ToInt32(UserTypeEnum.User);
-                var result = _lgoin.RegisterUser(resgisterModel, userType);
+                var result = _login.RegisterUser(resgisterModel, userType);
 
                 if (result)
                 {
@@ -112,7 +112,7 @@ namespace VHS.Controllers
             {
                 if (EmailId != null)
                 {
-                    return _lgoin.CheckEmailExist(EmailId) ? Json(true, JsonRequestBehavior.AllowGet) : Json(false, JsonRequestBehavior.AllowGet);
+                    return _login.CheckEmailExist(EmailId) ? Json(true, JsonRequestBehavior.AllowGet) : Json(false, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
@@ -383,7 +383,7 @@ namespace VHS.Controllers
             {
                 return Json(loginmodel);
             }
-            var result = _lgoin.CheckAdminLogin(loginmodel);
+            var result = _login.CheckAdminLogin(loginmodel);
             if (result.LoginId != 0)
             {
 

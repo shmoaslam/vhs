@@ -8,7 +8,6 @@ using VHS.Models;
 namespace VHS.Controllers
 {
     [Authorize]
-    [RequireHttps]
     public class HomeController : Controller
     {
         // GET: Home

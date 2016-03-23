@@ -96,49 +96,31 @@
                         </label>
 
                     }*@
-                <p>
+                @*<p>
                     @Html.CheckBoxListFor(model => model.TravelPreferenceObj.PostedTravelPreference.TravelPrefIds,
                                   model => model.TravelPreferenceObj.AvailableTravelPreference,
                                  TravelPreferences => TravelPreferences.id,
                                   TravelPreferences => TravelPreferences.Name,
                                   model => model.TravelPreferenceObj.SelectedravelPreference,
                                   Position.Horizontal)
-                </p>
-                @*<p>
-                    <label class="half-label"><input type="checkbox" name="business"><span>Business</span></label>
-                    <label class="half-label"><input type="checkbox" name="leisure"><span>Leisure</span></label>
-                    <label class="half-label"><input type="checkbox" name="business cum leisure"><span>Business cum Leisure</span></label>
-                    <label class="half-label"><input type="checkbox" name="family holiday"><span>Family Holiday</span></label>
-                    <label class="half-label"><input type="checkbox" name="honeymoon"><span>Honeymoon</span></label>
-                    <label class="half-label"><input type="checkbox" name="anniversary"><span>Anniversary</span></label>
-                    <label class="half-label"><input type="checkbox" name="birthday celebration"><span>Birthday Celebration</span></label>
-                    <label class="half-label"><input type="checkbox" name="adventure"><span>Adventure</span></label>
-                    <label class="half-label"><input type="checkbox" name="road trip"><span>Road trip</span></label>
-                    <label class="half-label"><input type="checkbox" name="educational trip"><span>Educational trip</span></label>
-                    <label class="half-label"><input type="checkbox" name="wedding"><span>Wedding</span></label>
-                    <label class="half-label"><input type="checkbox" name="luxury"><span>Luxury</span></label>
-                    <label class="half-label"><input type="checkbox" name="budget"><span>Budget</span></label>
-                    <label class="half-label"><input type="checkbox" name="backpacking"><span>Backpacking</span></label>
-                    <label class="half-label"><input type="checkbox" name="hiking"><span>Hiking</span></label>
-                    <label class="half-label"><input type="checkbox" name="luxury train"><span>Luxury Train</span></label>
-                    <label class="full-label"><input type="checkbox" name="corporate retreat"><span>Corporate Retreat</span></label>
                 </p>*@
+                <p>
+                    @if (Model != null && Model.TravelPreferenceObj != null && Model.TravelPreferenceObj.SelectedravelPreference != null)
+                    {
+                        foreach (var travel in Model.TravelPreferenceObj.SelectedravelPreference)
+                        {
+                            <label class="half-label"><input type="checkbox" checked="@travel.IsChecked" name="@travel.Name"><span>@travel.Name</span></label>
+                        }
+                    }
+                    
+                </p>
                 <label>Office Telephone</label>
                 @Html.TextBoxFor(m => m.WorkTelephone)
                 <label>Preferred method of contact</label>
                 @Html.DropDownListFor(m => m.PrefContactId, new SelectList(Model.PrefContactMethod, "Value", "Text"), "Select")
-                @*<select>
-                    <option value="0">Select</option>
-                    <option value="Email">Email</option>
-                    <option value="Mobile">Mobile</option>
-                    <option value="Telephone">Telephone</option>
-                </select>*@
+               
                 <label>Preferred calling time</label>
-                @*<select>
-                    <option value="0">Select</option>
-                    <option value="am">AM</option>
-                    <option value="pm">PM</option>
-                </select>*@
+               
                 @Html.DropDownListFor(m => m.CallTimeId, new SelectList(Model.PrefCalltime, "Value", "Text"), "Select")
                 <label>Upload ID document</label>
                 @Html.TextBoxFor(m => m.Document, new { type = "file", multiple = "multiple" })
