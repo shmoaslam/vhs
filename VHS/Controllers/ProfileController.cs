@@ -26,7 +26,7 @@ namespace VHS.Controllers
             return View(profile);
         }
         [HttpPost]
-        public ActionResult UpdateProfile(ProfileViewModel profilevm)
+        public ActionResult UpdateProfile(ProfileViewModel profilevm, FormCollection frm)
         {
             int userId = Convert.ToInt32(HttpContext.User.Identity.Name);
             var profile = _profile.UpdateProfile(profilevm, userId);

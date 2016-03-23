@@ -105,11 +105,11 @@
                                   Position.Horizontal)
                 </p>*@
                 <p>
-                    @if (Model != null && Model.TravelPreferenceObj != null && Model.TravelPreferenceObj.SelectedravelPreference != null)
-                    {
-                        foreach (var travel in Model.TravelPreferenceObj.SelectedravelPreference)
+                    @if (Model != null && Model.TravelPreferences != null )
                         {
-                            <label class="half-label"><input type="checkbox" checked="@travel.IsChecked" name="@travel.Name"><span>@travel.Name</span></label>
+                        foreach (var travel in Model.TravelPreferences)
+                        {
+                            <label class="half-label"><input type="checkbox"  checked="@travel.IsChecked" name="TravelPreferencesId" value="@travel.id"><span>@travel.Name</span></label>
                         }
                     }
                     
@@ -125,12 +125,11 @@
                 <label>Upload ID document</label>
                 @Html.TextBoxFor(m => m.Document, new { type = "file", multiple = "multiple" })
                 <div class="input-wrapper clearfix text-center">
-                    <input type="submit" class="send-btn" value="Update" id="update" name="Update" />
+                    <input type="submit" class="send-btn" value="Update" id="update" name="Update"  />
                 </div>
 
             }
         </div>
-
 
     </div>
 </section>

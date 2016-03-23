@@ -53,10 +53,7 @@ namespace VHS.Services
             profileObject.IsVerified = userDetail.IsVerified;
 
             //Travel Preference:-
-            var selectedTravelpreference = new List<ViewModel.TravelPreferences>();
-            var travelPrefobj = new TravelPreferenceViewModel();//setup a view model
-            travelPrefobj.SelectedravelPreference = GetAllTravelPreference(loginId).ToList();
-            profileObject.TravelPreferenceObj = travelPrefobj;
+            profileObject.TravelPreferences = GetAllTravelPreference(loginId).ToList();
             return profileObject;
         }
 
@@ -136,6 +133,16 @@ namespace VHS.Services
 
             }
             //Update Travel preferneces:-
+            if(profilevm.TravelPreferencesId.Count() > 0)
+            {
+                _unitOfWork.UserTravelPrefMapRepository.Delete(m => m.LoginId == loginId);
+                foreach (var travelPref in profilevm.TravelPreferencesId)
+                {
+                    _unitOfWork.UserTravelPrefMapRepository.Insert(new UserTravelPrefMapping { TravelPrefId = travelPref, LoginId = loginId });
+                }
+                _unitOfWork.Save();
+            }
+
             //if (profilevm.TravelPreferenceObj.Count() > 0)
             //{
             //    var travelprefList = _unitOfWork.UserTravelPrefMapRepository.GetMany(m => m.LoginId == loginId).ToList();

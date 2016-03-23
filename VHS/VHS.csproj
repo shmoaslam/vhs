@@ -287,6 +287,7 @@
     <None Include="Properties\PublishProfiles\ValvettHomeStays.pubxml" />
     <Content Include="Scripts\.DS_Store" />
     <None Include="Properties\PublishProfiles\vhstest.pubxml" />
+    <None Include="Properties\PublishProfiles\vhstestingftp.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\input.fields.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
