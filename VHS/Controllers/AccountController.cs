@@ -23,12 +23,12 @@ namespace VHS.Controllers
     //Mrara
     public class AccountController : BaseController
     {
-        private IAccount _lgoin;
+        private IAccount _login;
 
 
         public AccountController(IAccount login)
         {
-            _lgoin = login;
+            _login = login;
         }
 
         //
@@ -51,7 +51,7 @@ namespace VHS.Controllers
             {
                 return Json(loginmodel);
             }
-            var result = _lgoin.CheckLogin(loginmodel);
+            var result = _login.CheckLogin(loginmodel);
             if (result.LoginId != 0)
             {
                 //   signin(user);
@@ -87,7 +87,7 @@ namespace VHS.Controllers
             if (ModelState.IsValid)
             {
                 int userType = Convert.ToInt32(UserTypeEnum.User);
-                var result = _lgoin.RegisterUser(resgisterModel, userType);
+                var result = _login.RegisterUser(resgisterModel, userType);
 
                 if (result)
                 {
@@ -114,7 +114,7 @@ namespace VHS.Controllers
             {
                 if (EmailId != null)
                 {
-                    return _lgoin.CheckEmailExist(EmailId) ? Json(true, JsonRequestBehavior.AllowGet) : Json(false, JsonRequestBehavior.AllowGet);
+                    return _login.CheckEmailExist(EmailId) ? Json(true, JsonRequestBehavior.AllowGet) : Json(false, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
@@ -385,7 +385,8 @@ namespace VHS.Controllers
             {
                 return Json(loginmodel);
             }
-            var userInfo = _lgoin.CheckAdminLogin(loginmodel);
+
+            var userInfo = _login.CheckAdminLogin(loginmodel);
             if (userInfo != null)
             {
 
@@ -427,7 +428,7 @@ namespace VHS.Controllers
         [HttpGet]
         public ActionResult RMConfirmation(string id)
         {
-            var rmconfirmation = _lgoin.RmAccountConfirmation(id);
+            var rmconfirmation = _login.RmAccountConfirmation(id);
             return View(rmconfirmation);
 
         }
@@ -436,7 +437,7 @@ namespace VHS.Controllers
         [HttpPost]
         public ActionResult RMConfirmation(RmCreatePassword rmchangePassword)
         {
-            var createPassword = _lgoin.RmAccountCreatePassword(rmchangePassword);
+            var createPassword = _login.RmAccountCreatePassword(rmchangePassword);
             if (createPassword)
             {
                 return RedirectToAction("AdminLogin");

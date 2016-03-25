@@ -1,4 +1,5 @@
 ﻿@model VHS.Services.ViewModel.PropertyRMViewModel
+@using Newtonsoft.Json
 @{
     ViewBag.Title = "Assign";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -31,13 +32,13 @@
                         @{
                             var id = "hdnPropertyId" + item.PropertyId;
                             var imageId = "imgLoader" + item.PropertyId;
-                            var selectedRm = item.RmId;
+                            var ddlId = "ddl" + item.PropertyId;
                         }
                         @using (Ajax.BeginForm("Assign", "ManageRm", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccess", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
                         {
 
                             <label>Select RM</label>
-                            @Html.DropDownListFor(m => m.RmId, new SelectList(Model.SelectedRm, "Value", "Text", selectedRm), "--select--", new { id = "ddlRm", @onchange = "GetPropertyId(" + item.PropertyId + ")" })
+                            @Html.DropDownListFor(m => m.RmId, new SelectList(Model.SelectedRm, "Value", "Text"), "--select--", new { id = ddlId, @onchange = "GetPropertyId(" + item.PropertyId + ")" })
                             <span style="color:red">@Html.ValidationMessageFor(model => model.RmId)</span>
                             @Html.HiddenFor(m => m.hdnPropertyId, new { id = id })
                             <p><span id="@imageId" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</span><input type="submit" class="send-btn" value="Assign" id="assign-to-rm" name="assign-to-rm" /></p>
@@ -54,9 +55,18 @@
     </div>
 </div>
 <script>
-    var proId= "";
-    $(document).ready(function () {
 
+    $(document).ready(function() {
+        var count = @Model.proppertyVMList.Count();
+        var data = @Html.Raw(JsonConvert.SerializeObject(Model.proppertyVMList));
+        for(var i=0;i<data.length;i++){
+            $('#ddl' + data[i].PropertyId).val(data[i].RmId);
+        }
+    });
+</script>
+<script>
+    var proId = "";
+    $(document).ready(function (){
         $("#loginLink").addClass("active");
     });
     //get PropertyId:-

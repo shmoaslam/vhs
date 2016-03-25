@@ -53,11 +53,7 @@ namespace VHS.Services
             profileObject.IsVerified = userDetail.IsVerified;
 
             //Travel Preference:-
-            var selectedTravelpreference = new List<ViewModel.TravelPreferences>();
-            var travelPrefobj = new TravelPreferenceViewModel();//setup a view model
-            travelPrefobj.AvailableTravelPreference = GetAllTravelPreference().ToList();
-            travelPrefobj.SelectedravelPreference = selectedTravelpreference;
-            profileObject.TravelPreferenceObj = travelPrefobj;
+            profileObject.TravelPreferences = GetAllTravelPreference(loginId).ToList();
             return profileObject;
         }
 
@@ -137,6 +133,16 @@ namespace VHS.Services
 
             }
             //Update Travel preferneces:-
+            if(profilevm.TravelPreferencesId.Count() > 0)
+            {
+                _unitOfWork.UserTravelPrefMapRepository.Delete(m => m.LoginId == loginId);
+                foreach (var travelPref in profilevm.TravelPreferencesId)
+                {
+                    _unitOfWork.UserTravelPrefMapRepository.Insert(new UserTravelPrefMapping { TravelPefId = travelPref, LoginId = loginId });
+                }
+                _unitOfWork.Save();
+            }
+
             //if (profilevm.TravelPreferenceObj.Count() > 0)
             //{
             //    var travelprefList = _unitOfWork.UserTravelPrefMapRepository.GetMany(m => m.LoginId == loginId).ToList();
@@ -197,28 +203,18 @@ namespace VHS.Services
         /// <summary>
         /// for get all fruits
         /// </summary>
-        public static IEnumerable<ViewModel.TravelPreferences> GetAllTravelPreference()
+        public IEnumerable<ViewModel.TravelPreferences> GetAllTravelPreference(int loginId)
         {
-            return new List<ViewModel.TravelPreferences> {
-                              new ViewModel.TravelPreferences {Name = "Business", id = 1 },
-                              new ViewModel.TravelPreferences {Name = "Business cum Leisure", id = 2},
-                              new ViewModel.TravelPreferences {Name = "Honeymoon", id = 3},
-                              new ViewModel.TravelPreferences {Name = "Birthday Celebration", id = 4},
-                              new ViewModel.TravelPreferences {Name = "Road trip", id = 5},
-                              new ViewModel.TravelPreferences {Name = "Wedding", id = 6},
-                              new ViewModel.TravelPreferences {Name = "Budget", id = 7 },
-                              new ViewModel.TravelPreferences {Name = "Hiking", id = 8},
-                              new ViewModel.TravelPreferences {Name = "Corporate Retreat", id = 9},
-                              new ViewModel.TravelPreferences {Name = "Leisure", id = 10},
-                              new ViewModel.TravelPreferences {Name = "Family Holiday", id = 11},
-                              new ViewModel.TravelPreferences {Name = "Anniversary", id = 12},
-                              new ViewModel.TravelPreferences {Name = "Adventure", id = 13},
-                               new ViewModel.TravelPreferences {Name = "Educational trip", id = 14},
-                                new ViewModel.TravelPreferences {Name = "Luxury", id = 15},
-                                 new ViewModel.TravelPreferences {Name = "Backpacking", id =16},
-                                 new ViewModel.TravelPreferences {Name = "Luxury Train", id = 17}
+           var travelPreferences = _unitOfWork.TravelPreferencesRepository.GetAll();
+            var userTravelPrefMapping = _unitOfWork.UserTravelPrefMapRepository.GetMany(x => x.LoginId == loginId);
 
-                            };
+            var travelPref = new List<ViewModel.TravelPreferences>();
+
+            foreach (var item in travelPreferences)
+            {
+                travelPref.Add(new ViewModel.TravelPreferences { id = item.Id, Name = item.Name, IsChecked = userTravelPrefMapping.Any(x=>x.TravelPefId == item.Id )});
+            }
+            return travelPref;
         }
         public SelectList GetPreferedContactMethod()
         {

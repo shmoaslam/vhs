@@ -50,7 +50,7 @@ namespace VHS.Services
         public UserInfo CheckAdminLogin(LoginViewModel loginvm)
         {
             var userInfo = new UserInfo();
-            var login = _unitOfWork.LoginRepository.Get(m => m.Email == loginvm.EmailId && m.Password == loginvm.Password && m.IsActive == true && m.TypeId == Convert.ToInt32(UserTypeEnum.Admin) || m.TypeId == Convert.ToInt32(UserTypeEnum.RM));
+            var login = _unitOfWork.LoginRepository.Get(m => m.Email == loginvm.EmailId && m.Password == loginvm.Password && m.IsActive == true && (m.TypeId == Convert.ToInt32(UserTypeEnum.Admin) || m.TypeId == Convert.ToInt32(UserTypeEnum.RM)));
             if (login != null)
             {
                 userInfo.LoginId = login.LoginId;

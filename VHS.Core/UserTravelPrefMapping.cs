@@ -12,7 +12,7 @@ namespace VHS.Core
         public int Id { get; set; }
 
         [ForeignKey("TravelPreferences")]
-        public int TravelPrefId { get; set; }
+        public int TravelPefId { get; set; }
         public TravelPreferences TravelPreferences { get; set; }
 
         [ForeignKey("UserLogin")]

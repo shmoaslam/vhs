@@ -19,7 +19,8 @@ namespace VHS.Services.ViewModel
         public string Mobile { get; set; }
         public DateTime? BirthDay { get; set; }
         public DateTime? Anniversary { get; set; }
-        public TravelPreferenceViewModel TravelPreferenceObj { get; set; }
+        public IEnumerable<TravelPreferences> TravelPreferences { get; set; }
+        public int[] TravelPreferencesId { get; set; }
         public string WorkTelephone { get; set; }
         public string HomeTelephone { get; set; }
         public bool IsVerified { get; set; }
@@ -39,12 +40,12 @@ namespace VHS.Services.ViewModel
         public string Name { get; set; }
         public bool IsChecked { get; set; }
     }
-    public class TravelPreferenceViewModel
-    {
-        public IEnumerable<TravelPreferences> AvailableTravelPreference { get; set; }
-        public IEnumerable<TravelPreferences> SelectedravelPreference { get; set; }
-        public PostedTravelPreference PostedTravelPreference { get; set; }
-    }
+    //public class TravelPreferenceViewModel
+    //{
+    //    public IEnumerable<TravelPreferences> AvailableTravelPreference { get; set; }
+    //    public IEnumerable<TravelPreferences> SelectedravelPreference { get; set; }
+    //    public PostedTravelPreference PostedTravelPreference { get; set; }
+    //}
     public class PostedTravelPreference
     {
         //this array will be used to POST values from the form to the controller
