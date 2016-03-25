@@ -16,4 +16,11 @@ namespace VHS.Services
         [Required(ErrorMessage = "Please enter password")]
         public string Password { get; set; }
     }
+    public class UserInfo
+    {
+        public int LoginId { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string UserType { get; set; }
+    }
 }

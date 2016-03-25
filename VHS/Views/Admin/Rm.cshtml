@@ -1,0 +1,66 @@
+﻿@model VHS.Services.ViewModel.RmHomeViewModel
+@{
+    ViewBag.Title = "Rm";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="section">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Recently assigned Properties</h2>
+            @if (Model.assignedPropertyListVm.Count > 0)
+            {
+                foreach (var item in Model.assignedPropertyListVm)
+                {
+
+                    <div class="col-md-3">
+
+                        <h4>@item.PropertyName</h4>
+                        <p>@item.ShortInfo</p>
+
+                        <p>
+                            @if (item.PropertImageList.Count() > 0)
+                            {
+                                <img src="~/UploadFile/PropertyImage/@item.PropertImageList[0].ImageName" width="250" alt="@item.PropertImageList[0].ImageName" />
+                            }
+                            else
+                            {
+                                <img src="#" width="250" alt="No Image Available" />
+                            }
+                        </p>
+                    </div>
+                }
+            }
+        </div>
+
+    </div>
+</div>
+
+<div class="section">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Booking requests received</h2>
+            <div class="col-md-3">
+                <h3>Property Name</h3>
+                <p>Short Info</p>
+                <p><img src="images/fullscreen02.jpg" width="250" alt="" /></p>
+            </div>
+            <div class="col-md-3">
+                <h3>Property Name</h3>
+                <p>Short Info</p>
+                <p><img src="images/fullscreen02.jpg" width="250" alt="" /></p>
+            </div>
+            <div class="col-md-3">
+                <h3>Property Name</h3>
+                <p>Short Info</p>
+                <p><img src="images/fullscreen02.jpg" width="250" alt="" /></p>
+            </div>
+            <div class="col-md-3">
+                <h3>Property Name</h3>
+                <p>Short Info</p>
+                <p><img src="images/fullscreen02.jpg" width="250" alt="" /></p>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -4,14 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VHS.Services;
+using VHS.Services.Models;
 
 namespace VHS.Interface
 {
     public interface IAccount
     {
         LoginViewModel CheckLogin(LoginViewModel login);
-        bool RegisterUser(RegisterViewModel login ,int UserType);
+        bool RegisterUser(RegisterViewModel login, int UserType);
         bool CheckEmailExist(string EmailId);
-        LoginViewModel CheckAdminLogin(LoginViewModel login);
+        UserInfo CheckAdminLogin(LoginViewModel login);
+        RmCreatePassword RmAccountConfirmation(string token);
+        bool RmAccountCreatePassword(RmCreatePassword rmchangePassword);
     }
 }

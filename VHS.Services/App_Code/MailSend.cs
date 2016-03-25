@@ -148,7 +148,7 @@ namespace VHS.Services.App_Code
                 oMail.IsBodyHtml = true;
                 oMail.Body = i_sEmailBody;
                 SmtpClient smtpmail = new SmtpClient();
-                smtpmail.Credentials = new NetworkCredential("dharam3579@gmail.com", "dharam69@90"); /* New added for testing */
+                smtpmail.Credentials = new NetworkCredential("email@gmail.com", "yourpassword"); /* New added for testing */
                 smtpmail.Port = 25; /* New added for testing */
                 smtpmail.EnableSsl = true; /* New added for testing */
                 smtpmail.DeliveryMethod = SmtpDeliveryMethod.Network; /* New added for testing */

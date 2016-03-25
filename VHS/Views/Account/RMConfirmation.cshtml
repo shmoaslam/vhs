@@ -1,8 +1,4 @@
-﻿@model VHS.Services.LoginViewModel
-@{
-    ViewBag.Title = "AdminLogin";
-    Layout = null;
-}
+﻿@model VHS.Services.Models.RmCreatePassword
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
@@ -10,8 +6,8 @@
     <!--[if IE]> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <![endif]-->
     <title>Velvett Homestays</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="author" content="weibergmedia">
-    <meta name="Description" content="Hudson – Responsive Retina-Ready HTML5 Portfolio" />
+    <meta name="author" content="">
+    <meta name="Description" content="" />
     <link href="~/Content/reset.css" rel="stylesheet" type="text/css" media="screen" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet">
     <link href="~/Content/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -23,9 +19,9 @@
     <link href="~/Content/responsive-mobilefirst.css" rel="stylesheet" type="text/css" media="screen" />
     <link href="http://fonts.googleapis.com/css?family=Lato:400,400italic,600" rel="stylesheet" type="text/css" />
     <link href="http://fonts.googleapis.com/css?family=Playfair+Display:400,400italic,600,700" rel="stylesheet" type="text/css" />
-    <script src="js/modernizr.js" type="text/javascript"></script>
 </head>
 <body>
+
     <section class="section">
         <div class="container clearfix centered">
 
@@ -39,29 +35,40 @@
     <section class="section">
         <div class="container clearfix centered">
             <div class="col-lg-12">
-                <h3 class="header">Sign in</h3>
+                <h3 class="header">Create Account</h3>
                 <div class="head-underline"> </div>
                 <!--<p class="sub-heading"></p>-->
             </div>
         </div>
 
         <div class="container clearfix centered">
-            <div class="col-lg-5 col-md-5 col-sm-12 aligncenter centered">
-                @using (Ajax.BeginForm("AdminLogin", "Account", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccess", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
-            {
-                    <p class="sub-heading" id="errormessage" style="display:none"><span class="error-msg"> Username/Password does not match</span></p>
-                    @Html.AntiForgeryToken()
-                    @Html.TextBoxFor(m => m.EmailId, new { placeholder = "Email id" })
-                    @Html.ValidationMessageFor(m => m.EmailId, "", new { @class = "text-danger" })
-                    @Html.PasswordFor(m => m.Password, new { placeholder = "Password" })
-                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    <div class="input-wrapper clearfix">
-                        <input type="submit" class="send-btn" value="Submit" id="submit" name="Submit" />
-                        <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
-                    </div>
-                    <div class="input-wrapper clearfix">
-                        <span id="message"><a href="">Forgot Password?</a></span>
-                    </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 aligncenter">
+                @if (Model.IsLinkUsed == false)
+                {
+                    <p class="sub-heading"><span class="error-msg">some error occured</span></p>
+                    using (Html.BeginForm("RMConfirmation", "Account", FormMethod.Post, new { @class = "form-part" }))
+                    {
+                        <label>Username</label>
+                        @Html.TextBoxFor(m => m.EmailId)
+                        <label>Password</label>
+                        @Html.PasswordFor(m => m.Password)
+                        <span style="color:red">
+                            @Html.ValidationMessageFor(m => m.Password)
+                        </span><br />
+                        <label>Confirm Password</label>
+                        @Html.PasswordFor(m => m.ConfirmPassword)
+                        <span style="color:red">
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                        </span><br />
+                        <div class="input-wrapper clearfix text-center">
+                            @Html.HiddenFor(m=>m.MailLinkId)
+                            <input type="submit" class="send-btn" value="Submit" id="submit" name="Submit" />
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p class="sub-heading"><span class="error-msg">This link has been expired</span></p>
                 }
             </div>
         </div>
@@ -73,10 +80,11 @@
     </footer>
     </div>
     <!-- end content -->
-    <script src="@Url.Content("~/Scripts/jquery-1.11.2.min.js")" type="text/javascript"></script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-    <script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+    <script src="@Url.Content(" ~/Scripts/jquery-1.11.2.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content(" ~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content(" ~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content(" ~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
     @*<script src="~/Scripts/jquery-1.11.2.min.js" type="text/javascript"></script>*@
     <script src="~/Scripts/jquery-easing-1.3.js" type="text/javascript"></script>
     <script src="~/Scripts/retina.js" type="text/javascript"></script>
@@ -85,6 +93,7 @@
     <script src="~/Scripts/jquery.ba-bbq.min.js" type="text/javascript"></script>
     <script src="~/Scripts/packery-mode.pkgd.min.js" type="text/javascript"></script>
     <script src="~/Scripts/jquery.isotope.load.js" type="text/javascript"></script>
+
     @*<script src="~/Scripts/bootstrap.min.js"></script>*@
     <script src="~/Scripts/main2.js" type="text/javascript"></script>
     <script src="~/Scripts/jquery.form.js" type="text/javascript"></script>
@@ -94,47 +103,5 @@
     <script defer src="~/Scripts/jquery.flexslider-min.js"></script>
     <script src="~/Scripts/jquery.magnific-popup.min.js" type="text/javascript"></script>
     <script src="~/Scripts/jquery.fitvids.js" type="text/javascript"></script>
-    <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-    <script>
-        $(document).ready(function () {
-
-            $("#loginLink").addClass("active");
-        });
-        //Show the Forgot Password  Div:-
-        function ShowForgotPassword() {
-            window.location.href = '@Url.Action("ForgotPassword", "Account")';
-        }
-        //Show the Success:-
-        function fnBegin() {
-            $('#imgLoader').show();
-            //Show any loder when process start:-
-        }
-        function fnSuccess(response, status, xhr) {
-            if (response == "1") {
-                window.location.href = '@Url.Action("Index", "Admin")';
-            }
-            else if (response == "0") {
-                $('#imgLoader').hide();
-                $("#errormessage").show();
-
-            }
-            else if (response == "2") {
-                window.location.href = '@Url.Action("Rm", "Admin")';
-            }
-            else {
-                $('#imgLoader').hide();
-                alert("Please try after '")
-            }
-        }
-        function fnFailure(xhr, status, err) {
-            $('#imgLoader').hide();
-            alert("'failure occured!!.Please try after '")
-        }
-        function fnComplete() {
-            if (response != "1") {
-                $('#imgLoader').hide();
-            }
-        }
-    </script>
 </body>
 </html>

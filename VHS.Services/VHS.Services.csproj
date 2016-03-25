@@ -55,19 +55,24 @@
   <ItemGroup>
     <Compile Include="AdminHomeService.cs" />
     <Compile Include="App_Code\MailSend.cs" />
+    <Compile Include="App_Code\Security.cs" />
     <Compile Include="Enum\UserTypeEnum.cs" />
     <Compile Include="Interface\IAccount.cs" />
     <Compile Include="Interface\IAdminHome.cs" />
     <Compile Include="Interface\IManageProperty.cs" />
     <Compile Include="Interface\IManageRm.cs" />
+    <Compile Include="Interface\INotificationService.cs" />
     <Compile Include="Interface\IProfile.cs" />
     <Compile Include="Interface\IProperty.cs" />
     <Compile Include="Interface\IUser.cs" />
     <Compile Include="AccountService.cs" />
     <Compile Include="ManagePropertyService.cs" />
     <Compile Include="ManageRmService.cs" />
+    <Compile Include="Models\MailSendLink.cs" />
     <Compile Include="Models\Property.cs" />
     <Compile Include="Models\PropertyRMMap.cs" />
+    <Compile Include="Models\RmCreatePassword.cs" />
+    <Compile Include="Models\RMCreationMailer.cs" />
     <Compile Include="NotificationService.cs" />
     <Compile Include="ProfileService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,6 +86,7 @@
     <Compile Include="ViewModel\PropertyRMViewModel.cs" />
     <Compile Include="ViewModel\PropertyViewModel.cs" />
     <Compile Include="ViewModel\RegisterViewModel.cs" />
+    <Compile Include="ViewModel\RmHomeViewModel.cs" />
     <Compile Include="ViewModel\RMViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

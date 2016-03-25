@@ -14,9 +14,11 @@ namespace VHS.Services
     {
         private readonly UnitOfWork _unitOfWork;
         private IProperty _property;
-        public AdminHomeService(IProperty property)
+        private IManageProperty _manageProperty;
+        public AdminHomeService(IProperty property, IManageProperty manageProperty)
         {
             _property = property;
+            _manageProperty = manageProperty;
         }
         public AdminHomeViewModel GetAddedProperty()
         {
@@ -24,5 +26,19 @@ namespace VHS.Services
             adminHomeVm.propertyListVm = _property.GetPropertyList();
             return adminHomeVm;
         }
+        public RmHomeViewModel GetAssignedPropertyRm(int rmId)
+        {
+            var rmHomeVm = new RmHomeViewModel();
+            var propertyRmList = _manageProperty.GetPropRmMap();
+            var propertyList = _property.GetPropertyList();
+            var result = (from pr in propertyRmList
+                          join pl in propertyList on pr.ProprtyId equals pl.PropertyId
+                          where (pr.RMId == rmId)
+                          select new PropertyViewModel { PropertyId = pl.PropertyId, PropertyName = pl.PropertyName, ShortInfo = pl.ShortInfo, PropertImageList = pl.PropertImageList }).ToList();
+
+            rmHomeVm.assignedPropertyListVm = result;
+            return rmHomeVm;
+        }
+
     }
 }

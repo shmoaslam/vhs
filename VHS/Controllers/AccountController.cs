@@ -15,11 +15,13 @@ using System.Web.Security;
 using Facebook;
 using VHS.Models;
 using VHS.Interface;
+using VHS.Services.Models;
+using Newtonsoft.Json;
 
 namespace VHS.Controllers
 {
     //Mrara
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private IAccount _lgoin;
 
@@ -52,7 +54,7 @@ namespace VHS.Controllers
             var result = _lgoin.CheckLogin(loginmodel);
             if (result.LoginId != 0)
             {
-
+                //   signin(user);
                 FormsAuthentication.SetAuthCookie(result.LoginId.ToString(), false);
                 return Json("1");
             }
@@ -383,16 +385,28 @@ namespace VHS.Controllers
             {
                 return Json(loginmodel);
             }
-            var result = _lgoin.CheckAdminLogin(loginmodel);
-            if (result.LoginId != 0)
+            var userInfo = _lgoin.CheckAdminLogin(loginmodel);
+            if (userInfo != null)
             {
 
-                FormsAuthentication.SetAuthCookie(result.LoginId.ToString(), false);
-                return Json("1");
+                signin(userInfo);
+                if (userInfo.UserType == "1")
+                {
+                    return Json("1");
+                }
+                else if (userInfo.UserType == "2")
+                {
+                    return Json("2");
+                }
+                else
+                {
+                    return Json("3");
+                }
+
             }
             else
             {
-                return Json("2");
+                return Json("0");
             }
 
         }
@@ -408,6 +422,53 @@ namespace VHS.Controllers
                 return uriBuilder.Uri;
             }
         }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult RMConfirmation(string id)
+        {
+            var rmconfirmation = _lgoin.RmAccountConfirmation(id);
+            return View(rmconfirmation);
+
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult RMConfirmation(RmCreatePassword rmchangePassword)
+        {
+            var createPassword = _lgoin.RmAccountCreatePassword(rmchangePassword);
+            if (createPassword)
+            {
+                return RedirectToAction("AdminLogin");
+            }
+            else
+            {
+                return View();
+            }
+
+
+        }
+
+        private void signin(UserInfo user)
+        {
+            string name = user.Name;
+            FormsAuthentication.SetAuthCookie(name, false);
+
+            string data = JsonConvert.SerializeObject(user);
+            SetUserCookie(data);
+        }
+        //public void writeLoginCookies(string username, bool rememberme)
+        //{
+        //    //string info = username;
+        //    ////FormsAuthentication.SetAuthCookie(info, false);
+        //    //HttpCookie userCookie = new HttpCookie(Constants.COOKIE_USERNAME);
+        //    //userCookie["UserName"] = HttpUtility.UrlEncode(SecurityHelper.Encrypt(info));
+        //    //userCookie["RememberMe"] = HttpUtility.UrlEncode(SecurityHelper.Encrypt(rememberme.ToString()));
+        //    //userCookie.Expires = DateTime.Now.AddMonths(1);
+        //    //Response.Cookies.Add(userCookie);
+        //}
+
+
 
     }
 }

@@ -191,8 +191,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
+    <Compile Include="Common\Constants.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -380,6 +382,11 @@
     <Content Include="Views\ManageRm\Suspend.cshtml" />
     <Content Include="Views\Property\Add.cshtml" />
     <Content Include="Views\ManageProperty\Assign.cshtml" />
+    <Content Include="Views\Account\RMConfirmation.cshtml" />
+    <Content Include="Views\Mailer\MailerTemplate.cshtml" />
+    <Content Include="Views\Admin\Rm.cshtml" />
+    <Content Include="Views\Shared\_AdminMenu.cshtml" />
+    <Content Include="Views\Shared\_RmMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
@@ -387,6 +394,7 @@
     <Folder Include="fonts\bootstrap\" />
     <Folder Include="Images\icons\" />
     <Folder Include="UploadFile\Document\" />
+    <Folder Include="Views\Base\" />
     <Folder Include="Views\Category\" />
   </ItemGroup>
   <ItemGroup>

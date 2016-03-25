@@ -45,6 +45,7 @@
     <Compile Include="Contact.cs" />
     <Compile Include="Document.cs" />
     <Compile Include="Image.cs" />
+    <Compile Include="MailLink.cs" />
     <Compile Include="Property.cs" />
     <Compile Include="PropertyAddress.cs" />
     <Compile Include="PropertyCategory.cs" />

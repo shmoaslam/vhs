@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VHS.Services.Models;
 using VHS.Services.ViewModel;
 
 namespace VHS.Interface
@@ -11,5 +12,6 @@ namespace VHS.Interface
     {
         PropertyRMViewModel GetAssignedProperty();
         bool SetPropertyToRm(PropertyRMViewModel proprmView);
+        List<PropertyRMMap> GetPropRmMap();
     }
 }

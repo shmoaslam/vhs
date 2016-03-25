@@ -27,8 +27,13 @@ namespace VHS.Services
         public PropertyRMViewModel GetAssignedProperty()
         {
             var manageProperty = new PropertyRMViewModel();
-            manageProperty.proppertyVMList = _property.GetPropertyList();
-            manageProperty.RmId = 26;
+            var propertyList = _property.GetPropertyList();
+            var rmPropMapList = GetPropRmMap();
+            var result = (from prop in propertyList
+                          join rpm in rmPropMapList on prop.PropertyId equals rpm.ProprtyId into s
+                          from spm in s.DefaultIfEmpty()
+                          select new PropertyViewModel {PropertyId=prop.PropertyId,PropertyName=prop.PropertyName,ShortInfo=prop.ShortInfo,PropertImageList=prop.PropertImageList,RmId=spm.RMId}).ToList();
+            manageProperty.proppertyVMList = result;
             manageProperty.SelectedRm = RMList();
             return manageProperty;
         }

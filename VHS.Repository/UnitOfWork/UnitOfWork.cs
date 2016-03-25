@@ -29,6 +29,7 @@ namespace VHS.Repository
         private GenericRepository<PropertyRMMapping> _propRMMapRepository;
         private GenericRepository<TravelPreferences> _travelPrefRepository;
         private GenericRepository<UserTravelPrefMapping> _userTravelPrefRepository;
+        private GenericRepository<MailLink> _mailLinkRepository;
 
         #endregion
 
@@ -210,6 +211,18 @@ namespace VHS.Repository
             }
         }
 
+        /// <summary>
+        /// Get/Set Property for Mail Link repository.
+        /// </summary>
+        public GenericRepository<MailLink> MailLinkRepository
+        {
+            get
+            {
+                if (this._mailLinkRepository == null)
+                    this._mailLinkRepository = new GenericRepository<MailLink>(_context);
+                return _mailLinkRepository;
+            }
+        }
         #endregion
 
         #region Public member methods...

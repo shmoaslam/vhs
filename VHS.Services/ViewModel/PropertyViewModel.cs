@@ -13,6 +13,6 @@ namespace VHS.Services.ViewModel
         public string ShortInfo { get; set; }
         public List<ImageViewModel> PropertImageList { get; set; }
         public bool IsApproved { get; set; }
-
+        public int RmId { get; internal set; }
     }
 }

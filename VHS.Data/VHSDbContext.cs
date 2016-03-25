@@ -30,6 +30,7 @@ namespace VHS.Data
         public DbSet<PropertyImageMapping> PropertyImageMappings { get; set; }
         public DbSet<TravelPreferences> TravelPreferencess { get; set; }
         public DbSet<UserTravelPrefMapping> UserTravelPrefMappings { get; set; }
+        public DbSet<MailLink> MailLinks { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -50,6 +51,7 @@ namespace VHS.Data
             modelBuilder.Entity<PropertyImageMapping>().ToTable("PropertyImageMapping");
             modelBuilder.Entity<TravelPreferences>().ToTable("TravelPreferences");
             modelBuilder.Entity<UserTravelPrefMapping>().ToTable("UserTravelPrefMapping");
+            modelBuilder.Entity<MailLink>().ToTable("MailLink");
 
             //one-to-many:-One Usertype have many user:-
             modelBuilder.Entity<UserLogin>().HasRequired<UserType>(s => s.UserType).WithMany(s => s.UserLogin).HasForeignKey(s => s.TypeId);

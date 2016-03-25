@@ -10,16 +10,20 @@ using System.Configuration;
 using System.Transactions;
 using System.Web;
 using VHS.Interface;
+using VHS.Services.Models;
+using VHS.Services.App_Code;
 
 namespace VHS.Services
 {
     public class AccountService : IAccount
     {
         private readonly UnitOfWork _unitOfWork;
+        private readonly INotificationService _notificationService;
 
 
-        public AccountService()
+        public AccountService(INotificationService notificationService)
         {
+            _notificationService = notificationService;
             _unitOfWork = new UnitOfWork();
         }
 
@@ -43,16 +47,18 @@ namespace VHS.Services
             }
             return loginvmobj;
         }
-        public LoginViewModel CheckAdminLogin(LoginViewModel loginvm)
+        public UserInfo CheckAdminLogin(LoginViewModel loginvm)
         {
-            var loginvmobj = new LoginViewModel();
-            var login = _unitOfWork.LoginRepository.Get(m => m.Email == loginvm.EmailId && m.Password == loginvm.Password && m.IsActive == true && m.TypeId == Convert.ToInt32(UserTypeEnum.Admin));
+            var userInfo = new UserInfo();
+            var login = _unitOfWork.LoginRepository.Get(m => m.Email == loginvm.EmailId && m.Password == loginvm.Password && m.IsActive == true && m.TypeId == Convert.ToInt32(UserTypeEnum.Admin) || m.TypeId == Convert.ToInt32(UserTypeEnum.RM));
             if (login != null)
             {
-                loginvmobj.LoginId = login.LoginId;
-                HttpContext.Current.Session["Name"] = login.Name.ToString();
+                userInfo.LoginId = login.LoginId;
+                userInfo.Name = login.Name.ToString();
+                userInfo.Email = login.Email;
+                userInfo.UserType = login.TypeId.ToString();
             }
-            return loginvmobj;
+            return userInfo;
         }
         public bool RegisterUser(RegisterViewModel register, int UserType)
         {
@@ -64,6 +70,7 @@ namespace VHS.Services
             if (register.Name != null)
             {
                 loginObj.Name = register.Name;
+                loginObj.IsActive = false;
             }
             else
             {
@@ -102,7 +109,12 @@ namespace VHS.Services
             //Mail Send For Normal User registration and Also RM Registration:-
             if (UserType == Convert.ToInt32(UserTypeEnum.User))
             {
-
+                _notificationService.UserRegistration(register.EmailId, register.Name);
+            }
+            if (UserType == Convert.ToInt32(UserTypeEnum.RM))
+            {
+                //call send email functionality for rm confirmation:-
+                _notificationService.RmAccountCreation(register.EmailId, register.Name, loginObj.LoginId);
             }
             result = true;
             //}
@@ -115,6 +127,40 @@ namespace VHS.Services
             if (logemailCheck)
             {
                 flag = false;
+            }
+            return flag;
+        }
+
+        public RmCreatePassword RmAccountConfirmation(string token)
+        {
+            var rmcreatePassword = new RmCreatePassword();
+            var mailid = Security.Decrypt(token);
+            var getmailId = _unitOfWork.MailLinkRepository.GetByID(Convert.ToInt32(mailid));
+            if (getmailId != null)
+            {
+                rmcreatePassword.EmailId = getmailId.Email;
+                rmcreatePassword.IsLinkUsed = getmailId.Linkused;
+                rmcreatePassword.MailLinkId = getmailId.id;
+            }
+            return rmcreatePassword;
+        }
+
+        public bool RmAccountCreatePassword(RmCreatePassword rmchangePassword)
+        {
+            bool flag = false;
+            var getdetail = _unitOfWork.LoginRepository.Get(m => m.Email == rmchangePassword.EmailId && m.IsActive == false);
+            if (getdetail != null)
+            {
+                getdetail.Password = rmchangePassword.Password;
+                getdetail.IsActive = true;
+                getdetail.IsEmailVerified = true;
+                _unitOfWork.LoginRepository.Update(getdetail);
+                _unitOfWork.Save();
+                var getmailId = _unitOfWork.MailLinkRepository.GetByID(Convert.ToInt32(rmchangePassword.MailLinkId));
+                getmailId.Linkused = true;
+                _unitOfWork.MailLinkRepository.Update(getmailId);
+                _unitOfWork.Save();
+                flag = true;
             }
             return flag;
         }

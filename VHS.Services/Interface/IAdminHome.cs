@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using VHS.Services.ViewModel;
 
-namespace VHS.Services.Interface
+namespace VHS.Interface
 {
     public interface IAdminHome
     {
         AdminHomeViewModel GetAddedProperty();
+        RmHomeViewModel GetAssignedPropertyRm(int rmId);
     }
 }
