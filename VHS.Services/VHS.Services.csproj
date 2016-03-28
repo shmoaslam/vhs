@@ -69,8 +69,14 @@
     <Compile Include="ManagePropertyService.cs" />
     <Compile Include="ManageRmService.cs" />
     <Compile Include="Models\MailSendLink.cs" />
+    <Compile Include="Models\ManagePropertyList.cs" />
     <Compile Include="Models\Property.cs" />
+    <Compile Include="Models\PropertyAdditionalInfoModel.cs" />
+    <Compile Include="Models\PropertyGeneralInfo.cs" />
+    <Compile Include="Models\PropertyPhoto.cs" />
     <Compile Include="Models\PropertyRMMap.cs" />
+    <Compile Include="Models\PropertyTransfer.cs" />
+    <Compile Include="Models\PropertyTravelAmbassador.cs" />
     <Compile Include="Models\RmCreatePassword.cs" />
     <Compile Include="Models\RMCreationMailer.cs" />
     <Compile Include="NotificationService.cs" />
@@ -79,10 +85,12 @@
     <Compile Include="PropertyService.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="ViewModel\AdminHomeViewModel.cs" />
+    <Compile Include="ViewModel\Aminities.cs" />
     <Compile Include="ViewModel\ImageViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\ManagePropertyViewModel.cs" />
     <Compile Include="ViewModel\ProfileViewModel.cs" />
+    <Compile Include="ViewModel\PropertyEditViewModel.cs" />
     <Compile Include="ViewModel\PropertyRMViewModel.cs" />
     <Compile Include="ViewModel\PropertyViewModel.cs" />
     <Compile Include="ViewModel\RegisterViewModel.cs" />

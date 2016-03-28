@@ -477,6 +477,14 @@
     <Content Include="Views\Admin\Rm.cshtml" />
     <Content Include="Views\Shared\_AdminMenu.cshtml" />
     <Content Include="Views\Shared\_RmMenu.cshtml" />
+    <Content Include="Views\ManageProperty\EditProperty.cshtml" />
+    <Content Include="Views\Shared\_PropertyAdditionalInfo.cshtml" />
+    <Content Include="Views\Shared\_PropertyAppearence.cshtml" />
+    <Content Include="Views\Shared\_PropertyTravelAmbassador.cshtml" />
+    <Content Include="Views\Shared\_PropertyTransfer.cshtml" />
+    <Content Include="Views\Shared\_PropertyDelete.cshtml" />
+    <Content Include="Views\ManageProperty\ManageProperty.cshtml" />
+    <Content Include="Views\Shared\_PropertyGeneralInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
@@ -484,6 +492,8 @@
     <Folder Include="fonts\bootstrap\" />
     <Folder Include="Images\icons\" />
     <Folder Include="UploadFile\Document\" />
+    <Folder Include="UploadFile\PropertyCoverPhoto\" />
+    <Folder Include="UploadFile\PropertyGallary\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Category\" />
   </ItemGroup>

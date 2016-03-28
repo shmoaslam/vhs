@@ -1,0 +1,92 @@
+﻿@model VHS.Services.Models.PropertyGeneralInfo
+<h3>General Information</h3>
+<p class="sub-heading"><span class="error-msg">some error occured</span></p>
+<div class="col-lg-6 col-md-6">
+    @using (Html.BeginForm("EditProperty", "ManageProperty", FormMethod.Post, new { @class = "form-part", enctype = "multipart/form-data" }))
+            {
+        @Html.HiddenFor(m => m.PropertyId)
+        <label>Title<span class="required">*</span></label>
+                            @Html.TextBoxFor(m => m.Title)
+                            <span style="color:red">
+                                @Html.ValidationMessageFor(m => m.Title)
+                            </span><br />
+                            <label>Category<span class="required">*</span></label>
+                            @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Category, "Value", "Text"), "Select")
+                            <span style="color:red">@Html.ValidationMessageFor(m => m.CategoryId)</span><br />
+                            <label>Listed by<span class="required">*</span></label>
+                            @Html.DropDownListFor(m => m.ListById, new SelectList(Model.ListBy, "Value", "Text"), "None")
+                            <span style="color:red">@Html.ValidationMessageFor(m => m.CategoryId)</span><br />
+                            <label>No. of Guests<span class="required">*</span></label>
+                                @Html.TextBoxFor(m => m.NoOfGuests)
+                                <span style="color:red">
+                                    @Html.ValidationMessageFor(m => m.NoOfGuests)
+                                </span><br />
+                                <label>No. of Rooms<span class="required">*</span></label>
+                                @Html.TextBoxFor(m => m.NoOfRooms)
+                                <span style="color:red">
+                                    @Html.ValidationMessageFor(m => m.NoOfRooms)
+                                </span><br />
+                                <label>No. of Bathrooms<span class="required">*</span></label>
+                                @Html.TextBoxFor(m => m.NoOfBathrooms)
+                                <span style="color:red">
+                                    @Html.ValidationMessageFor(m => m.NoOfBathrooms)
+                                </span><br />
+                                <label>Price (per night)<span class="required">*</span></label>
+                                @Html.TextBoxFor(m => m.PricePerNight)
+                                <span style="color:red">
+                                    @Html.ValidationMessageFor(m => m.PricePerNight)
+                                </span><br />
+                                <label>Price (per week)<span class="required">*</span></label>
+                                @Html.TextBoxFor(m => m.PricePerWeek)
+                                <span style="color:red">
+                                    @Html.ValidationMessageFor(m => m.PricePerWeek)
+                                </span><br />
+                                <label>Address<span class="required">*</span></label>
+                                @Html.TextAreaFor(m => m.Address)
+                                <span style="color:red">
+                                    @Html.ValidationMessageFor(m => m.Address)
+                                </span><br />
+                                <label>City<span class="required">*</span></label>
+                                @Html.TextBoxFor(m => m.City)
+                                <span style="color:red">
+                                    @Html.ValidationMessageFor(m => m.City)
+                                </span><br />
+                                <label>Country<span class="required">*</span></label>
+                                @Html.TextBoxFor(m => m.Country)
+                                <span style="color:red">
+                                    @Html.ValidationMessageFor(m => m.Country)
+                                </span><br />
+                                <label>Zipcode</label>
+
+                                @Html.TextBoxFor(m => m.ZipCode)
+                                <span style="color:red">
+                                    @Html.ValidationMessageFor(m => m.ZipCode)
+                                </span><br />
+                                <label>Email<span class="required">*</span></label>
+                                @Html.TextBoxFor(m => m.Email)
+                                <span style="color:red">
+                                    @Html.ValidationMessageFor(m => m.Email)
+                                </span><br />
+                                <label>Contact No.<span class="required">*</span></label>
+                                @Html.TextBoxFor(m => m.ContactNo)
+                                <span style="color:red">
+                                    @Html.ValidationMessageFor(m => m.ContactNo)
+                                </span><br />
+                                <label>Upload Property Images<span class="required">*</span><span class="error-msg">Maximum two images</span></label>
+                                @Html.TextBoxFor(m => m.Image, new { type = "file", multiple = "multiple" })
+                                <span style="color:red">
+                                    @Html.ValidationMessageFor(m => m.Image)
+                                </span><br />
+                                @*<input id="file" type="file" name="file" />
+                                    @Html.ValidationMessageFor(m => m.Image)*@
+                                <label>Price</label>
+                                @Html.TextBoxFor(m => m.Price)
+                                <span style="color:red">
+                                    @Html.ValidationMessageFor(m => m.Price)
+                                </span>
+                                <div class="input-wrapper clearfix text-center">
+                                    <input type="submit" class="send-btn" value="Submit" id="submit-property" name="submit-property" />
+                                    <input type="reset" class="send-btn" value="Reset" id="submit-property" name="submit-property" />
+                                </div>
+    }
+</div>

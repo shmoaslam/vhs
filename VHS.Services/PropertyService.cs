@@ -29,7 +29,7 @@ namespace VHS.Services
 
                 var propertObj = new Core.Property();
                 propertObj.Title = property.Title;
-                propertObj.Email = property.Email;
+
                 propertObj.NumberOfBathRoom = property.NoOfBathrooms;
                 propertObj.NumberOfGuest = property.NoOfGuests;
                 propertObj.NumberOfRooms = property.NoOfRooms;
@@ -38,7 +38,6 @@ namespace VHS.Services
                 propertObj.CategoryId = property.CategoryId;
                 propertObj.IsApproved = false;
                 propertObj.LoginId = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
-                propertObj.ContactNo = property.ContactNo;
                 _unitOfWork.PropertyRepository.Insert(propertObj);
                 _unitOfWork.Save();
                 //Create Property Address:-
@@ -48,6 +47,8 @@ namespace VHS.Services
                 propAddressObj.City = property.City;
                 propAddressObj.Country = property.Country;
                 propAddressObj.ZipCode = property.ZipCode;
+                propAddressObj.Email = property.Email;
+                propAddressObj.ContactNo = property.ContactNo;
                 _unitOfWork.PropertyAddressRepository.Insert(propAddressObj);
                 _unitOfWork.Save();
                 //Create Property Image:-
@@ -92,7 +93,7 @@ namespace VHS.Services
             {
                 foreach (var item in propListObj)
                 {
-                    propertyList.Add(new PropertyViewModel { PropertyId = item.Id, PropertyName = item.Title, PropertImageList = GetPropertyImage(item.Id),ShortInfo= GetShortInfo(item.CategoryId,item.Id )});
+                    propertyList.Add(new PropertyViewModel { PropertyId = item.Id, PropertyName = item.Title, PropertImageList = GetPropertyImage(item.Id), ShortInfo = GetShortInfo(item.CategoryId, item.Id) });
                 }
             }
             return propertyList;

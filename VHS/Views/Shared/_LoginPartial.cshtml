@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
-@if (Request.IsAuthenticated && HttpContext.Current.Session["Name"] != null)
+@if (Request.IsAuthenticated  != null)
 {
 
     <li>@Html.ActionLink("My Profile", "Index", "Profile")</li>

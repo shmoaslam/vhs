@@ -40,6 +40,10 @@
             </div>
             @{
                 HttpCookie userCookie = Request.Cookies[Constants.COOKIE_USER];
+                if (userCookie == null)
+                {
+                    Html.RenderAction("Index", "Home");
+                }
                 string userdata = userCookie["User"];
                 var _currentUser = JsonConvert.DeserializeObject<UserInfo>(userdata);
 

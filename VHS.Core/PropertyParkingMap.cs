@@ -8,19 +8,17 @@ using System.Threading.Tasks;
 
 namespace VHS.Core
 {
-    public class PropertyAddress
+    public class PropertyParkingMap : Base
     {
         [Key]
-        public int PropAddressId { get; set; }
-        public string Address { get; set; }
-        public string Email { get; set; }
-        public string ContactNo { get; set; }
-        public string City { get; set; }
-        public string Country { get; set; }
-        public string ZipCode { get; set; }
+        public int id { get; set; }
 
         [ForeignKey("Property")]
         public int PropertyId { get; set; }
         public Property Property { get; set; }
+
+        [ForeignKey("Parking")]
+        public int ParkingId { get; set; }
+        public Amenities Parking { get; set; }
     }
 }

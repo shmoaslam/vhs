@@ -31,6 +31,29 @@ namespace VHS.Repository
         private GenericRepository<UserTravelPrefMapping> _userTravelPrefRepository;
         private GenericRepository<MailLink> _mailLinkRepository;
 
+        private GenericRepository<Amenities> _aminitiesRepository;
+        private GenericRepository<BathRooms> _bathRoomsRepository;
+        private GenericRepository<EntertainmentElectronics> _enterElecRepository;
+        private GenericRepository<General> _generalRepository;
+        private GenericRepository<Kitchen> _kitchenRepository;
+        private GenericRepository<OutdoorFacilities> _outdoorFacilitiesRepository;
+        private GenericRepository<Parking> _parkingRepository;
+        private GenericRepository<PropertyAdditionalInfo> _propertyAdditionalRepository;
+        private GenericRepository<PropertyAmenitiesMap> _propAmenitiesRepository;
+        private GenericRepository<PropertyBathRoomsMap> _propBathRoomRepository;
+        private GenericRepository<PropertyCoverPhotoMap> _propCoverPhotoRepository;
+        private GenericRepository<PropertyEnterElecMap> _propEnterElecRepository;
+        private GenericRepository<PropertyGallaryMap> _propertyGalaryRepository;
+        private GenericRepository<PropertyGeneralMap> _propGeneralRepository;
+        private GenericRepository<PropertyKitchenMap> _propKitchenRepository;
+        private GenericRepository<PropertyOutdoorMap> _propOutdoorRepository;
+        private GenericRepository<PropertyParkingMap> _propParkingRepository;
+        private GenericRepository<PropertyPrice> _propPriceRepository;
+        private GenericRepository<PropertySleepingMap> _propSleepRepository;
+        private GenericRepository<SleepingArrangement> _sleepArrangeRepository;
+        private GenericRepository<PropertyTravelAmbassadorMap> _propTravelAmbessRepository;
+        private GenericRepository<PropertyTravelBeatsMap> _propTravelBeatsRepository;
+
         #endregion
 
         public UnitOfWork()
@@ -78,6 +101,7 @@ namespace VHS.Repository
                 return _userTypeRepository;
             }
         }
+
         /// <summary>
         /// Get/Set Property for user repository.
         /// </summary>
@@ -90,6 +114,7 @@ namespace VHS.Repository
                 return _contactRepository;
             }
         }
+
         /// <summary>
         /// Get/Set Property for user repository.
         /// </summary>
@@ -102,6 +127,7 @@ namespace VHS.Repository
                 return _documentRepository;
             }
         }
+
         /// <summary>
         /// Get/Set Property for user repository.
         /// </summary>
@@ -114,6 +140,7 @@ namespace VHS.Repository
                 return _imageRepository;
             }
         }
+
         /// <summary>
         /// Get/Set Property for user repository.
         /// </summary>
@@ -126,6 +153,7 @@ namespace VHS.Repository
                 return _propertyRepository;
             }
         }
+
         /// <summary>
         /// Get/Set Property for user repository.
         /// </summary>
@@ -138,6 +166,7 @@ namespace VHS.Repository
                 return _propertyAddressRepository;
             }
         }
+
         /// <summary>
         /// Get/Set Property for user repository.
         /// </summary>
@@ -150,6 +179,7 @@ namespace VHS.Repository
                 return _propertyCategoryRepository;
             }
         }
+
         /// <summary>
         /// Get/Set Property for user repository.
         /// </summary>
@@ -162,6 +192,7 @@ namespace VHS.Repository
                 return _propImageMapRepository;
             }
         }
+
         /// <summary>
         /// Get/Set Property for user repository.
         /// </summary>
@@ -174,6 +205,7 @@ namespace VHS.Repository
                 return _propListedByRepository;
             }
         }
+
         /// <summary>
         /// Get/Set Property for user repository.
         /// </summary>
@@ -186,6 +218,7 @@ namespace VHS.Repository
                 return _propRMMapRepository;
             }
         }
+
         /// <summary>
         /// Get/Set Property for user repository.
         /// </summary>
@@ -198,6 +231,7 @@ namespace VHS.Repository
                 return _travelPrefRepository;
             }
         }
+
         /// <summary>
         /// Get/Set Property for user repository.
         /// </summary>
@@ -208,6 +242,265 @@ namespace VHS.Repository
                 if (this._userTravelPrefRepository == null)
                     this._userTravelPrefRepository = new GenericRepository<UserTravelPrefMapping>(_context);
                 return _userTravelPrefRepository;
+            }
+        }
+
+        /// <summary>
+        /// Get/Set Property for user repository.
+        /// </summary>
+        public GenericRepository<Amenities> AminitiesRepository
+        {
+            get
+            {
+                if (this._aminitiesRepository == null)
+                    this._aminitiesRepository = new GenericRepository<Amenities>(_context);
+                return _aminitiesRepository;
+            }
+        }
+
+        /// <summary>
+        /// Get/Set Property for user repository.
+        /// </summary>
+        public GenericRepository<BathRooms> BathRoomsRepository
+        {
+            get
+            {
+                if (this._bathRoomsRepository == null)
+                    this._bathRoomsRepository = new GenericRepository<BathRooms>(_context);
+                return _bathRoomsRepository;
+            }
+        }
+        /// <summary>
+        /// Get/Set Property for user repository.
+        /// </summary>
+        public GenericRepository<EntertainmentElectronics> EntertinmentElecRepository
+        {
+            get
+            {
+                if (this._enterElecRepository == null)
+                    this._enterElecRepository = new GenericRepository<EntertainmentElectronics>(_context);
+                return _enterElecRepository;
+            }
+        }
+
+        /// <summary>
+        /// Get/Set Property for user repository.
+        /// </summary>
+        public GenericRepository<General> GeneralRepository
+        {
+            get
+            {
+                if (this._generalRepository == null)
+                    this._generalRepository = new GenericRepository<General>(_context);
+                return _generalRepository;
+            }
+        }
+
+        /// <summary>
+        /// Get/Set Property for user repository.
+        /// </summary>
+        public GenericRepository<Kitchen> KitchenRepository
+        {
+            get
+            {
+                if (this._kitchenRepository == null)
+                    this._kitchenRepository = new GenericRepository<Kitchen>(_context);
+                return _kitchenRepository;
+            }
+        }
+
+        /// <summary>
+        /// Get/Set Property for user repository.
+        /// </summary>
+        public GenericRepository<OutdoorFacilities> OutdoorFaciRepository
+        {
+            get
+            {
+                if (this._outdoorFacilitiesRepository == null)
+                    this._outdoorFacilitiesRepository = new GenericRepository<OutdoorFacilities>(_context);
+                return _outdoorFacilitiesRepository;
+            }
+        }
+
+        /// <summary>
+        /// Get/Set Property for user repository.
+        /// </summary>
+        public GenericRepository<Parking> ParkingRepository
+        {
+            get
+            {
+                if (this._parkingRepository == null)
+                    this._parkingRepository = new GenericRepository<Parking>(_context);
+                return _parkingRepository;
+            }
+        }
+
+        /// <summary>
+        /// Get/Set Property for user repository.
+        /// </summary>
+        public GenericRepository<PropertyAdditionalInfo> PropertyAdditionalRepository
+        {
+            get
+            {
+                if (this._propertyAdditionalRepository == null)
+                    this._propertyAdditionalRepository = new GenericRepository<PropertyAdditionalInfo>(_context);
+                return _propertyAdditionalRepository;
+            }
+        }
+
+        /// <summary>
+        /// Get/Set Property for user repository.
+        /// </summary>
+        public GenericRepository<PropertyAmenitiesMap> PropertyAmenitiesRepository
+        {
+            get
+            {
+                if (this._propAmenitiesRepository == null)
+                    this._propAmenitiesRepository = new GenericRepository<PropertyAmenitiesMap>(_context);
+                return _propAmenitiesRepository;
+            }
+        }
+
+        /// <summary>
+        /// Get/Set Property for user repository.
+        /// </summary>
+        public GenericRepository<PropertyBathRoomsMap> PropBathRoomRepository
+        {
+            get
+            {
+                if (this._propBathRoomRepository == null)
+                    this._propBathRoomRepository = new GenericRepository<PropertyBathRoomsMap>(_context);
+                return _propBathRoomRepository;
+            }
+        }
+
+        /// <summary>
+        /// Get/Set Property for user repository.
+        /// </summary>
+        public GenericRepository<PropertyCoverPhotoMap> PropCoverPhotoRepository
+        {
+            get
+            {
+                if (this._propCoverPhotoRepository == null)
+                    this._propCoverPhotoRepository = new GenericRepository<PropertyCoverPhotoMap>(_context);
+                return _propCoverPhotoRepository;
+            }
+        }
+
+        /// <summary>
+        /// Get/Set Property for user repository.
+        /// </summary>
+        public GenericRepository<PropertyEnterElecMap> PropEnterERepository
+        {
+            get
+            {
+                if (this._propEnterElecRepository == null)
+                    this._propEnterElecRepository = new GenericRepository<PropertyEnterElecMap>(_context);
+                return _propEnterElecRepository;
+            }
+        }
+
+        /// <summary>
+        /// Get/Set Property for user repository.
+        /// </summary>
+        public GenericRepository<PropertyGallaryMap> PropertyGallaryRepository
+        {
+            get
+            {
+                if (this._propertyGalaryRepository == null)
+                    this._propertyGalaryRepository = new GenericRepository<PropertyGallaryMap>(_context);
+                return _propertyGalaryRepository;
+            }
+        }
+
+        /// <summary>
+        /// Get/Set Property for user repository.
+        /// </summary>
+        public GenericRepository<PropertyGeneralMap> PropGeneralRepository
+        {
+            get
+            {
+                if (this._propGeneralRepository == null)
+                    this._propGeneralRepository = new GenericRepository<PropertyGeneralMap>(_context);
+                return _propGeneralRepository;
+            }
+        }
+
+        /// <summary>
+        /// Get/Set Property for user repository.
+        /// </summary>
+        public GenericRepository<PropertyKitchenMap> PropKitchenRepository
+        {
+            get
+            {
+                if (this._propKitchenRepository == null)
+                    this._propKitchenRepository = new GenericRepository<PropertyKitchenMap>(_context);
+                return _propKitchenRepository;
+            }
+        }
+
+        /// <summary>
+        /// Get/Set Property for user repository.
+        /// </summary>
+        public GenericRepository<PropertyOutdoorMap> PropOutdoorRepository
+        {
+            get
+            {
+                if (this._propOutdoorRepository == null)
+                    this._propOutdoorRepository = new GenericRepository<PropertyOutdoorMap>(_context);
+                return _propOutdoorRepository;
+            }
+        }
+
+        /// <summary>
+        /// Get/Set Property for user repository.
+        /// </summary>
+        public GenericRepository<PropertyParkingMap> PropParkingRepository
+        {
+            get
+            {
+                if (this._propParkingRepository == null)
+                    this._propParkingRepository = new GenericRepository<PropertyParkingMap>(_context);
+                return _propParkingRepository;
+            }
+        }
+
+        /// <summary>
+        /// Get/Set Property for user repository.
+        /// </summary>
+        public GenericRepository<PropertyPrice> PropertyPriceRepository
+        {
+            get
+            {
+                if (this._propPriceRepository == null)
+                    this._propPriceRepository = new GenericRepository<PropertyPrice>(_context);
+                return _propPriceRepository;
+            }
+        }
+
+        /// <summary>
+        /// Get/Set Property for user repository.
+        /// </summary>
+        public GenericRepository<PropertySleepingMap> PropSleepingRepository
+        {
+            get
+            {
+                if (this._propSleepRepository == null)
+                    this._propSleepRepository = new GenericRepository<PropertySleepingMap>(_context);
+                return _propSleepRepository;
+            }
+        }
+
+        /// <summary>
+        /// Get/Set Property for user repository.
+        /// </summary>
+        public GenericRepository<SleepingArrangement> SleepingArrangementRepository
+        {
+            get
+            {
+                if (this._sleepArrangeRepository == null)
+                    this._sleepArrangeRepository = new GenericRepository<SleepingArrangement>(_context);
+                return _sleepArrangeRepository;
             }
         }
 

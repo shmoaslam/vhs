@@ -4,13 +4,17 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using VHS.Interface;
+using VHS.Services.Models;
 using VHS.Services.ViewModel;
 
 namespace VHS.Controllers
 {
-    public class ManagePropertyController : Controller
+    public class ManagePropertyController : BaseController
     {
         private IManageProperty _manageProperty;
+
+        public object UrlReferrer { get; private set; }
+
         // GET: ManageProperty
         public ManagePropertyController(IManageProperty manageProperty)
         {
@@ -59,6 +63,34 @@ namespace VHS.Controllers
 
 
         }
-       
+
+        [HttpGet]
+        public ActionResult EditProperty(int id)
+        {
+            var propGenralInfo = _manageProperty.GetPropertyDetail(id);
+            return View(propGenralInfo);
+        }
+        [HttpPost]
+        public ActionResult EditProperty(PropertyGeneralInfo propGeneralInfo, List<HttpPostedFileBase> Image)
+        {
+            var proper = _manageProperty.UpdateGeneralInfo(propGeneralInfo, Image);
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        public ActionResult ManageProperty()
+        {
+            if (IsRM)
+            {
+                int rmId = CurrentUser.LoginId;
+                var propertList = _manageProperty.GetPropertyForManage(rmId);
+                return View(propertList);
+            }
+            else
+            {
+                var propertList = _manageProperty.GetPropertyForManage(0);
+                return View(propertList);
+            }
+        }
+
     }
 }

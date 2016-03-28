@@ -13,11 +13,14 @@ namespace VHS.Core
         public string Title { get; set; }
         public int NumberOfGuest { get; set; }
         public int NumberOfBathRoom { get; set; }
-        public string Email { get; set; }
-        public string ContactNo { get; set; }
         public int Price { get; set; }
         public bool IsApproved { get; set; }
         public int NumberOfRooms { get; set; }
+
+        public double PricePerNight { get; set; }
+        public double PricePerWeek { get; set; }
+        public Nullable<int> LocalOrder { get; set; }
+
         [ForeignKey("UserLogin")]
         public int LoginId { get; set; }
         public UserLogin UserLogin { get; set; }

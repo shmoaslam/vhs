@@ -1,5 +1,4 @@
-﻿
-<div class="collapse navbar-collapse" id="myNavbar">
+﻿<div class="collapse navbar-collapse" id="myNavbar">
     <ul class="nav navbar-nav">
         <li id="Admin" class="active">@Html.ActionLink("Home", "Rm", "Admin")</li>
         <li id="liManagePropert" class="dropdown">
@@ -8,6 +7,7 @@
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Manage Properties", "ManageProperty", "ManageProperty")</li>
                 <li>@Html.ActionLink("Approved Properties", "Approve", "ManageProperty")</li>
                 <li>@Html.ActionLink("Waiting for Approval", "Waiting", "ManageProperty")</li>
                 <li>@Html.ActionLink("Delete Property", "Delete", "ManageProperty")</li>
@@ -19,6 +19,7 @@
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
+
                 <li>@Html.ActionLink("Approved Bookings", "Approve", "ManageBooking")</li>
                 <li>@Html.ActionLink("Waiting for Approval", "Waiting", "ManageBooking")</li>
                 <li>@Html.ActionLink("Cancelled Bookings", "Cancelled", "ManageBooking")</li>
