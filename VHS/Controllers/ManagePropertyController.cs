@@ -76,6 +76,12 @@ namespace VHS.Controllers
             var proper = _manageProperty.UpdateGeneralInfo(propGeneralInfo, Image);
             return Redirect(Request.UrlReferrer.ToString());
         }
+        [HttpPost]
+        public JsonResult PropertyAdditionalInfo(PropertyAdditionalInfoModel propAdditionalInfo)
+        {
+            //var proper = _manageProperty.UpdateGeneralInfo(propGeneralInfo);
+            return Json("1");
+        }
 
         public ActionResult ManageProperty()
         {

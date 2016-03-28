@@ -78,15 +78,15 @@ namespace VHS.Services.ViewModel
         public string[] EnterTaimentElecIds { get; set; }
     }
 
-    //public class ParkingModel
-    //{
-    //    public int id { get; set; }
-    //    public string Name { get; set; }
-    //    public bool IsChecked { get; set; }
-    //}
-    //public class PostedParkingModel
-    //{
-    //    //this array will be used to POST values from the form to the controller
-    //    public string[] ParkingIds { get; set; }
-    //}
+    public class OutdoorFacilitiesModel
+    {
+        public int id { get; set; }
+        public string Name { get; set; }
+        public bool IsChecked { get; set; }
+    }
+    public class PostedOutdoorFacilitiesModel
+    {
+        //this array will be used to POST values from the form to the controller
+        public string[] OutdoorFacilitiesIds { get; set; }
+    }
 }

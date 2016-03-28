@@ -152,6 +152,20 @@ namespace VHS.Services
         {
             var propertyAdditionalInfo = new PropertyAdditionalInfoModel();
             propertyAdditionalInfo.BathRoomsList = GetAllBathRooms(propertyId);
+            propertyAdditionalInfo.ParkingList = GetAllParking(propertyId);
+            propertyAdditionalInfo.SleepingArrangmentList = GetAllSleepingArrangment(propertyId);
+            propertyAdditionalInfo.KitchenList = GetAllKitchen(propertyId);
+            propertyAdditionalInfo.GeneralList = GetAllGeneral(propertyId);
+            propertyAdditionalInfo.EnterTaimentElecList = GetAllEnterTaimentElec(propertyId);
+            propertyAdditionalInfo.OutdoorFacilitiesList = GetAllOutdoorFacilities(propertyId);
+
+
+            propertyAdditionalInfo.DrinkingAllowed = GetDrinkingAllowed();
+            propertyAdditionalInfo.SmokeAllowed = GetSmokingAllowed();
+            propertyAdditionalInfo.FamilyKidAllowed = GetFamilyAllowed();
+            propertyAdditionalInfo.PetsAllowed = GetPetsAllowed();
+            propertyAdditionalInfo.WheelChairAllowed = GetWheelChairAllowed();
+
             return propertyAdditionalInfo;
         }
         public PropertyPhoto GetPropertyApperance(int PropertyId)
@@ -306,6 +320,47 @@ namespace VHS.Services
             return selesctedListBy;
         }
 
+        public SelectList GetPetsAllowed()
+        {
+            var lstpets = new List<ddlPetsAllowed>();
+            lstpets.Add(new ddlPetsAllowed { Value = 1, Text = "Yes" });
+            lstpets.Add(new ddlPetsAllowed { Value = 0, Text = "No" });
+            SelectList selesctedCategory = new SelectList(lstpets, "Value", "Text");
+            return selesctedCategory;
+        }
+        public SelectList GetDrinkingAllowed()
+        {
+            var lstListBy = new List<ddlDrinkingAllowed>();
+            lstListBy.Add(new ddlDrinkingAllowed { Value = 1, Text = "Yes" });
+            lstListBy.Add(new ddlDrinkingAllowed { Value = 0, Text = "No" });
+            SelectList selesctedListBy = new SelectList(lstListBy, "Value", "Text");
+            return selesctedListBy;
+        }
+        public SelectList GetSmokingAllowed()
+        {
+            var lstListBy = new List<ddlSmokingAllowed>();
+            lstListBy.Add(new ddlSmokingAllowed { Value = 1, Text = "Yes" });
+            lstListBy.Add(new ddlSmokingAllowed { Value = 0, Text = "No" });
+            SelectList selesctedListBy = new SelectList(lstListBy, "Value", "Text");
+            return selesctedListBy;
+        }
+        public SelectList GetFamilyAllowed()
+        {
+            var lstListBy = new List<ddlFamilyKidAllowed>();
+            lstListBy.Add(new ddlFamilyKidAllowed { Value = 1, Text = "Yes" });
+            lstListBy.Add(new ddlFamilyKidAllowed { Value = 0, Text = "No" });
+            SelectList selesctedListBy = new SelectList(lstListBy, "Value", "Text");
+            return selesctedListBy;
+        }
+        public SelectList GetWheelChairAllowed()
+        {
+            var lstListBy = new List<ddlWheelChailAccessible>();
+            lstListBy.Add(new ddlWheelChailAccessible { Value = 1, Text = "Yes" });
+            lstListBy.Add(new ddlWheelChailAccessible { Value = 0, Text = "No" });
+            SelectList selesctedListBy = new SelectList(lstListBy, "Value", "Text");
+            return selesctedListBy;
+        }
+
         //Master Aminities List:-
         public IEnumerable<ViewModel.BathRommsModel> GetAllBathRooms(int propertyId)
         {
@@ -320,83 +375,83 @@ namespace VHS.Services
             }
             return bathRoom;
         }
-        public IEnumerable<ViewModel.BathRommsModel> GetAllParking(int propertyId)
+        public IEnumerable<ViewModel.ParkingModel> GetAllParking(int propertyId)
         {
-            var bathRooms = _unitOfWork.BathRoomsRepository.GetAll();
-            var propBathRoomMap = _unitOfWork.PropBathRoomRepository.GetMany(x => x.PropertyId == propertyId);
+            var parking = _unitOfWork.ParkingRepository.GetAll();
+            var propParkingMap = _unitOfWork.PropParkingRepository.GetMany(x => x.PropertyId == propertyId);
 
-            var bathRoom = new List<ViewModel.BathRommsModel>();
+            var parkingList = new List<ViewModel.ParkingModel>();
 
-            foreach (var item in bathRooms)
+            foreach (var item in parking)
             {
-                bathRoom.Add(new ViewModel.BathRommsModel { id = item.id, Name = item.Name, IsChecked = propBathRoomMap.Any(x => x.BathRoomId == item.id) });
+                parkingList.Add(new ViewModel.ParkingModel { id = item.id, Name = item.Name, IsChecked = propParkingMap.Any(x => x.ParkingId == item.id) });
             }
-            return bathRoom;
+            return parkingList;
         }
-        public IEnumerable<ViewModel.BathRommsModel> GetAllSleepingArrangment(int propertyId)
+        public IEnumerable<ViewModel.SleepingArrangmentModel> GetAllSleepingArrangment(int propertyId)
         {
-            var bathRooms = _unitOfWork.BathRoomsRepository.GetAll();
-            var propBathRoomMap = _unitOfWork.PropBathRoomRepository.GetMany(x => x.PropertyId == propertyId);
+            var sleepingArrengment = _unitOfWork.SleepingArrangementRepository.GetAll();
+            var propSleepMap = _unitOfWork.PropSleepingRepository.GetMany(x => x.PropertyId == propertyId);
 
-            var bathRoom = new List<ViewModel.BathRommsModel>();
+            var sleepingList = new List<ViewModel.SleepingArrangmentModel>();
 
-            foreach (var item in bathRooms)
+            foreach (var item in sleepingArrengment)
             {
-                bathRoom.Add(new ViewModel.BathRommsModel { id = item.id, Name = item.Name, IsChecked = propBathRoomMap.Any(x => x.BathRoomId == item.id) });
+                sleepingList.Add(new ViewModel.SleepingArrangmentModel { id = item.id, Name = item.Name, IsChecked = propSleepMap.Any(x => x.SleepArrengId == item.id) });
             }
-            return bathRoom;
+            return sleepingList;
         }
-        public IEnumerable<ViewModel.BathRommsModel> GetAllKitchen(int propertyId)
+        public IEnumerable<ViewModel.KitchenModel> GetAllKitchen(int propertyId)
         {
-            var bathRooms = _unitOfWork.BathRoomsRepository.GetAll();
-            var propBathRoomMap = _unitOfWork.PropBathRoomRepository.GetMany(x => x.PropertyId == propertyId);
+            var kitchen = _unitOfWork.KitchenRepository.GetAll();
+            var propKitchenMap = _unitOfWork.PropKitchenRepository.GetMany(x => x.PropertyId == propertyId);
 
-            var bathRoom = new List<ViewModel.BathRommsModel>();
+            var litchenList = new List<ViewModel.KitchenModel>();
 
-            foreach (var item in bathRooms)
+            foreach (var item in kitchen)
             {
-                bathRoom.Add(new ViewModel.BathRommsModel { id = item.id, Name = item.Name, IsChecked = propBathRoomMap.Any(x => x.BathRoomId == item.id) });
+                litchenList.Add(new ViewModel.KitchenModel { id = item.id, Name = item.Name, IsChecked = propKitchenMap.Any(x => x.KitchenId == item.id) });
             }
-            return bathRoom;
+            return litchenList;
         }
-        public IEnumerable<ViewModel.BathRommsModel> GetAllGeneral(int propertyId)
+        public IEnumerable<ViewModel.GeneralModel> GetAllGeneral(int propertyId)
         {
-            var bathRooms = _unitOfWork.BathRoomsRepository.GetAll();
-            var propBathRoomMap = _unitOfWork.PropBathRoomRepository.GetMany(x => x.PropertyId == propertyId);
+            var general = _unitOfWork.GeneralRepository.GetAll();
+            var propGeberalMap = _unitOfWork.PropGeneralRepository.GetMany(x => x.PropertyId == propertyId);
 
-            var bathRoom = new List<ViewModel.BathRommsModel>();
+            var generalList = new List<ViewModel.GeneralModel>();
 
-            foreach (var item in bathRooms)
+            foreach (var item in general)
             {
-                bathRoom.Add(new ViewModel.BathRommsModel { id = item.id, Name = item.Name, IsChecked = propBathRoomMap.Any(x => x.BathRoomId == item.id) });
+                generalList.Add(new ViewModel.GeneralModel { id = item.id, Name = item.Name, IsChecked = propGeberalMap.Any(x => x.GeneralId == item.id) });
             }
-            return bathRoom;
+            return generalList;
         }
-        public IEnumerable<ViewModel.BathRommsModel> GetAllEnterTaimentElec(int propertyId)
+        public IEnumerable<ViewModel.EnterTaimentElecModel> GetAllEnterTaimentElec(int propertyId)
         {
-            var bathRooms = _unitOfWork.BathRoomsRepository.GetAll();
-            var propBathRoomMap = _unitOfWork.PropBathRoomRepository.GetMany(x => x.PropertyId == propertyId);
+            var enterElec = _unitOfWork.EntertinmentElecRepository.GetAll();
+            var propEnterElecMap = _unitOfWork.PropEnterERepository.GetMany(x => x.PropertyId == propertyId);
 
-            var bathRoom = new List<ViewModel.BathRommsModel>();
+            var enterElecList = new List<ViewModel.EnterTaimentElecModel>();
 
-            foreach (var item in bathRooms)
+            foreach (var item in enterElec)
             {
-                bathRoom.Add(new ViewModel.BathRommsModel { id = item.id, Name = item.Name, IsChecked = propBathRoomMap.Any(x => x.BathRoomId == item.id) });
+                enterElecList.Add(new ViewModel.EnterTaimentElecModel { id = item.id, Name = item.Name, IsChecked = propEnterElecMap.Any(x => x.EnterElecId == item.id) });
             }
-            return bathRoom;
+            return enterElecList;
         }
-        public IEnumerable<ViewModel.BathRommsModel> GetAllOutdoorFacilities(int propertyId)
+        public IEnumerable<ViewModel.OutdoorFacilitiesModel> GetAllOutdoorFacilities(int propertyId)
         {
-            var bathRooms = _unitOfWork.BathRoomsRepository.GetAll();
-            var propBathRoomMap = _unitOfWork.PropBathRoomRepository.GetMany(x => x.PropertyId == propertyId);
+            var outDoorobj = _unitOfWork.OutdoorFaciRepository.GetAll();
+            var propOutDoorMap = _unitOfWork.PropOutdoorRepository.GetMany(x => x.PropertyId == propertyId);
 
-            var bathRoom = new List<ViewModel.BathRommsModel>();
+            var outDoor = new List<ViewModel.OutdoorFacilitiesModel>();
 
-            foreach (var item in bathRooms)
+            foreach (var item in outDoorobj)
             {
-                bathRoom.Add(new ViewModel.BathRommsModel { id = item.id, Name = item.Name, IsChecked = propBathRoomMap.Any(x => x.BathRoomId == item.id) });
+                outDoor.Add(new ViewModel.OutdoorFacilitiesModel { id = item.id, Name = item.Name, IsChecked = propOutDoorMap.Any(x => x.OutFaciId == item.id) });
             }
-            return bathRoom;
+            return outDoor;
         }
     }
 }
