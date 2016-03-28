@@ -23,7 +23,7 @@ namespace VHS.Services
         {
             _unitOfWork = new UnitOfWork();
         }
-        public async void UserRegistration(string Email, string Name)
+        public void UserRegistration(string Email, string Name)
         {
             try
             {
@@ -31,10 +31,10 @@ namespace VHS.Services
                 string Messaage = "";
                 string Links = "<b><a target='_blank' href=" + url + ">Click here to Login.</a></b>";
                 //var templateFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views");
-                // var templateFilePath = templateFolderPath + "\\Mailer\\EmployeeAccountTemplate.cshtml";
-                // var mailDetails = new MailingDetails() { Name =  MailSend.SendEmail(Email, Subject, emailHtmlBody, true);
+                //var templateFilePath = templateFolderPath + "\\Mailer\\EmployeeAccountTemplate.cshtml";
+                //var mailDetails = new MailingDetails() { Name = MailSend.SendEmail(Email, Subject, emailHtmlBody, true);
                 //var emailHtmlBody = templateService.Parse(File.ReadAllText(templateFilePath), mailDetails, null, null);
-                // MailSend.SendEmail(Email, Subject, emailHtmlBody, true);
+                //MailSend.SendEmail(Email, Subject, emailHtmlBody, true);
                 MailSend.SendEmail(Email, Subject, "", true);
 
             }

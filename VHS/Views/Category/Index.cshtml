@@ -1,0 +1,42 @@
+﻿@model IEnumerable<VHS.Services.ViewModel.PropertyListingViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery.magnific-popup.min.js"></script>
+<div id="container" class="clearfix no-margin">
+
+    @if (Model != null && Model.Count() > 0)
+    {
+        <div id="container" class="clearfix no-margin">
+
+            @foreach (var property in Model)
+                {
+                <div class="element  clearfix col-lg-4 col-md-6 col-sm-6 col-xs-12 home norway">
+                    <div class="margin-wrapper">
+                        <a class="simple-ajax-popup" href="/Property/Details/@property.Id" data-title="">
+                            <figure class="images"><img src="/Images/photography/@property.ImageLoc" alt="" /> </figure>
+                            <div class="covering-image centered">
+                                <div class="info-box-content">
+                                    <div class="parent">
+                                        <div class="child">
+                                            <h2>@property.Name</h2>
+                                            <p class="uppercase">Goa</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    }
+    else
+    {
+        <p>Sorry! no property in the seleted category</p>
+    }
+</div>

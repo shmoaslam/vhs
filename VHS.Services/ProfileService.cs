@@ -31,26 +31,27 @@ namespace VHS.Services
             var userDetail = _unitOfWork.UserProfileRepository.GetByID(loginId);
             profileObject.Name = loginUser.Name;
             profileObject.EmailId = loginUser.Email;
-            profileObject.Address = userDetail.Address;
-            profileObject.City = userDetail.City;
-            profileObject.HomeTelephone = userDetail.HomeTelephone;
-            profileObject.Mobile = userDetail.Mobile;
-            profileObject.PrefContactMethod = GetPreferedContactMethod();
-            if (userDetail.PrefMethodContact != "")
+            if (userDetail != null)
             {
-                profileObject.PrefContactId = Convert.ToInt32(userDetail.PrefMethodContact);
+                profileObject.Address = userDetail.Address;
+                profileObject.City = userDetail.City;
+                profileObject.HomeTelephone = userDetail.HomeTelephone;
+                profileObject.Mobile = userDetail.Mobile;
+                if (!string.IsNullOrEmpty(userDetail.PrefMethodContact))
+                    profileObject.PrefContactId = Convert.ToInt32(userDetail.PrefMethodContact);
+                if (!string.IsNullOrEmpty(userDetail.PrefCallTime))
+                    profileObject.CallTimeId = Convert.ToInt32(userDetail.PrefCallTime);
+                profileObject.Telephone = userDetail.Telephone;
+                profileObject.WorkTelephone = userDetail.WorkTelephone;
+                profileObject.ZipCode = userDetail.ZipCode;
+                profileObject.Anniversary = userDetail.BirthDay;
+                profileObject.Anniversary = userDetail.Anniversary;
+                profileObject.IsVerified = userDetail.IsVerified;
             }
             profileObject.PrefCalltime = GetCallTime();
-            if (userDetail.PrefCallTime != "")
-            {
-                profileObject.CallTimeId = Convert.ToInt32(userDetail.PrefCallTime);
-            }
-            profileObject.Telephone = userDetail.Telephone;
-            profileObject.WorkTelephone = userDetail.WorkTelephone;
-            profileObject.ZipCode = userDetail.ZipCode;
-            profileObject.Anniversary = userDetail.BirthDay;
-            profileObject.Anniversary = userDetail.Anniversary;
-            profileObject.IsVerified = userDetail.IsVerified;
+            profileObject.PrefContactMethod = GetPreferedContactMethod();
+
+
 
             //Travel Preference:-
             profileObject.TravelPreferences = GetAllTravelPreference(loginId).ToList();
@@ -133,7 +134,7 @@ namespace VHS.Services
 
             }
             //Update Travel preferneces:-
-            if(profilevm.TravelPreferencesId.Count() > 0)
+            if (profilevm.TravelPreferencesId.Count() > 0)
             {
                 _unitOfWork.UserTravelPrefMapRepository.Delete(m => m.LoginId == loginId);
                 foreach (var travelPref in profilevm.TravelPreferencesId)
@@ -205,14 +206,14 @@ namespace VHS.Services
         /// </summary>
         public IEnumerable<ViewModel.TravelPreferences> GetAllTravelPreference(int loginId)
         {
-           var travelPreferences = _unitOfWork.TravelPreferencesRepository.GetAll();
+            var travelPreferences = _unitOfWork.TravelPreferencesRepository.GetAll();
             var userTravelPrefMapping = _unitOfWork.UserTravelPrefMapRepository.GetMany(x => x.LoginId == loginId);
 
             var travelPref = new List<ViewModel.TravelPreferences>();
 
             foreach (var item in travelPreferences)
             {
-                travelPref.Add(new ViewModel.TravelPreferences { id = item.Id, Name = item.Name, IsChecked = userTravelPrefMapping.Any(x=>x.TravelPefId == item.Id )});
+                travelPref.Add(new ViewModel.TravelPreferences { id = item.Id, Name = item.Name, IsChecked = userTravelPrefMapping.Any(x => x.TravelPefId == item.Id) });
             }
             return travelPref;
         }

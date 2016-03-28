@@ -60,6 +60,13 @@ namespace VHS.Controllers
             SelectList selesctedListBy = new SelectList(lstListBy, "Value", "Text");
             return selesctedListBy;
         }
+        [AllowAnonymous]
+        public ActionResult Detail(int? id)
+        {
+            if (id == null) return View();
+
+            return View();
+        }
     }
 
 }
