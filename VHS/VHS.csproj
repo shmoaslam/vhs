@@ -485,6 +485,8 @@
     <Content Include="Views\Shared\_PropertyDelete.cshtml" />
     <Content Include="Views\ManageProperty\ManageProperty.cshtml" />
     <Content Include="Views\Shared\_PropertyGeneralInfo.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\Property\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
@@ -495,7 +497,6 @@
     <Folder Include="UploadFile\PropertyCoverPhoto\" />
     <Folder Include="UploadFile\PropertyGallary\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Category\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

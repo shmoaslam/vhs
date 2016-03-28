@@ -7,7 +7,7 @@ using VHS.Models;
 
 namespace VHS.Controllers
 {
-    [Authorize]
+
     public class HomeController : BaseController
     {
         // GET: Home

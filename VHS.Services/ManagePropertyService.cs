@@ -35,7 +35,7 @@ namespace VHS.Services
             var result = (from prop in propertyList
                           join rpm in rmPropMapList on prop.PropertyId equals rpm.ProprtyId into s
                           from spm in s.DefaultIfEmpty()
-                          select new PropertyViewModel { PropertyId = prop.PropertyId, PropertyName = prop.PropertyName, ShortInfo = prop.ShortInfo, PropertImageList = prop.PropertImageList, RmId = spm.RMId }).ToList();
+                          select new PropertyViewModel { PropertyId = prop.PropertyId, PropertyName = prop.PropertyName, ShortInfo = prop.ShortInfo, PropertImageList = prop.PropertImageList, RmId = spm == null ? 0 : spm.RMId }).ToList();
             manageProperty.proppertyVMList = result;
             manageProperty.SelectedRm = RMList();
             return manageProperty;
