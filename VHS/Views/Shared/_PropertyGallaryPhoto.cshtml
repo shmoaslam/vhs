@@ -1,0 +1,77 @@
+﻿@model VHS.Services.Models.PropertyGallaryPhoto
+@using (Ajax.BeginForm("PropertyGallaryPhoto", "ManageProperty", new AjaxOptions { HttpMethod = "POST" }, new { id = "frmGallaryPhoto", enctype = "multipart/form-data" }))
+{
+    <div style="clear:both;"><br /><br /></div>
+    <label>Add Property Images to gallery<span class="required">*</span></label>
+    <div class="property-gallery"></div>
+    @Html.HiddenFor(m => m.PropertyId)
+    @Html.TextBoxFor(m => m.GallaryPhoto, new { type = "file", multiple = "multiple" })
+    <span style="color:red">
+        @Html.ValidationMessageFor(m => m.GallaryPhoto)
+    </span><br />
+    <div style="clear:both;"></div>
+        <div class="input-wrapper clearfix">
+            <input type="submit" class="send-btn" value="Update" onclick="CallFunction()" id="" name="" />
+            <input type="reset" class="send-btn" value="Cancel" id="" name="" />
+            <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
+        </div>
+
+}
+<div class="progress">
+    <div class="progress-bar" id="progressbarGallaryPhoto">0%</div>
+</div>
+<div id="statusGallaryPhoto"></div>
+<style>
+    .progress {
+        position: relative;
+        width: 400px;
+        border: 1px solid #ddd;
+        padding: 1px;
+    }
+
+    .progress-bar {
+        width: 0px;
+        height: 20px;
+        background-color: #57be65;
+    }
+</style>
+<script>
+
+</script>
+<script type="text/javascript">
+
+    $('#frmGallaryPhoto').submit(function () {
+        if ($(this).find('.input-validation-error').length == 0 && $(this).find('.valid').length > 0) {
+            (function () {
+                var bar = $('#progressbarGallaryPhoto');
+                var percent = $('#progressbarGallaryPhoto');
+                var status = $('#statusGallaryPhoto');
+
+                $('#frmGallaryPhoto').ajaxForm({
+                    beforeSend: function () {
+                        status.empty();
+                        var percentValue = '0%';
+                        bar.width(percentValue);
+                        percent.html(percentValue);
+                    },
+                    uploadProgress: function (event, position, total, percentComplete) {
+                        var percentValue = percentComplete + '%';
+                        bar.width(percentValue);
+                        percent.html(percentValue);
+                    },
+                    success: function (d) {
+                        var percentValue = '100%';
+                        bar.width(percentValue);
+                        percent.html(percentValue);
+                        $('#GallaryPhoto').val('');
+                        alert(d);
+                    },
+                    complete: function (xhr) {
+                        status.html(xhr.responseText);
+                    }
+                });
+            })();
+        }
+    })
+
+</script>

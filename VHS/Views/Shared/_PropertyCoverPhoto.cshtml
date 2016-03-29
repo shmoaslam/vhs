@@ -1,0 +1,112 @@
+﻿@model VHS.Services.Models.PropertyCoverPhoto
+@using (Ajax.BeginForm("PropertyCoverPhoto", "ManageProperty", new AjaxOptions { HttpMethod = "POST" }, new { id = "frmCoverPhoto", enctype = "multipart/form-data" }))
+{
+    <p class="sub-heading"><span class="error-msg">some error occured</span></p>
+
+    <h5>Update cover photo</h5>
+    <div class="property-cover-bg"></div>
+    <p>Drag to adjust cover photo</p>
+    @Html.HiddenFor(m => m.PropertyId)
+    @Html.TextBoxFor(m => m.CoverPhoto, new { type = "file", multiple = "multiple" })
+    <span style="color:red">
+        @Html.ValidationMessageFor(m => m.CoverPhoto)
+    </span><br />
+    <div class="input-wrapper clearfix">
+        <input type="submit" class="send-btn" value="Update" id="" name="" />
+        <input type="reset" class="send-btn" value="Cancel" id="" name="" />
+        <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
+    </div>
+}
+<div class="progress" id="progressCoverPhoto">
+    <div class="progress-bar" id="progressbarCoverPhoto">0%</div>
+</div>
+<div id="statusCoverPhoto"></div>
+<style>
+    .progress {
+        position: relative;
+        width: 400px;
+        border: 1px solid #ddd;
+        padding: 1px;
+    }
+
+    .progress-bar {
+        width: 0px;
+        height: 20px;
+        background-color: #57be65;
+    }
+</style>
+<script src="~/Scripts/AjaxPostFile.js"></script>
+<script>
+    $('#frmCoverPhoto').submit(function () {
+        if ($(this).find('.input-validation-error').length == 0 && $(this).find('.valid').length > 0) {
+            (function () {
+                var bar = $('#progressbarCoverPhoto');
+                var percent = $('#progressbarCoverPhoto');
+                var status = $('#statusCoverPhoto');
+
+                $('#frmCoverPhoto').ajaxForm({
+                    beforeSend: function () {
+                        status.empty();
+                        var percentValue = '0%';
+                        bar.width(percentValue);
+                        percent.html(percentValue);
+                    },
+                    uploadProgress: function (event, position, total, percentComplete) {
+                        var percentValue = percentComplete + '%';
+                        bar.width(percentValue);
+                        percent.html(percentValue);
+                    },
+                    success: function (d) {
+                        var percentValue = '100%';
+                        bar.width(percentValue);
+                        percent.html(percentValue);
+                        $('#CoverPhoto').val('');
+                        alert(d);
+                    },
+                    complete: function (xhr) {
+                        status.html(xhr.responseText);
+                    }
+                });
+            })();
+        }
+    })
+
+</script>
+
+@*<script>
+        $(document).ready(function () {
+            $("#loginLink").addClass("active");
+        });
+        //Show the Forgot Password  Div:-
+        function ShowForgotPassword() {
+            window.location.href = '@Url.Action("ForgotPassword", "Account")';
+        }
+        //Show the Success:-
+        function fnBegin() {
+            $('#imgLoader').show();
+            //Show any loder when process start:-
+        }
+        function fnSuccess(response, status, xhr) {
+            if (response == "1") {
+                alert("Sucessfully Update");
+            }
+            else if (response == "0") {
+                $('#imgLoader').hide();
+                $("#errormessage").show();
+
+            }
+            else {
+                $('#imgLoader').hide();
+                alert("Please try after '")
+            }
+        }
+        function fnFailure(xhr, status, err) {
+            $('#imgLoader').hide();
+            alert("'failure occured!!.Please try after '")
+        }
+        function fnComplete() {
+            if (response != "1") {
+                $('#imgLoader').hide();
+            }
+        }
+    </script>*@

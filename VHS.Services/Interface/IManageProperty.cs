@@ -20,9 +20,13 @@ namespace VHS.Interface
         PropertyEditViewModel GetPropertyDetail(int PropertyId);
         bool UpdateGeneralInfo(PropertyGeneralInfo propGeneralInfo, List<HttpPostedFileBase> Image);
         bool UpdateAdditionalInfo(PropertyAdditionalInfoModel propAdditionalInfoInfo);
-        bool UpdateAppearanceSetting(PropertyPhoto propPhoto, List<HttpPostedFileBase> ImageCoverPhoto, List<HttpPostedFileBase> ImageGallaryPhoto);
+        bool UpdateAmenities(PropertyAmenities propAmenities);
         bool UpdateTravelAmbassador(PropertyTravelAmbassador propTravelAmbass);
         bool UpdateTransferProperty(PropertyTransfer propTransfer);
-        bool DeleteProperty(int PropertyId);
+        bool DeleteProperty(PropertyDelete propertyDelete);
+        bool UpdatePropGallaryPhoto(PropertyGallaryPhoto propertyCoverPhoto, List<HttpPostedFileBase> GallaryPhoto);
+        bool UpdatePropCoverPhoto(PropertyCoverPhoto propertyCoverPhoto, List<HttpPostedFileBase> CoverPhoto);
+        bool UpdatePropVariablePrice(PropertyVarablePricing propVarablePrice);
+        bool UpdatePropFixPrice(PropertyFixedPricing propFixedPrice);
     }
 }

@@ -17,8 +17,6 @@ namespace VHS.Core
         public bool IsApproved { get; set; }
         public int NumberOfRooms { get; set; }
 
-        public double PricePerNight { get; set; }
-        public double PricePerWeek { get; set; }
         public Nullable<int> LocalOrder { get; set; }
 
         [ForeignKey("UserLogin")]

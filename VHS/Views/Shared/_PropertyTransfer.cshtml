@@ -1,20 +1,60 @@
-﻿
+﻿@model VHS.Services.Models.PropertyTransfer
 <h3>Transfer Property to other RM</h3>
-<p class="sub-heading"><span class="error-msg">some error occured</span></p>
+
 <div class="col-lg-6 col-md-6">
-    <form class="form-part" method="post" action="profileform.php" name="profileform" id="profileform" autocomplete="off">
+    @using (Ajax.BeginForm("TransferProperty", "ManageProperty", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccess", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
+    {
+        <p class="sub-heading"><span class="error-msg">some error occured</span></p>
         <label>Current RM</label>
-        <input name="username" value="RM001212" type="text" id="username" size="30" title="RM001212" disabled />
+        @*<input name="username" value="RM001212" type="text" id="username" size="30" title="RM001212" disabled />*@
+        @Html.HiddenFor(m=>m.PropertyId)
+        @Html.TextBoxFor(m => m.RmId, new { disabled = "disabled" })
         <label class="full-label">Select new RM<span class="required">*</span></label>
-        <select>
-            <option value="0">select</option>
-            <option value="">RM012144</option>
-            <option value="">RM012166</option>
-        </select>
+        @Html.DropDownListFor(m => m.RmId, new SelectList(Model.SelectedRm, "Value", "Text"), "--select--", new { id = "ddlId" })
+        <span style="color:red">@Html.ValidationMessageFor(model => model.RmId)</span>
         <div style="clear:both;"></div>
         <div class="input-wrapper clearfix">
             <input type="submit" class="send-btn" value="Transfer" id="" name="" />
             <input type="reset" class="send-btn" value="Cancel" id="" name="" />
+            <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
         </div>
-    </form>
+    }
 </div>
+<script>
+    $(document).ready(function () {
+
+        $("#loginLink").addClass("active");
+    });
+    //Show the Forgot Password  Div:-
+    function ShowForgotPassword() {
+        window.location.href = '@Url.Action("ForgotPassword", "Account")';
+    }
+    //Show the Success:-
+    function fnBegin() {
+        $('#imgLoader').show();
+        //Show any loder when process start:-
+    }
+    function fnSuccess(response, status, xhr) {
+        if (response == "1") {
+            window.location.href=@Url.Action("ManageProperty", "ManageProperty");
+        }
+        else if (response == "0") {
+            $('#imgLoader').hide();
+            $("#errormessage").show();
+
+        }
+        else {
+            $('#imgLoader').hide();
+            alert("Please try after '")
+        }
+    }
+    function fnFailure(xhr, status, err) {
+        $('#imgLoader').hide();
+        alert("'failure occured!!.Please try after '")
+    }
+    function fnComplete() {
+        if (response != "1") {
+            $('#imgLoader').hide();
+        }
+    }
+</script>

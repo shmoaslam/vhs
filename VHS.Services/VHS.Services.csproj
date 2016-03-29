@@ -74,8 +74,9 @@
     <Compile Include="Models\ManagePropertyList.cs" />
     <Compile Include="Models\Property.cs" />
     <Compile Include="Models\PropertyAdditionalInfoModel.cs" />
+    <Compile Include="Models\PropertyDelete.cs" />
     <Compile Include="Models\PropertyGeneralInfo.cs" />
-    <Compile Include="Models\PropertyPhoto.cs" />
+    <Compile Include="Models\PropertyApperance.cs" />
     <Compile Include="Models\PropertyRMMap.cs" />
     <Compile Include="Models\PropertyTransfer.cs" />
     <Compile Include="Models\PropertyTravelAmbassador.cs" />

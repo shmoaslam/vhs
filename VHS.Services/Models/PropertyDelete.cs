@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace VHS.Services.Models
 {
-    public class PropertyPhoto
+    public class PropertyDelete
     {
+        public int PropertyId { get; set; }
     }
 }

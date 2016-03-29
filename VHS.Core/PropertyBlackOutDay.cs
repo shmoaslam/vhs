@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace VHS.Core
 {
-    public class PropertyGallaryMap : Base
+    public class PropertyBlackOutDay : Base
     {
         [Key]
-        public int Id { get; set; }
-        [ForeignKey("Image")]
-        public int ImageId { get; set; }
-        public Image Image { get; set; }
+        public int id { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public float Price { get; set; }
         [ForeignKey("Property")]
         public int PropertyId { get; set; }
         public Property Property { get; set; }

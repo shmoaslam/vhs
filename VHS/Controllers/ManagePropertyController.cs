@@ -63,26 +63,6 @@ namespace VHS.Controllers
 
 
         }
-
-        [HttpGet]
-        public ActionResult EditProperty(int id)
-        {
-            var propGenralInfo = _manageProperty.GetPropertyDetail(id);
-            return View(propGenralInfo);
-        }
-        [HttpPost]
-        public ActionResult EditProperty(PropertyGeneralInfo propGeneralInfo, List<HttpPostedFileBase> Image)
-        {
-            var proper = _manageProperty.UpdateGeneralInfo(propGeneralInfo, Image);
-            return Redirect(Request.UrlReferrer.ToString());
-        }
-        [HttpPost]
-        public JsonResult PropertyAdditionalInfo(PropertyAdditionalInfoModel propAdditionalInfo)
-        {
-            //var proper = _manageProperty.UpdateGeneralInfo(propGeneralInfo);
-            return Json("1");
-        }
-
         public ActionResult ManageProperty()
         {
             if (IsRM)
@@ -96,6 +76,133 @@ namespace VHS.Controllers
                 var propertList = _manageProperty.GetPropertyForManage(0);
                 return View(propertList);
             }
+        }
+
+        [HttpGet]
+        public ActionResult EditProperty(int id)
+        {
+            var propGenralInfo = _manageProperty.GetPropertyDetail(id);
+            return View(propGenralInfo);
+        }
+
+        [HttpPost]
+        public ActionResult PropertyGeneralInfo(PropertyGeneralInfo propGeneralInfo, List<HttpPostedFileBase> Image)
+        {
+            var proper = _manageProperty.UpdateGeneralInfo(propGeneralInfo, Image);
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+        [HttpPost]
+        public JsonResult PropertyAdditionalInfo(PropertyAdditionalInfoModel propAdditionalInfo)
+        {
+            var proper = _manageProperty.UpdateAdditionalInfo(propAdditionalInfo);
+            if (proper)
+            {
+                return Json("1");
+            }
+            else
+            {
+                return Json("0");
+            }
+        }
+        [HttpPost]
+        public JsonResult PropertyAmenities(PropertyAmenities propAmenities)
+        {
+            var proper = _manageProperty.UpdateAmenities(propAmenities);
+            if (proper)
+            {
+                return Json("1");
+            }
+            else
+            {
+                return Json("0");
+            }
+        }
+        [HttpPost]
+        public JsonResult PropertyFixedPricing(PropertyFixedPricing propFixPrice)
+        {
+            var proper = _manageProperty.UpdatePropFixPrice(propFixPrice);
+            if (proper)
+            {
+                return Json("1");
+            }
+            else
+            {
+                return Json("0");
+            }
+        }
+        [HttpPost]
+        public JsonResult PropertyVariablePricing(PropertyVarablePricing propVarablePrice)
+        {
+            var proper = _manageProperty.UpdatePropVariablePrice(propVarablePrice);
+            if (proper)
+            {
+                return Json("1");
+            }
+            else
+            {
+                return Json("0");
+            }
+        }
+        [HttpPost]
+        public ActionResult PropertyCoverPhoto(PropertyCoverPhoto propertyCoverPhoto, List<HttpPostedFileBase> CoverPhoto)
+        {
+            if (CoverPhoto == null)
+            {
+                return Json("0");
+            }
+            var proper = _manageProperty.UpdatePropCoverPhoto(propertyCoverPhoto, CoverPhoto);
+            if (proper)
+            {
+                return Json("1");
+            }
+            else
+            {
+                return Json("0");
+            }
+        }
+        [HttpPost]
+        public ActionResult PropertyGallaryPhoto(PropertyGallaryPhoto propertyCoverPhoto, List<HttpPostedFileBase> GallaryPhoto)
+        {
+            if (GallaryPhoto == null)
+            {
+                return Json("0");
+            }
+            var proper = _manageProperty.UpdatePropGallaryPhoto(propertyCoverPhoto, GallaryPhoto);
+            if (proper)
+            {
+                return Json("1");
+            }
+            else
+            {
+                return Json("0");
+            }
+        }
+        [HttpPost]
+        public JsonResult DeleteProperty(PropertyDelete propertyDelete)
+        {
+            var proper = _manageProperty.DeleteProperty(propertyDelete);
+            if (proper)
+            {
+                return Json("1");
+            }
+            else
+            {
+                return Json("0");
+            }
+        }
+        [HttpPost]
+        public JsonResult TransferProperty(PropertyTransfer propertTansfer)
+        {
+            var proper = _manageProperty.UpdateTransferProperty(propertTansfer);
+            if (proper)
+            {
+                return Json("1");
+            }
+            else
+            {
+                return Json("0");
+            }
+
         }
 
     }

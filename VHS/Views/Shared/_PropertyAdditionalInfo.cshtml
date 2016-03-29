@@ -3,10 +3,12 @@
 <div class="col-lg-6 col-md-6">
     @using (Ajax.BeginForm("PropertyAdditionalInfo", "ManageProperty", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccess", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
     {
+        @Html.HiddenFor(m => m.PropertyId)
+        @Html.HiddenFor(m => m.PropAdditionalId)
         <p class="sub-heading" id="errormessage" style="display:none"><span class="error-msg"> Error occured during update</span></p>
         <label>Add Property Description<span class="required">*</span></label>
         @Html.TextAreaFor(m => m.PropertyDescription)
-        <span style="color:red">@Html.ValidationMessageFor(m => m.CheckIn)</span><br />
+        <span style="color:red">@Html.ValidationMessageFor(m => m.PropertyDescription)</span><br />
         <label class="sm-label">Check-in time<span class="required">*</span></label>
         @Html.TextBoxFor(m => m.CheckIn)
         <span style="color:red">@Html.ValidationMessageFor(m => m.CheckIn)</span><br />
@@ -23,107 +25,22 @@
         <label class="sm-label">Pets allowed<span class="required">*</span></label>
         @Html.DropDownListFor(m => m.PetsAllowedId, new SelectList(Model.PetsAllowed, "Value", "Text"), "Select")
         <span style="color:red">@Html.ValidationMessageFor(m => m.PetsAllowedId)</span><br />
-        @*<select class="sm-input">
-                <option value="0">select</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>*@
         <div style="clear:both;"></div>
         <label class="sm-label">Drinking allowed<span class="required">*</span></label>
         @Html.DropDownListFor(m => m.DrinkAllowedId, new SelectList(Model.DrinkingAllowed, "Value", "Text"), "Select")
         <span style="color:red">@Html.ValidationMessageFor(m => m.DrinkAllowedId)</span><br />
-        @*<select class="sm-input">
-                <option value="0">select</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>*@
         <div style="clear:both;"></div>
         <label class="sm-label">Smoking Allowed<span class="required">*</span></label>
         @Html.DropDownListFor(m => m.SmokeAllowedId, new SelectList(Model.SmokeAllowed, "Value", "Text"), "Select")
         <span style="color:red">@Html.ValidationMessageFor(m => m.SmokeAllowedId)</span><br />
-        @*<select class="sm-input">
-                <option value="0">select</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>*@
         <div style="clear:both;"></div>
         <label class="sm-label">Family/Kid Friendly<span class="required">*</span></label>
         @Html.DropDownListFor(m => m.FamilyKidAllowedId, new SelectList(Model.FamilyKidAllowed, "Value", "Text"), "Select")
         <span style="color:red">@Html.ValidationMessageFor(m => m.FamilyKidAllowedId)</span><br />
-        @*<select class="sm-input">
-                <option value="0">select</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>*@
         <div style="clear:both;"></div>
         <label class="sm-label">Wheelchair Accessible<span class="required">*</span></label>
         @Html.DropDownListFor(m => m.WheelChairId, new SelectList(Model.WheelChairAllowed, "Value", "Text"), "Select")
         <span style="color:red">@Html.ValidationMessageFor(m => m.WheelChairId)</span><br />
-        @*<select class="sm-input">
-                <option value="0">select</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>*@
-        <div style="clear:both;"></div>
-        <label class="full-label">Parking<span class="required">*</span></label>
-        if (Model != null && Model.ParkingList != null)
-        {
-            foreach (var parking in Model.ParkingList)
-            {
-                <label class="half-label"><input type="checkbox" checked="@parking.IsChecked" name="TravelPreferencesId" value="@parking.id"><span>@parking.Name</span></label>
-            }
-        }
-        <div style="clear:both;"></div>
-        <label>Amenities</label>
-        <label class="full-label">Sleeping Arrangment</label>
-        if (Model != null && Model.SleepingArrangmentList != null)
-        {
-            foreach (var sleeping in Model.SleepingArrangmentList)
-            {
-                <label class="half-label"><input type="checkbox" checked="@sleeping.IsChecked" name="TravelPreferencesId" value="@sleeping.id"><span>@sleeping.Name</span></label>
-            }
-        }
-        <div style="clear:both;"></div>
-        <label class="full-label">Bathrooms</label>
-        if (Model != null && Model.BathRoomsList != null)
-        {
-            foreach (var bathRoom in Model.BathRoomsList)
-            {
-                <label class="half-label"><input type="checkbox" checked="@bathRoom.IsChecked" name="TravelPreferencesId" value="@bathRoom.id"><span>@bathRoom.Name</span></label>
-            }
-        }
-        <label class="full-label">Kitchen</label>
-        if (Model != null && Model.KitchenList != null)
-        {
-            foreach (var kitchen in Model.KitchenList)
-            {
-                <label class="half-label"><input type="checkbox" checked="@kitchen.IsChecked" name="TravelPreferencesId" value="@kitchen.id"><span>@kitchen.Name</span></label>
-            }
-        }
-        <label class="full-label">General</label>
-        if (Model != null && Model.GeneralList != null)
-        {
-            foreach (var genearl in Model.GeneralList)
-            {
-                <label class="half-label"><input type="checkbox" checked="@genearl.IsChecked" name="TravelPreferencesId" value="@genearl.id"><span>@genearl.Name</span></label>
-            }
-        }
-        <label class="full-label">Entertainment And Electronics</label>
-        if (Model != null && Model.EnterTaimentElecList != null)
-        {
-            foreach (var entertainMent in Model.EnterTaimentElecList)
-            {
-                <label class="half-label"><input type="checkbox" checked="@entertainMent.IsChecked" name="TravelPreferencesId" value="@entertainMent.id"><span>@entertainMent.Name</span></label>
-            }
-        }
-        <label class="full-label">Outdoor Facilities</label>
-        if (Model != null && Model.OutdoorFacilitiesList != null)
-        {
-            foreach (var outdoor in Model.OutdoorFacilitiesList)
-            {
-                <label class="half-label"><input type="checkbox" checked="@outdoor.IsChecked" name="TravelPreferencesId" value="@outdoor.id"><span>@outdoor.Name</span></label>
-            }
-        }
         <div style="clear:both;"></div>
         <label class="full-label">Update map</label>
         <label class="sm-label">Latitude<span class="required">*</span></label>
@@ -133,12 +50,15 @@
         @Html.TextBoxFor(m => m.Logitude)
         <span style="color:red">@Html.ValidationMessageFor(m => m.Logitude)</span><br />
         <div style="clear:both;"></div>
+        <label class="full-label">Black-out dates</label>
+        @Html.EditorFor(m => m.BlackOutDatsList)
+        <b><a href="">+ Add another</a></b>
+        <div style="clear:both;"></div>
         <div class="input-wrapper clearfix">
             <input type="submit" class="send-btn" value="Update" id="" name="" />
             <input type="reset" class="send-btn" value="Cancel" id="" name="" />
             <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
         </div>
-
     }
 </div>
 <script>

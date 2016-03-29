@@ -1,33 +1,80 @@
-﻿<h4>Fixed Pricing</h4>
-<form class="form-part" method="post" action="profileform.php" name="profileform" id="profileform" autocomplete="off">
+﻿@model VHS.Services.Models.PropertyFixedPricing
+<h4>Fixed Pricing</h4>
+@using (Ajax.BeginForm("PropertyFixedPricing", "ManageProperty", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccess", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
+{
+    <p class="sub-heading" id="errormessage" style="display:none"><span class="error-msg"> Error occured during update</span></p>
+    @Html.HiddenFor(m => m.PropertyId)
+    @Html.HiddenFor(m => m.PropFixedPriceId)
     <label class="sm-label">Select Currency</label>
-    <select class="sm-input">
-        <option value="0">select</option>
-        <option value="">Indian Rupees</option>
-        <option value="">Euro</option>
-        <option value="">Doller</option>
-        <option value="">Sterling Pound</option>
-    </select>
+    @Html.DropDownListFor(m => m.CurrencyId, new SelectList(Model.PriceCurrency, "Value", "Text"), "Select")
+    <span style="color:red">@Html.ValidationMessageFor(m => m.CurrencyId)</span><br />
     <label class="sm-label">Price per night</label>
-    <input name="price" class="sm-input" type="text" id="" size="12" title="" />
+    @Html.TextBoxFor(m => m.PricePerNight)
+    <span style="color:red">@Html.ValidationMessageFor(m => m.PricePerNight)</span><br />
     <label class="sm-label">Price per week</label>
-    <input name="price" class="sm-input" type="text" id="" size="12" title="" />
+    @Html.TextBoxFor(m => m.PricePerWeek)
+    <span style="color:red">@Html.ValidationMessageFor(m => m.PricePerWeek)</span><br />
     <label class="sm-label">Price per month</label>
-    <input name="price" class="sm-input" type="text" id="" size="12" title="" />
+    @Html.TextBoxFor(m => m.PricePerMonth)
+    <span style="color:red">@Html.ValidationMessageFor(m => m.PricePerMonth)</span><br />
     <label class="full-label">Cleaning Fee</label>
     <label class="sm-label">Daily</label>
-    <input name="price" class="sm-input" type="text" id="" size="12" title="" />
+    @Html.TextBoxFor(m => m.CleaningFeeDaily)
+    <span style="color:red">@Html.ValidationMessageFor(m => m.CleaningFeeDaily)</span><br />
     <label class="sm-label">Weekly</label>
-    <input name="price" class="sm-input" type="text" id="" size="12" title="" />
+    @Html.TextBoxFor(m => m.CleaningFeeWeekly)
+    <span style="color:red">@Html.ValidationMessageFor(m => m.CleaningFeeWeekly)</span><br />
     <label class="sm-label">Montly</label>
-    <input name="price" class="sm-input" type="text" id="" size="12" title="" />
+    @Html.TextBoxFor(m => m.CleaningFeeMonthly)
+    <span style="color:red">@Html.ValidationMessageFor(m => m.CleaningFeeMonthly)</span><br />
     <label class="sm-label">One time</label>
-    <input name="price" class="sm-input" type="text" id="" size="12" title="" />
+    @Html.TextBoxFor(m => m.PriceOneTime)
+    <span style="color:red">@Html.ValidationMessageFor(m => m.PriceOneTime)</span><br />
     <label class="sm-label">Other fee</label>
-    <textarea></textarea>
+    @Html.TextAreaFor(m => m.OtherPrice)
+    <span style="color:red">@Html.ValidationMessageFor(m => m.OtherPrice)</span><br />
     <div style="clear:both;"></div>
     <div class="input-wrapper clearfix">
         <input type="submit" class="send-btn" value="Update" id="" name="" />
         <input type="reset" class="send-btn" value="Cancel" id="" name="" />
+        <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
     </div>
-</form>
+}
+<script>
+    $(document).ready(function () {
+
+        $("#loginLink").addClass("active");
+    });
+    //Show the Forgot Password  Div:-
+    function ShowForgotPassword() {
+        window.location.href = '@Url.Action("ForgotPassword", "Account")';
+    }
+    //Show the Success:-
+    function fnBegin() {
+        $('#imgLoader').show();
+        //Show any loder when process start:-
+    }
+    function fnSuccess(response, status, xhr) {
+        if (response == "1") {
+            alert("Sucessfully Update");
+        }
+        else if (response == "0") {
+            $('#imgLoader').hide();
+            $("#errormessage").show();
+
+        }
+        else {
+            $('#imgLoader').hide();
+            alert("Please try after '")
+        }
+    }
+    function fnFailure(xhr, status, err) {
+        $('#imgLoader').hide();
+        alert("'failure occured!!.Please try after '")
+    }
+    function fnComplete() {
+        if (response != "1") {
+            $('#imgLoader').hide();
+        }
+    }
+</script>

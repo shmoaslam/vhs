@@ -1,0 +1,13 @@
+﻿@model IEnumerable<VHS.Services.Models.BlakOutDate>
+@Html.BeginCollectionItem("BlackOutDate"){
+@if (Model != null && Model.Count() > 0)
+{
+    foreach (var item in Model)
+    {
+        <label class="sm-label">From</label>
+        @Html.TextBoxFor(m => item.StartDate)
+        <label class="sm-label">To</label>
+        @Html.TextBoxFor(m => item.EndDate)
+    }
+}
+}

@@ -13,14 +13,18 @@ namespace VHS.Core
         [Key]
         public int id { get; set; }
         public string PropDescription { get; set; }
-        public TimeSpan CheckInTime { get; set; }
-        public TimeSpan CheckOutTime { get; set; }
-        public bool IsPetsAllowed { get; set; }
-        public bool IsDrinikingAllowed { get; set; }
-        public bool IsSmokingAllowed { get; set; }
-        public bool IsWheelChairAccess { get; set; }
+        public string CheckInTime { get; set; }
+        public string CheckOutTime { get; set; }
+        public string IsPetsAllowed { get; set; }
+        public string IsDrinikingAllowed { get; set; }
+        public string IsSmokingAllowed { get; set; }
+        public string IsWheelChairAccess { get; set; }
+        public string IsFamKidFriendAllowed { get; set; }
+        public int PersonPerRoom { get; set; }
+
         public string MapLatitude { get; set; }
         public string MapLongitude { get; set; }
+        public string PropertySize { get; set; }
         [ForeignKey("Property")]
         public int PropertyId { get; set; }
         public Property Property { get; set; }

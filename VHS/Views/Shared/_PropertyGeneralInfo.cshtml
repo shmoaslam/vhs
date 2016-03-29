@@ -2,7 +2,7 @@
 <h3>General Information</h3>
 <p class="sub-heading"><span class="error-msg">some error occured</span></p>
 <div class="col-lg-6 col-md-6">
-    @using (Html.BeginForm("EditProperty", "ManageProperty", FormMethod.Post, new { @class = "form-part", enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("PropertyGeneralInfo", "ManageProperty", FormMethod.Post, new { @class = "form-part", enctype = "multipart/form-data" }))
             {
         @Html.HiddenFor(m => m.PropertyId)
         <label>Title<span class="required">*</span></label>
@@ -31,16 +31,7 @@
                                 <span style="color:red">
                                     @Html.ValidationMessageFor(m => m.NoOfBathrooms)
                                 </span><br />
-                                <label>Price (per night)<span class="required">*</span></label>
-                                @Html.TextBoxFor(m => m.PricePerNight)
-                                <span style="color:red">
-                                    @Html.ValidationMessageFor(m => m.PricePerNight)
-                                </span><br />
-                                <label>Price (per week)<span class="required">*</span></label>
-                                @Html.TextBoxFor(m => m.PricePerWeek)
-                                <span style="color:red">
-                                    @Html.ValidationMessageFor(m => m.PricePerWeek)
-                                </span><br />
+                               
                                 <label>Address<span class="required">*</span></label>
                                 @Html.TextAreaFor(m => m.Address)
                                 <span style="color:red">

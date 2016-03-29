@@ -11,8 +11,13 @@ namespace VHS.Services.ViewModel
     {
         public PropertyGeneralInfo propertyGeneralInfo { get; set; }
         public PropertyAdditionalInfoModel propertyAdditionalInfo { get; set; }
-        public PropertyPhoto propertyPhoto { get; set; }
+        public PropertyAmenities propertyAmenities { get; set; }
+        public PropertyFixedPricing propertyFixPricing { get; set; }
+        public PropertyVarablePricing propertVarablePricing { get; set; }
+        public PropertyCoverPhoto propertyCoverPhoto { get; set; }
+        public PropertyGallaryPhoto propertyGallaryPhoto { get; set; }
         public PropertyTravelAmbassador propertyTravelAmbassdor { get; set; }
         public PropertyTransfer propertyTransfer { get; set; }
+        public PropertyDelete propertyDelete { get; set; }
     }
 }

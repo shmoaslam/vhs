@@ -44,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BeginCollectionItem, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BeginCollectionItem.1.2.1.0\lib\net35\BeginCollectionItem.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
       <HintPath>..\packages\Facebook.7.0.10-beta\lib\net45\Facebook.dll</HintPath>
       <Private>True</Private>
@@ -360,6 +364,8 @@
     <Content Include="Images\signature.png" />
     <Content Include="Images\symbol.png" />
     <Content Include="Images\symbol2.png" />
+    <Content Include="Scripts\AjaxPostFile.js" />
+    <Content Include="Scripts\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\.DS_Store" />
@@ -479,20 +485,19 @@
     <Content Include="Views\Shared\_RmMenu.cshtml" />
     <Content Include="Views\ManageProperty\EditProperty.cshtml" />
     <Content Include="Views\Shared\_PropertyAdditionalInfo.cshtml" />
-    <Content Include="Views\Shared\_PropertyAppearence.cshtml" />
+    <Content Include="Views\Shared\_PropertyCoverPhoto.cshtml" />
     <Content Include="Views\Shared\_PropertyTravelAmbassador.cshtml" />
     <Content Include="Views\Shared\_PropertyTransfer.cshtml" />
     <Content Include="Views\Shared\_PropertyDelete.cshtml" />
     <Content Include="Views\ManageProperty\ManageProperty.cshtml" />
     <Content Include="Views\Shared\_PropertyGeneralInfo.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Shared\_PropertyAmenities.cshtml" />
     <Content Include="Views\Shared\_PropertyFixPricing.cshtml" />
     <Content Include="Views\Shared\_PropertyVariablePricing.cshtml" />
-=======
-    <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\BlackOutDate.cshtml" />
     <Content Include="Views\Property\Detail.cshtml" />
->>>>>>> d020436986e52ed0c2828eda2ccd6ae0f8159c34
+    <Content Include="Views\Shared\_PropertyGallaryPhoto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
@@ -503,6 +508,7 @@
     <Folder Include="UploadFile\PropertyCoverPhoto\" />
     <Folder Include="UploadFile\PropertyGallary\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Category\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

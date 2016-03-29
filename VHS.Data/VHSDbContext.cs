@@ -47,12 +47,14 @@ namespace VHS.Data
         public DbSet<PropertyGeneralMap> PropertyGeneralMap { get; set; }
         public DbSet<PropertyKitchenMap> PropertyKitchenMap { get; set; }
         public DbSet<PropertyOutdoorMap> PropertyOutdoorMap { get; set; }
-        public DbSet<PropertyPrice> PropertyPrice { get; set; }
+        public DbSet<PropertyBlackOutDay> PropertyBlackOutDay { get; set; }
         public DbSet<PropertyParkingMap> PropertyParkingMap { get; set; }
         public DbSet<PropertySleepingMap> PropertySleepingMap { get; set; }
         public DbSet<SleepingArrangement> SleepingArrangement { get; set; }
         public DbSet<PropertyTravelAmbassadorMap> PropertyTravelAmbassadorMap { get; set; }
         public DbSet<PropertyTravelBeatsMap> PropertyTravelBeatsMap { get; set; }
+        public DbSet<PropertyFixedPrice> PropertyFixedPrice { get; set; }
+        public DbSet<PropertyVraiblePrice> PropertyVraiblePrice { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -89,11 +91,14 @@ namespace VHS.Data
             modelBuilder.Entity<PropertyKitchenMap>().ToTable("PropertyKitchenMap");
             modelBuilder.Entity<PropertyOutdoorMap>().ToTable("PropertyOutdoorMap");
             modelBuilder.Entity<PropertyParkingMap>().ToTable("PropertyParkingMap");
-            modelBuilder.Entity<PropertyPrice>().ToTable("PropertyPrice");
+            modelBuilder.Entity<PropertyBlackOutDay>().ToTable("PropertyBlackOutDay");
             modelBuilder.Entity<SleepingArrangement>().ToTable("SleepingArrangement");
             modelBuilder.Entity<PropertySleepingMap>().ToTable("PropertySleepingMap");
             modelBuilder.Entity<PropertyTravelAmbassadorMap>().ToTable("PropertyTravelAmbassadorMap");
             modelBuilder.Entity<PropertyTravelBeatsMap>().ToTable("PropertyTravelBeatsMap");
+
+            modelBuilder.Entity<PropertyFixedPrice>().ToTable("PropertyFixedPrice");
+            modelBuilder.Entity<PropertyVraiblePrice>().ToTable("PropertyVraiblePrice");
 
             //one-to-many:-One Usertype have many user:-
             modelBuilder.Entity<UserLogin>().HasRequired<UserType>(s => s.UserType).WithMany(s => s.UserLogin).HasForeignKey(s => s.TypeId);

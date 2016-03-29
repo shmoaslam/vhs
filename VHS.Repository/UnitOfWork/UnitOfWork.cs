@@ -48,11 +48,14 @@ namespace VHS.Repository
         private GenericRepository<PropertyKitchenMap> _propKitchenRepository;
         private GenericRepository<PropertyOutdoorMap> _propOutdoorRepository;
         private GenericRepository<PropertyParkingMap> _propParkingRepository;
-        private GenericRepository<PropertyPrice> _propPriceRepository;
+        private GenericRepository<PropertyBlackOutDay> _propBlackOutDayRepository;
         private GenericRepository<PropertySleepingMap> _propSleepRepository;
         private GenericRepository<SleepingArrangement> _sleepArrangeRepository;
         private GenericRepository<PropertyTravelAmbassadorMap> _propTravelAmbessRepository;
         private GenericRepository<PropertyTravelBeatsMap> _propTravelBeatsRepository;
+
+        private GenericRepository<PropertyFixedPrice> _propFixedPriceRepository;
+        private GenericRepository<PropertyVraiblePrice> _propVariablePriceRepository;
 
         #endregion
 
@@ -468,13 +471,13 @@ namespace VHS.Repository
         /// <summary>
         /// Get/Set Property for user repository.
         /// </summary>
-        public GenericRepository<PropertyPrice> PropertyPriceRepository
+        public GenericRepository<PropertyBlackOutDay> PropertyPriceRepository
         {
             get
             {
-                if (this._propPriceRepository == null)
-                    this._propPriceRepository = new GenericRepository<PropertyPrice>(_context);
-                return _propPriceRepository;
+                if (this._propBlackOutDayRepository == null)
+                    this._propBlackOutDayRepository = new GenericRepository<PropertyBlackOutDay>(_context);
+                return _propBlackOutDayRepository;
             }
         }
 
@@ -514,6 +517,32 @@ namespace VHS.Repository
                 if (this._mailLinkRepository == null)
                     this._mailLinkRepository = new GenericRepository<MailLink>(_context);
                 return _mailLinkRepository;
+            }
+        }
+
+        /// <summary>
+        /// Get/Set Property for Mail Link repository.
+        /// </summary>
+        public GenericRepository<PropertyFixedPrice> PropFixedPriceRepository
+        {
+            get
+            {
+                if (this._propFixedPriceRepository == null)
+                    this._propFixedPriceRepository = new GenericRepository<PropertyFixedPrice>(_context);
+                return _propFixedPriceRepository;
+            }
+        }
+
+        /// <summary>
+        /// Get/Set Property for Mail Link repository.
+        /// </summary>
+        public GenericRepository<PropertyVraiblePrice> PropVariablePriceRepository
+        {
+            get
+            {
+                if (this._propVariablePriceRepository == null)
+                    this._propVariablePriceRepository = new GenericRepository<PropertyVraiblePrice>(_context);
+                return _propVariablePriceRepository;
             }
         }
         #endregion

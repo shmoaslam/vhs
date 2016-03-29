@@ -1,18 +1,17 @@
-﻿
-@model VHS.Services.Models.PropertyAdditionalInfoModel
+﻿@model VHS.Services.Models.PropertyAmenities
 <h3>Additonal Information</h3>
 <div class="col-lg-6 col-md-6">
-    @using (Ajax.BeginForm("PropertyAdditionalInfo", "ManageProperty", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccess", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
+    @using (Ajax.BeginForm("PropertyAmenities", "ManageProperty", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccess", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
     {
         <p class="sub-heading" id="errormessage" style="display:none"><span class="error-msg"> Error occured during update</span></p>
-      
+        @Html.HiddenFor(m=>m.PropertyId)
         <div style="clear:both;"></div>
         <label class="full-label">Parking<span class="required">*</span></label>
         if (Model != null && Model.ParkingList != null)
         {
             foreach (var parking in Model.ParkingList)
             {
-                <label class="half-label"><input type="checkbox" checked="@parking.IsChecked" name="TravelPreferencesId" value="@parking.id"><span>@parking.Name</span></label>
+                <label class="half-label"><input type="checkbox" checked="@parking.IsChecked" name="ParkingId" value="@parking.id"><span>@parking.Name</span></label>
             }
         }
         <div style="clear:both;"></div>
@@ -22,7 +21,7 @@
         {
             foreach (var sleeping in Model.SleepingArrangmentList)
             {
-                <label class="half-label"><input type="checkbox" checked="@sleeping.IsChecked" name="TravelPreferencesId" value="@sleeping.id"><span>@sleeping.Name</span></label>
+                <label class="half-label"><input type="checkbox" checked="@sleeping.IsChecked" name="SleepingArrangmentId" value="@sleeping.id"><span>@sleeping.Name</span></label>
             }
         }
         <div style="clear:both;"></div>
@@ -31,7 +30,7 @@
         {
             foreach (var bathRoom in Model.BathRoomsList)
             {
-                <label class="half-label"><input type="checkbox" checked="@bathRoom.IsChecked" name="TravelPreferencesId" value="@bathRoom.id"><span>@bathRoom.Name</span></label>
+                <label class="half-label"><input type="checkbox" checked="@bathRoom.IsChecked" name="BathRoomsId" value="@bathRoom.id"><span>@bathRoom.Name</span></label>
             }
         }
         <label class="full-label">Kitchen</label>
@@ -39,7 +38,7 @@
         {
             foreach (var kitchen in Model.KitchenList)
             {
-                <label class="half-label"><input type="checkbox" checked="@kitchen.IsChecked" name="TravelPreferencesId" value="@kitchen.id"><span>@kitchen.Name</span></label>
+                <label class="half-label"><input type="checkbox" checked="@kitchen.IsChecked" name="KitchenId" value="@kitchen.id"><span>@kitchen.Name</span></label>
             }
         }
         <label class="full-label">General</label>
@@ -47,7 +46,7 @@
         {
             foreach (var genearl in Model.GeneralList)
             {
-                <label class="half-label"><input type="checkbox" checked="@genearl.IsChecked" name="TravelPreferencesId" value="@genearl.id"><span>@genearl.Name</span></label>
+                <label class="half-label"><input type="checkbox" checked="@genearl.IsChecked" name="GeneralId" value="@genearl.id"><span>@genearl.Name</span></label>
             }
         }
         <label class="full-label">Entertainment And Electronics</label>
@@ -55,7 +54,7 @@
         {
             foreach (var entertainMent in Model.EnterTaimentElecList)
             {
-                <label class="half-label"><input type="checkbox" checked="@entertainMent.IsChecked" name="TravelPreferencesId" value="@entertainMent.id"><span>@entertainMent.Name</span></label>
+                <label class="half-label"><input type="checkbox" checked="@entertainMent.IsChecked" name="EnterTaimentId" value="@entertainMent.id"><span>@entertainMent.Name</span></label>
             }
         }
         <label class="full-label">Outdoor Facilities</label>
@@ -63,7 +62,7 @@
         {
             foreach (var outdoor in Model.OutdoorFacilitiesList)
             {
-                <label class="half-label"><input type="checkbox" checked="@outdoor.IsChecked" name="TravelPreferencesId" value="@outdoor.id"><span>@outdoor.Name</span></label>
+                <label class="half-label"><input type="checkbox" checked="@outdoor.IsChecked" name="OutdoorId" value="@outdoor.id"><span>@outdoor.Name</span></label>
             }
         }
         <div style="clear:both;"></div>

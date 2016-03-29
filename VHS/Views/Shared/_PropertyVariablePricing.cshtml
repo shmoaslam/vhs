@@ -1,17 +1,72 @@
-﻿
+﻿@model VHS.Services.Models.PropertyVarablePricing
+@using Newtonsoft.Json
 <h4>Variable Pricing</h4>
-<form class="form-part" method="post" action="profileform.php" name="profileform" id="profileform" autocomplete="off">
+@using (Ajax.BeginForm("PropertyVariablePricing", "ManageProperty", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccess", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
+{
+    @Html.HiddenFor(m => m.PropertyId)
+    @Html.HiddenFor(m => m.PropVarPriceId)
     <label class="sm-label">Start date</label>
-    <input name="" class="" type="date" id="" size="12" title="" />
+    @Html.TextBoxFor(m => m.StartDate, new { @id = "txtStartDate",@type="date"})
+    <span style="color:red">@Html.ValidationMessageFor(m => m.StartDate)</span><br />
     <label class="sm-label">Stop date</label>
-    <input name="" class="" type="date" id="" size="12" title="" />
+    @Html.TextBoxFor(m => m.StopDate, new { @id = "txtStopDate", @type = "date" })
+    <span style="color:red">@Html.ValidationMessageFor(m => m.StopDate)</span><br />
     <label class="sm-label">Price</label>
-    <input name="price" class="sm-input" type="text" id="bathrooms" size="12" title="" />
-    <label class="sm-label">Description</label>
-    <textarea></textarea>
-    <div style="clear:both;"></div>
-    <div class="input-wrapper clearfix">
-        <input type="submit" class="send-btn" value="Update" id="" name="" />
-        <input type="reset" class="send-btn" value="Cancel" id="" name="" />
-    </div>
-</form>
+    @Html.TextBoxFor(m => m.Price)
+    <span style="color:red">@Html.ValidationMessageFor(m => m.Price)</span><br />
+        <label class="sm-label">Description</label>
+        @Html.TextAreaFor(m => m.Description)
+        <span style="color:red">@Html.ValidationMessageFor(m => m.Description)</span><br />
+        <div style="clear:both;"></div>
+        <div class="input-wrapper clearfix">
+            <input type="submit" class="send-btn" value="Update" id="" name="" />
+            <input type="reset" class="send-btn" value="Cancel" id="" name="" />
+            <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
+        </div>
+}
+<script>
+    $(document).ready(function () {
+        var startdate = @Html.Raw(JsonConvert.SerializeObject(Model.StartDate));
+        var enddate = @Html.Raw(JsonConvert.SerializeObject(Model.StartDate));
+        $("#txtStartDate").val(startdate);
+        $("#txtStopDate").val(enddate)
+    });
+</script>
+<script>
+    $(document).ready(function () {
+       
+        $("#loginLink").addClass("active");
+    });
+    //Show the Forgot Password  Div:-
+    function ShowForgotPassword() {
+        window.location.href = '@Url.Action("ForgotPassword", "Account")';
+    }
+    //Show the Success:-
+    function fnBegin() {
+        $('#imgLoader').show();
+        //Show any loder when process start:-
+    }
+    function fnSuccess(response, status, xhr) {
+        if (response == "1") {
+            alert("Sucessfully Update");
+        }
+        else if (response == "0") {
+            $('#imgLoader').hide();
+            $("#errormessage").show();
+
+        }
+        else {
+            $('#imgLoader').hide();
+            alert("Please try after '")
+        }
+    }
+    function fnFailure(xhr, status, err) {
+        $('#imgLoader').hide();
+        alert("'failure occured!!.Please try after '")
+    }
+    function fnComplete() {
+        if (response != "1") {
+            $('#imgLoader').hide();
+        }
+    }
+</script>

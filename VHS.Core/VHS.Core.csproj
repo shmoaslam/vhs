@@ -59,9 +59,11 @@
     <Compile Include="PropertyAddress.cs" />
     <Compile Include="PropertyAmenitiesMap.cs" />
     <Compile Include="PropertyBathRoomsMap.cs" />
+    <Compile Include="PropertyBlackOutDay.cs" />
     <Compile Include="PropertyCategory.cs" />
     <Compile Include="PropertyCoverPhotoMap.cs" />
     <Compile Include="PropertyEnterElecMap.cs" />
+    <Compile Include="PropertyFixedPrice.cs" />
     <Compile Include="PropertyGallaryMap.cs" />
     <Compile Include="PropertyGeneralMap.cs" />
     <Compile Include="PropertyImageMapping.cs" />
@@ -74,6 +76,7 @@
     <Compile Include="PropertySleepingMap.cs" />
     <Compile Include="PropertyTravelAmbassadorMap.cs" />
     <Compile Include="PropertyTravelBeatsMap.cs" />
+    <Compile Include="PropertyVraiblePrice.cs" />
     <Compile Include="SleepingArrangement.cs" />
     <Compile Include="TravelPreferences.cs" />
     <Compile Include="UserLogin.cs" />

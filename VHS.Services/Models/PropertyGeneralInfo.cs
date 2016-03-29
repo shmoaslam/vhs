@@ -9,7 +9,6 @@ namespace VHS.Services.Models
     public class PropertyGeneralInfo : Property
     {
         public int PropertyId { get; set; }
-        public double PricePerNight { get; set; }
-        public double PricePerWeek { get; set; }
+  
     }
 }
