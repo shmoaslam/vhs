@@ -13,5 +13,6 @@ namespace VHS.Interface
     {
         bool AddProperty(Property property, List<HttpPostedFileBase> file);
         List<PropertyViewModel> GetPropertyList();
+        PropertyDisplayViewModel GetPropertyDisplayModel(int? id);
     }
 }

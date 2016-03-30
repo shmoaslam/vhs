@@ -16,10 +16,8 @@ namespace VHS.Services.Models
         [Required(ErrorMessage = "Please enter property description")]
         public string PropertyDescription { get; set; }
         [Required(ErrorMessage = "Please enter checkin")]
-        [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
         public string CheckIn { get; set; }
         [Required(ErrorMessage = "Please enter check out)")]
-        [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
         public string CheckOut { get; set; }
         [Required(ErrorMessage = "Please enter property size")]
         public string PropertySize { get; set; }

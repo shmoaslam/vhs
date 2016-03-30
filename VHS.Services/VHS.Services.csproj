@@ -93,6 +93,7 @@
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\ManagePropertyViewModel.cs" />
     <Compile Include="ViewModel\ProfileViewModel.cs" />
+    <Compile Include="ViewModel\PropertyDisplayViewModel.cs" />
     <Compile Include="ViewModel\PropertyEditViewModel.cs" />
     <Compile Include="ViewModel\PropertyListingViewModel.cs" />
     <Compile Include="ViewModel\PropertyRMViewModel.cs" />

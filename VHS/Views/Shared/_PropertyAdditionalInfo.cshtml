@@ -10,10 +10,10 @@
         @Html.TextAreaFor(m => m.PropertyDescription)
         <span style="color:red">@Html.ValidationMessageFor(m => m.PropertyDescription)</span><br />
         <label class="sm-label">Check-in time<span class="required">*</span></label>
-        @Html.TextBoxFor(m => m.CheckIn)
+        @Html.TextBoxFor(m => m.CheckIn, new { type="time"})
         <span style="color:red">@Html.ValidationMessageFor(m => m.CheckIn)</span><br />
         <label class="sm-label">Check-out time<span class="required">*</span></label>
-        @Html.TextBoxFor(m => m.CheckOut)
+        @Html.TextBoxFor(m => m.CheckOut, new { type = "time" })
         <span style="color:red">@Html.ValidationMessageFor(m => m.CheckOut)</span><br />
         <label class="sm-label">Size of Property<br />(/sq. ft)<span class="required">*</span></label>
         @Html.TextBoxFor(m => m.PropertySize)

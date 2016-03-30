@@ -35,8 +35,8 @@ namespace VHS.Services
                 //var mailDetails = new MailingDetails() { Name = MailSend.SendEmail(Email, Subject, emailHtmlBody, true);
                 //var emailHtmlBody = templateService.Parse(File.ReadAllText(templateFilePath), mailDetails, null, null);
                 //MailSend.SendEmail(Email, Subject, emailHtmlBody, true);
-                MailSend.SendEmail(Email, Subject, "", true);
-
+                //MailSend.SendEmail(Email, Subject, "", true);
+                MailSend.SendGmail(Email, Subject, Links);
             }
             catch (Exception ex)
             {
@@ -66,7 +66,7 @@ namespace VHS.Services
                 var templateService = new TemplateService();
                 var mailDetails = new RMCreationMailer() { Name = Name, Link = Links, Description = "Click link to generate password and activate account." };
                 var emailHtmlBody = templateService.Parse(File.ReadAllText(templateFilePath), mailDetails, null, null);
-                MailSend.SendEmail(Email, Subject, emailHtmlBody, true);
+                MailSend.SendGmail(Email, Subject, emailHtmlBody);
             }
             catch (Exception ex)
             {

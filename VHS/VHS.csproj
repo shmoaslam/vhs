@@ -326,6 +326,11 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Images\02.jpg" />
+    <Content Include="Images\13.jpg" />
+    <Content Include="Images\2.jpg" />
+    <Content Include="Images\3.jpg" />
+    <Content Include="Images\5.jpg" />
     <Content Include="Images\about10.jpg" />
     <Content Include="Images\about11.jpg" />
     <Content Include="Images\about12.jpg" />
@@ -333,11 +338,14 @@
     <Content Include="Images\arrow-right.png" />
     <Content Include="Images\bg-arrow-down%402x.png" />
     <Content Include="Images\bg-logo%402x.png" />
+    <Content Include="Images\bg-share.png" />
+    <Content Include="Images\category.png" />
     <Content Include="Images\fullscreen01.jpg" />
     <Content Include="Images\fullscreen02.jpg" />
     <Content Include="Images\fullscreen03.jpg" />
     <Content Include="Images\fullscreen06.jpg" />
     <Content Include="Images\fullscreen13.jpg" />
+    <Content Include="Images\guest.png" />
     <Content Include="Images\header-bg.jpg" />
     <Content Include="Images\headline.jpg" />
     <Content Include="Images\l2.gif" />
@@ -361,9 +369,14 @@
     <Content Include="Images\photography\9.jpg" />
     <Content Include="Images\photography\Garden1.jpg" />
     <Content Include="Images\posted.png" />
+    <Content Include="Images\price.png" />
+    <Content Include="Images\rating.png" />
     <Content Include="Images\signature.png" />
+    <Content Include="Images\star-rating.png" />
+    <Content Include="Images\star.png" />
     <Content Include="Images\symbol.png" />
     <Content Include="Images\symbol2.png" />
+    <Content Include="Images\wishlist.png" />
     <Content Include="Scripts\AjaxPostFile.js" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -379,12 +392,8 @@
     <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
     <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
     <Content Include="bin\VHS.dll.config" />
-    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
-    <None Include="Properties\PublishProfiles\dharam.pubxml" />
-    <None Include="Properties\PublishProfiles\ValvettHomeStays.pubxml" />
     <Content Include="Scripts\.DS_Store" />
-    <None Include="Properties\PublishProfiles\vhstest.pubxml" />
-    <None Include="Properties\PublishProfiles\vhstestingftp.pubxml" />
+    <None Include="Properties\PublishProfiles\FileSystem.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\input.fields.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -417,6 +426,11 @@
     <Content Include="Scripts\retina.js" />
     <Content Include="Scripts\scroll-down.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="UploadFile\PropertyGallary\ArcitectureDiagram %281%29_20160330015731.png" />
+    <Content Include="UploadFile\PropertyGallary\download %281%29_20160330111941.jpg" />
+    <Content Include="UploadFile\PropertyGallary\download_20160330111939.jpg" />
+    <Content Include="UploadFile\PropertyGallary\Org %281%29_20160330111938.jpg" />
+    <Content Include="UploadFile\PropertyGallary\Org_20160330111936.jpg" />
     <Content Include="UploadFile\PropertyImage\2_20160320185330.jpg" />
     <Content Include="UploadFile\PropertyImage\33.jpg" />
     <Content Include="Web.config">
@@ -498,6 +512,7 @@
     <Content Include="Views\Shared\EditorTemplates\BlackOutDate.cshtml" />
     <Content Include="Views\Property\Detail.cshtml" />
     <Content Include="Views\Shared\_PropertyGallaryPhoto.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
@@ -506,9 +521,7 @@
     <Folder Include="Images\icons\" />
     <Folder Include="UploadFile\Document\" />
     <Folder Include="UploadFile\PropertyCoverPhoto\" />
-    <Folder Include="UploadFile\PropertyGallary\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Category\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
