@@ -143,12 +143,12 @@ namespace VHS.Services.App_Code
                 string i_sSMTPHost = "smtp.gmail.com";
                 MailMessage oMail = new MailMessage();
                 oMail.To.Add(i_sTo);
-                oMail.From = new MailAddress("testinga4mail@gmail.com");
+                oMail.From = new MailAddress("smaslam16121985@gmail.com");
                 oMail.Subject = i_sSubject;
                 oMail.IsBodyHtml = true;
                 oMail.Body = i_sEmailBody;
                 SmtpClient smtpmail = new SmtpClient();
-                smtpmail.Credentials = new NetworkCredential("email@gmail.com", "yourpassword"); /* New added for testing */
+                smtpmail.Credentials = new NetworkCredential("smaslam16121985@gmail.com", "moon953busy402"); /* New added for testing */
                 smtpmail.Port = 25; /* New added for testing */
                 smtpmail.EnableSsl = true; /* New added for testing */
                 smtpmail.DeliveryMethod = SmtpDeliveryMethod.Network; /* New added for testing */

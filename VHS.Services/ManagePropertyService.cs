@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -228,8 +229,8 @@ namespace VHS.Services
             var propVariablePrice = _unitOfWork.PropVariablePriceRepository.Get(m => m.PropertyId == propertyId);
             if (propVariablePrice != null)
             {
-                propertyPricevarable.StartDate = Convert.ToDateTime(propVariablePrice.StartDate.ToString("MM/dd/yyyy"));
-                propertyPricevarable.StopDate = Convert.ToDateTime(propVariablePrice.EndDate.ToString("MM/dd/yyyy"));
+                propertyPricevarable.StartDate = new DateTime(propVariablePrice.StartDate.Year,propVariablePrice.StartDate.Month,propVariablePrice.StartDate.Day); 
+                propertyPricevarable.StopDate = new DateTime(propVariablePrice.EndDate.Year, propVariablePrice.EndDate.Month, propVariablePrice.EndDate.Day);
                 propertyPricevarable.Description = propVariablePrice.Description;
                 propertyPricevarable.Price = Convert.ToDouble(propVariablePrice.Price);
                 propertyPricevarable.PropVarPriceId = propVariablePrice.id;
