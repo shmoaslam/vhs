@@ -44,7 +44,7 @@ namespace VHS.Services.Models
         public int WheelChairId { get; set; }
         public SelectList WheelChairAllowed { get; set; }
 
-        public IEnumerable<BlakOutDate> BlackOutDatsList { get; set; }
+        public List<BlakOutDate> BlackOutDatsList { get; set; }
 
         [Required(ErrorMessage = "Please enter latitude)")]
         public string Latitude { get; set; }
@@ -85,8 +85,8 @@ namespace VHS.Services.Models
 
     public class BlakOutDate
     {
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }
     }
     public class PropertyAmenities
     {

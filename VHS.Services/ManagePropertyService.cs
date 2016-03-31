@@ -180,7 +180,7 @@ namespace VHS.Services
 
 
 
-            blakDay.Add(new BlakOutDate { StartDate = DateTime.Now, EndDate = DateTime.Now });
+            blakDay.Add(new BlakOutDate { StartDate = DateTime.Now.ToString(), EndDate = DateTime.Now.AddDays(5).ToString() });
             propertyAdditionalInfo.BlackOutDatsList = blakDay;
 
             return propertyAdditionalInfo;

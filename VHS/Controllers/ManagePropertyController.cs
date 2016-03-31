@@ -205,5 +205,12 @@ namespace VHS.Controllers
 
         }
 
+        public ActionResult PartialAddBlack()
+        {
+            var blackDay = new BlakOutDate();
+            blackDay.EndDate = "wd"; blackDay.StartDate = "asd";
+            return PartialView("~/Views/Shared/EditorTemplates/BlackOutDate.cshtml", blackDay);
+        }
+
     }
 }
