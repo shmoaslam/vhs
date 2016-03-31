@@ -21,6 +21,8 @@ namespace VHS.Core
         public decimal CleaningFeeMonth { get; set; }
         public decimal OneTimeFee { get; set; }
         public string OtherFee { get; set; }
+        public decimal Comision { get; set; }
+
         [ForeignKey("Property")]
         public int PropertyId { get; set; }
         public Property Property { get; set; }

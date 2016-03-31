@@ -313,6 +313,15 @@
     <Content Include="bin\VHS.Services.pdb" />
     <Content Include="bin\WebActivatorEx.dll" />
     <Content Include="bin\WebGrease.dll" />
+    <Content Include="Content\admin\bootstrap.min.css" />
+    <Content Include="Content\admin\contact.css" />
+    <Content Include="Content\admin\flexslider.css" />
+    <Content Include="Content\admin\font-awesome.min.css" />
+    <Content Include="Content\admin\jquery.fancybox.css" />
+    <Content Include="Content\admin\magnific-popup.css" />
+    <Content Include="Content\admin\reset.css" />
+    <Content Include="Content\admin\responsive-mobilefirst.css" />
+    <Content Include="Content\admin\styles.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\contact.css" />
     <Content Include="Content\flexslider.css" />

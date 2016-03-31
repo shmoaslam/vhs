@@ -30,6 +30,9 @@
     <label class="sm-label">One time</label>
     @Html.TextBoxFor(m => m.PriceOneTime)
     <span style="color:red">@Html.ValidationMessageFor(m => m.PriceOneTime)</span><br />
+    <label class="sm-label">Comission</label>
+    @Html.TextBoxFor(m => m.Comision)
+    <span style="color:red">@Html.ValidationMessageFor(m => m.Comision)</span><br />
     <label class="sm-label">Other fee</label>
     @Html.TextAreaFor(m => m.OtherPrice)
     <span style="color:red">@Html.ValidationMessageFor(m => m.OtherPrice)</span><br />

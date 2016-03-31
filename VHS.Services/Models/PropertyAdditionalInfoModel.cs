@@ -131,6 +131,8 @@ namespace VHS.Services.Models
         public double PriceOneTime { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
         public double OtherPrice { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
+         public decimal Comision { get; set; }
     }
     public class PropertyVarablePricing
     {
