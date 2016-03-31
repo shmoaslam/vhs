@@ -17,14 +17,14 @@ namespace VHS.Services.Models
         public string PropertyDescription { get; set; }
         [Required(ErrorMessage = "Please enter checkin")]
         public string CheckIn { get; set; }
-        [Required(ErrorMessage = "Please enter check out)")]
+        [Required(ErrorMessage = "Please enter check out")]
         public string CheckOut { get; set; }
         [Required(ErrorMessage = "Please enter property size")]
-        public string PropertySize { get; set; }
-        [Required(ErrorMessage = "Please enter perosn)")]
+        public int PropertySize { get; set; }
+        [Required(ErrorMessage = "Please enter perosn")]
         public int PersonPerRoom { get; set; }
 
-        [Required(ErrorMessage = "Please select option)")]
+        [Required(ErrorMessage = "Please select option")]
         public int PetsAllowedId { get; set; }
         public SelectList PetsAllowed { get; set; }
 
@@ -32,23 +32,23 @@ namespace VHS.Services.Models
         public int DrinkAllowedId { get; set; }
         public SelectList DrinkingAllowed { get; set; }
 
-        [Required(ErrorMessage = "Please select option)")]
+        [Required(ErrorMessage = "Please select option")]
         public int SmokeAllowedId { get; set; }
         public SelectList SmokeAllowed { get; set; }
 
-        [Required(ErrorMessage = "Please select option)")]
+        [Required(ErrorMessage = "Please select option")]
         public int FamilyKidAllowedId { get; set; }
         public SelectList FamilyKidAllowed { get; set; }
 
-        [Required(ErrorMessage = "Please enter perosn)")]
+        [Required(ErrorMessage = "Please enter perosn")]
         public int WheelChairId { get; set; }
         public SelectList WheelChairAllowed { get; set; }
 
         public List<BlakOutDate> BlackOutDatsList { get; set; }
 
-        [Required(ErrorMessage = "Please enter latitude)")]
+        [Required(ErrorMessage = "Please enter latitude")]
         public string Latitude { get; set; }
-        [Required(ErrorMessage = "Please enter longitude)")]
+        [Required(ErrorMessage = "Please enter longitude")]
         public string Logitude { get; set; }
 
     }
@@ -129,8 +129,8 @@ namespace VHS.Services.Models
         public double CleaningFeeMonthly { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
         public double PriceOneTime { get; set; }
-        [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
-        public double OtherPrice { get; set; }
+
+        public string OtherPrice { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
          public decimal Comision { get; set; }
     }

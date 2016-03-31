@@ -3,7 +3,17 @@
 {
     <div style="clear:both;"><br /><br /></div>
     <label>Add Property Images to gallery<span class="required">*</span></label>
-    <div class="property-gallery"></div>
+    <div class="property-gallery">
+        @if (Model != null && Model.imageGalaryPhoto.Count > 0)
+        {
+            foreach (var item in Model.imageGalaryPhoto)
+            {
+                <img id="image" src="~/UploadFile/PropertyGallary/@item.ImageName" />
+                <br />
+            }
+        }
+        <img id="imageGallary" />
+    </div>
     @Html.HiddenFor(m => m.PropertyId)
     @Html.TextBoxFor(m => m.GallaryPhoto, new { type = "file", multiple = "multiple" })
     <span style="color:red">
@@ -74,4 +84,20 @@
         }
     })
 
+</script>
+<script>
+    function readURL1(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#imageGallary').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#GallaryPhoto").change(function () {
+        readURL1(this);
+    });
 </script>

@@ -1,10 +1,21 @@
 ﻿@model VHS.Services.Models.PropertyCoverPhoto
 @using (Ajax.BeginForm("PropertyCoverPhoto", "ManageProperty", new AjaxOptions { HttpMethod = "POST" }, new { id = "frmCoverPhoto", enctype = "multipart/form-data" }))
 {
-    <p class="sub-heading"><span class="error-msg">some error occured</span></p>
+    <p class="sub-heading" style="display:none"><span class="error-msg">some error occured</span></p>
 
     <h5>Update cover photo</h5>
-    <div class="property-cover-bg"></div>
+    <div class="property-cover-bg" id="previewImage">
+        @if (Model != null && Model.imageCoverPhoto.Count > 0)
+        {
+            foreach (var item in Model.imageCoverPhoto)
+            {
+                <img id="image" src="~/UploadFile/PropertyCoverPhoto/@item.ImageName" />
+                <br />
+            }
+        }
+        <img id="image" />
+    
+    </div>
     <p>Drag to adjust cover photo</p>
     @Html.HiddenFor(m => m.PropertyId)
     @Html.TextBoxFor(m => m.CoverPhoto, new { type = "file", multiple = "multiple" })
@@ -20,7 +31,8 @@
 <div class="progress" id="progressCoverPhoto">
     <div class="progress-bar" id="progressbarCoverPhoto">0%</div>
 </div>
-<div id="statusCoverPhoto"></div>
+@*<div id="statusCoverPhoto"></div>*@
+
 <style>
     .progress {
         position: relative;
@@ -61,7 +73,6 @@
                         bar.width(percentValue);
                         percent.html(percentValue);
                         $('#CoverPhoto').val('');
-                        alert(d);
                     },
                     complete: function (xhr) {
                         status.html(xhr.responseText);
@@ -71,6 +82,22 @@
         }
     })
 
+</script>
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#image').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#CoverPhoto").change(function () {
+        readURL(this);
+    });
 </script>
 
 @*<script>

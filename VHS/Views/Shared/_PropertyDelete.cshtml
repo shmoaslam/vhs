@@ -1,10 +1,10 @@
 ﻿@model VHS.Services.Models.PropertyDelete
 <h3>Delete Property</h3>
-<p class="sub-heading"><span class="error-msg">some error occured</span></p>
-<div class="col-lg-6 col-md-6">
-    @using (Ajax.BeginForm("DeleteProperty", "ManageProperty", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccess", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
-    {
 
+<div class="col-lg-6 col-md-6">
+    @using (Ajax.BeginForm("DeleteProperty", "ManageProperty", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccessDeleteProperty", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
+    {
+        <p class="sub-heading"><span class="error-msg" style="display:none" id="errormessage">some error occured</span></p>
         <label>Do you want to delete this property?</label>
         <div style="clear:both;"></div>
         @Html.HiddenFor(m => m.PropertyId)
@@ -20,16 +20,12 @@
     $(document).ready(function () {
         $("#loginLink").addClass("active");
     });
-    //Show the Forgot Password  Div:-
-    function ShowForgotPassword() {
-        window.location.href = '@Url.Action("ForgotPassword", "Account")';
-    }
     //Show the Success:-
     function fnBegin() {
         $('#imgLoader').show();
         //Show any loder when process start:-
     }
-    function fnSuccess(response, status, xhr) {
+    function fnSuccessDeleteProperty(response, status, xhr) {
         if (response == "1") {
             window.location.href=@Url.Action("ManageProperty", "ManageProperty");
         }

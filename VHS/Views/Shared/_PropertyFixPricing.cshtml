@@ -1,6 +1,6 @@
 ﻿@model VHS.Services.Models.PropertyFixedPricing
 <h4>Fixed Pricing</h4>
-@using (Ajax.BeginForm("PropertyFixedPricing", "ManageProperty", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccess", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
+@using (Ajax.BeginForm("PropertyFixedPricing", "ManageProperty", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccessFixedPrice", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
 {
     <p class="sub-heading" id="errormessage" style="display:none"><span class="error-msg"> Error occured during update</span></p>
     @Html.HiddenFor(m => m.PropertyId)
@@ -57,7 +57,7 @@
         $('#imgLoader').show();
         //Show any loder when process start:-
     }
-    function fnSuccess(response, status, xhr) {
+    function fnSuccessFixedPrice(response, status, xhr) {
         if (response == "1") {
             alert("Sucessfully Update");
         }

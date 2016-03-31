@@ -1,6 +1,6 @@
 ﻿@model VHS.Services.Models.PropertyGeneralInfo
 <h3>General Information</h3>
-<p class="sub-heading"><span class="error-msg">some error occured</span></p>
+<p class="sub-heading" style="display:none"><span class="error-msg">some error occured</span></p>
 <div class="col-lg-6 col-md-6">
     @using (Html.BeginForm("PropertyGeneralInfo", "ManageProperty", FormMethod.Post, new { @class = "form-part", enctype = "multipart/form-data" }))
             {

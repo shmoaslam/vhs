@@ -1,7 +1,7 @@
 ﻿@model VHS.Services.Models.PropertyAdditionalInfoModel
 <h3>Additonal Information</h3>
 <div class="col-lg-6 col-md-6">
-    @using (Ajax.BeginForm("PropertyAdditionalInfo", "ManageProperty", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccess", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
+    @using (Ajax.BeginForm("PropertyAdditionalInfo", "ManageProperty", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccessAdditional", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
     {
         @Html.HiddenFor(m => m.PropertyId)
         @Html.HiddenFor(m => m.PropAdditionalId)
@@ -50,8 +50,7 @@
         @Html.TextBoxFor(m => m.Logitude)
         <span style="color:red">@Html.ValidationMessageFor(m => m.Logitude)</span><br />
         <div style="clear:both;"></div>
-        <label class="full-label">Black-out dates</label>
-
+        @*<label class="full-label">Black-out dates</label>
         <span id="divBlacOutDate">
             @{
 
@@ -65,12 +64,8 @@
                 }
 
             }
-
-            @*@Html.Partial("EditorTemplates/BlackOutDate", Model.BlackOutDatsList)*@
         </span>
-
-
-        <b><a href="#" id="addBlackOut">+ Add another</a></b>
+        <b><a href="#" id="addBlackOut">+ Add another</a></b>*@
         <div style="clear:both;"></div>
         <div class="input-wrapper clearfix">
             <input type="submit" class="send-btn" value="Update" id="" name="" />
@@ -93,7 +88,7 @@
         $('#imgLoader').show();
         //Show any loder when process start:-
     }
-    function fnSuccess(response, status, xhr) {
+    function fnSuccessAdditional(response, status, xhr) {
         if (response == "1") {
             alert("Sucessfully Update");
         }

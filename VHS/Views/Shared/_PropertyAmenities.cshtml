@@ -1,7 +1,7 @@
 ﻿@model VHS.Services.Models.PropertyAmenities
 <h3>Additonal Information</h3>
 <div class="col-lg-6 col-md-6">
-    @using (Ajax.BeginForm("PropertyAmenities", "ManageProperty", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccess", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
+    @using (Ajax.BeginForm("PropertyAmenities", "ManageProperty", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccessAmenities", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
     {
         <p class="sub-heading" id="errormessage" style="display:none"><span class="error-msg"> Error occured during update</span></p>
         @Html.HiddenFor(m=>m.PropertyId)
@@ -15,7 +15,6 @@
             }
         }
         <div style="clear:both;"></div>
-        <label>Amenities</label>
         <label class="full-label">Sleeping Arrangment</label>
         if (Model != null && Model.SleepingArrangmentList != null)
         {
@@ -88,7 +87,7 @@
         $('#imgLoader').show();
         //Show any loder when process start:-
     }
-    function fnSuccess(response, status, xhr) {
+    function fnSuccessAmenities(response, status, xhr) {
         if (response == "1") {
             alert("Sucessfully Update");
         }

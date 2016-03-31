@@ -171,7 +171,7 @@ namespace VHS.Services
                 propertyAdditionalInfo.FamilyKidAllowedId = Convert.ToInt32(propAdditional.IsFamKidFriendAllowed);
                 propertyAdditionalInfo.PetsAllowedId = Convert.ToInt32(propAdditional.IsPetsAllowed);
                 propertyAdditionalInfo.WheelChairId = Convert.ToInt32(propAdditional.IsWheelChairAccess);
-                propertyAdditionalInfo.PropertySize = propAdditional.PropertySize;
+                propertyAdditionalInfo.PropertySize = Convert.ToInt32(propAdditional.PropertySize);
                 propertyAdditionalInfo.Logitude = propAdditional.MapLongitude;
                 propertyAdditionalInfo.Latitude = propAdditional.MapLatitude;
                 propertyAdditionalInfo.PersonPerRoom = propAdditional.PersonPerRoom;
@@ -211,7 +211,7 @@ namespace VHS.Services
                 propertyFixedPrice.PricePerWeek = Convert.ToDouble(propfixedPrice.PricePerWeek);
                 propertyFixedPrice.PricePerMonth = Convert.ToDouble(propfixedPrice.PricePerMonth);
                 propertyFixedPrice.PriceOneTime = Convert.ToDouble(propfixedPrice.OneTimeFee);
-                propertyFixedPrice.OtherPrice = Convert.ToDouble(propfixedPrice.OtherFee);
+                propertyFixedPrice.OtherPrice = propfixedPrice.OtherFee;
                 propertyFixedPrice.CleaningFeeWeekly = Convert.ToDouble(propfixedPrice.CleaningFeeWeek);
                 propertyFixedPrice.CleaningFeeDaily = Convert.ToDouble(propfixedPrice.CleaningFeeDaily);
                 propertyFixedPrice.CleaningFeeMonthly = Convert.ToDouble(propfixedPrice.CleaningFeeMonth);
@@ -238,16 +238,42 @@ namespace VHS.Services
             }
             return propertyPricevarable;
         }
-        public PropertyCoverPhoto GetPropertyCoverPhoto(int PropertyId)
+        public PropertyCoverPhoto GetPropertyCoverPhoto(int propertyId)
         {
             var propertyPhoto = new PropertyCoverPhoto();
-            propertyPhoto.PropertyId = PropertyId;
+            var photo = new List<ImagePhoto>();
+            var propCoverPhoto = _unitOfWork.PropCoverPhotoRepository.GetMany(m => m.PropertyId == propertyId).ToList();
+            var imagePhoto = _unitOfWork.ImageRepository.Get();
+            //var reult=from propcover in propCoverPhoto 
+            //          join imagePhoto in
+            if (propCoverPhoto != null)
+            {
+                foreach (var item in propCoverPhoto)
+                {
+                    photo.Add(new ImagePhoto { ImageId = item.ImageId, ImageName = imagePhoto.Single(m => m.ImageId == item.ImageId).Name });
+                }
+            }
+
+            propertyPhoto.PropertyId = propertyId;
+            propertyPhoto.imageCoverPhoto = photo;
             return propertyPhoto;
         }
-        public PropertyGallaryPhoto GetPropertyGallaryPhoto(int PropertyId)
+        public PropertyGallaryPhoto GetPropertyGallaryPhoto(int propertyId)
         {
             var propertyPhoto = new PropertyGallaryPhoto();
-            propertyPhoto.PropertyId = PropertyId;
+            var photo = new List<ImagePhoto>();
+            var propCoverPhoto = _unitOfWork.PropertyGallaryRepository.GetMany(m => m.PropertyId == propertyId).ToList();
+            var imagePhoto = _unitOfWork.ImageRepository.Get();
+            //var reult=from propcover in propCoverPhoto 
+            //          join imagePhoto in
+            if (propCoverPhoto != null)
+            {
+                foreach (var item in propCoverPhoto)
+                {
+                    photo.Add(new ImagePhoto { ImageId = item.ImageId, ImageName = imagePhoto.Single(m => m.ImageId == item.ImageId).Name });
+                }
+            }
+            propertyPhoto.PropertyId = propertyId;
             return propertyPhoto;
         }
         public PropertyTravelAmbassador GetPropertyTravelAmbassReview(int PropertyId)
