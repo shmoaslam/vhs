@@ -67,6 +67,12 @@ namespace VHS.Controllers
             var propertyViewModel = _property.GetPropertyDisplayModel(id);
             return View(propertyViewModel);
         }
+        [AllowAnonymous]
+        public ActionResult ListedProperty()
+        {
+            var propertyViewModel = _property.GetAllProperty();
+            return View(propertyViewModel);
+        }
     }
 
 }

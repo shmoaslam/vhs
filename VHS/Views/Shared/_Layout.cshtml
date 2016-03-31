@@ -27,7 +27,7 @@
 </head>
 <body>
     <header>
-
+        <h1 class="site-name">Velvett Homestays</h1>
         <!-- start main nav -->
         <nav id="main-nav">
             <ul class="option-set clearfix" data-option-key="filter">
@@ -36,16 +36,16 @@
                     <li><span style="color:hotpink"> @HttpContext.Current.Session["Name"].ToString()</span></li>
                 }
 
-                <li>@Html.ActionLink("Portfolio", "Index", "Home")</li>
-                <li>
+                <li> @Html.ActionLink("Listed Properties", "ListedProperty", "Property")</li>    
+                @*<li>
                     <a href="#" class="sub-nav-toggle">Features</a>
                     <ul class="sub-nav hidden">
                         <li>@Html.ActionLink("Project", "Project", "Blog")</li>
                         <li>@Html.ActionLink("Post", "SinglePost", "Blog") </li>
                         <li>@Html.ActionLink("Blog Alternative", "Alternative", "Blog")</li>
                     </ul>
-                </li>
-                <li> <a href="index.html">Properties</a></li>
+                </li>*@
+                @*<li> <a href="index.html">Properties</a></li>*@
                 <li>
                     <a href="#" class="sub-nav-toggle">Categories</a>
                     <ul class="sub-nav hidden">
@@ -66,15 +66,16 @@
             </ul>
         </nav>
         <!-- end main nav -->
-
-        <ul class="contact-list clearfix">
-            <li>
-                <i class="fa fa-map-marker"></i>285 Lexington Ave <br />
-                New York, 12603 NY
-            </li>
-            <li> <i class="fa fa-phone"></i>(845)&nbsp;123-4567 </li>
-            <li> <i class="fa fa-paper-plane"></i><a href="mailto:info@manhattan.com">info@peekskill.com</a> </li>
-        </ul>
+        <div id="social-connect">
+            <p>Follow us:</p>
+            <ul class="social-list clearfix">
+                <li> <a href="https://www.facebook.com/VelvettHomestays" target="_blank"><img src="/images/fb.png" width="30" title="facebook" alt="facebook" /></a> </li>
+                <li> <a href="https://twitter.com/VHomestays" target="_blank"><img src="/images/twr.png" width="30" title="twitter" alt="twitter" /></a> </li>
+                <li> <a href="https://www.instagram.com/velvetthomestays/" target="_blank"><img src="/images/insta.png" width="30" title="instagram" alt="instagram" /></a> </li>
+                <li> <a href="http://velvetthomestays.tumblr.com/" target="_blank"><img src="/images/tmbr.png" width="30" title="tumblr" alt="tumblr" /></a> </li>
+                <li> <a href="https://in.pinterest.com/velvetthomestay/" target="_blank"><img src="/images/pin.png" width="30" title="pinterest" alt="pinterest" /></a> </li>
+            </ul>
+        </div>
     </header>
     @*<div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">

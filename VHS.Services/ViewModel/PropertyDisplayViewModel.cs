@@ -22,5 +22,7 @@ namespace VHS.Services.ViewModel
         public string IsFamilyKidFriendly { get; set; }
         public string IsWheelchairAccessible { get; set; }
         public string PersonPerRoom { get; set; }
+        public string Title { get; set; }
+        public string Address { get; set; }
     }
 }
