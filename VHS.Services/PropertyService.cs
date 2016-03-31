@@ -84,6 +84,73 @@ namespace VHS.Services
             return result;
         }
 
+        public IList<PropertyDisplayViewModel> GetAllProperty()
+        {
+            IList<PropertyDisplayViewModel> models = new List<PropertyDisplayViewModel>();
+
+            var properties = _unitOfWork.PropertyRepository.GetMany(x => x.IsApproved && x.IsActive);
+
+            if(properties != null && properties.Count() > 0)
+            {
+                foreach (var property in properties)
+                {
+                    var id = property.Id;
+
+                    var propertyViemodle = new PropertyDisplayViewModel();
+                    IList<string> galaryImages = new List<string>();
+
+                    if (_unitOfWork.PropCoverPhotoRepository.GetMany(x => x.PropertyId == id).Any())
+                    {
+                        int coverImageId = _unitOfWork.PropCoverPhotoRepository.GetMany(x => x.PropertyId == id).FirstOrDefault().ImageId;
+                        propertyViemodle.CoverImage = coverImageId != 0 ? _unitOfWork.ImageRepository.GetByID(coverImageId).Name : string.Empty;
+                    }
+                    if (_unitOfWork.PropertyGallaryRepository.GetMany(x => x.PropertyId == id).Any())
+                    {
+                        var imageids = _unitOfWork.PropertyGallaryRepository.GetMany(x => x.PropertyId == id).Select(X => X.ImageId);
+                        if (imageids != null)
+                            foreach (var imageid in imageids)
+                                galaryImages.Add(_unitOfWork.ImageRepository.GetByID(imageid).Name);
+                        propertyViemodle.GalaryImages = galaryImages.ToArray();
+                    }
+                    if (_unitOfWork.PropertyAdditionalRepository.GetMany(x => x.PropertyId == id).Any())
+                    {
+                        var additionnalDetails = _unitOfWork.PropertyAdditionalRepository.GetMany(x => x.PropertyId == id).FirstOrDefault();
+                        propertyViemodle.Desc = additionnalDetails.PropDescription;
+                        propertyViemodle.CheckIn = additionnalDetails.CheckInTime;
+                        propertyViemodle.CheckOut = additionnalDetails.CheckOutTime;
+                        propertyViemodle.IsPetAllowed = additionnalDetails.IsPetsAllowed == "1" ? "Yes" : "No";
+                        propertyViemodle.IsSmokingAllowed = additionnalDetails.IsSmokingAllowed == "1" ? "Yes" : "No";
+                        propertyViemodle.IsWheelchairAccessible = additionnalDetails.IsWheelChairAccess == "1" ? "Yes" : "No";
+                        propertyViemodle.IsFamilyKidFriendly = additionnalDetails.IsFamKidFriendAllowed == "1" ? "Yes" : "No";
+                        propertyViemodle.IsDrinkingAllowed = additionnalDetails.IsDrinikingAllowed == "1" ? "Yes" : "No";
+                        propertyViemodle.PersonPerRoom = additionnalDetails.PersonPerRoom.ToString();
+                        propertyViemodle.Title = property.Title;
+                    }
+
+                    var categoryId = _unitOfWork.PropertyRepository.GetByID(id) != null ? _unitOfWork.PropertyRepository.GetByID(id).CategoryId : 0;
+
+                    if (categoryId != 0)
+                        propertyViemodle.Category = _unitOfWork.PropertyCategoryRepository.GetFirst(x => x.Id == categoryId).CategoryName;
+
+                    if (_unitOfWork.PropFixedPriceRepository.GetMany(x => x.PropertyId == id).Any())
+                        propertyViemodle.Price = _unitOfWork.PropFixedPriceRepository.GetMany(x => x.PropertyId == id).FirstOrDefault().PricePerNight;
+
+                    if (_unitOfWork.PropertyAddressRepository.GetMany(x => x.PropertyId == id).Any())
+                    {
+                        var address = _unitOfWork.PropertyAddressRepository.GetMany(x => x.PropertyId == id).FirstOrDefault();
+                        propertyViemodle.City = address.City;
+                        propertyViemodle.Address = address.Address;
+                    }
+
+                    models.Add(propertyViemodle);
+
+                }
+
+            }
+            return models;
+           
+        }
+
         public PropertyDisplayViewModel GetPropertyDisplayModel(int? id)
         {
             if (id == null) return null;

@@ -5,28 +5,31 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <section class="section header-section dark bg-image-4">
-        <div class="overlay"></div>
-        <div class="container clearfix centered">
-            <div class="col-lg-8 centered aligncenter">
-                <div class="centralizing-wrapper">
-                    <div class="centralized-content">
-                        <h1>@Model.Category</h1>
-                        <p class="uppercase">@Model.City</p>
-                    </div>
+    
+<section class="section header-section dark">
+    <div class="overlay"><img class="property-cover" src="/UploadFile/PropertyGallary/@Model.CoverImage"></div>
+    <div class="container clearfix centered">
+        <div class="col-lg-8 centered aligncenter">
+            <div class="centralizing-wrapper">
+                <div class="centralized-content">
+                    <h1>@Model.Category</h1>
+                    <p class="uppercase">@Model.City</p>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <section class="section2 bordered">
         <div class="container clearfix">
             <div id="container" class="no-bg">
                 <article class="element clearfix col-lg-12 col-md-12 col-sm-12 col-xs-12 home">
                     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                        <h3 class="title">@Model.Title</h3>
                         <p>
                             @Model.Desc
                         </p>
+                        <p class="address"><b>Address:</b> @Model.Address</p>
                         <div class="col-md-12 pull-left">
                             <div class="col-md-3 col-xs-6 text-center"><p class="intro-pik"><img class="intro-icons" src="/images/category.png" width="20" alt="Category" title="Category" /></p><p class="category"><b>@Model.Category</b></p></div>
                             <div class="col-md-3 col-xs-6 text-center"><p class="intro-pik"><img class="intro-icons" src="/images/price.png" width="20" alt="Price" title="Price" /></p><p class="price"><b>@Model.Price/-</b></p></div>

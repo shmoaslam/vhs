@@ -64,7 +64,8 @@ namespace VHS.Services
             var loginUser = _unitOfWork.LoginRepository.GetByID(loginId);
             loginUser.Email = profilevm.EmailId;
             loginUser.Name = profilevm.Name;
-            loginUser.Password = profilevm.Password;
+            if(!string.IsNullOrEmpty(profilevm.Password))
+                loginUser.Password = profilevm.Password;
             var userDetail = _unitOfWork.UserProfileRepository.GetByID(loginId);
 
             userDetail.Telephone = profilevm.Telephone;
