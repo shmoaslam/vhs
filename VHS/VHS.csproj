@@ -610,11 +610,11 @@
     <Content Include="Scripts\retina.js" />
     <Content Include="Scripts\scroll-down.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="UploadFile\PropertyCoverPhoto\cover_20160331163849.jpg" />
-    <Content Include="UploadFile\PropertyGallary\2ndbedroom2_20160331163956.jpg" />
-    <Content Include="UploadFile\PropertyGallary\Balcony1_20160331163957.jpg" />
-    <Content Include="UploadFile\PropertyGallary\Kitchen4_20160331163959.jpg" />
-    <Content Include="UploadFile\PropertyGallary\Living-room2_20160331164001.jpg" />
+    <Content Include="UploadFile\PropertyCoverPhoto\cover_20160331163849_20160401032300.jpg" />
+    <Content Include="UploadFile\PropertyGallary\2ndbedroom2.jpg" />
+    <Content Include="UploadFile\PropertyGallary\Balcony1.jpg" />
+    <Content Include="UploadFile\PropertyGallary\Kitchen4.jpg" />
+    <Content Include="UploadFile\PropertyGallary\Living-room2.jpg" />
     <Content Include="UploadFile\PropertyImage\2ndbedroom2_20160331160633.jpg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

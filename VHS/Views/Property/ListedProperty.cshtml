@@ -65,27 +65,29 @@
 
                 @foreach (var property in Model)
                 {
-                    <div class="property-thumb">
-                        <p class="property-thumb-img">
-                            <img src="~/UploadFile/PropertyCoverPhoto/@property.CoverImage" />
-                            <div class="property-price-box">
-                                <span class="property-price-currency">Rs.</span><span class="property-price">@property.Price/-</span>
-                            </div>
-                        </p>
-                        <h3 class="property-thumb-title">@property.Title</h3>
-                        <p class="property-thumb-info">
-                            <span class="property-category">@property.Category</span>
-                            <span class="property-rooms">@property.PersonPerRoom Bedrooms</span>
-                            <span class="property-guests">24 Guests</span>
-                            <span class="property-rating">
-                                <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                                <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                                <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                                <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                                <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                            </span>
-                        </p>
-                    </div>
+                    <a href="/Property/Detail/@property.Id">
+                        <div class="property-thumb">
+                            <p class="property-thumb-img">
+                                <img src="~/UploadFile/PropertyCoverPhoto/@property.CoverImage" />
+                                <div class="property-price-box">
+                                    <span class="property-price-currency">Rs.</span><span class="property-price">@property.Price/-</span>
+                                </div>
+                            </p>
+                            <h3 class="property-thumb-title">@property.Title</h3>
+                            <p class="property-thumb-info">
+                                <span class="property-category">@property.Category</span>
+                                <span class="property-rooms">@property.PersonPerRoom Bedrooms</span>
+                                <span class="property-guests">24 Guests</span>
+                                <span class="property-rating">
+                                    <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
+                                    <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
+                                    <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
+                                    <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
+                                    <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
+                                </span>
+                            </p>
+                        </div>
+                    </a>
                 }
 
                 @*<div class="property-thumb">

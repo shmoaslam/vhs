@@ -8,6 +8,7 @@ namespace VHS.Services.ViewModel
 {
     public class PropertyDisplayViewModel
     {
+        public int Id { get; set; }
         public string CoverImage { get; set; }
         public string[] GalaryImages { get; set; }
         public string Desc { get; set; }

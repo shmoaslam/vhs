@@ -125,6 +125,7 @@ namespace VHS.Services
                         propertyViemodle.IsDrinkingAllowed = additionnalDetails.IsDrinikingAllowed == "1" ? "Yes" : "No";
                         propertyViemodle.PersonPerRoom = additionnalDetails.PersonPerRoom.ToString();
                         propertyViemodle.Title = property.Title;
+                        property.Id = property.Id;
                     }
 
                     var categoryId = _unitOfWork.PropertyRepository.GetByID(id) != null ? _unitOfWork.PropertyRepository.GetByID(id).CategoryId : 0;
