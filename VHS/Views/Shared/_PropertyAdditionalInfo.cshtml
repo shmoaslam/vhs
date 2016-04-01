@@ -10,7 +10,7 @@
         @Html.TextAreaFor(m => m.PropertyDescription)
         <span style="color:red">@Html.ValidationMessageFor(m => m.PropertyDescription)</span><br />
         <label class="sm-label">Check-in time<span class="required">*</span></label>
-        @Html.TextBoxFor(m => m.CheckIn, new { type="time"})
+        @Html.TextBoxFor(m => m.CheckIn, new { type = "time" })
         <span style="color:red">@Html.ValidationMessageFor(m => m.CheckIn)</span><br />
         <label class="sm-label">Check-out time<span class="required">*</span></label>
         @Html.TextBoxFor(m => m.CheckOut, new { type = "time" })
@@ -51,38 +51,34 @@
         <span style="color:red">@Html.ValidationMessageFor(m => m.Logitude)</span><br />
         <div style="clear:both;"></div>
         @*<label class="full-label">Black-out dates</label>
-        <span id="divBlacOutDate">
-            @{
+            <span id="divBlacOutDate">
+                @{
 
-                var test = Model.BlackOutDatsList;
-            }
-            @if (Model.BlackOutDatsList.Count > 0)
-            {
-                foreach (var item in Model.BlackOutDatsList)
-                {
-                    @Html.Partial("EditorTemplates/BlackOutDate", item)
+                    var test = Model.BlackOutDatsList;
                 }
+                @if (Model.BlackOutDatsList.Count > 0)
+                {
+                    foreach (var item in Model.BlackOutDatsList)
+                    {
+                        @Html.Partial("EditorTemplates/BlackOutDate", item)
+                    }
 
-            }
-        </span>
-        <b><a href="#" id="addBlackOut">+ Add another</a></b>*@
+                }
+            </span>
+            <b><a href="#" id="addBlackOut">+ Add another</a></b>*@
         <div style="clear:both;"></div>
         <div class="input-wrapper clearfix">
             <input type="submit" class="send-btn" value="Update" id="" name="" />
             <input type="reset" class="send-btn" value="Cancel" id="" name="" />
             <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
         </div>
-                }
+    }
 </div>
 <script>
     $(document).ready(function () {
 
         $("#loginLink").addClass("active");
     });
-    //Show the Forgot Password  Div:-
-    function ShowForgotPassword() {
-        window.location.href = '@Url.Action("ForgotPassword", "Account")';
-    }
     //Show the Success:-
     function fnBegin() {
         $('#imgLoader').show();
@@ -90,7 +86,9 @@
     }
     function fnSuccessAdditional(response, status, xhr) {
         if (response == "1") {
-            alert("Sucessfully Update");
+
+            alert("Information is updated successfully.");
+            $('#imgLoader').hide();
         }
         else if (response == "0") {
             $('#imgLoader').hide();

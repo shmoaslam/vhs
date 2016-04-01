@@ -274,6 +274,7 @@ namespace VHS.Services
                 }
             }
             propertyPhoto.PropertyId = propertyId;
+            propertyPhoto.imageGalaryPhoto = photo;
             return propertyPhoto;
         }
         public PropertyTravelAmbassador GetPropertyTravelAmbassReview(int PropertyId)
@@ -284,9 +285,14 @@ namespace VHS.Services
         public PropertyTransfer GetPropertyTransferDetail(int PropertyId)
         {
             var propertyTransfer = new PropertyTransfer();
+            var propRm = _unitOfWork.PropertyRMMapRepository.Get(m => m.PropertyId == PropertyId);
+            if (propRm != null)
+            {
+                propertyTransfer.RmId = propRm.LoginId;
+
+            }
             propertyTransfer.SelectedRm = RMList();
             propertyTransfer.PropertyId = PropertyId;
-            propertyTransfer.RmId = 1;
             return propertyTransfer;
         }
         public PropertyDelete GetPropertyDelete(int PropertyId)
@@ -331,6 +337,7 @@ namespace VHS.Services
             //Create Property Image:-
             if (file.Count > 0)
             {
+                _unitOfWork.PropertyImageMapRepository.Delete(m => m.PropertyId == propGeneralInfo.PropertyId);
                 foreach (var item in file)
                 {
                     var imageObj = new Core.Image();
@@ -342,9 +349,7 @@ namespace VHS.Services
                     _unitOfWork.ImageRepository.Insert(imageObj);
                     _unitOfWork.Save();
 
-                    var imgPropMap = _unitOfWork.PropertyImageMapRepository.GetSingle(m => m.PropertyId == propGeneralInfo.PropertyId); ;
-                    imgPropMap.ImageId = imageObj.ImageId;
-                    _unitOfWork.PropertyImageMapRepository.Update(imgPropMap);
+                    _unitOfWork.PropertyImageMapRepository.Insert(new PropertyImageMapping { ImageId = imageObj.ImageId, PropertyId = propGeneralInfo.PropertyId });
                     _unitOfWork.Save();
 
                 }
@@ -370,8 +375,6 @@ namespace VHS.Services
             var result = false;
             return result;
         }
-
-
 
         public List<PropertyViewModel> GetPropertyForManage(int rmID)
         {

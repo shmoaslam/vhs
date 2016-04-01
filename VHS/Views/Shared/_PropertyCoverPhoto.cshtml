@@ -4,7 +4,7 @@
     <p class="sub-heading" style="display:none"><span class="error-msg">some error occured</span></p>
 
     <h5>Update cover photo</h5>
-    <div class="property-cover-bg" id="previewImage">
+    <div class="property-cover-bg" id="divCoverPhotoView">
         @if (Model != null && Model.imageCoverPhoto.Count > 0)
         {
             foreach (var item in Model.imageCoverPhoto)
@@ -13,8 +13,9 @@
                 <br />
             }
         }
-        <img id="image" />
-    
+    </div>
+    <div id="divCoverPhotoPreview" style="display:none" class="property-cover-bg">
+        <img id="imageCoverPhoto" />
     </div>
     <p>Drag to adjust cover photo</p>
     @Html.HiddenFor(m => m.PropertyId)
@@ -24,7 +25,7 @@
     </span><br />
     <div class="input-wrapper clearfix">
         <input type="submit" class="send-btn" value="Update" id="" name="" />
-        <input type="reset" class="send-btn" value="Cancel" id="" name="" />
+        <input type="button" class="send-btn" onclick="ShowCoverView()" value="Cancel" id="" name="" />
         <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
     </div>
 }
@@ -86,9 +87,10 @@
 <script>
     function readURL(input) {
         if (input.files && input.files[0]) {
+            $("#divCoverPhotoView").hide();
             var reader = new FileReader();
             reader.onload = function (e) {
-                $('#image').attr('src', e.target.result);
+                $('#imageCoverPhoto').attr('src', e.target.result);
             }
 
             reader.readAsDataURL(input.files[0]);
@@ -97,7 +99,14 @@
 
     $("#CoverPhoto").change(function () {
         readURL(this);
+        $("#divCoverPhotoPreview").show();
     });
+    function ShowCoverView() {
+        $("#divCoverPhotoView").show();
+        $("#divCoverPhotoPreview").hide();
+        $("#CoverPhoto").val('');
+
+    }
 </script>
 
 @*<script>

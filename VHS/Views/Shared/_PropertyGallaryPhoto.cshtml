@@ -3,15 +3,19 @@
 {
     <div style="clear:both;"><br /><br /></div>
     <label>Add Property Images to gallery<span class="required">*</span></label>
-    <div class="property-gallery">
-        @if (Model != null && Model.imageGalaryPhoto.Count > 0)
-        {
-            foreach (var item in Model.imageGalaryPhoto)
+    <div id="divGallaryView" class="property-gallery">
+        <div>
+            @if (Model != null && Model.imageGalaryPhoto != null)
             {
-                <img id="image" src="~/UploadFile/PropertyGallary/@item.ImageName" />
-                <br />
+                foreach (var item in Model.imageGalaryPhoto)
+                {
+                    <img id="image" src="~/UploadFile/PropertyGallary/@item.ImageName" />
+                    <br />
+                }
             }
-        }
+        </div>
+    </div>
+    <div id="divGallaryPreview" style="display:none" class="property-gallery">
         <img id="imageGallary" />
     </div>
     @Html.HiddenFor(m => m.PropertyId)
@@ -20,11 +24,11 @@
         @Html.ValidationMessageFor(m => m.GallaryPhoto)
     </span><br />
     <div style="clear:both;"></div>
-        <div class="input-wrapper clearfix">
-            <input type="submit" class="send-btn" value="Update" onclick="CallFunction()" id="" name="" />
-            <input type="reset" class="send-btn" value="Cancel" id="" name="" />
-            <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
-        </div>
+    <div class="input-wrapper clearfix">
+        <input type="submit" class="send-btn" value="Update" onclick="CallFunction()" id="" name="" />
+        <input type="button" class="send-btn" onclick="ShowGallaryView()" value="Cancel" id="" name="" />
+        <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
+    </div>
 
 }
 <div class="progress">
@@ -74,7 +78,6 @@
                         bar.width(percentValue);
                         percent.html(percentValue);
                         $('#GallaryPhoto').val('');
-                        alert(d);
                     },
                     complete: function (xhr) {
                         status.html(xhr.responseText);
@@ -87,6 +90,8 @@
 </script>
 <script>
     function readURL1(input) {
+        $("#divGallaryView").hide();
+
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
@@ -99,5 +104,13 @@
 
     $("#GallaryPhoto").change(function () {
         readURL1(this);
+        $("#divGallaryPreview").show();
+     
     });
+    function ShowGallaryView() {
+        $("#divGallaryView").show();
+        $("#divGallaryPreview").hide();
+        $("#GallaryPhoto").val('');
+        
+    }
 </script>

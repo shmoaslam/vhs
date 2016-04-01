@@ -1,12 +1,12 @@
 ﻿@model VHS.Services.Models.PropertyAmenities
 <h3>Additonal Information</h3>
 <div class="col-lg-6 col-md-6">
-    @using (Ajax.BeginForm("PropertyAmenities", "ManageProperty", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccessAmenities", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
+    @using (Ajax.BeginForm("PropertyAmenities", "ManageProperty", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccessAmenities", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @id = "frmAmenities", @class = "form-part" }))
     {
         <p class="sub-heading" id="errormessage" style="display:none"><span class="error-msg"> Error occured during update</span></p>
-        @Html.HiddenFor(m=>m.PropertyId)
+        @Html.HiddenFor(m => m.PropertyId)
         <div style="clear:both;"></div>
-        <label class="full-label">Parking<span class="required">*</span></label>
+        <label class="full-label">Parking<span class="required"></span></label>
         if (Model != null && Model.ParkingList != null)
         {
             foreach (var parking in Model.ParkingList)
@@ -84,12 +84,19 @@
     }
     //Show the Success:-
     function fnBegin() {
-        $('#imgLoader').show();
+        if ($("#frmAmenities input:checkbox:checked").length > 0) {
+            $('#imgLoader').show();
+        }
+        else {
+            alert("Please select at least some checkbox.");
+        }
+
         //Show any loder when process start:-
     }
     function fnSuccessAmenities(response, status, xhr) {
         if (response == "1") {
-            alert("Sucessfully Update");
+            alert("Information is updated successfully.");
+            $('#imgLoader').hide();
         }
         else if (response == "0") {
             $('#imgLoader').hide();
