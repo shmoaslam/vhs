@@ -144,13 +144,14 @@ namespace VHS.Controllers
             }
         }
         [HttpPost]
-        public ActionResult PropertyCoverPhoto(PropertyCoverPhoto propertyCoverPhoto, List<HttpPostedFileBase> CoverPhoto)
+        public ActionResult PropertyCoverPhoto(PropertyCoverPhoto propertyCoverPhoto, IEnumerable<HttpPostedFileBase> CoverPhoto)
         {
             if (CoverPhoto == null)
             {
                 return Json("0");
             }
-            var proper = _manageProperty.UpdatePropCoverPhoto(propertyCoverPhoto, CoverPhoto);
+            var proper = false;
+           // var proper = _manageProperty.UpdatePropCoverPhoto(propertyCoverPhoto, CoverPhoto);
             if (proper)
             {
                 return Json("1");

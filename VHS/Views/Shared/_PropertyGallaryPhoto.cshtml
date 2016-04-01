@@ -1,5 +1,5 @@
 ﻿@model VHS.Services.Models.PropertyGallaryPhoto
-@using (Ajax.BeginForm("PropertyGallaryPhoto", "ManageProperty", new AjaxOptions { HttpMethod = "POST" }, new { id = "frmGallaryPhoto", enctype = "multipart/form-data" }))
+@using (Ajax.BeginForm("PropertyGallaryPhoto", "ManageProperty",null, new AjaxOptions { HttpMethod = "POST" }, new { id = "frmGallaryPhoto", enctype = "multipart/form-data" }))
 {
     <div style="clear:both;"><br /><br /></div>
     <label>Add Property Images to gallery<span class="required">*</span></label>
@@ -34,7 +34,7 @@
 <div class="progress">
     <div class="progress-bar" id="progressbarGallaryPhoto">0%</div>
 </div>
-<div id="statusGallaryPhoto"></div>
+@*<div id="statusGallaryPhoto"></div>*@
 <style>
     .progress {
         position: relative;
@@ -49,21 +49,18 @@
         background-color: #57be65;
     }
 </style>
-<script>
-
-</script>
+@*<script src="~/Scripts/AjaxPostFile.js"></script>*@
 <script type="text/javascript">
-
     $('#frmGallaryPhoto').submit(function () {
         if ($(this).find('.input-validation-error').length == 0 && $(this).find('.valid').length > 0) {
             (function () {
                 var bar = $('#progressbarGallaryPhoto');
                 var percent = $('#progressbarGallaryPhoto');
-                var status = $('#statusGallaryPhoto');
+                //var status = $('#statusGallaryPhoto');
 
                 $('#frmGallaryPhoto').ajaxForm({
                     beforeSend: function () {
-                        status.empty();
+                        //status.empty();
                         var percentValue = '0%';
                         bar.width(percentValue);
                         percent.html(percentValue);
@@ -80,7 +77,7 @@
                         $('#GallaryPhoto').val('');
                     },
                     complete: function (xhr) {
-                        status.html(xhr.responseText);
+                        //status.html(xhr.responseText);
                     }
                 });
             })();

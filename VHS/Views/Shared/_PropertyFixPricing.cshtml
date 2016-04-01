@@ -1,8 +1,7 @@
 ﻿@model VHS.Services.Models.PropertyFixedPricing
 <h4>Fixed Pricing</h4>
-@using (Ajax.BeginForm("PropertyFixedPricing", "ManageProperty", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccessFixedPrice", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
-{
-    <p class="sub-heading" id="errormessage" style="display:none"><span class="error-msg"> Error occured during update</span></p>
+@using (Ajax.BeginForm("PropertyFixedPricing", "ManageProperty", new AjaxOptions { OnBegin = "fnBeginFixedPrice", HttpMethod = "Post", OnSuccess = "fnSuccessFixedPrice", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
+{ <p class="sub-heading" id="errormessage" style="display:none"><span class="error-msg"> Error occured during update</span></p>
     @Html.HiddenFor(m => m.PropertyId)
     @Html.HiddenFor(m => m.PropFixedPriceId)
     <label class="sm-label">Select Currency</label>
@@ -40,7 +39,7 @@
     <div class="input-wrapper clearfix">
         <input type="submit" class="send-btn" value="Update" id="" name="" />
         <input type="reset" class="send-btn" value="Cancel" id="" name="" />
-        <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
+        <p id="imgLoaderFixed" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
     </div>
 }
 <script>
@@ -49,35 +48,33 @@
         $("#loginLink").addClass("active");
     });
     //Show the Forgot Password  Div:-
-    function ShowForgotPassword() {
-        window.location.href = '@Url.Action("ForgotPassword", "Account")';
-    }
     //Show the Success:-
-    function fnBegin() {
-        $('#imgLoader').show();
+    function fnBeginFixedPrice() {
+        $('#imgLoaderFixed').show();
         //Show any loder when process start:-
     }
     function fnSuccessFixedPrice(response, status, xhr) {
         if (response == "1") {
-            alert("Sucessfully Update");
+            alert("Information is updated successfully.");
+            $('#imgLoaderFixed').hide();
         }
         else if (response == "0") {
-            $('#imgLoader').hide();
+            $('#imgLoaderFixed').hide();
             $("#errormessage").show();
 
         }
         else {
-            $('#imgLoader').hide();
+            $('#imgLoaderFixed').hide();
             alert("Please try after '")
         }
     }
     function fnFailure(xhr, status, err) {
-        $('#imgLoader').hide();
+        $('#imgLoaderFixed').hide();
         alert("'failure occured!!.Please try after '")
     }
     function fnComplete() {
         if (response != "1") {
-            $('#imgLoader').hide();
+            $('#imgLoaderFixed').hide();
         }
     }
 </script>

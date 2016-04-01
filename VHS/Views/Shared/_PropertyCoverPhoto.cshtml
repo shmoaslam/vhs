@@ -24,7 +24,7 @@
         @Html.ValidationMessageFor(m => m.CoverPhoto)
     </span><br />
     <div class="input-wrapper clearfix">
-        <input type="submit" class="send-btn" value="Update" id="" name="" />
+        <input type="submit" class="send-btn" value="Update" id="btnSubmitProperty" name="" />
         <input type="button" class="send-btn" onclick="ShowCoverView()" value="Cancel" id="" name="" />
         <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
     </div>
@@ -48,18 +48,18 @@
         background-color: #57be65;
     }
 </style>
-<script src="~/Scripts/AjaxPostFile.js"></script>
+@*<script src="~/Scripts/AjaxPostFile.js"></script>*@
 <script>
-    $('#frmCoverPhoto').submit(function () {
+    $('#frmCoverPhoto').click(function () {
         if ($(this).find('.input-validation-error').length == 0 && $(this).find('.valid').length > 0) {
-            (function () {
+            //(function () {
                 var bar = $('#progressbarCoverPhoto');
                 var percent = $('#progressbarCoverPhoto');
-                var status = $('#statusCoverPhoto');
+               // var status = $('#statusCoverPhoto');
 
                 $('#frmCoverPhoto').ajaxForm({
                     beforeSend: function () {
-                        status.empty();
+                       // status.empty();
                         var percentValue = '0%';
                         bar.width(percentValue);
                         percent.html(percentValue);
@@ -76,10 +76,10 @@
                         $('#CoverPhoto').val('');
                     },
                     complete: function (xhr) {
-                        status.html(xhr.responseText);
+                       // status.html(xhr.responseText);
                     }
                 });
-            })();
+            //})();
         }
     })
 

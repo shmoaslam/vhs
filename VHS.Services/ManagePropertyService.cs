@@ -618,7 +618,8 @@ namespace VHS.Services
         public bool UpdateAmenities(PropertyAmenities propAmenities)
         {
             bool result = false;
-            if (propAmenities.ParkingId.Count() > 0)
+
+            if (propAmenities.ParkingId != null && propAmenities.ParkingId.Count() > 0)
             {
                 _unitOfWork.PropParkingRepository.Delete(m => m.PropertyId == propAmenities.PropertyId);
                 foreach (var parking in propAmenities.ParkingId)
@@ -628,7 +629,7 @@ namespace VHS.Services
                 _unitOfWork.Save();
                 result = true;
             }
-            if (propAmenities.SleepingArrangmentId.Count() > 0)
+            if (propAmenities.SleepingArrangmentId != null && propAmenities.SleepingArrangmentId.Count() > 0)
             {
                 _unitOfWork.PropSleepingRepository.Delete(m => m.PropertyId == propAmenities.PropertyId);
                 foreach (var sleeping in propAmenities.SleepingArrangmentId)
@@ -638,7 +639,7 @@ namespace VHS.Services
                 _unitOfWork.Save();
                 result = true;
             }
-            if (propAmenities.BathRoomsId.Count() > 0)
+            if (propAmenities.BathRoomsId != null && propAmenities.BathRoomsId.Count() > 0)
             {
                 _unitOfWork.PropBathRoomRepository.Delete(m => m.PropertyId == propAmenities.PropertyId);
                 foreach (var bathRoom in propAmenities.BathRoomsId)
@@ -648,7 +649,7 @@ namespace VHS.Services
                 _unitOfWork.Save();
                 result = true;
             }
-            if (propAmenities.KitchenId.Count() > 0)
+            if (propAmenities.KitchenId != null && propAmenities.KitchenId.Count() > 0)
             {
                 _unitOfWork.PropKitchenRepository.Delete(m => m.PropertyId == propAmenities.PropertyId);
                 foreach (var kitchen in propAmenities.KitchenId)
@@ -658,7 +659,7 @@ namespace VHS.Services
                 _unitOfWork.Save();
                 result = true;
             }
-            if (propAmenities.GeneralId.Count() > 0)
+            if (propAmenities.GeneralId != null && propAmenities.GeneralId.Count() > 0)
             {
                 _unitOfWork.PropGeneralRepository.Delete(m => m.PropertyId == propAmenities.PropertyId);
                 foreach (var general in propAmenities.GeneralId)
@@ -668,7 +669,7 @@ namespace VHS.Services
                 _unitOfWork.Save();
                 result = true;
             }
-            if (propAmenities.EnterTaimentId.Count() > 0)
+            if (propAmenities.EnterTaimentId != null && propAmenities.EnterTaimentId.Count() > 0)
             {
                 _unitOfWork.PropEnterERepository.Delete(m => m.PropertyId == propAmenities.PropertyId);
                 foreach (var enter in propAmenities.EnterTaimentId)
@@ -678,7 +679,7 @@ namespace VHS.Services
                 _unitOfWork.Save();
                 result = true;
             }
-            if (propAmenities.OutdoorId.Count() > 0)
+            if (propAmenities.OutdoorId != null && propAmenities.OutdoorId.Count() > 0)
             {
                 _unitOfWork.PropOutdoorRepository.Delete(m => m.PropertyId == propAmenities.PropertyId);
                 foreach (var outdoor in propAmenities.OutdoorId)
@@ -782,9 +783,16 @@ namespace VHS.Services
         public bool UpdatePropFixPrice(PropertyFixedPricing propFixedPrice)
         {
             var result = false;
+            var otherprice = "";
             if (propFixedPrice.PropFixedPriceId == 0)
             {
-                _unitOfWork.PropFixedPriceRepository.Insert(new PropertyFixedPrice { PricePerMonth = Convert.ToDecimal(propFixedPrice.PricePerMonth), CleaningFeeDaily = Convert.ToDecimal(propFixedPrice.CleaningFeeDaily), CleaningFeeWeek = Convert.ToDecimal(propFixedPrice.CleaningFeeWeekly), CleaningFeeMonth = Convert.ToDecimal(propFixedPrice.CleaningFeeMonthly), PricePerNight = Convert.ToDecimal(propFixedPrice.PricePerNight), PricePerWeek = Convert.ToDecimal(propFixedPrice.PricePerWeek), OneTimeFee = Convert.ToDecimal(propFixedPrice.PriceOneTime), PropertyId = propFixedPrice.PropertyId, Currency = propFixedPrice.CurrencyId.ToString(), OtherFee = propFixedPrice.OtherPrice.ToString(), Comision = propFixedPrice.Comision });
+              
+                if (propFixedPrice.OtherPrice != null)
+                {
+                    otherprice = propFixedPrice.OtherPrice.ToString();
+                }
+
+                _unitOfWork.PropFixedPriceRepository.Insert(new PropertyFixedPrice { PricePerMonth = Convert.ToDecimal(propFixedPrice.PricePerMonth), CleaningFeeDaily = Convert.ToDecimal(propFixedPrice.CleaningFeeDaily), CleaningFeeWeek = Convert.ToDecimal(propFixedPrice.CleaningFeeWeekly), CleaningFeeMonth = Convert.ToDecimal(propFixedPrice.CleaningFeeMonthly), PricePerNight = Convert.ToDecimal(propFixedPrice.PricePerNight), PricePerWeek = Convert.ToDecimal(propFixedPrice.PricePerWeek), OneTimeFee = Convert.ToDecimal(propFixedPrice.PriceOneTime), PropertyId = propFixedPrice.PropertyId, Currency = propFixedPrice.CurrencyId.ToString(), OtherFee = otherprice, Comision = propFixedPrice.Comision });
             }
             else
             {
@@ -797,7 +805,16 @@ namespace VHS.Services
                     propfixedobj.CleaningFeeDaily = Convert.ToDecimal(propFixedPrice.CleaningFeeDaily);
                     propfixedobj.CleaningFeeMonth = Convert.ToDecimal(propFixedPrice.CleaningFeeMonthly);
                     propfixedobj.CleaningFeeWeek = Convert.ToDecimal(propFixedPrice.CleaningFeeWeekly);
-                    propfixedobj.OtherFee = propFixedPrice.OtherPrice.ToString();
+                    if (propFixedPrice.OtherPrice != null)
+                    {
+                        propfixedobj.OtherFee = propFixedPrice.OtherPrice.ToString();
+                    }
+                    else
+                    {
+                        propfixedobj.OtherFee = otherprice;
+                    }
+                  
+
                     propfixedobj.OneTimeFee = Convert.ToDecimal(propFixedPrice.PriceOneTime);
                     propfixedobj.Comision = propFixedPrice.Comision;
                     propfixedobj.Currency = propFixedPrice.CurrencyId.ToString();

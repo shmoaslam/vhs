@@ -1,7 +1,7 @@
 ﻿@model VHS.Services.Models.PropertyAmenities
 <h3>Additonal Information</h3>
 <div class="col-lg-6 col-md-6">
-    @using (Ajax.BeginForm("PropertyAmenities", "ManageProperty", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccessAmenities", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @id = "frmAmenities", @class = "form-part" }))
+    @using (Ajax.BeginForm("PropertyAmenities", "ManageProperty", new AjaxOptions { OnBegin = "fnBeginAmenities", HttpMethod = "Post", OnSuccess = "fnSuccessAmenities", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @id = "frmAmenities", @class = "form-part" }))
     {
         <p class="sub-heading" id="errormessage" style="display:none"><span class="error-msg"> Error occured during update</span></p>
         @Html.HiddenFor(m => m.PropertyId)
@@ -83,12 +83,14 @@
         window.location.href = '@Url.Action("ForgotPassword", "Account")';
     }
     //Show the Success:-
-    function fnBegin() {
+    function fnBeginAmenities() {
+
         if ($("#frmAmenities input:checkbox:checked").length > 0) {
             $('#imgLoader').show();
         }
         else {
-            alert("Please select at least some checkbox.");
+            alert("Please select at least one checkbox.");
+            return false;
         }
 
         //Show any loder when process start:-
