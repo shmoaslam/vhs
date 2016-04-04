@@ -471,7 +471,7 @@ namespace VHS.Repository
         /// <summary>
         /// Get/Set Property for user repository.
         /// </summary>
-        public GenericRepository<PropertyBlackOutDay> PropertyPriceRepository
+        public GenericRepository<PropertyBlackOutDay> PropertyBlackOutDateRepository
         {
             get
             {

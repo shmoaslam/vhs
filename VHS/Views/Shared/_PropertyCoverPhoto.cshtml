@@ -24,42 +24,26 @@
         @Html.ValidationMessageFor(m => m.CoverPhoto)
     </span><br />
     <div class="input-wrapper clearfix">
-        <input type="submit" class="send-btn" value="Update" id="btnSubmitProperty" name="" />
+        <input type="submit" class="send-btn" value="Update" id="btnCovertPhoto" name="" />
         <input type="button" class="send-btn" onclick="ShowCoverView()" value="Cancel" id="" name="" />
-        <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
+        <p id="imgLoaderCoverPhoto" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
     </div>
 }
-<div class="progress" id="progressCoverPhoto">
+<div class="progress" style="display:none" id="progressCoverPhoto">
     <div class="progress-bar" id="progressbarCoverPhoto">0%</div>
 </div>
-@*<div id="statusCoverPhoto"></div>*@
-
-<style>
-    .progress {
-        position: relative;
-        width: 400px;
-        border: 1px solid #ddd;
-        padding: 1px;
-    }
-
-    .progress-bar {
-        width: 0px;
-        height: 20px;
-        background-color: #57be65;
-    }
-</style>
-@*<script src="~/Scripts/AjaxPostFile.js"></script>*@
 <script>
     $('#frmCoverPhoto').click(function () {
         if ($(this).find('.input-validation-error').length == 0 && $(this).find('.valid').length > 0) {
-            //(function () {
+            (function () {
                 var bar = $('#progressbarCoverPhoto');
                 var percent = $('#progressbarCoverPhoto');
-               // var status = $('#statusCoverPhoto');
 
                 $('#frmCoverPhoto').ajaxForm({
                     beforeSend: function () {
-                       // status.empty();
+                        $("#btnCovertPhoto").attr("disabled", "disabled");
+                        $("#imgLoaderCoverPhoto").show();
+                        $("#progressCoverPhoto").show();
                         var percentValue = '0%';
                         bar.width(percentValue);
                         percent.html(percentValue);
@@ -73,13 +57,31 @@
                         var percentValue = '100%';
                         bar.width(percentValue);
                         percent.html(percentValue);
-                        $('#CoverPhoto').val('');
+                        if (d.length > 0) {
+                            CallAfterSucessFullUploadCover(d);
+                            $('#CoverPhoto').val('');
+                            alert('Cover photo uploaded successfully.');
+                            $("#btnCovertPhoto").removeAttr("disabled");
+                            $("#progressCoverPhoto").hide();
+                            $("#imgLoaderCoverPhoto").hide();
+                        }
+                        else if (d == "0") {
+                            alert('We are getting some issue uploading your cover photo.Please try after some time.');
+                            $("#progressCoverPhoto").hide();
+                            $("#imgLoaderCoverPhoto").hide();
+                        }
+                        else {
+                            alert('We are getting some issue uploading your cover photo.Please try after some time.');
+                            $("#progressCoverPhoto").hide();
+                            $("#imgLoaderCoverPhoto").hide();
+                        }
+
                     },
                     complete: function (xhr) {
-                       // status.html(xhr.responseText);
+                        //Do some thing after Completion:-
                     }
                 });
-            //})();
+            })();
         }
     })
 
@@ -87,10 +89,9 @@
 <script>
     function readURL(input) {
         if (input.files && input.files[0]) {
-            $("#divCoverPhotoView").hide();
             var reader = new FileReader();
             reader.onload = function (e) {
-                $('#imageCoverPhoto').attr('src', e.target.result);
+                $('<img />').attr('src', e.target.result).appendTo("#divCoverPhotoPreview");
             }
 
             reader.readAsDataURL(input.files[0]);
@@ -98,8 +99,9 @@
     }
 
     $("#CoverPhoto").change(function () {
-        readURL(this);
+        $("#divCoverPhotoView").hide();
         $("#divCoverPhotoPreview").show();
+        readURL(this);
     });
     function ShowCoverView() {
         $("#divCoverPhotoView").show();
@@ -107,42 +109,14 @@
         $("#CoverPhoto").val('');
 
     }
+    function CallAfterSucessFullUploadCover(fileList) {
+        $("#divCoverPhotoPreview").empty();
+        $("#divCoverPhotoPreview").hide();
+        $("#divCoverPhotoView").empty();
+        $.each(fileList, function (index, file) {
+            $('<img />').attr('src', "/UploadFile/PropertyCoverPhoto/" + file.ImageName).appendTo("#divCoverPhotoView");
+        });
+        $("#divCoverPhotoView").show();
+    }
 </script>
 
-@*<script>
-        $(document).ready(function () {
-            $("#loginLink").addClass("active");
-        });
-        //Show the Forgot Password  Div:-
-        function ShowForgotPassword() {
-            window.location.href = '@Url.Action("ForgotPassword", "Account")';
-        }
-        //Show the Success:-
-        function fnBegin() {
-            $('#imgLoader').show();
-            //Show any loder when process start:-
-        }
-        function fnSuccess(response, status, xhr) {
-            if (response == "1") {
-                alert("Sucessfully Update");
-            }
-            else if (response == "0") {
-                $('#imgLoader').hide();
-                $("#errormessage").show();
-
-            }
-            else {
-                $('#imgLoader').hide();
-                alert("Please try after '")
-            }
-        }
-        function fnFailure(xhr, status, err) {
-            $('#imgLoader').hide();
-            alert("'failure occured!!.Please try after '")
-        }
-        function fnComplete() {
-            if (response != "1") {
-                $('#imgLoader').hide();
-            }
-        }
-    </script>*@

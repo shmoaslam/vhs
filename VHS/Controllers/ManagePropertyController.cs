@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using VHS.App_Start;
 using VHS.Interface;
 using VHS.Services.Models;
 using VHS.Services.ViewModel;
 
 namespace VHS.Controllers
 {
+    [CustomException]
     public class ManagePropertyController : BaseController
     {
         private IManageProperty _manageProperty;
@@ -86,10 +88,22 @@ namespace VHS.Controllers
         }
 
         [HttpPost]
-        public ActionResult PropertyGeneralInfo(PropertyGeneralInfo propGeneralInfo, List<HttpPostedFileBase> Image)
+        public JsonResult PropertyGeneralInfo(PropertyGeneralInfo propGeneralInfo, List<HttpPostedFileBase> Image)
         {
+            if (Image == null)
+            {
+                return Json("0");
+            }
             var proper = _manageProperty.UpdateGeneralInfo(propGeneralInfo, Image);
-            return Redirect(Request.UrlReferrer.ToString());
+            if (proper)
+            {
+                return Json("1");
+            }
+            else
+            {
+                return Json("0");
+            }
+
         }
         [HttpPost]
         public JsonResult PropertyAdditionalInfo(PropertyAdditionalInfoModel propAdditionalInfo)
@@ -144,17 +158,17 @@ namespace VHS.Controllers
             }
         }
         [HttpPost]
-        public ActionResult PropertyCoverPhoto(PropertyCoverPhoto propertyCoverPhoto, IEnumerable<HttpPostedFileBase> CoverPhoto)
+        public JsonResult PropertyCoverPhoto(PropertyCoverPhoto propertyCoverPhoto, List<HttpPostedFileBase> CoverPhoto)
         {
             if (CoverPhoto == null)
             {
                 return Json("0");
             }
-            var proper = false;
-           // var proper = _manageProperty.UpdatePropCoverPhoto(propertyCoverPhoto, CoverPhoto);
+            var proper = _manageProperty.UpdatePropCoverPhoto(propertyCoverPhoto, CoverPhoto);
             if (proper)
             {
-                return Json("1");
+                var imageList = _manageProperty.GetPropertyCoverPhoto(propertyCoverPhoto.PropertyId);
+                return Json(imageList.imageCoverPhoto, JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -162,7 +176,7 @@ namespace VHS.Controllers
             }
         }
         [HttpPost]
-        public ActionResult PropertyGallaryPhoto(PropertyGallaryPhoto propertyCoverPhoto, List<HttpPostedFileBase> GallaryPhoto)
+        public JsonResult PropertyGallaryPhoto(PropertyGallaryPhoto propertyCoverPhoto, List<HttpPostedFileBase> GallaryPhoto)
         {
             if (GallaryPhoto == null)
             {
@@ -171,7 +185,8 @@ namespace VHS.Controllers
             var proper = _manageProperty.UpdatePropGallaryPhoto(propertyCoverPhoto, GallaryPhoto);
             if (proper)
             {
-                return Json("1");
+                var imageList = _manageProperty.GetPropertyGallaryPhoto(propertyCoverPhoto.PropertyId);
+                return Json(imageList.imageGalaryPhoto, JsonRequestBehavior.AllowGet);
             }
             else
             {

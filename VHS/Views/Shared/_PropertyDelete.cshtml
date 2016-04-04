@@ -11,7 +11,7 @@
         <div class="input-wrapper clearfix">
             <input type="submit" class="send-btn" value="Yes" id="" name="" />
             <input type="reset" class="send-btn" value="No" id="" name="" />
-            <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
+            <p id="imgLoaderDelete" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
         </div>
 
     }
@@ -22,30 +22,30 @@
     });
     //Show the Success:-
     function fnBegin() {
-        $('#imgLoader').show();
+        $('#imgLoaderDelete').show();
         //Show any loder when process start:-
     }
     function fnSuccessDeleteProperty(response, status, xhr) {
         if (response == "1") {
-            window.location.href=@Url.Action("ManageProperty", "ManageProperty");
+            alert('Property deleted sucessfully');
+            window.location.href = '@Url.Action("ManageProperty", "ManageProperty")';
         }
         else if (response == "0") {
-            $('#imgLoader').hide();
-            $("#errormessage").show();
+            $('#imgLoaderDelete').hide();
 
         }
         else {
-            $('#imgLoader').hide();
+            $('#imgLoaderDelete').hide();
             alert("Please try after '")
         }
     }
     function fnFailure(xhr, status, err) {
-        $('#imgLoader').hide();
+        $('#imgLoaderDelete').hide();
         alert("'failure occured!!.Please try after '")
     }
     function fnComplete() {
         if (response != "1") {
-            $('#imgLoader').hide();
+            $('#imgLoaderDelete').hide();
         }
     }
 </script>

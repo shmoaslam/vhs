@@ -85,7 +85,10 @@ namespace VHS.Services.Models
 
     public class BlakOutDate
     {
+        public int BlackOutDateId { get; set; }
+        [Required(ErrorMessage = "Please enter start date")]
         public string StartDate { get; set; }
+        [Required(ErrorMessage = "Please enter end date")]
         public string EndDate { get; set; }
     }
     public class PropertyAmenities
@@ -132,7 +135,7 @@ namespace VHS.Services.Models
 
         public string OtherPrice { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
-         public decimal Comision { get; set; }
+        public decimal Comision { get; set; }
     }
     public class PropertyVarablePricing
     {

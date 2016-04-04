@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,6 +35,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -42,6 +44,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BeginCollectionItem, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
@@ -79,17 +82,15 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -130,6 +131,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <HintPath>..\packages\WebActivatorEx.2.0.5\lib\net40\WebActivatorEx.dll</HintPath>
       <Private>True</Private>
@@ -191,6 +193,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\ActionFilter.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -206,6 +209,7 @@
     <Compile Include="Controllers\ManagePropertyController.cs" />
     <Compile Include="Controllers\ManageRmController.cs" />
     <Compile Include="Controllers\ManageUserController.cs" />
+    <Compile Include="Controllers\PageAccessController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\PropertyController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
@@ -241,6 +245,7 @@
     <Content Include="Content\admin\styles.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\contact.css" />
+    <Content Include="Content\error.css" />
     <Content Include="Content\flexslider.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\jquery.fancybox.css" />
@@ -249,12 +254,21 @@
     <Content Include="Content\responsive-mobilefirst.css" />
     <Content Include="Content\styles.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\bootstrap\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\02.jpg" />
     <Content Include="Images\1.jpg" />
+    <Content Include="Images\11.jpg" />
+    <Content Include="Images\12.jpg" />
     <Content Include="Images\13.jpg" />
+    <Content Include="Images\14.jpg" />
+    <Content Include="Images\15.jpg" />
+    <Content Include="Images\16.jpg" />
+    <Content Include="Images\17.jpg" />
+    <Content Include="Images\18.jpg" />
+    <Content Include="Images\19.jpg" />
     <Content Include="Images\2.jpg" />
     <Content Include="Images\3.jpg" />
     <Content Include="Images\4.jpg" />
@@ -269,10 +283,12 @@
     <Content Include="Images\add-rating.png" />
     <Content Include="Images\arrow-left.png" />
     <Content Include="Images\arrow-right.png" />
+    <Content Include="Images\banner.png" />
     <Content Include="Images\bg-arrow-down%402x.png" />
     <Content Include="Images\bg-logo%402x.png" />
     <Content Include="Images\bg-share.png" />
     <Content Include="Images\bg-zoom.png" />
+    <Content Include="Images\bg.png" />
     <Content Include="Images\bg1.jpg" />
     <Content Include="Images\bg2.jpg" />
     <Content Include="Images\category.png" />
@@ -428,6 +444,7 @@
     <Content Include="Images\icons\bg-works.png" />
     <Content Include="Images\icons\bg-zoom%402x.png" />
     <Content Include="Images\icons\bg-zoom.png" />
+    <Content Include="Images\insta.png" />
     <Content Include="Images\l2.gif" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\logo01.png" />
@@ -469,6 +486,7 @@
     <Content Include="Images\price.png" />
     <Content Include="Images\profile-upload.png" />
     <Content Include="Images\profile.png" />
+    <Content Include="Images\property2.jpg" />
     <Content Include="Images\rating.png" />
     <Content Include="Images\signature.png" />
     <Content Include="Images\star-rating.png" />
@@ -476,6 +494,8 @@
     <Content Include="Images\starp.png" />
     <Content Include="Images\symbol.png" />
     <Content Include="Images\symbol2.png" />
+    <Content Include="Images\symbol22.png" />
+    <Content Include="Images\tmbr.png" />
     <Content Include="Images\twr.png" />
     <Content Include="Images\wishlist.png" />
     <Content Include="Scripts\AjaxPostFile.js" />
@@ -490,6 +510,10 @@
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="Images\.DS_Store" />
     <Content Include="Scripts\.DS_Store" />
+    <Content Include="fonts\bootstrap\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\bootstrap\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\bootstrap\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\bootstrap\glyphicons-halflings-regular.woff2" />
     <None Include="Properties\PublishProfiles\FileSystem.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\input.fields.js" />
@@ -508,6 +532,7 @@
     <Content Include="Scripts\jquery.isotope2.min.js" />
     <Content Include="Scripts\jquery.magnific-popup.min.js" />
     <Content Include="Scripts\jquery.touchSwipe.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -613,11 +638,12 @@
     <Content Include="Views\Shared\_PropertyGallaryPhoto.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Property\ListedProperty.cshtml" />
+    <Content Include="Views\Home\Comingsoon.cshtml" />
+    <Content Include="Views\PageAccess\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
     <Folder Include="App_Data\" />
-    <Folder Include="fonts\bootstrap\" />
     <Folder Include="UploadFile\Document\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>

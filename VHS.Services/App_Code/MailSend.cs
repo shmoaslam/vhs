@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace VHS.Services.App_Code
 {
-    class MailSend
+  public  class MailSend
     {
         public static string SendEmail(string i_sTo, string i_sSubject, string i_sEmailBody, bool i_bIsHtml)
         {

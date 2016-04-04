@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using VHS.App_Start;
 using VHS.Interface;
 using VHS.Services;
 
 namespace VHS.Controllers
 {
+    [CustomException]
     public class ManageRmController : Controller
     {
         private IAccount _mangeRm;

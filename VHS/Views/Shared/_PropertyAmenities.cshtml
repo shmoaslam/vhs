@@ -68,7 +68,7 @@
         <div class="input-wrapper clearfix">
             <input type="submit" class="send-btn" value="Update" id="" name="" />
             <input type="reset" class="send-btn" value="Cancel" id="" name="" />
-            <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
+            <p id="imgLoaderAminities" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
         </div>
 
     }
@@ -79,14 +79,11 @@
         $("#loginLink").addClass("active");
     });
     //Show the Forgot Password  Div:-
-    function ShowForgotPassword() {
-        window.location.href = '@Url.Action("ForgotPassword", "Account")';
-    }
     //Show the Success:-
     function fnBeginAmenities() {
 
         if ($("#frmAmenities input:checkbox:checked").length > 0) {
-            $('#imgLoader').show();
+            $('#imgLoaderAminities').show();
         }
         else {
             alert("Please select at least one checkbox.");
@@ -98,25 +95,25 @@
     function fnSuccessAmenities(response, status, xhr) {
         if (response == "1") {
             alert("Information is updated successfully.");
-            $('#imgLoader').hide();
+            $('#imgLoaderAminities').hide();
         }
         else if (response == "0") {
-            $('#imgLoader').hide();
+            $('#imgLoaderAminities').hide();
             $("#errormessage").show();
 
         }
         else {
-            $('#imgLoader').hide();
+            $('#imgLoaderAminities').hide();
             alert("Please try after '")
         }
     }
     function fnFailure(xhr, status, err) {
-        $('#imgLoader').hide();
+        $('#imgLoaderAminities').hide();
         alert("'failure occured!!.Please try after '")
     }
     function fnComplete() {
         if (response != "1") {
-            $('#imgLoader').hide();
+            $('#imgLoaderAminities').hide();
         }
     }
 </script>

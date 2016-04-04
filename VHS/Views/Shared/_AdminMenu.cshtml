@@ -73,12 +73,13 @@
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-                <li>@Html.ActionLink("Add Travel Beats Travel Ambassador", "Create", "TravelBeats")</li>
+                <li>@Html.ActionLink("Add Travel Beats", "Create", "TravelBeats")</li>
                 <li>@Html.ActionLink("Edit Travel Beats", "Edit", "TravelBeats")</li>
                 <li>@Html.ActionLink("Delete Travel Beats", "Delete", "TravelBeats")</li>
             </ul>
         </li>
-        <li id="liTravelBeats">@Html.ActionLink("Reports", "Index", "Report")</li>
+        @*<li id="liTravelBeats">@Html.ActionLink("Reports", "Index", "Report")</li>*@
+        <li>@Html.ActionLink("Logout", "LogOff", "Admin")</li>
         @*<li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 Profile

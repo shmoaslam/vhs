@@ -28,5 +28,10 @@ namespace VHS.Interface
         bool UpdatePropCoverPhoto(PropertyCoverPhoto propertyCoverPhoto, List<HttpPostedFileBase> CoverPhoto);
         bool UpdatePropVariablePrice(PropertyVarablePricing propVarablePrice);
         bool UpdatePropFixPrice(PropertyFixedPricing propFixedPrice);
+
+        //Get Gallary Photo:-
+        PropertyGallaryPhoto GetPropertyGallaryPhoto(int propertyId);
+        PropertyCoverPhoto GetPropertyCoverPhoto(int propertyId);
+        
     }
 }

@@ -2,8 +2,10 @@
 <h3>Transfer Property to other RM</h3>
 
 <div class="col-lg-6 col-md-6">
-    @using (Ajax.BeginForm("TransferProperty", "ManageProperty", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccessTransferProperty", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
-    {
+@using (Ajax.BeginForm("TransferProperty", "ManageProperty", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccessAdditional", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
+{
+    @*@using (Ajax.BeginForm("TransferProperty", "ManageProperty", new AjaxOptions { OnBegin = "fnBeginTransferProp", HttpMethod = "Post", OnSuccess = "fnSuccessTransferProperty", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { id = "frmTransferProperty", @class = "form-part" }))
+    {*@
         <p class="sub-heading" style="display:none"><span class="error-msg">some error occured</span></p>
         <label>Current RM</label>
         @*<input name="username" value="RM001212" type="text" id="username" size="30" title="RM001212" disabled />*@
@@ -16,18 +18,19 @@
         <div class="input-wrapper clearfix">
             <input type="submit" class="send-btn" value="Transfer" id="" name="" />
             <input type="reset" class="send-btn" value="Cancel" id="" name="" />
-            <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
+            <p id="imgLoaderTransfer" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
         </div>
     }
 </div>
-<script>
+@*<script>
     $(document).ready(function () {
-
+        alert('transfer');
         $("#loginLink").addClass("active");
     });
     //Show the Success:-
-    function fnBegin() {
-        $('#imgLoader').show();
+    function fnBeginTransferProp() {
+        alert('sd');
+        $('#imgLoaderTransfer').show();
         //Show any loder when process start:-
     }
     function fnSuccessTransferProperty(response, status, xhr) {
@@ -36,7 +39,6 @@
             window.location.href=@Url.Action("ManageProperty", "ManageProperty");
         }
         else if (response == "0") {
-            $('#imgLoader').hide();
             $("#errormessage").show();
 
         }
@@ -52,6 +54,42 @@
     function fnComplete() {
         if (response != "1") {
             $('#imgLoader').hide();
+        }
+    }
+</script>*@
+<script>
+    $(document).ready(function () {
+
+        $("#loginLink").addClass("active");
+    });
+    //Show the Success:-
+    function fnBegin() {
+        $('#imgLoaderTransfer').show();
+        //Show any loder when process start:-
+    }
+    function fnSuccessAdditional(response, status, xhr) {
+        if (response == "1") {
+            alert("Property transferd successfully.");
+            window.location.href = '@Url.Action("ManageProperty", "ManageProperty")';
+            $('#imgLoaderTransfer').hide();
+        }
+        else if (response == "0") {
+            $('#imgLoaderTransfer').hide();
+
+
+        }
+        else {
+            $('#imgLoaderTransfer').hide();
+            alert("Please try after '")
+        }
+    }
+    function fnFailure(xhr, status, err) {
+        $('#imgLoaderTransfer').hide();
+        alert("'failure occured!!.Please try after '")
+    }
+    function fnComplete() {
+        if (response != "1") {
+            $('#imgLoaderTransfer').hide();
         }
     }
 </script>

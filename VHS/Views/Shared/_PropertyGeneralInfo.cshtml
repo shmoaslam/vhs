@@ -2,37 +2,39 @@
 <h3>General Information</h3>
 <p class="sub-heading" style="display:none"><span class="error-msg">some error occured</span></p>
 <div class="col-lg-6 col-md-6">
-    @using (Html.BeginForm("PropertyGeneralInfo", "ManageProperty", FormMethod.Post, new { @class = "form-part", enctype = "multipart/form-data" }))
-            {
+    @using (Ajax.BeginForm("PropertyGeneralInfo", "ManageProperty", new AjaxOptions { HttpMethod = "POST" }, new { id = "frmGeneralInfo", @class = "form-part", enctype = "multipart/form-data" }))
+    {
+        @*@using (Html.BeginForm("PropertyGeneralInfo", "ManageProperty", FormMethod.Post, new { @class = "form-part", enctype = "multipart/form-data" }))
+            {*@
         @Html.HiddenFor(m => m.PropertyId)
         <label>Title<span class="required">*</span></label>
-                            @Html.TextBoxFor(m => m.Title)
+        @Html.TextBoxFor(m => m.Title)
+        <span style="color:red">
+            @Html.ValidationMessageFor(m => m.Title)
+        </span><br />
+        <label>Category<span class="required">*</span></label>
+        @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Category, "Value", "Text"), "Select")
+        <span style="color:red">@Html.ValidationMessageFor(m => m.CategoryId)</span><br />
+        <label>Listed by<span class="required">*</span></label>
+        @Html.DropDownListFor(m => m.ListById, new SelectList(Model.ListBy, "Value", "Text"), "None")
+        <span style="color:red">@Html.ValidationMessageFor(m => m.CategoryId)</span><br />
+        <label>No. of Guests<span class="required">*</span></label>
+                            @Html.TextBoxFor(m => m.NoOfGuests)
                             <span style="color:red">
-                                @Html.ValidationMessageFor(m => m.Title)
+                                @Html.ValidationMessageFor(m => m.NoOfGuests)
                             </span><br />
-                            <label>Category<span class="required">*</span></label>
-                            @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Category, "Value", "Text"), "Select")
-                            <span style="color:red">@Html.ValidationMessageFor(m => m.CategoryId)</span><br />
-                            <label>Listed by<span class="required">*</span></label>
-                            @Html.DropDownListFor(m => m.ListById, new SelectList(Model.ListBy, "Value", "Text"), "None")
-                            <span style="color:red">@Html.ValidationMessageFor(m => m.CategoryId)</span><br />
-                            <label>No. of Guests<span class="required">*</span></label>
-                                @Html.TextBoxFor(m => m.NoOfGuests)
-                                <span style="color:red">
-                                    @Html.ValidationMessageFor(m => m.NoOfGuests)
-                                </span><br />
-                                <label>No. of Rooms<span class="required">*</span></label>
-                                @Html.TextBoxFor(m => m.NoOfRooms)
-                                <span style="color:red">
-                                    @Html.ValidationMessageFor(m => m.NoOfRooms)
-                                </span><br />
-                                <label>No. of Bathrooms<span class="required">*</span></label>
-                                @Html.TextBoxFor(m => m.NoOfBathrooms)
-                                <span style="color:red">
-                                    @Html.ValidationMessageFor(m => m.NoOfBathrooms)
-                                </span><br />
-                               
-                                <label>Address<span class="required">*</span></label>
+                            <label>No. of Rooms<span class="required">*</span></label>
+                            @Html.TextBoxFor(m => m.NoOfRooms)
+                            <span style="color:red">
+                                @Html.ValidationMessageFor(m => m.NoOfRooms)
+                            </span><br />
+                            <label>No. of Bathrooms<span class="required">*</span></label>
+                            @Html.TextBoxFor(m => m.NoOfBathrooms)
+                            <span style="color:red">
+                                @Html.ValidationMessageFor(m => m.NoOfBathrooms)
+                            </span><br />
+
+                            <label>Address<span class="required">*</span></label>
                                 @Html.TextAreaFor(m => m.Address)
                                 <span style="color:red">
                                     @Html.ValidationMessageFor(m => m.Address)
@@ -78,6 +80,52 @@
                                 <div class="input-wrapper clearfix text-center">
                                     <input type="submit" class="send-btn" value="Submit" id="submit-property" name="submit-property" />
                                     <input type="reset" class="send-btn" value="Reset" id="submit-property" name="submit-property" />
+                                    <p id="imgLoaderGeneralInfo" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
                                 </div>
+
     }
 </div>
+<script>
+    $('#frmGeneralInfo').click(function () {
+        if ($(this).find('.input-validation-error').length == 0 && $(this).find('.valid').length > 0) {
+            (function () {
+                //var bar = $('#progressbarCoverPhoto');
+                //var percent = $('#progressbarCoverPhoto');
+
+                $('#frmGeneralInfo').ajaxForm({
+                    beforeSend: function () {
+                        //$("#btnCovertPhoto").attr("disabled", "disabled");
+                        $("#imgLoaderGeneralInfo").show();
+                        //$("#progressCoverPhoto").show();
+                        //var percentValue = '0%';
+                        //bar.width(percentValue);
+                        //percent.html(percentValue);
+                    },
+                    uploadProgress: function (event, position, total, percentComplete) {
+                        //var percentValue = percentComplete + '%';
+                        //bar.width(percentValue);
+                        //percent.html(percentValue);
+                    },
+                    success: function (d) {
+                        if (d=="1") {
+                            alert("Information is updated sucessfully.");
+                            //$("#btnCovertPhoto").removeAttr("disabled");
+                            //$("#progressCoverPhoto").hide();
+                            $("#imgLoaderGeneralInfo").hide();
+                        }
+
+                        else {
+                            alert('We are getting some issue updating your information.Please try after some time.');
+                            $("#imgLoaderGeneralInfo").hide();
+                        }
+
+                    },
+                    complete: function (xhr) {
+                        //Do some thing after Completion:-
+                    }
+                });
+            })();
+        }
+    })
+
+</script>

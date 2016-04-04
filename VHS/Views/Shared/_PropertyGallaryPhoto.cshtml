@@ -1,5 +1,6 @@
 ﻿@model VHS.Services.Models.PropertyGallaryPhoto
-@using (Ajax.BeginForm("PropertyGallaryPhoto", "ManageProperty",null, new AjaxOptions { HttpMethod = "POST" }, new { id = "frmGallaryPhoto", enctype = "multipart/form-data" }))
+@using Newtonsoft.Json
+@using (Ajax.BeginForm("PropertyGallaryPhoto", "ManageProperty", new AjaxOptions { HttpMethod = "POST" }, new { id = "frmGallaryPhoto", enctype = "multipart/form-data" }))
 {
     <div style="clear:both;"><br /><br /></div>
     <label>Add Property Images to gallery<span class="required">*</span></label>
@@ -25,42 +26,28 @@
     </span><br />
     <div style="clear:both;"></div>
     <div class="input-wrapper clearfix">
-        <input type="submit" class="send-btn" value="Update" onclick="CallFunction()" id="" name="" />
+        <input type="submit" class="send-btn" id="btnGallaryPhoto" value="Update" onclick="CallFunction()"  name="" />
         <input type="button" class="send-btn" onclick="ShowGallaryView()" value="Cancel" id="" name="" />
-        <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
+        <p id="imgLoaderGallaryPhoto" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
     </div>
 
 }
-<div class="progress">
+<div class="progress" style="display:none" id="progressGallaryPhoto">
     <div class="progress-bar" id="progressbarGallaryPhoto">0%</div>
 </div>
-@*<div id="statusGallaryPhoto"></div>*@
-<style>
-    .progress {
-        position: relative;
-        width: 400px;
-        border: 1px solid #ddd;
-        padding: 1px;
-    }
-
-    .progress-bar {
-        width: 0px;
-        height: 20px;
-        background-color: #57be65;
-    }
-</style>
-@*<script src="~/Scripts/AjaxPostFile.js"></script>*@
-<script type="text/javascript">
-    $('#frmGallaryPhoto').submit(function () {
+<script>
+    $('#frmGallaryPhoto').click(function () {
         if ($(this).find('.input-validation-error').length == 0 && $(this).find('.valid').length > 0) {
             (function () {
                 var bar = $('#progressbarGallaryPhoto');
                 var percent = $('#progressbarGallaryPhoto');
-                //var status = $('#statusGallaryPhoto');
 
                 $('#frmGallaryPhoto').ajaxForm({
                     beforeSend: function () {
-                        //status.empty();
+                        $("#btnGallaryPhoto").attr("disabled","disabled");
+                        $("#progressGallaryPhoto").show();
+                        $("#imgLoaderGallaryPhoto").show();
+
                         var percentValue = '0%';
                         bar.width(percentValue);
                         percent.html(percentValue);
@@ -74,10 +61,29 @@
                         var percentValue = '100%';
                         bar.width(percentValue);
                         percent.html(percentValue);
-                        $('#GallaryPhoto').val('');
+                        if (d.length > 0) {
+                            CallAfterSucessFullUpload(d);
+                            alert('Gallary photo uploaded successfully.');
+                            $("#btnGallaryPhoto").removeAttr("disabled");
+                            $("#progressGallaryPhoto").hide();
+                            $("#imgLoaderGallaryPhoto").hide();
+                            $('#GallaryPhoto').val('');
+                          
+                         
+                        }
+                        else if (d == "0") {
+                            alert('We are getting some issue uploading your cover photo.Please try after some time.');
+                            $("#progressGallaryPhoto").hide();
+                            $("#imgLoaderGallaryPhoto").hide();
+                        }
+                        else {
+                            alert('We are getting some issue uploading your cover photo.Please try after some time.');
+                            $("#progressGallaryPhoto").hide();
+                            $("#imgLoaderGallaryPhoto").hide();
+                        }
                     },
                     complete: function (xhr) {
-                        //status.html(xhr.responseText);
+                        //Do some thing after completion of request:-
                     }
                 });
             })();
@@ -85,29 +91,36 @@
     })
 
 </script>
+
 <script>
     function readURL1(input) {
         $("#divGallaryView").hide();
-
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
-                $('#imageGallary').attr('src', e.target.result);
+                $('<img />').attr('src', e.target.result).appendTo("#divGallaryPreview");
             }
-
             reader.readAsDataURL(input.files[0]);
         }
     }
 
     $("#GallaryPhoto").change(function () {
-        readURL1(this);
+        $("#divGallaryView").hide();
         $("#divGallaryPreview").show();
-     
+        readURL1(this);
     });
     function ShowGallaryView() {
         $("#divGallaryView").show();
         $("#divGallaryPreview").hide();
         $("#GallaryPhoto").val('');
-        
+    }
+    function CallAfterSucessFullUpload(fileList) {
+        $("#divGallaryPreview").empty();
+        $("#divGallaryPreview").hide();
+        $("#divGallaryView").empty();
+        $.each(fileList, function (index, file) {
+            $('<img />').attr('src', "/UploadFile/PropertyGallary/" + file.ImageName).appendTo("#divGallaryView");
+        });
+        $("#divGallaryView").show();
     }
 </script>

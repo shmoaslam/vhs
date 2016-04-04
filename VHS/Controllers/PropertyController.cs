@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using VHS.App_Start;
 using VHS.Interface;
 using VHS.Services.Models;
 
 namespace VHS.Controllers
 {
     [Authorize]
+    [CustomException]
     public class PropertyController : Controller
     {
         private IProperty _property;

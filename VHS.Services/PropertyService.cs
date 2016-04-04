@@ -202,7 +202,7 @@ namespace VHS.Services
         {
             var propertyList = new List<PropertyViewModel>();
 
-            var propListObj = _unitOfWork.PropertyRepository.GetAll();
+            var propListObj = _unitOfWork.PropertyRepository.GetMany(x =>x.IsActive);
             if (propListObj.Count() > 0)
             {
                 foreach (var item in propListObj)

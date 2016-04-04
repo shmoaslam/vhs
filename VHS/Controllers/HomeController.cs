@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using VHS.App_Start;
 using VHS.Models;
 
 namespace VHS.Controllers
 {
-
+    [CustomException]
     public class HomeController : BaseController
     {
         // GET: Home
@@ -29,6 +30,11 @@ namespace VHS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Contact(Contact contact)
+        {
+            return View();
+        }
+        [HttpGet]
+        public ActionResult Comingsoon()
         {
             return View();
         }

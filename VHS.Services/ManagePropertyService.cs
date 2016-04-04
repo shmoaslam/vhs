@@ -611,6 +611,27 @@ namespace VHS.Services
                     _unitOfWork.PropertyAdditionalRepository.Update(propfixedobj);
                 }
             }
+            //Saving and Updating BlackOut date:-
+            if (propAdditionalInfoInfo.BlackOutDatsList != null && propAdditionalInfoInfo.BlackOutDatsList.Count > 0)
+            {
+                foreach (var item in propAdditionalInfoInfo.BlackOutDatsList)
+                {
+                    if (item.BlackOutDateId == 0)
+                    {
+                        _unitOfWork.PropertyBlackOutDateRepository.Insert(new PropertyBlackOutDay { PropertyId = propAdditionalInfoInfo.PropertyId, StartDate = Convert.ToDateTime(item.StartDate), EndDate = Convert.ToDateTime(item.EndDate) });
+                    }
+                    else
+                    {
+                        var propBlackOut = _unitOfWork.PropertyBlackOutDateRepository.GetByID(item.BlackOutDateId);
+                        if (propBlackOut != null)
+                        {
+                            propBlackOut.StartDate = Convert.ToDateTime(item.StartDate);
+                            propBlackOut.EndDate = Convert.ToDateTime(item.EndDate);
+                            _unitOfWork.PropertyBlackOutDateRepository.Update(propBlackOut);
+                        }
+                    }
+                }
+            }
             _unitOfWork.Save();
             result = true;
             return result;
@@ -786,7 +807,7 @@ namespace VHS.Services
             var otherprice = "";
             if (propFixedPrice.PropFixedPriceId == 0)
             {
-              
+
                 if (propFixedPrice.OtherPrice != null)
                 {
                     otherprice = propFixedPrice.OtherPrice.ToString();
@@ -813,7 +834,7 @@ namespace VHS.Services
                     {
                         propfixedobj.OtherFee = otherprice;
                     }
-                  
+
 
                     propfixedobj.OneTimeFee = Convert.ToDecimal(propFixedPrice.PriceOneTime);
                     propfixedobj.Comision = propFixedPrice.Comision;
