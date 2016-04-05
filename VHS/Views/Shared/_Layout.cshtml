@@ -58,10 +58,10 @@
                         <li>@Html.ActionLink("Other", "Index", "Category")</li>
                     </ul>
                 </li>
-                <li>@Html.ActionLink("About", "About", "Home")</li>
-                <li>@Html.ActionLink("Blog", "Index", "Blog")</li>
-                <li>@Html.ActionLink("Add Property", "Add", "Property")</li>
+                <li>@Html.ActionLink("List Property", "Add", "Property")</li>
                 @Html.Partial("_LoginPartial")
+                <li>@Html.ActionLink("Blog", "Index", "Blog")</li>
+                <li>@Html.ActionLink("About", "About", "Home")</li>
                 <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
             </ul>
         </nav>
@@ -98,13 +98,6 @@
     <div id="white-background"></div>
     <div id="background-color"></div>
     <div id="content">
-        <div id="social-header">
-            <ul class="social-list clearfix">
-                <li> <a href="#"><i class="fa fa-twitter"></i></a> </li>
-                <li> <a href="#"><i class="fa fa-500px"></i></a> </li>
-                <li> <a href="#"><i class="fa fa-vk"></i></a> </li>
-            </ul>
-        </div>
         <div class="left-corner-wrapper">
             <h1 id="logo"><a href="@Url.Action("Index","Home")">Velvett Homestays</a></h1>
             <div id="menu-button">
