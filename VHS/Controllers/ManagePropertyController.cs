@@ -83,8 +83,68 @@ namespace VHS.Controllers
         [HttpGet]
         public ActionResult EditProperty(int id)
         {
-            var propGenralInfo = _manageProperty.GetPropertyDetail(id);
-            return View(propGenralInfo);
+            ViewBag.PropertyId = id;
+            return View();
+        }
+        [HttpGet]
+        public ActionResult GetPropertyGeneralInfo(int id)
+        {
+            var propGenralInfo = _manageProperty.GetPropertyGeneralInfo(id);
+            return PartialView("_PropertyGeneralInfo", propGenralInfo);
+        }
+        [HttpGet]
+        public ActionResult GetPropertyAdditionalInfo(int id)
+        {
+            var propAdditionalInfo = _manageProperty.GetPropertyAdditionalInfo(id);
+            return PartialView("_PropertyAdditionalInfo", propAdditionalInfo);
+        }
+        [HttpGet]
+        public ActionResult GetPropertyAmenities(int id)
+        {
+            var propAmenities = _manageProperty.GetPropertyAmenities(id);
+            return PartialView("_PropertyAmenities", propAmenities);
+        }
+        [HttpGet]
+        public ActionResult GetPropertyFixedPrice(int id)
+        {
+            var propFixedprice = _manageProperty.GetPropertyFixedPrice(id);
+            return PartialView("_PropertyFixPricing", propFixedprice);
+        }
+        [HttpGet]
+        public ActionResult GetPropertyVaraiablePrice(int id)
+        {
+            var propVarablePrice = _manageProperty.GetPropertyVaraiablePrice(id);
+            return PartialView("_PropertyVariablePricing", propVarablePrice);
+        }
+        [HttpGet]
+        public ActionResult GetPropertyCoverPhoto(int id)
+        {
+            var propCoverPhoto = _manageProperty.GetPropertyCoverPhoto(id);
+            return PartialView("_PropertyCoverPhoto", propCoverPhoto);
+        }
+        [HttpGet]
+        public ActionResult GetPropertyGallaryPhoto(int id)
+        {
+            var propGallaryPhoto = _manageProperty.GetPropertyGallaryPhoto(id);
+            return PartialView("_PropertyGallaryPhoto", propGallaryPhoto);
+        }
+        [HttpGet]
+        public ActionResult GetPropertyTravleAmbassador(int id)
+        {
+            // var propGallaryPhoto = _manageProperty.GetPropertyDetail(id);
+            return PartialView("_PropertyTravelAmbassador");
+        }
+        [HttpGet]
+        public ActionResult GetPropertyTransfer(int id)
+        {
+            var propTransfer = _manageProperty.GetPropertyTransfer(id);
+            return PartialView("_PropertyTransfer", propTransfer);
+        }
+        [HttpGet]
+        public ActionResult GetPropertyDelete(int id)
+        {
+            var propDelete = _manageProperty.GetPropertyDelete(id);
+            return PartialView("_PropertyDelete", propDelete);
         }
 
         [HttpPost]
@@ -226,6 +286,12 @@ namespace VHS.Controllers
             var blackDay = new BlakOutDate();
             blackDay.EndDate = "wd"; blackDay.StartDate = "asd";
             return PartialView("~/Views/Shared/EditorTemplates/BlackOutDate.cshtml", blackDay);
+        }
+
+        [HttpGet]
+        public ActionResult AddProperty()
+        {
+            return View();
         }
 
     }

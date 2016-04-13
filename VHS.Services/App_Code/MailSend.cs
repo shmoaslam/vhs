@@ -26,39 +26,20 @@ namespace VHS.Services.App_Code
                 oMail.Subject = i_sSubject;
                 oMail.IsBodyHtml = true;
                 oMail.Body = i_sEmailBody;
-                SmtpClient smtpmail = new SmtpClient("relay-hosting.secureserver.net", 25);
+                SmtpClient smtpmail = new SmtpClient();
                 NetworkCredential Credential = new NetworkCredential(); /* New added for testing */
                 Credential.UserName = i_sFrom;
                 Credential.Password = i_sPassword;
                 smtpmail.EnableSsl = false; /* New added for testing */
                 smtpmail.UseDefaultCredentials = false;
                 smtpmail.Credentials = Credential;
-                smtpmail.Port = 25;/* New added for testing */
+                smtpmail.Port = 587;/* New added for testing */
                 smtpmail.Host = i_sSMTPHost;
                 try
                 {
                     smtpmail.Send(oMail);
 
                 }
-                //catch (SmtpFailedRecipientsException ex)
-                //{
-                //    for (int i = 0; i < ex.InnerExceptions.Length; i++)
-                //    {
-                //        SmtpStatusCode status = ex.InnerExceptions[i].StatusCode;
-                //        if (status == SmtpStatusCode.MailboxBusy || status == SmtpStatusCode.MailboxUnavailable)
-                //        {
-                //            // Console.WriteLine("Delivery failed - retrying in 5 seconds.");
-                //            System.Threading.Thread.Sleep(5000);
-                //           // mailclient.Send(mail);
-                //            var test = status;
-                //        }
-                //        else
-                //        {
-                //            //  Console.WriteLine("Failed to deliver message to {0}", ex.InnerExceptions[i].FailedRecipient);
-                //            throw ex;
-                //        }
-                //    }
-                //}
                 catch (Exception ex2)
                 {
                     o_sStatus = "error2:" + ex2.Message + "\nTrace:" + ex2.StackTrace;

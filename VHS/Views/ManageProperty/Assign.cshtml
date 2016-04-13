@@ -8,7 +8,9 @@
     <div class="row">
         <div class="col-md-12">
             <h2>Assign Property to RM</h2>
-            @if (Model.proppertyVMList.Count > 0)
+
+            @if (Model != null && Model.proppertyVMList != null && Model.proppertyVMList.Count > 0)
+
             {
                 foreach (var item in Model.proppertyVMList)
                 {
@@ -48,6 +50,12 @@
                     </div>
                                 }
                             }
+                            else
+                            {
+                                <span style="color:red">
+                                    No property for assigned.
+                                </span>
+                            }
 
 
 
@@ -83,6 +91,7 @@
         if (response == "1") {
             $('#imgLoader' + proId).hide();
             alert('Property Assigned sucessfully');
+            window.location.href = '@Url.Action("Assign", "ManageProperty")';
         }
         else if (response == "2") {
             $('#imgLoader' + proId).hide();

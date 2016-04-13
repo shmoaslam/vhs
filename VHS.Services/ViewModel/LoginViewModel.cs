@@ -21,6 +21,6 @@ namespace VHS.Services
         public int LoginId { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
-        public string UserType { get; set; }
+        public int UserType { get; set; }
     }
 }

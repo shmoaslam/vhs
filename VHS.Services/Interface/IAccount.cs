@@ -10,11 +10,12 @@ namespace VHS.Interface
 {
     public interface IAccount
     {
-        LoginViewModel CheckLogin(LoginViewModel login);
+        UserInfo CheckLogin(LoginViewModel login);
         bool RegisterUser(RegisterViewModel login, int UserType);
         bool CheckEmailExist(string EmailId);
         UserInfo CheckAdminLogin(LoginViewModel login);
         RmCreatePassword RmAccountConfirmation(string token);
         bool RmAccountCreatePassword(RmCreatePassword rmchangePassword);
+        UserInfo GetUserDetail(string emailId);
     }
 }

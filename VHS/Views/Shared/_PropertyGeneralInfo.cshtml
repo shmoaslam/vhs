@@ -4,8 +4,6 @@
 <div class="col-lg-6 col-md-6">
     @using (Ajax.BeginForm("PropertyGeneralInfo", "ManageProperty", new AjaxOptions { HttpMethod = "POST" }, new { id = "frmGeneralInfo", @class = "form-part", enctype = "multipart/form-data" }))
     {
-        @*@using (Html.BeginForm("PropertyGeneralInfo", "ManageProperty", FormMethod.Post, new { @class = "form-part", enctype = "multipart/form-data" }))
-            {*@
         @Html.HiddenFor(m => m.PropertyId)
         <label>Title<span class="required">*</span></label>
         @Html.TextBoxFor(m => m.Title)
@@ -70,8 +68,6 @@
                                 <span style="color:red">
                                     @Html.ValidationMessageFor(m => m.Image)
                                 </span><br />
-                                @*<input id="file" type="file" name="file" />
-                                    @Html.ValidationMessageFor(m => m.Image)*@
                                 <label>Price</label>
                                 @Html.TextBoxFor(m => m.Price)
                                 <span style="color:red">
@@ -88,6 +84,7 @@
 <script>
     $('#frmGeneralInfo').click(function () {
         if ($(this).find('.input-validation-error').length == 0 && $(this).find('.valid').length > 0) {
+           
             (function () {
                 //var bar = $('#progressbarCoverPhoto');
                 //var percent = $('#progressbarCoverPhoto');
@@ -128,4 +125,7 @@
         }
     })
 
+</script>
+<script type="text/javascript" language=javascript>
+    $.validator.unobtrusive.parse(document);
 </script>

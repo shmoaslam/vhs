@@ -9,11 +9,9 @@ using VHS.Interface;
 namespace VHS.Controllers
 {
     [Authorize]
-    [CustomException]
+    //[CustomException]
     public class AdminController : BaseController
     {
-
-
         private IAdminHome _adminHome;
         public AdminController(IAdminHome adminHome)
         {
@@ -31,8 +29,34 @@ namespace VHS.Controllers
             {
                 return RedirectToAction("AdminLogin", "Account");
             }
+        }
+        [HttpGet]
+        public ActionResult GetApprovedProperty()
+        {
+            if (IsAdmin)
+            {
+                var assignedProperties = _adminHome.GetAddedProperty();
+                return PartialView("_ApprovedProperty", assignedProperties);
+            }
+            else
+            {
+                return RedirectToAction("AdminLogin", "Account");
+            }
+        }
+        [HttpGet]
+        public ActionResult GetBookedProperty()
+        {
+            if (IsAdmin)
+            {
+                return PartialView("_BookedProperty");
+            }
+            else
+            {
+                return RedirectToAction("AdminLogin", "Account");
+            }
 
         }
+
 
         public ActionResult Rm()
         {
@@ -52,10 +76,11 @@ namespace VHS.Controllers
             return View();
         }
 
-        [Authorize]
-        public void LogOff()
+        [HttpGet]
+        public ActionResult LogOut()
         {
             signout();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

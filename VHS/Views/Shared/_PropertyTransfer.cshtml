@@ -2,7 +2,7 @@
 <h3>Transfer Property to other RM</h3>
 
 <div class="col-lg-6 col-md-6">
-@using (Ajax.BeginForm("TransferProperty", "ManageProperty", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccessAdditional", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
+@using (Ajax.BeginForm("TransferProperty", "ManageProperty", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccessTransfer", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
 {
     @*@using (Ajax.BeginForm("TransferProperty", "ManageProperty", new AjaxOptions { OnBegin = "fnBeginTransferProp", HttpMethod = "Post", OnSuccess = "fnSuccessTransferProperty", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { id = "frmTransferProperty", @class = "form-part" }))
     {*@
@@ -67,7 +67,7 @@
         $('#imgLoaderTransfer').show();
         //Show any loder when process start:-
     }
-    function fnSuccessAdditional(response, status, xhr) {
+    function fnSuccessTransfer(response, status, xhr) {
         if (response == "1") {
             alert("Property transferd successfully.");
             window.location.href = '@Url.Action("ManageProperty", "ManageProperty")';
@@ -92,4 +92,7 @@
             $('#imgLoaderTransfer').hide();
         }
     }
+</script>
+<script type="text/javascript" language=javascript>
+    $.validator.unobtrusive.parse(document);
 </script>

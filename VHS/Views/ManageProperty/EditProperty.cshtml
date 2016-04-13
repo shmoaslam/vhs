@@ -30,37 +30,57 @@
         <div class="col-lg-9 col-md-9 col-sm-12 right-content">
             <div class="tab-content">
                 <div id="home" class="tab-pane fade in active">
-                    @Html.Partial("_PropertyGeneralInfo", Model.propertyGeneralInfo)
+                    <div class="partialContents" id="divPropertyGeneralInfo" data-url="/ManageProperty/GetPropertyGeneralInfo/@ViewBag.PropertyId">
+                        <div class="txt-center" style="margin:9% !important"><img src="~/Images/indicator.white.gif" /> Loading ...</div>
+                    </div>
                 </div>
                 <div id="menu1" class="tab-pane fade">
-                    @Html.Partial("_PropertyAdditionalInfo", Model.propertyAdditionalInfo)
-
+                    <div class="partialContents" id="divPropertyAdditionalInfo" data-url="/ManageProperty/GetPropertyAdditionalInfo/@ViewBag.PropertyId">
+                        <div class="txt-center" style="margin:9% !important"><img src="~/Images/indicator.white.gif" /> Loading ...</div>
+                    </div>
                 </div>
                 <div id="menu6" class="tab-pane fade">
-                    @Html.Partial("_PropertyAmenities", Model.propertyAmenities)
+                    <div class="partialContents" id="divPropertyAmenities" data-url="/ManageProperty/GetPropertyAmenities/@ViewBag.PropertyId">
+                        <div class="txt-center" style="margin:9% !important"><img src="~/Images/indicator.white.gif" /> Loading ...</div>
+                    </div>
                 </div>
                 <div id="menu7" class="tab-pane fade">
                     <h3>Manage Pricing</h3>
                     <div class="col-lg-6 col-md-6">
-                        @Html.Partial("_PropertyFixPricing", Model.propertyFixPricing)
-                        @Html.Partial("_PropertyVariablePricing", Model.propertVarablePricing)
+                        <div class="partialContents" id="divPropertyFixedPrice" data-url="/ManageProperty/GetPropertyFixedPrice/@ViewBag.PropertyId">
+                            <div class="txt-center" style="margin:9% !important"><img src="~/Images/indicator.white.gif" /> Loading ...</div>
+                        </div>
+                        <div class="partialContents" id="divPropertyVariablePrice" data-url="/ManageProperty/GetPropertyVaraiablePrice/@ViewBag.PropertyId">
+                            <div class="txt-center" style="margin:9% !important"><img src="~/Images/indicator.white.gif" /> Loading ...</div>
+                        </div>
                     </div>
                 </div>
                 <div id="menu2" class="tab-pane fade">
                     <h3>Property page appearance settings</h3>
                     <div class="col-lg-9 col-md-9">
-                        @Html.Partial("_PropertyCoverPhoto", Model.propertyCoverPhoto)
-                        @Html.Partial("_PropertyGallaryPhoto", Model.propertyGallaryPhoto)
+                        <div class="partialContents" id="divPropertyCoverPhoto" data-url="/ManageProperty/GetPropertyCoverPhoto/@ViewBag.PropertyId">
+                            <div class=" txt-center" style="margin:9% !important"><img src="~/Images/indicator.white.gif" />Loading ...</div>
+                        </div>
+                        <div class="partialContents" id="divPropertyGallaryPhotoe" data-url="/ManageProperty/GetPropertyGallaryPhoto/@ViewBag.PropertyId">
+                            <div class="txt-center" style="margin:9% !important"><img src="~/Images/indicator.white.gif" /> Loading ...</div>
+                        </div>
                     </div>
                 </div>
                 <div id="menu3" class="tab-pane fade">
-                    @Html.Partial("_PropertyTravelAmbassador")
+                    <div class="partialContents" id="divPropertyTravelAmbassador" data-url="/ManageProperty/GetPropertyTravleAmbassador/@ViewBag.PropertyId">
+                        <div class="txt-center" style="margin:9% !important"><img src="~/Images/indicator.white.gif" /> Loading ...</div>
+                    </div>
                 </div>
                 <div id="menu4" class="tab-pane fade">
-                    @Html.Partial("_PropertyTransfer", Model.propertyTransfer)
+
+                    <div class="partialContents" id="divPropertyTransfer" data-url="/ManageProperty/GetPropertyTransfer/@ViewBag.PropertyId">
+                        <div class="txt-center" style="margin:9% !important"><img src="~/Images/indicator.white.gif" /> Loading ...</div>
+                    </div>
                 </div>
                 <div id="menu5" class="tab-pane fade">
-                    @Html.Partial("_PropertyDelete", Model.propertyDelete)
+                    <div class="partialContents" id="divPropertyDelete" data-url="/ManageProperty/GetPropertyDelete/@ViewBag.PropertyId">
+                        <div class="txt-center" style="margin:9% !important"><img src="~/Images/indicator.white.gif" /> Loading ...</div>
+                    </div>
                 </div>
             </div>
         </div>

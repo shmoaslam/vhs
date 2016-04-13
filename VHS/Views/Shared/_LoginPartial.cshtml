@@ -5,10 +5,10 @@
     <li>@Html.ActionLink("My Profile", "Index", "Profile")</li>
     <li>@Html.ActionLink("Change Password", "ChangePassword", "Account")</li>
     <li>
-        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm"}))
+        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "btnLogOff" }))
         {
             @Html.AntiForgeryToken()
-            <a href="javascript:document.getElementById('logoutForm').submit()">Sign Out</a>
+            <a href="javascript:document.getElementById('btnLogOff').submit()">Sign Out</a>
         }
     </li>
 }

@@ -19,7 +19,7 @@ namespace VHS.Services
         public List<RMViewModel> GetRmList()
         {
             var rmViewList = new List<RMViewModel>();
-            var rmList = _unitOfWork.LoginRepository.GetMany(m => m.TypeId == Convert.ToInt32(UserTypeEnum.RM)).ToList();
+            var rmList = _unitOfWork.LoginRepository.GetMany(m => m.IsActive == true && m.TypeId== Convert.ToInt32(UserTypeEnum.RM)).ToList();
             foreach (var item in rmList)
             {
                 rmViewList.Add(new RMViewModel { RMId = item.LoginId, RMName = item.Name, IsApproved = item.IsActive });

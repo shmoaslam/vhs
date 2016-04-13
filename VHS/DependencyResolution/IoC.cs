@@ -36,7 +36,7 @@ namespace VHS.DependencyResolution
                 c.For<IManageProperty>().Use<ManagePropertyService>();
                 c.For<IManageRm>().Use<ManageRmService>();
                 c.For<INotificationService>().Use<NotificationService>();
-                c.For<IAdminHome>().Use<AdminHomeService>();
+                c.For<IAdminHome>().Use<AdminService>();
                 c.For<ICategoryService>().Use<CategoryService>();
                 //c.For<IProfile>().Use<ProfileService>();
                 //c.For<IAccount>().Use<AccountService>();

@@ -20,32 +20,31 @@ namespace VHS.Services
         private readonly UnitOfWork _unitOfWork;
         private readonly INotificationService _notificationService;
 
-
         public AccountService(INotificationService notificationService)
         {
             _notificationService = notificationService;
             _unitOfWork = new UnitOfWork();
         }
 
-        public LoginViewModel CheckLogin(LoginViewModel loginvm)
+        public UserInfo CheckLogin(LoginViewModel loginvm)
         {
-            var loginvmobj = new LoginViewModel();
+            var userInfo = new UserInfo();
             var login = _unitOfWork.LoginRepository.Get(m => m.Email == loginvm.EmailId && m.Password == loginvm.Password && m.IsActive == true);
             if (login != null)
             {
-
-                loginvmobj.LoginId = login.LoginId;
-                if (login.Name != "")
+                userInfo.LoginId = login.LoginId;
+                userInfo.Email = login.Email;
+                userInfo.UserType = login.TypeId;
+                if (login.Name == "")
                 {
-                    HttpContext.Current.Session["Name"] = login.Name.ToString();
+                    userInfo.Name = login.Email;
                 }
                 else
                 {
-                    HttpContext.Current.Session["Name"] = login.Email.ToString();
+                    userInfo.Name = login.Name;
                 }
-
             }
-            return loginvmobj;
+            return userInfo;
         }
         public UserInfo CheckAdminLogin(LoginViewModel loginvm)
         {
@@ -56,7 +55,7 @@ namespace VHS.Services
                 userInfo.LoginId = login.LoginId;
                 userInfo.Name = login.Name.ToString();
                 userInfo.Email = login.Email;
-                userInfo.UserType = login.TypeId.ToString();
+                userInfo.UserType = login.TypeId;
             }
             return userInfo;
         }
@@ -70,7 +69,8 @@ namespace VHS.Services
             if (register.Name != null)
             {
                 loginObj.Name = register.Name;
-                loginObj.IsActive = false;
+                if (UserType == 2)
+                    loginObj.IsActive = false;
             }
             else
             {
@@ -164,5 +164,22 @@ namespace VHS.Services
             }
             return flag;
         }
+
+
+        public UserInfo GetUserDetail(string emailId)
+        {
+            var userInfo = new UserInfo();
+            var login = _unitOfWork.LoginRepository.Get(m => m.Email == emailId && m.IsActive == true);
+            if (login != null)
+            {
+                userInfo.LoginId = login.LoginId;
+                userInfo.Name = login.Name.ToString();
+                userInfo.Email = login.Email;
+                userInfo.UserType = login.TypeId;
+            }
+            return userInfo;
+        }
+
+
     }
 }

@@ -10,12 +10,12 @@ using VHS.Services.ViewModel;
 
 namespace VHS.Services
 {
-    public class AdminHomeService : IAdminHome
+    public class AdminService : IAdminHome
     {
         private readonly UnitOfWork _unitOfWork;
         private IProperty _property;
         private IManageProperty _manageProperty;
-        public AdminHomeService(IProperty property, IManageProperty manageProperty)
+        public AdminService(IProperty property, IManageProperty manageProperty)
         {
             _property = property;
             _manageProperty = manageProperty;
@@ -23,7 +23,7 @@ namespace VHS.Services
         public AdminHomeViewModel GetAddedProperty()
         {
             var adminHomeVm = new AdminHomeViewModel();
-            adminHomeVm.propertyListVm = _property.GetPropertyList();
+            adminHomeVm.propertyListVm = _property.GetPropertyList().Where(m => m.IsApproved == true).ToList();
             return adminHomeVm;
         }
         public RmHomeViewModel GetAssignedPropertyRm(int rmId)

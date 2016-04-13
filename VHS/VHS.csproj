@@ -441,6 +441,7 @@
     <Content Include="Images\icons\bg-works.png" />
     <Content Include="Images\icons\bg-zoom%402x.png" />
     <Content Include="Images\icons\bg-zoom.png" />
+    <Content Include="Images\indicator.white.gif" />
     <Content Include="Images\insta.png" />
     <Content Include="Images\l2.gif" />
     <Content Include="Images\logo.png" />
@@ -544,6 +545,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\retina.js" />
     <Content Include="Scripts\scroll-down.js" />
+    <Content Include="Scripts\site.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="UploadFile\PropertyCoverPhoto\cover_20160331163849_20160401032300.jpg" />
     <Content Include="UploadFile\PropertyCoverPhoto\Kitchen4_20160331163959_20160401031310.jpg" />
@@ -637,6 +639,9 @@
     <Content Include="Views\Property\ListedProperty.cshtml" />
     <Content Include="Views\Home\Comingsoon.cshtml" />
     <Content Include="Views\PageAccess\Error.cshtml" />
+    <Content Include="Views\Admin\_ApprovedProperty.cshtml" />
+    <Content Include="Views\Admin\_BookedProperty.cshtml" />
+    <Content Include="Views\ManageProperty\AddProperty.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

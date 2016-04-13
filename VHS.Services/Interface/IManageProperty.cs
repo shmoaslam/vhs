@@ -18,6 +18,19 @@ namespace VHS.Interface
         List<PropertyViewModel> GetPropertyForManage(int rmID);
 
         PropertyEditViewModel GetPropertyDetail(int PropertyId);
+        //Get Gallary Photo:-
+        //PropertyEditViewModel GetPropertyDetail(int PropertyId);
+        PropertyGeneralInfo GetPropertyGeneralInfo(int PropertyId);
+        PropertyAdditionalInfoModel GetPropertyAdditionalInfo(int PropertyId);
+        PropertyAmenities GetPropertyAmenities(int PropertyId);
+        PropertyFixedPricing GetPropertyFixedPrice(int PropertyId);
+        PropertyVarablePricing GetPropertyVaraiablePrice(int PropertyId);
+        PropertyTransfer GetPropertyTransfer(int PropertyId);
+        PropertyDelete GetPropertyDelete(int PropertyId);
+        PropertyGallaryPhoto GetPropertyGallaryPhoto(int propertyId);
+        PropertyCoverPhoto GetPropertyCoverPhoto(int propertyId);
+
+
         bool UpdateGeneralInfo(PropertyGeneralInfo propGeneralInfo, List<HttpPostedFileBase> Image);
         bool UpdateAdditionalInfo(PropertyAdditionalInfoModel propAdditionalInfoInfo);
         bool UpdateAmenities(PropertyAmenities propAmenities);
@@ -29,9 +42,7 @@ namespace VHS.Interface
         bool UpdatePropVariablePrice(PropertyVarablePricing propVarablePrice);
         bool UpdatePropFixPrice(PropertyFixedPricing propFixedPrice);
 
-        //Get Gallary Photo:-
-        PropertyGallaryPhoto GetPropertyGallaryPhoto(int propertyId);
-        PropertyCoverPhoto GetPropertyCoverPhoto(int propertyId);
-        
+
+
     }
 }

@@ -14,5 +14,6 @@ namespace VHS.Services.ViewModel
         public List<ImageViewModel> PropertImageList { get; set; }
         public bool IsApproved { get; set; }
         public int RmId { get; internal set; }
+        public bool IsAssigned { get; internal set; }
     }
 }

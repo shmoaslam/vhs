@@ -25,7 +25,6 @@ namespace VHS.Controllers
     {
         private IAccount _login;
 
-
         public AccountController(IAccount login)
         {
             _login = login;
@@ -36,8 +35,23 @@ namespace VHS.Controllers
         [AllowAnonymous]
         public ActionResult Login()
         {
-
-            return View();
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                HttpCookie userCookie = Request.Cookies[".USERAUTH"];
+                if (userCookie != null && userCookie["User"] != null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    signout();
+                    return View();
+                }
+            }
+            else
+            {
+                return View();
+            }
         }
 
         //
@@ -54,8 +68,7 @@ namespace VHS.Controllers
             var result = _login.CheckLogin(loginmodel);
             if (result.LoginId != 0)
             {
-                //   signin(user);
-                FormsAuthentication.SetAuthCookie(result.LoginId.ToString(), false);
+                signin(result);
                 return Json("1");
             }
             else
@@ -316,10 +329,10 @@ namespace VHS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            FormsAuthentication.SignOut();
-            HttpContext.Session["Name"] = null;
+            signout();
             return RedirectToAction("Index", "Home");
         }
+
 
 
         [AllowAnonymous]
@@ -328,8 +341,13 @@ namespace VHS.Controllers
             var fb = new FacebookClient();
             var loginUrl = fb.GetLoginUrl(new
             {
-                client_id = "785645304819855",
-                client_secret = "707e8609a9ab498293da573f15d49a9c",
+                client_id = "785642368153482",
+                client_secret = "0911326cd881529c423b1df0a45562f0",
+
+                //Test:-
+                //client_id = "613786842072494",
+                //client_secret = "c9fabdd095042a904cbbb77c8094c47d",
+
                 redirect_uri = RedirectUri.AbsoluteUri,
                 response_type = "code",
                 scope = "email" // Add other permissions as needed
@@ -343,8 +361,13 @@ namespace VHS.Controllers
             var fb = new FacebookClient();
             dynamic result = fb.Post("oauth/access_token", new
             {
-                client_id = "785645304819855",
-                client_secret = "707e8609a9ab498293da573f15d49a9c",
+                //:-Live
+                client_id = "785642368153482",
+                client_secret = "0911326cd881529c423b1df0a45562f0",
+
+                //Test:-
+                //client_id = "613786842072494",
+                //client_secret = "c9fabdd095042a904cbbb77c8094c47d",
                 redirect_uri = RedirectUri.AbsoluteUri,
                 code = code
             });
@@ -365,17 +388,71 @@ namespace VHS.Controllers
             string middlename = me.middle_name;
             string lastname = me.last_name;
 
-            // Set the auth cookie
-            FormsAuthentication.SetAuthCookie(email, false);
-            HttpContext.Session["Name"] = firstname + " " + lastname;
-            return RedirectToAction("Index", "Home");
+
+            if (_login.CheckEmailExist(email))
+            {
+                var registerModel = new RegisterViewModel();
+                registerModel.Name = firstname + " " + middlename + " " + lastname;
+                registerModel.EmailId = email;
+                int userType = Convert.ToInt32(UserTypeEnum.User);
+                var register = _login.RegisterUser(registerModel, userType);
+                if (register)
+                {
+                    var uerInfo = _login.GetUserDetail(email);
+                    if (uerInfo.Email != null)
+                    {
+                        signin(uerInfo);
+                    }
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                var uerInfo = _login.GetUserDetail(email);
+                signin(uerInfo);
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         //AdminDetail Functionality:-
+        [AllowAnonymous]
         public ActionResult AdminLogin()
         {
-            return View();
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                HttpCookie userCookie = Request.Cookies[".USERAUTH"];
+                if (userCookie != null && userCookie["User"] != null)
+                {
+                    if (CurrentUser.UserType == Convert.ToInt32(UserTypeEnum.Admin))
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
+                    else if (CurrentUser.UserType == Convert.ToInt32(UserTypeEnum.RM))
+                    {
+                        return RedirectToAction("Rm", "Admin");
+                    }
+                    else
+                    {
+                        signout();
+                        return View();
+                    }
+                }
+                else
+                {
+                    signout();
+                    return View();
+                }
+            }
+            else
+            {
+                return View();
+            }
         }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -387,15 +464,15 @@ namespace VHS.Controllers
             }
 
             var userInfo = _login.CheckAdminLogin(loginmodel);
-            if (userInfo != null)
+            if (userInfo.Email != null)
             {
 
                 signin(userInfo);
-                if (userInfo.UserType == "1")
+                if (userInfo.UserType == Convert.ToInt32(UserTypeEnum.Admin))
                 {
                     return Json("1");
                 }
-                else if (userInfo.UserType == "2")
+                else if (userInfo.UserType == Convert.ToInt32(UserTypeEnum.RM))
                 {
                     return Json("2");
                 }
@@ -452,9 +529,8 @@ namespace VHS.Controllers
 
         private void signin(UserInfo user)
         {
-            string name = user.Name;
+            string name = user.LoginId.ToString();
             FormsAuthentication.SetAuthCookie(name, false);
-
             string data = JsonConvert.SerializeObject(user);
             SetUserCookie(data);
         }

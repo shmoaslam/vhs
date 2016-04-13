@@ -46,6 +46,7 @@
     function fnSuccessVaraiblePrice(response, status, xhr) {
         if (response == "1") {
             alert("Information is updated successfully.");
+            $('#imgLoaderVariable').hide();
         }
         else if (response == "0") {
             $('#imgLoaderVariable').hide();
@@ -64,4 +65,7 @@
     function fnComplete() {
         $('#imgLoaderVariable').hide();
     }
+</script>
+<script type="text/javascript" language=javascript>
+    $.validator.unobtrusive.parse(document);
 </script>

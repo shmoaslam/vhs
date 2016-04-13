@@ -31,13 +31,13 @@ namespace VHS.Services
         public PropertyRMViewModel GetAssignedProperty()
         {
             var manageProperty = new PropertyRMViewModel();
-            var propertyList = _property.GetPropertyList();
-            var rmPropMapList = GetPropRmMap();
-            var result = (from prop in propertyList
-                          join rpm in rmPropMapList on prop.PropertyId equals rpm.ProprtyId into s
-                          from spm in s.DefaultIfEmpty()
-                          select new PropertyViewModel { PropertyId = prop.PropertyId, PropertyName = prop.PropertyName, ShortInfo = prop.ShortInfo, PropertImageList = prop.PropertImageList, RmId = spm == null ? 0 : spm.RMId }).ToList();
-            manageProperty.proppertyVMList = result;
+            var propertyList = _property.GetPropertyList().Where(m => m.IsAssigned == false).ToList();
+            //var rmPropMapList = GetPropRmMap();
+            //var result = (from prop in propertyList
+            //              join rpm in rmPropMapList on prop.PropertyId equals rpm.ProprtyId into s
+            //              from spm in s.DefaultIfEmpty()
+            //              select new PropertyViewModel { PropertyId = prop.PropertyId, PropertyName = prop.PropertyName, ShortInfo = prop.ShortInfo, PropertImageList = prop.PropertImageList, RmId = spm == null ? 0 : spm.RMId }).ToList();
+            manageProperty.proppertyVMList = propertyList.ToList();
             manageProperty.SelectedRm = RMList();
             return manageProperty;
         }
@@ -75,6 +75,17 @@ namespace VHS.Services
                     _unitOfWork.Save();
                     flag = true;
                 }
+                if (flag)
+                {
+                    var property = _unitOfWork.PropertyRepository.GetByID(Convert.ToInt32(proprmView.hdnPropertyId));
+                    if (property != null)
+                    {
+                        property.IsAssigned = true;
+                        _unitOfWork.PropertyRepository.Update(property);
+                        _unitOfWork.Save();
+
+                    }
+                }
                 return flag;
             }
             catch (Exception ex)
@@ -108,12 +119,12 @@ namespace VHS.Services
             propertyEditViewModel.propertyGeneralInfo = GetPropertyGeneralInfo(PropertyId);
             propertyEditViewModel.propertyAdditionalInfo = GetPropertyAdditionalInfo(PropertyId);
             propertyEditViewModel.propertyAmenities = GetPropertyAmenities(PropertyId);
-            propertyEditViewModel.propertyFixPricing = GetPropertyFixedPricing(PropertyId);
-            propertyEditViewModel.propertVarablePricing = GetPropertyVarablePrice(PropertyId);
+            //propertyEditViewModel.propertyFixPricing = GetPropertyFixedPricing(PropertyId);
+            //propertyEditViewModel.propertVarablePricing = GetPropertyVarablePrice(PropertyId);
             propertyEditViewModel.propertyCoverPhoto = GetPropertyCoverPhoto(PropertyId);
             propertyEditViewModel.propertyGallaryPhoto = GetPropertyGallaryPhoto(PropertyId);
             propertyEditViewModel.propertyTravelAmbassdor = GetPropertyTravelAmbassReview(PropertyId);
-            propertyEditViewModel.propertyTransfer = GetPropertyTransferDetail(PropertyId);
+            //propertyEditViewModel.propertyTransfer = GetPropertyTransferDetail(PropertyId);
             propertyEditViewModel.propertyDelete = GetPropertyDelete(PropertyId);
             return propertyEditViewModel;
         }
@@ -144,6 +155,11 @@ namespace VHS.Services
                     propertyGeneralInfo.ContactNo = propAddressobj.ContactNo;
                     propertyGeneralInfo.Email = propAddressobj.Email;
                 }
+            }
+            else
+            {
+                propertyGeneralInfo.Category = GetCategory();
+                propertyGeneralInfo.ListBy = GetListBy();
             }
             return propertyGeneralInfo;
         }
@@ -198,7 +214,7 @@ namespace VHS.Services
             propertyAmenities.OutdoorFacilitiesList = GetAllOutdoorFacilities(propertyId);
             return propertyAmenities;
         }
-        public PropertyFixedPricing GetPropertyFixedPricing(int propertyId)
+        public PropertyFixedPricing GetPropertyFixedPrice(int propertyId)
         {
             var propertyFixedPrice = new PropertyFixedPricing();
             propertyFixedPrice.PropertyId = propertyId;
@@ -222,7 +238,7 @@ namespace VHS.Services
 
             return propertyFixedPrice;
         }
-        public PropertyVarablePricing GetPropertyVarablePrice(int propertyId)
+        public PropertyVarablePricing GetPropertyVaraiablePrice(int propertyId)
         {
             var propertyPricevarable = new PropertyVarablePricing();
             propertyPricevarable.PropertyId = propertyId;
@@ -282,7 +298,7 @@ namespace VHS.Services
             var propertyTravleAmbassReview = new PropertyTravelAmbassador();
             return propertyTravleAmbassReview;
         }
-        public PropertyTransfer GetPropertyTransferDetail(int PropertyId)
+        public PropertyTransfer GetPropertyTransfer(int PropertyId)
         {
             var propertyTransfer = new PropertyTransfer();
             var propRm = _unitOfWork.PropertyRMMapRepository.Get(m => m.PropertyId == PropertyId);
@@ -306,59 +322,102 @@ namespace VHS.Services
         public bool UpdateGeneralInfo(PropertyGeneralInfo propGeneralInfo, List<HttpPostedFileBase> file)
         {
             var result = false;
-            //using (var tranaction = new TransactionScope())
-            //{
-            var propertObj = _unitOfWork.PropertyRepository.GetByID(propGeneralInfo.PropertyId);
-
-            // var propertObj = new Core.Property();
-            propertObj.Title = propGeneralInfo.Title;
-
-            propertObj.NumberOfBathRoom = propGeneralInfo.NoOfBathrooms;
-            propertObj.NumberOfGuest = propGeneralInfo.NoOfGuests;
-            propertObj.NumberOfRooms = propGeneralInfo.NoOfRooms;
-            propertObj.Price = propGeneralInfo.Price;
-            propertObj.ListedId = propGeneralInfo.ListById;
-            propertObj.CategoryId = propGeneralInfo.CategoryId;
-            propertObj.IsApproved = false;
-            // propertObj.LoginId = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
-            _unitOfWork.PropertyRepository.Update(propertObj);
-            _unitOfWork.Save();
-            //Create Property Address:-
-            var propAddressObj = _unitOfWork.PropertyAddressRepository.GetSingle(m => m.PropertyId == propGeneralInfo.PropertyId);
-            propAddressObj.PropertyId = propertObj.Id;
-            propAddressObj.Address = propGeneralInfo.Address;
-            propAddressObj.City = propGeneralInfo.City;
-            propAddressObj.Country = propGeneralInfo.Country;
-            propAddressObj.ZipCode = propGeneralInfo.ZipCode;
-            propAddressObj.Email = propGeneralInfo.Email;
-            propAddressObj.ContactNo = propGeneralInfo.ContactNo;
-            _unitOfWork.PropertyAddressRepository.Update(propAddressObj);
-            _unitOfWork.Save();
-            //Create Property Image:-
-            if (file.Count > 0)
+            if (propGeneralInfo.PropertyId != 0)
             {
-                _unitOfWork.PropertyImageMapRepository.Delete(m => m.PropertyId == propGeneralInfo.PropertyId);
-                foreach (var item in file)
+                var propertObj = _unitOfWork.PropertyRepository.GetByID(propGeneralInfo.PropertyId);
+                propertObj.Title = propGeneralInfo.Title;
+                propertObj.NumberOfBathRoom = propGeneralInfo.NoOfBathrooms;
+                propertObj.NumberOfGuest = propGeneralInfo.NoOfGuests;
+                propertObj.NumberOfRooms = propGeneralInfo.NoOfRooms;
+                propertObj.Price = propGeneralInfo.Price;
+                propertObj.ListedId = propGeneralInfo.ListById;
+                propertObj.CategoryId = propGeneralInfo.CategoryId;
+                propertObj.IsApproved = false;
+                _unitOfWork.PropertyRepository.Update(propertObj);
+                _unitOfWork.Save();
+                //Create Property Address:-
+                var propAddressObj = _unitOfWork.PropertyAddressRepository.GetSingle(m => m.PropertyId == propGeneralInfo.PropertyId);
+                propAddressObj.PropertyId = propertObj.Id;
+                propAddressObj.Address = propGeneralInfo.Address;
+                propAddressObj.City = propGeneralInfo.City;
+                propAddressObj.Country = propGeneralInfo.Country;
+                propAddressObj.ZipCode = propGeneralInfo.ZipCode;
+                propAddressObj.Email = propGeneralInfo.Email;
+                propAddressObj.ContactNo = propGeneralInfo.ContactNo;
+                _unitOfWork.PropertyAddressRepository.Update(propAddressObj);
+                _unitOfWork.Save();
+                //Create Property Image:-
+                if (file.Count > 0)
                 {
-                    var imageObj = new Core.Image();
-                    string extension = Path.GetExtension(item.FileName).ToString();
-                    string filename = Path.GetFileNameWithoutExtension(item.FileName) + "_" + System.DateTime.Now.ToString("yyyyMMddHHmmss") + extension;
-                    var path = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadFile/PropertyImage/"), filename);
-                    item.SaveAs(path);
-                    imageObj.Name = filename;
-                    _unitOfWork.ImageRepository.Insert(imageObj);
-                    _unitOfWork.Save();
+                    _unitOfWork.PropertyImageMapRepository.Delete(m => m.PropertyId == propGeneralInfo.PropertyId);
+                    foreach (var item in file)
+                    {
+                        var imageObj = new Core.Image();
+                        string extension = Path.GetExtension(item.FileName).ToString();
+                        string filename = Path.GetFileNameWithoutExtension(item.FileName) + "_" + System.DateTime.Now.ToString("yyyyMMddHHmmss") + extension;
+                        var path = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadFile/PropertyImage/"), filename);
+                        item.SaveAs(path);
+                        imageObj.Name = filename;
+                        _unitOfWork.ImageRepository.Insert(imageObj);
+                        _unitOfWork.Save();
 
-                    _unitOfWork.PropertyImageMapRepository.Insert(new PropertyImageMapping { ImageId = imageObj.ImageId, PropertyId = propGeneralInfo.PropertyId });
-                    _unitOfWork.Save();
+                        _unitOfWork.PropertyImageMapRepository.Insert(new PropertyImageMapping { ImageId = imageObj.ImageId, PropertyId = propGeneralInfo.PropertyId });
+                        _unitOfWork.Save();
 
+                    }
+                    result = true;
                 }
-
-                //}
-                //tranaction.Complete();
-                //tranaction.Dispose();
-                result = true;
             }
+            else
+            {
+                var propertObj = new Core.Property();
+                propertObj.Title = propGeneralInfo.Title;
+
+                propertObj.NumberOfBathRoom = propGeneralInfo.NoOfBathrooms;
+                propertObj.NumberOfGuest = propGeneralInfo.NoOfGuests;
+                propertObj.NumberOfRooms = propGeneralInfo.NoOfRooms;
+                propertObj.Price = propGeneralInfo.Price;
+                propertObj.ListedId = propGeneralInfo.ListById;
+                propertObj.CategoryId = propGeneralInfo.CategoryId;
+                propertObj.IsApproved = false;
+                propertObj.LoginId = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
+                _unitOfWork.PropertyRepository.Insert(propertObj);
+                _unitOfWork.Save();
+                //Create Property Address:-
+                var propAddressObj = new Core.PropertyAddress();
+                propAddressObj.PropertyId = propertObj.Id;
+                propAddressObj.Address = propGeneralInfo.Address;
+                propAddressObj.City = propGeneralInfo.City;
+                propAddressObj.Country = propGeneralInfo.Country;
+                propAddressObj.ZipCode = propGeneralInfo.ZipCode;
+                propAddressObj.Email = propGeneralInfo.Email;
+                propAddressObj.ContactNo = propGeneralInfo.ContactNo;
+                _unitOfWork.PropertyAddressRepository.Insert(propAddressObj);
+                _unitOfWork.Save();
+                //Create Property Image:-
+                if (file.Count > 0)
+                {
+                    foreach (var item in file)
+                    {
+                        var imageObj = new Core.Image();
+                        string extension = Path.GetExtension(item.FileName).ToString();
+                        string filename = Path.GetFileNameWithoutExtension(item.FileName) + "_" + System.DateTime.Now.ToString("yyyyMMddHHmmss") + extension;
+                        var path = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadFile/PropertyImage/"), filename);
+                        item.SaveAs(path);
+                        imageObj.Name = filename;
+                        _unitOfWork.ImageRepository.Insert(imageObj);
+                        _unitOfWork.Save();
+
+                        var imgPropMap = new Core.PropertyImageMapping();
+                        imgPropMap.ImageId = imageObj.ImageId;
+                        imgPropMap.PropertyId = propertObj.Id;
+                        _unitOfWork.PropertyImageMapRepository.Insert(imgPropMap);
+                        _unitOfWork.Save();
+                    }
+                    result = true;
+                }
+            }
+
 
 
 

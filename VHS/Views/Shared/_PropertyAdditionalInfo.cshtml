@@ -1,7 +1,7 @@
 ﻿@model VHS.Services.Models.PropertyAdditionalInfoModel
 <h3>Additonal Information</h3>
 <div class="col-lg-6 col-md-6">
-    @using (Ajax.BeginForm("PropertyAdditionalInfo", "ManageProperty", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccessAdditional", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
+    @using (Ajax.BeginForm("PropertyAdditionalInfo", "ManageProperty", new AjaxOptions { OnBegin = "fnBeginAdditional", HttpMethod = "Post", OnSuccess = "fnSuccessAdditional", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
     {
         @Html.HiddenFor(m => m.PropertyId)
         @Html.HiddenFor(m => m.PropAdditionalId)
@@ -66,7 +66,7 @@
             <div class="input-wrapper clearfix">
                 <input type="submit" class="send-btn" value="Update" id="" name="" />
                 <input type="reset" class="send-btn" value="Cancel" id="" name="" />
-                <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
+                <p id="imgLoaderAdditional" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
             </div>
     }
 </div>
@@ -76,33 +76,32 @@
         $("#loginLink").addClass("active");
     });
     //Show the Success:-
-    function fnBegin() {
-        $('#imgLoader').show();
+    function fnBeginAdditional() {
+        $('#imgLoaderAdditional').show();
         //Show any loder when process start:-
     }
     function fnSuccessAdditional(response, status, xhr) {
         if (response == "1") {
-
             alert("Information is updated successfully.");
-            $('#imgLoader').hide();
+            $('#imgLoaderAdditional').hide();
         }
         else if (response == "0") {
-            $('#imgLoader').hide();
-            $("#errormessage").show();
+            alert("Information could updated successfully.");
+            $("#imgLoaderAdditional").show();
 
         }
         else {
-            $('#imgLoader').hide();
+            $('#imgLoaderAdditional').hide();
             alert("Please try after '")
         }
     }
     function fnFailure(xhr, status, err) {
-        $('#imgLoader').hide();
+        $('#imgLoaderAdditional').hide();
         alert("'failure occured!!.Please try after '")
     }
     function fnComplete() {
         if (response != "1") {
-            $('#imgLoader').hide();
+            $('#imgLoaderAdditional').hide();
         }
     }
 </script>
@@ -122,4 +121,7 @@
         $(this).parents('div.editorRow:first').remove();
         return false;
     });
+</script>
+<script type="text/javascript" language=javascript>
+    $.validator.unobtrusive.parse(document);
 </script>

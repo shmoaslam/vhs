@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Newtonsoft.Json
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -31,20 +32,26 @@
         <!-- start main nav -->
         <nav id="main-nav">
             <ul class="option-set clearfix" data-option-key="filter">
-                @if (HttpContext.Current.Session["Name"] != null && HttpContext.Current.Request.IsAuthenticated)
+                @if (HttpContext.Current.Request.IsAuthenticated)
                 {
-                    <li><span style="color:hotpink"> @HttpContext.Current.Session["Name"].ToString()</span></li>
+                    HttpCookie userCookie = Request.Cookies[".USERAUTH"];
+                    if (userCookie != null && userCookie["User"] != null)
+                    {
+                        string userdata = userCookie["User"];
+                        var _currentUser = JsonConvert.DeserializeObject<VHS.Services.UserInfo>(userdata);
+                        <li><span style="color:hotpink">@_currentUser.Name</span></li>
+                    }
                 }
 
-                <li> @Html.ActionLink("Listed Properties", "ListedProperty", "Property")</li>    
+                <li> @Html.ActionLink("Listed Properties", "ListedProperty", "Property")</li>
                 @*<li>
-                    <a href="#" class="sub-nav-toggle">Features</a>
-                    <ul class="sub-nav hidden">
-                        <li>@Html.ActionLink("Project", "Project", "Blog")</li>
-                        <li>@Html.ActionLink("Post", "SinglePost", "Blog") </li>
-                        <li>@Html.ActionLink("Blog Alternative", "Alternative", "Blog")</li>
-                    </ul>
-                </li>*@
+                        <a href="#" class="sub-nav-toggle">Features</a>
+                        <ul class="sub-nav hidden">
+                            <li>@Html.ActionLink("Project", "Project", "Blog")</li>
+                            <li>@Html.ActionLink("Post", "SinglePost", "Blog") </li>
+                            <li>@Html.ActionLink("Blog Alternative", "Alternative", "Blog")</li>
+                        </ul>
+                    </li>*@
                 @*<li> <a href="index.html">Properties</a></li>*@
                 <li>
                     <a href="#" class="sub-nav-toggle">Categories</a>
@@ -142,7 +149,5 @@
     <script defer src="~/Scripts/jquery.flexslider-min.js"></script>
     <script src="~/Scripts/jquery.magnific-popup.min.js" type="text/javascript"></script>
     <script src="~/Scripts/jquery.fitvids.js" type="text/javascript"></script>
-
-@RenderSection("scripts", required: false)
 </body>
 </html>

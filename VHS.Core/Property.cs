@@ -15,6 +15,8 @@ namespace VHS.Core
         public int NumberOfBathRoom { get; set; }
         public int Price { get; set; }
         public bool IsApproved { get; set; }
+        public bool IsAssigned { get; set; }
+
         public int NumberOfRooms { get; set; }
 
         public Nullable<int> LocalOrder { get; set; }
