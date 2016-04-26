@@ -1,0 +1,83 @@
+﻿@model VHS.Services.Models.PropertyWeekendPricing
+@using Newtonsoft.Json
+@{
+    List<SelectListItem> weekEndList = new List<SelectListItem>();
+    weekEndList.Add(new SelectListItem
+    {
+        Text = "Friday",
+        Value = "Friday"
+    });
+    weekEndList.Add(new SelectListItem
+    {
+        Text = "Saturday",
+        Value = "Saturday"
+    });
+    weekEndList.Add(new SelectListItem
+    {
+        Text = "Sunday",
+        Value = "Sunday"
+    });
+}
+
+<h4>Weekend Pricing</h4>
+@using (Ajax.BeginForm("PropertyWeekendPricing", "ManageProperty", new AjaxOptions { OnBegin = "fnBeginWeekEnd", HttpMethod = "Post", OnSuccess = "fnSuccessWeekEndPrice", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
+{
+    @Html.HiddenFor(m => m.PropertyId)
+    @Html.HiddenFor(m => m.PropWEPriceId)
+    <label class="sm-label">Price (per day)</label>
+    @Html.TextBoxFor(m => m.Price, new { @class = "sm-input", size = "12" })
+    <label class="sm-label">Weekend Start Day</label>
+    @Html.DropDownListFor(model => model.From, weekEndList, "-- Select --", new { @class = "sm-input" })
+    <label class="sm-label">Weekend End Day</label>
+    @Html.DropDownListFor(model => model.To, weekEndList, "-- Select --", new { @class = "sm-input" })
+    <div style="clear:both;"></div>
+    <div class="input-wrapper clearfix">
+        <input type="submit" class="send-btn" value="Update" id="" name="">
+        <input type="reset" class="send-btn" value="Cancel" id="" name="">
+    </div>
+}
+@*<script>
+        $(document).ready(function () {
+            var startdate = @Html.Raw(JsonConvert.SerializeObject(Model.StartDate));
+            var enddate = @Html.Raw(JsonConvert.SerializeObject(Model.StartDate));
+            $("#txtStartDate").val(startdate);
+            $("#txtStopDate").val(enddate)
+        });
+    </script>*@
+<script>
+    $(document).ready(function () {
+
+        $("#loginLink").addClass("active");
+    });
+    //Show the Forgot Password  Div:-
+    //Show the Success:-
+    function fnBeginWeekEnd() {
+        $('#imgLoaderVariable').show();
+        //Show any loder when process start:-
+    }
+    function fnSuccessWeekEndPrice(response, status, xhr) {
+        if (response == "1") {
+            alert("Information is updated successfully.");
+            $('#imgLoaderVariable').hide();
+        }
+        else if (response == "0") {
+            $('#imgLoaderVariable').hide();
+            $("#errormessage").show();
+
+        }
+        else {
+            $('#imgLoaderVariable').hide();
+            alert("Please try after '")
+        }
+    }
+    function fnFailure(xhr, status, err) {
+        $('#imgLoaderVariable').hide();
+        alert("'failure occured!!.Please try after '")
+    }
+    function fnComplete() {
+        $('#imgLoaderVariable').hide();
+    }
+</script>
+<script type="text/javascript" language=javascript>
+    $.validator.unobtrusive.parse(document);
+</script>

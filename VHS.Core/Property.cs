@@ -16,6 +16,8 @@ namespace VHS.Core
         public int Price { get; set; }
         public bool IsApproved { get; set; }
         public bool IsAssigned { get; set; }
+        public bool SendApprovedRequest { get; set; }
+        public bool SendDeleteRequest { get; set; }
 
         public int NumberOfRooms { get; set; }
 

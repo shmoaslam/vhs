@@ -30,7 +30,6 @@ namespace VHS.Repository
         private GenericRepository<TravelPreferences> _travelPrefRepository;
         private GenericRepository<UserTravelPrefMapping> _userTravelPrefRepository;
         private GenericRepository<MailLink> _mailLinkRepository;
-
         private GenericRepository<Amenities> _aminitiesRepository;
         private GenericRepository<BathRooms> _bathRoomsRepository;
         private GenericRepository<EntertainmentElectronics> _enterElecRepository;
@@ -53,17 +52,22 @@ namespace VHS.Repository
         private GenericRepository<SleepingArrangement> _sleepArrangeRepository;
         private GenericRepository<PropertyTravelAmbassadorMap> _propTravelAmbessRepository;
         private GenericRepository<PropertyTravelBeatsMap> _propTravelBeatsRepository;
-
         private GenericRepository<PropertyFixedPrice> _propFixedPriceRepository;
         private GenericRepository<PropertyVraiblePrice> _propVariablePriceRepository;
+        private GenericRepository<PropertyWeekendPrice> _propertyWeekendPriceRepository;
+        private GenericRepository<BookingRequest> _bookingRequestRepository;
+        private GenericRepository<Newsletter> _newsletterRepository;
 
         #endregion
 
         public UnitOfWork()
         {
             _context = new VHSDbContext();
+            
         }
 
+
+        
         #region Public Repository Creation properties...
 
         /// <summary>
@@ -545,6 +549,45 @@ namespace VHS.Repository
                 return _propVariablePriceRepository;
             }
         }
+
+        /// <summary>
+        /// Get/Set Property for Mail Link repository.
+        /// </summary>
+        public GenericRepository<PropertyWeekendPrice> PropertyWeekendPriceRepository
+        {
+            get
+            {
+                if (this._propertyWeekendPriceRepository == null)
+                    this._propertyWeekendPriceRepository = new GenericRepository<PropertyWeekendPrice>(_context);
+                return _propertyWeekendPriceRepository;
+            }
+        }
+
+        /// <summary>
+        /// Get/Set Property for BookingRequest repository.
+        /// </summary>
+        public GenericRepository<BookingRequest> BookingRequestRepository
+        {
+            get
+            {
+                if (this._bookingRequestRepository == null)
+                    this._bookingRequestRepository = new GenericRepository<BookingRequest>(_context);
+                return _bookingRequestRepository;
+            }
+        }
+
+        /// <summary>
+        /// Get/Set Property for Newsletter repository.
+        /// </summary>
+        public GenericRepository<Newsletter> NewsletterRepository
+        {
+            get
+            {
+                if (this._newsletterRepository == null)
+                    this._newsletterRepository = new GenericRepository<Newsletter>(_context);
+                return _newsletterRepository;
+            }
+        }
         #endregion
 
         #region Public member methods...
@@ -610,6 +653,33 @@ namespace VHS.Repository
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+        #endregion
+
+        #region Store Procedure
+        public List<string> GetAmennities(int propId, Anemities amenities)
+        {
+            if (propId == 0) return null;
+            switch (amenities)
+            {
+                case Anemities.General:
+                    return _context.Database.SqlQuery<string>("select Name from PropertyGeneralMap join General on PropertyGeneralMap.generalid =  General.id where propertyid = " + propId).ToList();
+                case Anemities.Kitchen:
+                    return _context.Database.SqlQuery<string>("select Name from PropertyKitchenMap join Kitchen on PropertyKitchenMap.kitchenid =  Kitchen.id where propertyid = " + propId).ToList();
+                case Anemities.SleepingArrangments:
+                    return _context.Database.SqlQuery<string>("select Name from PropertySleepingMap join SleepingArrangement on PropertySleepingMap.sleeparrengid =  SleepingArrangement.id where propertyid = " + propId).ToList();
+                case Anemities.EntertainmentElectronic:
+                    return _context.Database.SqlQuery<string>("select Name from PropertyEnterElecMap join EntertainmentElectronics on PropertyEnterElecMap.enterelecid =  EntertainmentElectronics.id where propertyid =" + propId).ToList();
+                case Anemities.Bathroom:
+                    return _context.Database.SqlQuery<string>("select Name from PropertyBathRoomsMap join BathRooms on PropertyBathRoomsMap.BathRoomId =  BathRooms.id where propertyid = " + propId).ToList();
+                case Anemities.Outdoor:
+                    return _context.Database.SqlQuery<string>("select Name from PropertyOutdoorMap join OutdoorFacilities on PropertyOutdoorMap.outfaciId =  OutdoorFacilities.id where propertyid = " + propId).ToList();
+                case Anemities.Parking:
+                    return _context.Database.SqlQuery<string>("select Name from PropertyParkingMap join Parking on PropertyParkingMap.parkingid = Parking.id where propertyid = " + propId).ToList();
+                default:
+                    return null;
+            }
+           
         }
         #endregion
     }

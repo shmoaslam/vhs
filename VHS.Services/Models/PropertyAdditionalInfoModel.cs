@@ -150,6 +150,17 @@ namespace VHS.Services.Models
         [Required(ErrorMessage = "Please enter description")]
         public string Description { get; set; }
     }
+    public class PropertyWeekendPricing
+    {
+        public int PropertyId { get; set; }
+        public int PropWEPriceId { get; set; }
+        [Required(ErrorMessage = "Please select start date")]
+        public string From { get; set; }
+        [Required(ErrorMessage = "Please select stop date")]
+        public string To { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
+        public decimal Price { get; set; }
+    }
     public class ddlPriceCurrency
     {
         public int Value { get; set; }

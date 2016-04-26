@@ -25,5 +25,14 @@ namespace VHS.Services.ViewModel
         public string PersonPerRoom { get; set; }
         public string Title { get; set; }
         public string Address { get; set; }
+
+        public List<string> General { get; set; }
+        public List<string> Parking { get; set; }
+        public List<string> Outdoor { get; set; }
+        public List<string> Bathroom { get; set; }
+        public List<string> EntertainmentElectronic { get; set; }
+        public List<string> SleepingArrangments { get; set; }
+        public List<string> Kitchen { get; set; }
+        
     }
 }

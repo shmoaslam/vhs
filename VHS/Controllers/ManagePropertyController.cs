@@ -30,13 +30,17 @@ namespace VHS.Controllers
         {
             return View();
         }
+        [HttpGet]
         public ActionResult Waiting()
         {
-            return View();
+            var assignProperty = _manageProperty.GetApprovedWaitingProperty();
+            return View(assignProperty);
         }
+        [HttpGet]
         public ActionResult Delete()
         {
-            return View();
+            var assignProperty = _manageProperty.GetDeleteRequestProperty();
+            return View( assignProperty);
         }
         [HttpGet]
         public ActionResult Assign()
@@ -117,6 +121,13 @@ namespace VHS.Controllers
             return PartialView("_PropertyVariablePricing", propVarablePrice);
         }
         [HttpGet]
+        public ActionResult GetPropertyWeekendPrice(int id)
+        {
+            var propWEPrice = _manageProperty.GetPropertyWeekendPrice(id);
+            return PartialView("_PropertyWeekEndPricing", propWEPrice);
+        }
+
+        [HttpGet]
         public ActionResult GetPropertyCoverPhoto(int id)
         {
             var propCoverPhoto = _manageProperty.GetPropertyCoverPhoto(id);
@@ -146,7 +157,56 @@ namespace VHS.Controllers
             var propDelete = _manageProperty.GetPropertyDelete(id);
             return PartialView("_PropertyDelete", propDelete);
         }
-
+        [HttpGet]
+        public ActionResult GetPropertyApproval(int id)
+        {
+            var propDelete = _manageProperty.GetPropertyApproval(id);
+            return PartialView("_PropertyApproval", propDelete);
+        }
+        
+        [HttpGet]
+        public ActionResult GetPropertyDeleteRequest(int id)
+        {
+            var propNotity = _manageProperty.GetPropertyDelete(id);
+            return PartialView("_PropertyDeleteRequest", propNotity);
+        }
+        [HttpGet]
+        public ActionResult GetPropertyAprrovalRequest(int id)
+        {
+            var propNotity = _manageProperty.GetPropertyDelete(id);
+            return PartialView("_PropertyAprrovalRequest", propNotity);
+        }
+        [HttpPost]
+        public ActionResult ApprovedProperty(PropertyNotification notification)
+        {
+            var proper = _manageProperty.ApprovedProperty(notification);
+            if (proper)
+            {
+                return Json("1");
+            }
+            else
+            {
+                return Json("0");
+            }
+        }
+        [HttpPost]
+        public ActionResult PropertyAprrovalRequest(PropertyNotification notification)
+        {
+            var proper = _manageProperty.PropertyAprrovalRequest(notification);
+            if (proper)
+                return Json("1");
+            else
+                return Json("0");
+        }
+        [HttpPost]
+        public ActionResult PropertyDeleteRequest(PropertyNotification notification)
+        {
+            var proper = _manageProperty.PropertyDeleteRequest(notification);
+            if (proper)
+                return Json("1");
+            else
+                return Json("0");
+        }
         [HttpPost]
         public JsonResult PropertyGeneralInfo(PropertyGeneralInfo propGeneralInfo, List<HttpPostedFileBase> Image)
         {
@@ -218,6 +278,20 @@ namespace VHS.Controllers
             }
         }
         [HttpPost]
+        public JsonResult PropertyWeekendPricing(PropertyWeekendPricing propWePrice)
+        {
+            var proper = _manageProperty.UpdatePropWeekEndPrice(propWePrice);
+            if (proper)
+            {
+                return Json("1");
+            }
+            else
+            {
+                return Json("0");
+            }
+        }
+
+        [HttpPost]
         public JsonResult PropertyCoverPhoto(PropertyCoverPhoto propertyCoverPhoto, List<HttpPostedFileBase> CoverPhoto)
         {
             if (CoverPhoto == null)
@@ -254,7 +328,7 @@ namespace VHS.Controllers
             }
         }
         [HttpPost]
-        public JsonResult DeleteProperty(PropertyDelete propertyDelete)
+        public JsonResult DeleteProperty(PropertyNotification propertyDelete)
         {
             var proper = _manageProperty.DeleteProperty(propertyDelete);
             if (proper)

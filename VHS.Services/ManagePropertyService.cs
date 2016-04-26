@@ -126,6 +126,7 @@ namespace VHS.Services
             propertyEditViewModel.propertyTravelAmbassdor = GetPropertyTravelAmbassReview(PropertyId);
             //propertyEditViewModel.propertyTransfer = GetPropertyTransferDetail(PropertyId);
             propertyEditViewModel.propertyDelete = GetPropertyDelete(PropertyId);
+            propertyEditViewModel.propertyApproval = GetPropertyApproval(PropertyId);
             return propertyEditViewModel;
         }
 
@@ -254,6 +255,23 @@ namespace VHS.Services
             }
             return propertyPricevarable;
         }
+
+        public PropertyWeekendPricing GetPropertyWeekendPrice(int propertyId)
+        {
+            var propertyPriceWeekend = new PropertyWeekendPricing();
+            propertyPriceWeekend.PropertyId = propertyId;
+
+            var propWePrice = _unitOfWork.PropertyWeekendPriceRepository.Get(m => m.PropertyId == propertyId);
+            if (propWePrice != null)
+            {
+                propertyPriceWeekend.Price = propWePrice.Price;
+                propertyPriceWeekend.From = propWePrice.From;
+                propertyPriceWeekend.To = propWePrice.To;
+                propertyPriceWeekend.PropertyId = propWePrice.PropertyId;
+                propertyPriceWeekend.PropWEPriceId = propWePrice.Id;
+            }
+            return propertyPriceWeekend;
+        }
         public PropertyCoverPhoto GetPropertyCoverPhoto(int propertyId)
         {
             var propertyPhoto = new PropertyCoverPhoto();
@@ -311,13 +329,18 @@ namespace VHS.Services
             propertyTransfer.PropertyId = PropertyId;
             return propertyTransfer;
         }
-        public PropertyDelete GetPropertyDelete(int PropertyId)
+        public PropertyNotification GetPropertyDelete(int PropertyId)
         {
-            var propertyDelete = new PropertyDelete();
+            var propertyDelete = new PropertyNotification();
             propertyDelete.PropertyId = PropertyId;
             return propertyDelete;
         }
-
+        public PropertyNotification GetPropertyApproval(int PropertyId)
+        {
+            var propertyDelete = new PropertyNotification();
+            propertyDelete.PropertyId = PropertyId;
+            return propertyDelete;
+        }
         //Update Property Detail:-
         public bool UpdateGeneralInfo(PropertyGeneralInfo propGeneralInfo, List<HttpPostedFileBase> file)
         {
@@ -772,7 +795,7 @@ namespace VHS.Services
             return result;
         }
 
-        public bool DeleteProperty(PropertyDelete propertyDelete)
+        public bool DeleteProperty(PropertyNotification propertyDelete)
         {
             var result = false;
             var propDelete = _unitOfWork.PropertyRepository.Get(m => m.Id == propertyDelete.PropertyId);
@@ -860,6 +883,30 @@ namespace VHS.Services
             return result;
         }
 
+
+        public bool UpdatePropWeekEndPrice(PropertyWeekendPricing propWePrice)
+        {
+            var result = false;
+            if (propWePrice.PropWEPriceId == 0)
+            {
+                _unitOfWork.PropertyWeekendPriceRepository.Insert(new PropertyWeekendPrice { Price = Convert.ToDecimal(propWePrice.Price), From = propWePrice.From, To = propWePrice.To, PropertyId = propWePrice.PropertyId });
+            }
+            else
+            {
+                var propWEobj = _unitOfWork.PropertyWeekendPriceRepository.GetByID(propWePrice.PropWEPriceId);
+                if (propWEobj != null)
+                {
+                    propWEobj.Price = Convert.ToDecimal(propWePrice.Price);
+                    propWEobj.From = propWePrice.From;
+                    propWEobj.To = propWePrice.To;
+                    _unitOfWork.PropertyWeekendPriceRepository.Update(propWEobj);
+                }
+            }
+            _unitOfWork.Save();
+            result = true;
+            return result;
+        }
+
         public bool UpdatePropFixPrice(PropertyFixedPricing propFixedPrice)
         {
             var result = false;
@@ -914,6 +961,62 @@ namespace VHS.Services
             {
                 propRmTransfer.LoginId = propTransfer.RmId;
                 _unitOfWork.PropertyRMMapRepository.Update(propRmTransfer);
+                _unitOfWork.Save();
+                return true;
+            }
+            return result;
+        }
+
+        public bool PropertyAprrovalRequest(PropertyNotification notification)
+        {
+            var result = false;
+            var propDelete = _unitOfWork.PropertyRepository.Get(m => m.Id == notification.PropertyId);
+            if (propDelete != null)
+            {
+                propDelete.SendApprovedRequest = true;
+                _unitOfWork.PropertyRepository.Update(propDelete);
+                _unitOfWork.Save();
+                return true;
+            }
+            return result;
+        }
+        public bool PropertyDeleteRequest(PropertyNotification notification)
+        {
+            var result = false;
+            var propDelete = _unitOfWork.PropertyRepository.Get(m => m.Id == notification.PropertyId);
+            if (propDelete != null)
+            {
+                propDelete.SendDeleteRequest = true;
+                _unitOfWork.PropertyRepository.Update(propDelete);
+                _unitOfWork.Save();
+                return true;
+            }
+            return result;
+        }
+
+        public AdminHomeViewModel GetApprovedWaitingProperty()
+        {
+            var adminHomeVm = new AdminHomeViewModel();
+            adminHomeVm.propertyListVm = _property.GetPropertyList().Where(m => !m.IsApproved & m.WaitingForApproval && !m.IsApproved).ToList();
+            return adminHomeVm;
+        }
+
+        public AdminHomeViewModel GetDeleteRequestProperty()
+        {
+            var adminHomeVm = new AdminHomeViewModel();
+            adminHomeVm.propertyListVm = _property.GetPropertyList().Where(m => !m.IsApproved & m.WaitingForDeletion).ToList();
+            return adminHomeVm;
+        }
+
+        public bool ApprovedProperty(PropertyNotification notification)
+        {
+            var result = false;
+            var propDelete = _unitOfWork.PropertyRepository.Get(m => m.Id == notification.PropertyId);
+            if (propDelete != null)
+            {
+                propDelete.IsApproved = true;
+                propDelete.SendApprovedRequest = false;
+                _unitOfWork.PropertyRepository.Update(propDelete);
                 _unitOfWork.Save();
                 return true;
             }

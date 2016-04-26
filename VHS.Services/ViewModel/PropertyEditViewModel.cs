@@ -14,10 +14,12 @@ namespace VHS.Services.ViewModel
         public PropertyAmenities propertyAmenities { get; set; }
         public PropertyFixedPricing propertyFixPricing { get; set; }
         public PropertyVarablePricing propertVarablePricing { get; set; }
+        public PropertyWeekendPricing propertyWeekendPricing { get; set; }
         public PropertyCoverPhoto propertyCoverPhoto { get; set; }
         public PropertyGallaryPhoto propertyGallaryPhoto { get; set; }
         public PropertyTravelAmbassador propertyTravelAmbassdor { get; set; }
         public PropertyTransfer propertyTransfer { get; set; }
-        public PropertyDelete propertyDelete { get; set; }
+        public PropertyNotification propertyDelete { get; set; }
+        public PropertyNotification propertyApproval { get; set; }
     }
 }

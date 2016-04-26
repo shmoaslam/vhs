@@ -1,0 +1,50 @@
+﻿@model VHS.Services.Models.PropertyNotification
+<h3>Send for Admin Approval?</h3>
+@using (Ajax.BeginForm("PropertyAprrovalRequest", "ManageProperty", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccessAprrovalRequest", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
+{
+    <p class="sub-heading"><span class="error-msg">some error occured</span></p>
+    <label>Do you want to sent this property for approval?</label>
+    <div style="clear:both;"></div>
+    @Html.HiddenFor(m => m.PropertyId)
+    <div class="input-wrapper clearfix">
+        <input type="submit" class="send-btn" value="Yes" id="" name="" />
+        <input type="reset" class="send-btn" value="No" id="" name="" />
+        <p id="imgLoaderAprrovalRequest" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        $("#loginLink").addClass("active");
+    });
+    //Show the Success:-
+    function fnBegin() {
+        $('#imgLoaderAprrovalRequest').show();
+        //Show any loder when process start:-
+    }
+    function fnSuccessAprrovalRequest(response, status, xhr) {
+        if (response == "1") {
+            alert('Property Aprroval Requestd sent sucessfully');
+            window.location.href = '@Url.Action("ManageProperty", "ManageProperty")';
+        }
+        else if (response == "0") {
+            $('#imgLoaderAprrovalRequest').hide();
+
+        }
+        else {
+            $('#imgLoaderAprrovalRequest').hide();
+            alert("Please try after '")
+        }
+    }
+    function fnFailure(xhr, status, err) {
+        $('#imgLoaderAprrovalRequest').hide();
+        alert("'failure occured!!.Please try after '")
+    }
+    function fnComplete() {
+        if (response != "1") {
+            $('#imgLoaderAprrovalRequest').hide();
+        }
+    }
+</script>
+<script type="text/javascript" language=javascript>
+    $.validator.unobtrusive.parse(document);
+</script>

@@ -11,6 +11,7 @@ using VHS.Interface;
 using VHS.Repository;
 using VHS.Services.App_Code;
 using VHS.Services.Models;
+using VHS.Services.ViewModel;
 
 namespace VHS.Services
 {
@@ -19,6 +20,7 @@ namespace VHS.Services
         private readonly UnitOfWork _unitOfWork;
 
         string url = ConfigurationManager.AppSettings["URL"].ToString();
+        private readonly string _emailFrom = ConfigurationManager.AppSettings["MailFrom"].ToString();
         public NotificationService()
         {
             _unitOfWork = new UnitOfWork();
@@ -45,6 +47,24 @@ namespace VHS.Services
             }
 
         }
+
+        public void SendBookingRequestMail(BookingRequestViewModel viewModel)
+        {
+            try
+            {
+                string Subject = "Booking request received";
+                var templateFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views");
+                var templateFilePath = templateFolderPath + "\\Mailer\\BookingRequestEmailTemplate.cshtml";
+                var templateService = new TemplateService();
+                var emailHtmlBody = templateService.Parse(File.ReadAllText(templateFilePath), viewModel, null, null);
+                MailSend.SendEmail("info@velvetthomestays.com", Subject, emailHtmlBody, true);
+            }
+            catch (Exception ex)
+            {
+                
+            }
+        }
+
         public void RmAccountCreation(string Email, string Name, int RMId)
         {
             try

@@ -1,17 +1,17 @@
 ﻿@model VHS.Services.Models.PropertyNotification
-<h3>Delete Property</h3>
+<h3>Approved Property</h3>
 
 <div class="col-lg-6 col-md-6">
-    @using (Ajax.BeginForm("DeleteProperty", "ManageProperty", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccessDeleteProperty", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
+    @using (Ajax.BeginForm("ApprovedProperty", "ManageProperty", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccessApprovedProperty", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
     {
         <p class="sub-heading"><span class="error-msg" style="display:none" id="errormessage">some error occured</span></p>
-        <label>Do you want to delete this property?</label>
+        <label>Do you want to Approved this property?</label>
         <div style="clear:both;"></div>
         @Html.HiddenFor(m => m.PropertyId)
         <div class="input-wrapper clearfix">
             <input type="submit" class="send-btn" value="Yes" id="" name="" />
             <input type="reset" class="send-btn" value="No" id="" name="" />
-            <p id="imgLoaderDelete" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
+            <p id="imgLoaderApproved" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
         </div>
 
     }
@@ -22,30 +22,30 @@
     });
     //Show the Success:-
     function fnBegin() {
-        $('#imgLoaderDelete').show();
+        $('#imgLoaderApproved').show();
         //Show any loder when process start:-
     }
-    function fnSuccessDeleteProperty(response, status, xhr) {
+    function fnSuccessApprovedProperty(response, status, xhr) {
         if (response == "1") {
-            alert('Property deleted sucessfully');
+            alert('Property Approvedd sucessfully');
             window.location.href = '@Url.Action("ManageProperty", "ManageProperty")';
         }
         else if (response == "0") {
-            $('#imgLoaderDelete').hide();
+            $('#imgLoaderApproved').hide();
 
         }
         else {
-            $('#imgLoaderDelete').hide();
+            $('#imgLoaderApproved').hide();
             alert("Please try after '")
         }
     }
     function fnFailure(xhr, status, err) {
-        $('#imgLoaderDelete').hide();
+        $('#imgLoaderApproved').hide();
         alert("'failure occured!!.Please try after '")
     }
     function fnComplete() {
         if (response != "1") {
-            $('#imgLoaderDelete').hide();
+            $('#imgLoaderApproved').hide();
         }
     }
 </script>

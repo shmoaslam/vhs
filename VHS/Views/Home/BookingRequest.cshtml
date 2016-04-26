@@ -1,0 +1,67 @@
+﻿@model VHS.Services.ViewModel.BookingRequestViewModel
+
+@{
+    ViewBag.Title = "Booking Request";
+}
+<section class="section header-section dark">
+    <div class="overlay"><img class="property-cover" src="/images/bg2.jpg"></div>
+    <div class="container clearfix">
+        <div class="col-lg-6 centered aligncenter">
+            <div class="centralizing-wrapper">
+                <div class="centralized-content">
+                    <h1>Don't just visit. <span style="color:#f06eaa">Belong.</span></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container clearfix centered">
+        <div class="col-lg-12">
+            <p>
+                Planning your next holiday?
+                We’ll take you on a journey that helps you discover as much about yourself, as it does a unique new destination.
+                You see, a Homestay offers you a memorable getaway, without packing in expensive accommodation costs.
+                All, while allowing you to unearth local culture, cuisine and traditions in a manner thats immersive as it is enriching.
+            </p>
+            <p>
+                At Velvett Homestays, we herald a growing number of people who want their travels to be less invasive and more beneficial to the local communities they engage with.
+                And we cant wait to welcome you to this ever evolving band of tourists who go beyond the ordinary. Are you ready to belong?
+            </p>
+            <p><br></p>
+
+
+            <h3 class="header">Make a Booking Request</h3>
+            <div class="head-underline"> </div>
+
+
+        </div>
+    </div>
+    <div class="container clearfix centered">
+        <div class="col-lg-4 col-md-4 col-sm-9 aligncenter">
+            @using (Html.BeginForm("BookingRequest", "Home", FormMethod.Post, new { @class = "form-part" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary();
+                <label>Name</label>
+                @Html.TextBoxFor(m => m.Name, new { id = "name", name = "name" })
+                <label>Email</label>
+                @Html.TextBoxFor(m => m.Email, new { id = "email", name = "email" })
+                <label>Start Date</label>
+                @Html.TextBoxFor(m => m.StartDate, new { id = "startdate", name = "startdate", type = "date" })
+                <label>End Date</label>
+                @Html.TextBoxFor(m => m.EndDate, new { id = "enddate", name = "enddate", type = "date" })
+                <label>Your Travel Details</label>
+                @Html.TextAreaFor(m => m.Description, new { name = "comments", cols = "40", rows = "3", id = "comments", title = "Tell us about your travel plan!" })
+                <div class="input-wrapper clearfix">
+                    <input type="submit" class="send-btn" value="Send" id="submit" name="Submit">
+                    <input type="reset" class="send-btn" value="Cancel" id="submit" name="Cancel">
+                    <span id="message"></span>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+

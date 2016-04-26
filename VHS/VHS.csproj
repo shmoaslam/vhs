@@ -298,6 +298,15 @@
     <Content Include="Images\guest.png" />
     <Content Include="Images\header-bg.jpg" />
     <Content Include="Images\headline.jpg" />
+    <Content Include="Images\home\about.jpg" />
+    <Content Include="Images\home\book-req2.jpg" />
+    <Content Include="Images\home\contact.jpg" />
+    <Content Include="Images\home\egg.jpg" />
+    <Content Include="Images\home\konkan.jpg" />
+    <Content Include="Images\home\list-prop1.jpg" />
+    <Content Include="Images\home\nl.jpg" />
+    <Content Include="Images\home\spain.jpg" />
+    <Content Include="Images\home\vh.jpg" />
     <Content Include="Images\icons\bg-adjust%402x.png" />
     <Content Include="Images\icons\bg-adjust.png" />
     <Content Include="Images\icons\bg-apple%402x.png" />
@@ -512,7 +521,7 @@
     <Content Include="fonts\bootstrap\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\bootstrap\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\bootstrap\glyphicons-halflings-regular.woff2" />
-    <None Include="Properties\PublishProfiles\FileSystem.pubxml" />
+    <None Include="Properties\PublishProfiles\publish.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\input.fields.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -642,6 +651,14 @@
     <Content Include="Views\Admin\_ApprovedProperty.cshtml" />
     <Content Include="Views\Admin\_BookedProperty.cshtml" />
     <Content Include="Views\ManageProperty\AddProperty.cshtml" />
+    <Content Include="Views\Shared\_PropertyDeleteRequest.cshtml" />
+    <Content Include="Views\Shared\_PropertyAprrovalRequest.cshtml" />
+    <Content Include="Views\Shared\_PropertyApproval.cshtml" />
+    <Content Include="Views\Home\VelvettHolidays.cshtml" />
+    <Content Include="Views\Home\BookingRequest.cshtml" />
+    <Content Include="Views\Home\Newsletter.cshtml" />
+    <Content Include="Views\Mailer\BookingRequestEmailTemplate.cshtml" />
+    <Content Include="Views\Shared\_PropertyWeekEndPricing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

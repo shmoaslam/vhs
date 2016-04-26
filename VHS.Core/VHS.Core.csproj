@@ -46,6 +46,8 @@
     <Compile Include="Base.cs" />
     <Compile Include="BaseProperty.cs" />
     <Compile Include="BathRooms.cs" />
+    <Compile Include="Anemities.cs" />
+    <Compile Include="BookingRequest.cs" />
     <Compile Include="Contact.cs" />
     <Compile Include="Document.cs" />
     <Compile Include="EntertainmentElectronics.cs" />
@@ -53,6 +55,7 @@
     <Compile Include="Image.cs" />
     <Compile Include="Kitchen.cs" />
     <Compile Include="MailLink.cs" />
+    <Compile Include="Newsletter.cs" />
     <Compile Include="OutdoorFacilities.cs" />
     <Compile Include="Parking.cs" />
     <Compile Include="Property.cs" />
@@ -78,6 +81,7 @@
     <Compile Include="PropertyTravelAmbassadorMap.cs" />
     <Compile Include="PropertyTravelBeatsMap.cs" />
     <Compile Include="PropertyVraiblePrice.cs" />
+    <Compile Include="PropertyWeekendPrice.cs" />
     <Compile Include="SleepingArrangement.cs" />
     <Compile Include="TravelPreferences.cs" />
     <Compile Include="UserLogin.cs" />

@@ -58,10 +58,13 @@
     <Compile Include="App_Code\MailSend.cs" />
     <Compile Include="App_Code\Security.cs" />
     <Compile Include="CategoryService.cs" />
+    <Compile Include="Enum\Anemities.cs" />
     <Compile Include="Enum\UserTypeEnum.cs" />
+    <Compile Include="HomeService.cs" />
     <Compile Include="Interface\IAccount.cs" />
     <Compile Include="Interface\IAdminHome.cs" />
     <Compile Include="Interface\ICategoryService.cs" />
+    <Compile Include="Interface\IHomeService.cs" />
     <Compile Include="Interface\IManageProperty.cs" />
     <Compile Include="Interface\IManageRm.cs" />
     <Compile Include="Interface\INotificationService.cs" />
@@ -90,9 +93,11 @@
     <Compile Include="UserService.cs" />
     <Compile Include="ViewModel\AdminHomeViewModel.cs" />
     <Compile Include="ViewModel\Aminities.cs" />
+    <Compile Include="ViewModel\BookingRequestViewModel.cs" />
     <Compile Include="ViewModel\ImageViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\ManagePropertyViewModel.cs" />
+    <Compile Include="ViewModel\NewsletterViewModel.cs" />
     <Compile Include="ViewModel\ProfileViewModel.cs" />
     <Compile Include="ViewModel\PropertyDisplayViewModel.cs" />
     <Compile Include="ViewModel\PropertyEditViewModel.cs" />

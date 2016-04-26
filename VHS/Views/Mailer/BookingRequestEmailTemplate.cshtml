@@ -1,0 +1,39 @@
+﻿@model VHS.Services.ViewModel.BookingRequestViewModel
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Velvett Homestays</title>
+</head>
+
+<body>
+    <div>
+        <p>Booking request received from @Model.Name.</p>
+        <p>Following are the booking details.</p>
+        <table cellpadding="5" cellspacing="5" border="0">
+            <tbody>
+                <tr>
+                    <td><b>Name : </b></td>
+                    <td>@Model.Name</td>
+                </tr>
+                <tr>
+                    <td><b>Email : </b></td>
+                    <td>@Model.Email</td>
+                </tr>
+                <tr>
+                    <td><b>Start Date : </b></td>
+                    <td>@Model.StartDate</td>
+                </tr>
+                <tr>
+                    <td><b>End Date : </b></td>
+                    <td>@Model.EndDate</td>
+                </tr>
+                <tr>
+                    <td><b>Travel Details : </b></td>
+                    <td>@Model.Description</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

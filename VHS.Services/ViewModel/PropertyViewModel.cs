@@ -15,5 +15,7 @@ namespace VHS.Services.ViewModel
         public bool IsApproved { get; set; }
         public int RmId { get; internal set; }
         public bool IsAssigned { get; internal set; }
+        public bool WaitingForApproval { get; set; }
+        public bool WaitingForDeletion { get; set; }
     }
 }

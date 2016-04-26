@@ -1,8 +1,27 @@
-﻿@model VHS.Services.ViewModel.PropertyEditViewModel
+﻿@using VHS.Common
+@using Newtonsoft.Json
+@using VHS.Services
+@model VHS.Services.ViewModel.PropertyEditViewModel
+
 @{
     ViewBag.Title = "EditProperty";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+@{
+    bool isAdmin = false;
+    if (HttpContext.Current.User.Identity.IsAuthenticated)
+    {
+        HttpCookie userCookie = Request.Cookies[Constants.COOKIE_USER];
+        if (userCookie != null && userCookie["User"] != null)
+        {
+            string userdata = userCookie["User"];
+            var _currentUser = JsonConvert.DeserializeObject<UserInfo>(userdata);
+            isAdmin = _currentUser.UserType == 1;
+        }
+    }
+}
+
+
 <section class="section">
     <div class="container clearfix centered">
         <div class="col-lg-12">
@@ -21,8 +40,18 @@
                 <li><a data-toggle="pill" href="#menu7">Manage Pricing</a></li>
                 <li><a data-toggle="pill" href="#menu2">Property page appearance settings</a></li>
                 <li><a data-toggle="pill" href="#menu3">Add Travel Ambassador Review</a></li>
-                <li><a data-toggle="pill" href="#menu4">Transfer Property to other RM</a></li>
-                <li><a data-toggle="pill" href="#menu5">Delete Property</a></li>
+                @if (isAdmin)
+                {
+                    <li><a data-toggle="pill" href="#menu4">Transfer Property to other RM</a></li>
+                    <li><a data-toggle="pill" href="#menu5">Approval</a></li>
+                    <li><a data-toggle="pill" href="#menu10">Delete Property</a></li>
+                }
+                @if (!isAdmin)
+                {
+                    <li><a data-toggle="pill" href="#menu8">Send Delete Property request</a></li>
+                    <li><a data-toggle="pill" href="#menu9">Send for Admin approval</a></li>
+                }
+                
             </ul>
         </div>
         <!--leftside tabs end-->
@@ -50,6 +79,9 @@
                         <div class="partialContents" id="divPropertyFixedPrice" data-url="/ManageProperty/GetPropertyFixedPrice/@ViewBag.PropertyId">
                             <div class="txt-center" style="margin:9% !important"><img src="~/Images/indicator.white.gif" /> Loading ...</div>
                         </div>
+                        <div class="partialContents" id="divPropertyWeekendPrice" data-url="/ManageProperty/GetPropertyWeekendPrice/@ViewBag.PropertyId">
+                            <div class="txt-center" style="margin:9% !important"><img src="~/Images/indicator.white.gif" /> Loading ...</div>
+                        </div>
                         <div class="partialContents" id="divPropertyVariablePrice" data-url="/ManageProperty/GetPropertyVaraiablePrice/@ViewBag.PropertyId">
                             <div class="txt-center" style="margin:9% !important"><img src="~/Images/indicator.white.gif" /> Loading ...</div>
                         </div>
@@ -71,17 +103,38 @@
                         <div class="txt-center" style="margin:9% !important"><img src="~/Images/indicator.white.gif" /> Loading ...</div>
                     </div>
                 </div>
-                <div id="menu4" class="tab-pane fade">
+                @if (isAdmin)
+                {
+                    <div id="menu4" class="tab-pane fade">
 
-                    <div class="partialContents" id="divPropertyTransfer" data-url="/ManageProperty/GetPropertyTransfer/@ViewBag.PropertyId">
-                        <div class="txt-center" style="margin:9% !important"><img src="~/Images/indicator.white.gif" /> Loading ...</div>
+                        <div class="partialContents" id="divPropertyTransfer" data-url="/ManageProperty/GetPropertyTransfer/@ViewBag.PropertyId">
+                            <div class="txt-center" style="margin:9% !important"><img src="~/Images/indicator.white.gif" /> Loading ...</div>
+                        </div>
                     </div>
-                </div>
-                <div id="menu5" class="tab-pane fade">
-                    <div class="partialContents" id="divPropertyDelete" data-url="/ManageProperty/GetPropertyDelete/@ViewBag.PropertyId">
-                        <div class="txt-center" style="margin:9% !important"><img src="~/Images/indicator.white.gif" /> Loading ...</div>
+                    <div id="menu5" class="tab-pane fade">
+                        <div class="partialContents" id="divPropertyApproval" data-url="/ManageProperty/GetPropertyApproval/@ViewBag.PropertyId">
+                            <div class="txt-center" style="margin:9% !important"><img src="~/Images/indicator.white.gif" /> Loading ...</div>
+                        </div>
                     </div>
-                </div>
+                    <div id="menu10" class="tab-pane fade">
+                        <div class="partialContents" id="divPropertyDelete" data-url="/ManageProperty/GetPropertyDelete/@ViewBag.PropertyId">
+                            <div class="txt-center" style="margin:9% !important"><img src="~/Images/indicator.white.gif" /> Loading ...</div>
+                        </div>
+                    </div>
+                }
+                @if (!isAdmin)
+                {
+                    <div id="menu8" class="tab-pane fade">
+                        <div class="partialContents" id="divPropertyDeleteRequest" data-url="/ManageProperty/GetPropertyDeleteRequest/@ViewBag.PropertyId">
+                            <div class="txt-center" style="margin:9% !important"><img src="~/Images/indicator.white.gif" /> Loading ...</div>
+                        </div>
+                    </div>
+                    <div id="menu9" class="tab-pane fade">
+                        <div class="partialContents" id="divPropertyAprrovalRequest" data-url="/ManageProperty/GetPropertyAprrovalRequest/@ViewBag.PropertyId">
+                            <div class="txt-center" style="margin:9% !important"><img src="~/Images/indicator.white.gif" /> Loading ...</div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>

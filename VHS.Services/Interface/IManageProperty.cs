@@ -24,9 +24,13 @@ namespace VHS.Interface
         PropertyAdditionalInfoModel GetPropertyAdditionalInfo(int PropertyId);
         PropertyAmenities GetPropertyAmenities(int PropertyId);
         PropertyFixedPricing GetPropertyFixedPrice(int PropertyId);
+        AdminHomeViewModel GetApprovedWaitingProperty();
         PropertyVarablePricing GetPropertyVaraiablePrice(int PropertyId);
+        PropertyWeekendPricing GetPropertyWeekendPrice(int PropertyId);
+        AdminHomeViewModel GetDeleteRequestProperty();
         PropertyTransfer GetPropertyTransfer(int PropertyId);
-        PropertyDelete GetPropertyDelete(int PropertyId);
+        PropertyNotification GetPropertyDelete(int PropertyId);
+        PropertyNotification GetPropertyApproval(int id);
         PropertyGallaryPhoto GetPropertyGallaryPhoto(int propertyId);
         PropertyCoverPhoto GetPropertyCoverPhoto(int propertyId);
 
@@ -36,13 +40,15 @@ namespace VHS.Interface
         bool UpdateAmenities(PropertyAmenities propAmenities);
         bool UpdateTravelAmbassador(PropertyTravelAmbassador propTravelAmbass);
         bool UpdateTransferProperty(PropertyTransfer propTransfer);
-        bool DeleteProperty(PropertyDelete propertyDelete);
+        bool DeleteProperty(PropertyNotification propertyDelete);
         bool UpdatePropGallaryPhoto(PropertyGallaryPhoto propertyCoverPhoto, List<HttpPostedFileBase> GallaryPhoto);
         bool UpdatePropCoverPhoto(PropertyCoverPhoto propertyCoverPhoto, List<HttpPostedFileBase> CoverPhoto);
         bool UpdatePropVariablePrice(PropertyVarablePricing propVarablePrice);
         bool UpdatePropFixPrice(PropertyFixedPricing propFixedPrice);
-
-
-
+        bool UpdatePropWeekEndPrice(PropertyWeekendPricing propWePrice);
+        bool PropertyAprrovalRequest(PropertyNotification notification);
+        bool PropertyDeleteRequest(PropertyNotification notification);
+        bool ApprovedProperty(PropertyNotification notification);
+        
     }
 }

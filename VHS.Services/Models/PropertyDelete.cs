@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VHS.Services.Models
 {
-    public class PropertyDelete
+    public class PropertyNotification
     {
         public int PropertyId { get; set; }
     }

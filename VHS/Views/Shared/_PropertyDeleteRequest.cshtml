@@ -1,0 +1,50 @@
+﻿@model VHS.Services.Models.PropertyNotification
+<h3>Send Delete Property request to Admin?</h3>
+@using (Ajax.BeginForm("PropertyDeleteRequest", "ManageProperty", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccessDeleteRequest", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
+{
+    <p class="sub-heading"><span class="error-msg">some error occured</span></p>
+    <label>Do you want to sent this property for deletion?</label>
+    <div style="clear:both;"></div>
+    @Html.HiddenFor(m => m.PropertyId)
+    <div class="input-wrapper clearfix">
+        <input type="submit" class="send-btn" value="Yes" id="" name="" />
+        <input type="reset" class="send-btn" value="No" id="" name="" />
+        <p id="imgLoaderDeleteRequest" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        $("#loginLink").addClass("active");
+    });
+    //Show the Success:-
+    function fnBegin() {
+        $('#imgLoaderDeleteRequest').show();
+        //Show any loder when process start:-
+    }
+    function fnSuccessDeleteRequest(response, status, xhr) {
+        if (response == "1") {
+            alert('Property Delete Requestd sent sucessfully');
+            window.location.href = '@Url.Action("ManageProperty", "ManageProperty")';
+        }
+        else if (response == "0") {
+            $('#imgLoaderDeleteRequest').hide();
+
+        }
+        else {
+            $('#imgLoaderDeleteRequest').hide();
+            alert("Please try after '")
+        }
+    }
+    function fnFailure(xhr, status, err) {
+        $('#imgLoaderDeleteRequest').hide();
+        alert("'failure occured!!.Please try after '")
+    }
+    function fnComplete() {
+        if (response != "1") {
+            $('#imgLoaderDeleteRequest').hide();
+        }
+    }
+</script>
+<script type="text/javascript" language=javascript>
+    $.validator.unobtrusive.parse(document);
+</script>

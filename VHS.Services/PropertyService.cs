@@ -10,6 +10,7 @@ using VHS.Repository;
 using VHS.Services.Models;
 using System.Transactions;
 using VHS.Services.ViewModel;
+using VHS.Core;
 
 namespace VHS.Services
 {
@@ -20,7 +21,7 @@ namespace VHS.Services
         {
             _unitOfWork = new UnitOfWork();
         }
-        public bool AddProperty(Property property, List<HttpPostedFileBase> file)
+        public bool AddProperty(Models.Property property, List<HttpPostedFileBase> file)
         {
             var result = false;
             //using (var tranaction = new TransactionScope())
@@ -124,7 +125,6 @@ namespace VHS.Services
                         propertyViemodle.IsDrinkingAllowed = additionnalDetails.IsDrinikingAllowed == "1" ? "Yes" : "No";
                         propertyViemodle.PersonPerRoom = additionnalDetails.PersonPerRoom.ToString();
                         propertyViemodle.Title = property.Title;
-                        property.Id = property.Id;
                     }
 
                     var categoryId = _unitOfWork.PropertyRepository.GetByID(id) != null ? _unitOfWork.PropertyRepository.GetByID(id).CategoryId : 0;
@@ -141,7 +141,7 @@ namespace VHS.Services
                         propertyViemodle.City = address.City;
                         propertyViemodle.Address = address.Address;
                     }
-
+                    propertyViemodle.Id = property.Id;
                     models.Add(propertyViemodle);
 
                 }
@@ -182,6 +182,24 @@ namespace VHS.Services
                 propertyViemodle.PersonPerRoom = additionnalDetails.PersonPerRoom.ToString();
             }
 
+            if (_unitOfWork.PropertyAddressRepository.GetMany(x => x.PropertyId == id).Any())
+            {
+                var address = _unitOfWork.PropertyAddressRepository.GetMany(x => x.PropertyId == id).FirstOrDefault();
+                propertyViemodle.City = address.City;
+                propertyViemodle.Address = address.Address;
+            }
+
+            var generalId = _unitOfWork.PropGeneralRepository.GetMany(x => x.PropertyId == id).ToList().Select(x => x.GeneralId);
+
+            propertyViemodle.General = _unitOfWork.GetAmennities(id??0, Anemities.General);
+            propertyViemodle.Kitchen = _unitOfWork.GetAmennities(id ?? 0, Anemities.Kitchen);
+            propertyViemodle.EntertainmentElectronic = _unitOfWork.GetAmennities(id ?? 0, Anemities.EntertainmentElectronic);
+            propertyViemodle.Outdoor = _unitOfWork.GetAmennities(id ?? 0, Anemities.Outdoor);
+            propertyViemodle.Parking = _unitOfWork.GetAmennities(id ?? 0, Anemities.Parking);
+            propertyViemodle.Bathroom = _unitOfWork.GetAmennities(id ?? 0, Anemities.Bathroom);
+            propertyViemodle.SleepingArrangments = _unitOfWork.GetAmennities(id ?? 0, Anemities.SleepingArrangments);
+
+
             var categoryId = _unitOfWork.PropertyRepository.GetByID(id) != null ? _unitOfWork.PropertyRepository.GetByID(id).CategoryId : 0;
 
             if (categoryId != 0)
@@ -204,11 +222,10 @@ namespace VHS.Services
             {
                 foreach (var item in propListObj)
                 {
-                    propertyList.Add(new PropertyViewModel { PropertyId = item.Id, PropertyName = item.Title, PropertImageList = GetPropertyImage(item.Id), ShortInfo = GetShortInfo(item.CategoryId, item.Id), IsAssigned = item.IsAssigned });
+                    propertyList.Add(new PropertyViewModel { PropertyId = item.Id, PropertyName = item.Title, PropertImageList = GetPropertyImage(item.Id), ShortInfo = GetShortInfo(item.CategoryId, item.Id), IsAssigned = item.IsAssigned, WaitingForApproval = item.SendApprovedRequest, WaitingForDeletion = item.SendDeleteRequest });
                 }
             }
             return propertyList;
-
         }
         private List<ImageViewModel> GetPropertyImage(int propertyId)
         {

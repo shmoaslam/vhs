@@ -1,12 +1,37 @@
-﻿
+﻿@model VHS.Services.ViewModel.AdminHomeViewModel
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
-<section class="section">
-    <div style="/* or absolute */top: 50%;left: 50%;">
-        <marquee><span style="color:red">Comming Soon.....</span> </marquee>
+<div class="section">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Waiting for Deletion</h2>
+            @if (Model != null && Model.propertyListVm != null && Model.propertyListVm.Count > 0)
+            {
+                foreach (var item in Model.propertyListVm)
+                {
+                    <div class="col-md-3">
+                        <h3>@item.PropertyName</h3>
+                        <p>@item.ShortInfo</p>
+                        @if (item.PropertImageList.Count() > 0)
+                        {
+                            <img src="~/UploadFile/PropertyImage/@item.PropertImageList[0].ImageName" width="250" alt="@item.PropertImageList[0].ImageName" />
+                        }
+                        else
+                        {
+                            <img src="#" width="250" alt="No Image Available" />
+                        }
+                    </div>
+                }
+            }
+            else
+            {
+                <span style="color:red">
+                    No property found.
+                </span>
+            }
+        </div>
     </div>
-</section>
+</div>
 

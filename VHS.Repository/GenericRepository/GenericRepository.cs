@@ -181,7 +181,7 @@ namespace VHS.Repository
         /// <returns>A single record containing the first record matching the specified criteria</returns>
         public TEntity GetFirst(Func<TEntity, bool> predicate)
         {
-            return dbSet.First<TEntity>(predicate);
+            return dbSet.FirstOrDefault<TEntity>(predicate);
         }
         //public TEntity ExecuteSql() {
         //    return this.Context.Database.ExecuteSqlCommand("");

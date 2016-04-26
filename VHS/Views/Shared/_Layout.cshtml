@@ -67,7 +67,7 @@
                 </li>
                 <li>@Html.ActionLink("List Property", "Add", "Property")</li>
                 @Html.Partial("_LoginPartial")
-                <li>@Html.ActionLink("Blog", "Index", "Blog")</li>
+                @*<li>@Html.ActionLink("Blog", "Index", "Blog")</li>*@
                 <li>@Html.ActionLink("About", "About", "Home")</li>
                 <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
             </ul>
@@ -149,5 +149,7 @@
     <script defer src="~/Scripts/jquery.flexslider-min.js"></script>
     <script src="~/Scripts/jquery.magnific-popup.min.js" type="text/javascript"></script>
     <script src="~/Scripts/jquery.fitvids.js" type="text/javascript"></script>
+
+    @RenderSection("scripts",false)
 </body>
 </html>

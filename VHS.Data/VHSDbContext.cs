@@ -30,7 +30,6 @@ namespace VHS.Data
         public DbSet<TravelPreferences> TravelPreferencess { get; set; }
         public DbSet<UserTravelPrefMapping> UserTravelPrefMappings { get; set; }
         public DbSet<MailLink> MailLinks { get; set; }
-
         public DbSet<Amenities> Amenities { get; set; }
         public DbSet<BathRooms> BathRooms { get; set; }
         public DbSet<EntertainmentElectronics> EntertainmentElectronics { get; set; }
@@ -55,6 +54,9 @@ namespace VHS.Data
         public DbSet<PropertyTravelBeatsMap> PropertyTravelBeatsMap { get; set; }
         public DbSet<PropertyFixedPrice> PropertyFixedPrice { get; set; }
         public DbSet<PropertyVraiblePrice> PropertyVraiblePrice { get; set; }
+        public DbSet<PropertyWeekendPrice> PropertyWeekendPrices { get; set; }
+        public DbSet<BookingRequest> BookingRequest { get; set; }
+        public DbSet<Newsletter> Newsletter { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -96,9 +98,11 @@ namespace VHS.Data
             modelBuilder.Entity<PropertySleepingMap>().ToTable("PropertySleepingMap");
             modelBuilder.Entity<PropertyTravelAmbassadorMap>().ToTable("PropertyTravelAmbassadorMap");
             modelBuilder.Entity<PropertyTravelBeatsMap>().ToTable("PropertyTravelBeatsMap");
-
+            modelBuilder.Entity<BookingRequest>().ToTable("BookingRequest");
             modelBuilder.Entity<PropertyFixedPrice>().ToTable("PropertyFixedPrice");
             modelBuilder.Entity<PropertyVraiblePrice>().ToTable("PropertyVraiblePrice");
+            modelBuilder.Entity<PropertyWeekendPrice>().ToTable("PropertyWeekendPrice");
+            modelBuilder.Entity<Newsletter>().ToTable("Newsletter");
 
             //one-to-many:-One Usertype have many user:-
             modelBuilder.Entity<UserLogin>().HasRequired<UserType>(s => s.UserType).WithMany(s => s.UserLogin).HasForeignKey(s => s.TypeId);

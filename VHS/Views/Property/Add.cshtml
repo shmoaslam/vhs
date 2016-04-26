@@ -41,7 +41,7 @@
                 <label>Listed by<span class="required">*</span></label>
                 @Html.DropDownListFor(m => m.ListById, new SelectList(Model.ListBy, "Value", "Text"), "None")
                 <span style="color:red">@Html.ValidationMessageFor(m => m.CategoryId)</span><br />
-                    <label>No. of Guests<span class="required">*</span></label>
+                <label>No. of Guests<span class="required">*</span></label>
                     @Html.TextBoxFor(m => m.NoOfGuests)
                     <span style="color:red">
                         @Html.ValidationMessageFor(m => m.NoOfGuests)
@@ -61,48 +61,48 @@
                     <span style="color:red">
                         @Html.ValidationMessageFor(m => m.Address)
                     </span><br />
-                        <label>City<span class="required">*</span></label>
+                    <label>City<span class="required">*</span></label>
                         @Html.TextBoxFor(m => m.City)
                         <span style="color:red">
                             @Html.ValidationMessageFor(m => m.City)
                         </span><br />
-                            <label>Country<span class="required">*</span></label>
+                        <label>Country<span class="required">*</span></label>
                             @Html.TextBoxFor(m => m.Country)
                             <span style="color:red">
                                 @Html.ValidationMessageFor(m => m.Country)
                             </span><br />
-                                <label>Zipcode</label>
+                            <label>Zipcode</label>
 
                                 @Html.TextBoxFor(m => m.ZipCode)
                                 <span style="color:red">
                                     @Html.ValidationMessageFor(m => m.ZipCode)
                                 </span><br />
-                                    <label>Email<span class="required">*</span></label>
+                                <label>Email<span class="required">*</span></label>
                                     @Html.TextBoxFor(m => m.Email)
                                     <span style="color:red">
                                         @Html.ValidationMessageFor(m => m.Email)
                                     </span><br />
-                                        <label>Contact No.<span class="required">*</span></label>
+                                    <label>Contact No.<span class="required">*</span></label>
                                         @Html.TextBoxFor(m => m.ContactNo)
                                         <span style="color:red">
                                             @Html.ValidationMessageFor(m => m.ContactNo)
                                         </span><br />
-                                            <label>Upload Property Images<span class="required">*</span><span class="error-msg">Maximum two images</span></label>
+                                        <label>Upload Property Images<span class="required">*</span><span class="error-msg">Maximum two images</span></label>
                                             @Html.TextBoxFor(m => m.Image, new { type = "file", multiple = "multiple" })
                                             <span style="color:red">
                                                 @Html.ValidationMessageFor(m => m.Image)
                                             </span><br />
-                                                @*<input id="file" type="file" name="file" />
-                                                    @Html.ValidationMessageFor(m => m.Image)*@
-                                                <label>Price</label>
+                                            @*<input id="file" type="file" name="file" />
+                                                @Html.ValidationMessageFor(m => m.Image)*@
+                                            <label>Price</label>
                                                 @Html.TextBoxFor(m => m.Price)
                                                 <span style="color:red">
                                                     @Html.ValidationMessageFor(m => m.Price)
                                                 </span>
-                                                    <div class="input-wrapper clearfix text-center">
-                                                        <input type="submit" class="send-btn" value="Submit" id="submit-property" name="submit-property" />
-                                                        <input type="reset" class="send-btn" value="Reset" id="submit-property" name="submit-property" />
-                                                    </div>
+                                                <div class="input-wrapper clearfix text-center">
+                                                    <input type="submit" class="send-btn" value="Submit" id="submit-property" name="submit-property" />
+                                                    <input type="reset" class="send-btn" value="Reset" id="submit-property" name="submit-property" />
+                                                </div>
             }
         </div>
     </div>

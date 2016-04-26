@@ -30,6 +30,8 @@ namespace VHS.Controllers
                 return RedirectToAction("AdminLogin", "Account");
             }
         }
+      
+
         [HttpGet]
         public ActionResult GetApprovedProperty()
         {
