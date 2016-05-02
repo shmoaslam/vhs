@@ -243,15 +243,25 @@ header { position: fixed; top: 0; left: 0; width: 260px; z-index:101; height:100
 width:100%;
 float:left;
  }
- .section2 { position:relative; padding:30px 0 30px 0; display:block; z-index:2;
+ .section2 {
+position:relative; 
+padding:30px 0 30px 0; 
+display:block;
+ z-index:2;
 width:100%;
 float:left;
+background:#ffffff;
  }
 .section.header-section { height:510px; padding:0; }
 .dark { background:#2b2b2b; color:#fff; -webkit-text-shadow: 0px 0 30px rgba(0, 0, 0, 0.4); text-shadow: 0px 0 30px rgba(0, 0, 0, 0.4);}
 .grey { background:#f5f5f5; }
 
 .centralizing-wrapper { height:300px; display:table; width:100%; }
+.centralizing-wrapper-property{
+height:450px; 
+display:table; 
+width:100%; 	
+}
 .centralized-content { display: table-cell; vertical-align: middle; }
 
 .bordered { border-bottom:1px solid #d8d8d8; }
@@ -350,8 +360,8 @@ a:hover .covering-image h3::after {
 
 .borderline { background:#d8d8d8; width:100%; height:1px; display:block; position:relative; margin:25px 0 20px 0; }
 
-.bordered-content { background:#fff; padding:40px 45px 40px; position:relative; margin-bottom:30px;  }
-.bordered-content.more-info { padding-top:35px; }
+.bordered-content { background:#fff; padding:30px; position:relative; margin-bottom:30px;  }
+.bordered-content.more-info { padding-top:30px; }
 /* =End Content Elements
 --------------------------------------------------------------------------------------------------------*/
 
@@ -591,7 +601,11 @@ input[type="checkbox"]:not(:disabled)+span:hover:before {
     padding: 0;
 	overflow:hidden;
 }
-
+..section.header-section-property{
+	height: 450px;
+    padding: 0;
+	overflow:hidden;	
+}
 .bg-image-login{
     background: url(../images/header-bg2.jpg) no-repeat center;
  -webkit-background-size: 100% auto; -moz-background-size: 100% auto; -o-background-size: 100% auto; background-size: 100% auto; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;
@@ -675,9 +689,13 @@ span.property-rating {
 	width:60px;
 	margin:0px 10px;
 }
+.property-thumb-img{
+    height: 230px;
+    overflow: hidden;	
+}
 .property-cover{
 	width:100%;
-	min-width:800px;
+	min-width:900px;
 	margin-top:-150px;
 }
 .title{
@@ -749,6 +767,10 @@ img.line-p {
 	float: left;
     margin-top: 6px;
 }
+img.line-pc {
+    width: 50px;
+    height: 5px;
+}
 .property-thumb-title{
 	font-size:15px;
 	font-weight:600;
@@ -774,6 +796,9 @@ padding:2px 10px 2px 0px;
 	min-height:300px;
 	padding-top:150px;
 	padding-bottom:150px;	
+}
+.bg-gray{
+	background:#ebebeb;
 }
 @media(max-width:480px){
 .property-thumb{
