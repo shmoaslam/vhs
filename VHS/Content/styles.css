@@ -252,6 +252,7 @@ width:100%;
 float:left;
 background:#ffffff;
  }
+
 .section.header-section { height:510px; padding:0; }
 .dark { background:#2b2b2b; color:#fff; -webkit-text-shadow: 0px 0 30px rgba(0, 0, 0, 0.4); text-shadow: 0px 0 30px rgba(0, 0, 0, 0.4);}
 .grey { background:#f5f5f5; }
