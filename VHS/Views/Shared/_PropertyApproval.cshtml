@@ -1,11 +1,11 @@
 ﻿@model VHS.Services.Models.PropertyNotification
-<h3>Approved Property</h3>
+<h3>Approve Property</h3>
 
 <div class="col-lg-6 col-md-6">
     @using (Ajax.BeginForm("ApprovedProperty", "ManageProperty", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccessApprovedProperty", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
     {
         <p class="sub-heading"><span class="error-msg" style="display:none" id="errormessage">some error occured</span></p>
-        <label>Do you want to Approved this property?</label>
+        <label>Do you want to Approve this property?</label>
         <div style="clear:both;"></div>
         @Html.HiddenFor(m => m.PropertyId)
         <div class="input-wrapper clearfix">
@@ -27,7 +27,7 @@
     }
     function fnSuccessApprovedProperty(response, status, xhr) {
         if (response == "1") {
-            alert('Property Approvedd sucessfully');
+            alert('Property Approve sucessfully');
             window.location.href = '@Url.Action("ManageProperty", "ManageProperty")';
         }
         else if (response == "0") {

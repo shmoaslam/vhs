@@ -57,7 +57,7 @@ namespace VHS.Repository
         private GenericRepository<PropertyWeekendPrice> _propertyWeekendPriceRepository;
         private GenericRepository<BookingRequest> _bookingRequestRepository;
         private GenericRepository<Newsletter> _newsletterRepository;
-
+        private GenericRepository<ResetPasswordToken> _resetPasswordToken;
         #endregion
 
         public UnitOfWork()
@@ -95,6 +95,7 @@ namespace VHS.Repository
                 return _userProfileRepository;
             }
         }
+
 
         /// <summary>
         /// Get/Set Property for user repository.
@@ -588,6 +589,19 @@ namespace VHS.Repository
                 return _newsletterRepository;
             }
         }
+
+        /// <summary>
+        /// Get/Set Property for ResetPasswordToken repository.
+        /// </summary>
+        public GenericRepository<ResetPasswordToken> ResetPasswordTokenRepository
+        {
+            get
+            {
+                if (this._resetPasswordToken == null)
+                    this._resetPasswordToken = new GenericRepository<ResetPasswordToken>(_context);
+                return _resetPasswordToken;
+            }
+        }
         #endregion
 
         #region Public member methods...
@@ -657,6 +671,22 @@ namespace VHS.Repository
         #endregion
 
         #region Store Procedure
+
+
+        public List<PropertyDisplayViewModel> GetAllProperty()
+        {
+            return _context.Database.SqlQuery<PropertyDisplayViewModel>("select p.id Id, title Title, cat.CategoryName Category, i.Name CoverImage , pai.PersonPerRoom [PersonPerRoom] , p.NumberOfGuest [GuestCount] , pfp.PricePerNight Price from property p join [dbo].[PropertyCategory] cat on cat.id = p.categoryid join[dbo].[PropertyFixedPrice] pfp on pfp.propertyid = p.id join[dbo].[PropertyAdditionalInfo] pai on p.id = pai.propertyid join[dbo].[PropertyCoverPhotoMap] pcpm on p.id = pcpm.propertyid join[dbo].[Image] i on pcpm.imageid = i.imageid  where p.isactive = 1 and p.isapproved = 1").ToList();
+        }
+        public class PropertyDisplayViewModel
+        {
+            public int Id { get; set; }
+            public string CoverImage { get; set; }
+            public string Category { get; set; }
+            public decimal Price { get; set; }
+            public int PersonPerRoom { get; set; }
+            public string Title { get; set; }
+            public int GuestCount { get; set; }
+        }
         public List<string> GetAmennities(int propId, Anemities amenities)
         {
             if (propId == 0) return null;

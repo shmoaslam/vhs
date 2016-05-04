@@ -19,22 +19,16 @@
     <label class="full-label">Cleaning Fee</label>
     <label class="sm-label">Daily</label>
     @Html.TextBoxFor(m => m.CleaningFeeDaily)
-    <span style="color:red">@Html.ValidationMessageFor(m => m.CleaningFeeDaily)</span><br />
     <label class="sm-label">Weekly</label>
     @Html.TextBoxFor(m => m.CleaningFeeWeekly)
-    <span style="color:red">@Html.ValidationMessageFor(m => m.CleaningFeeWeekly)</span><br />
     <label class="sm-label">Montly</label>
     @Html.TextBoxFor(m => m.CleaningFeeMonthly)
-    <span style="color:red">@Html.ValidationMessageFor(m => m.CleaningFeeMonthly)</span><br />
     <label class="sm-label">One time</label>
     @Html.TextBoxFor(m => m.PriceOneTime)
-    <span style="color:red">@Html.ValidationMessageFor(m => m.PriceOneTime)</span><br />
     <label class="sm-label">Comission</label>
     @Html.TextBoxFor(m => m.Comision)
-    <span style="color:red">@Html.ValidationMessageFor(m => m.Comision)</span><br />
     <label class="sm-label">Other fee</label>
     @Html.TextAreaFor(m => m.OtherPrice)
-    <span style="color:red">@Html.ValidationMessageFor(m => m.OtherPrice)</span><br />
     <div style="clear:both;"></div>
     <div class="input-wrapper clearfix">
         <input type="submit" class="send-btn" value="Update" id="" name="" />

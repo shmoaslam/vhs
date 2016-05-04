@@ -12,5 +12,6 @@ namespace VHS.Interface
         void UserRegistration(string Email, string Name);
         void RmAccountCreation(string Email, string Name, int RMId);
         void SendBookingRequestMail(BookingRequestViewModel viewModel);
+        void SendForgotPasswordEmail(string email, string subject, string body);
     }
 }

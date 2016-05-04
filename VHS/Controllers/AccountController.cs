@@ -24,10 +24,12 @@ namespace VHS.Controllers
     public class AccountController : BaseController
     {
         private IAccount _login;
+        private INotificationService _notificationService;
 
-        public AccountController(IAccount login)
+        public AccountController(IAccount login, INotificationService notificationService)
         {
             _login = login;
+            _notificationService = notificationService;
         }
 
         //
@@ -126,14 +128,9 @@ namespace VHS.Controllers
             try
             {
                 if (EmailId != null)
-                {
                     return _login.CheckEmailExist(EmailId) ? Json(true, JsonRequestBehavior.AllowGet) : Json(false, JsonRequestBehavior.AllowGet);
-                }
                 else
-                {
                     return Json(false, JsonRequestBehavior.AllowGet);
-                }
-
             }
             catch (Exception ex)
             {
@@ -146,36 +143,45 @@ namespace VHS.Controllers
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
-            return View();
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                HttpCookie userCookie = Request.Cookies[".USERAUTH"];
+                if (userCookie != null && userCookie["User"] != null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    signout();
+                    return View();
+                }
+            }
+            else
+            {
+                return View();
+            }
         }
 
-        //
-        // POST: /Account/ForgotPassword
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var user = await UserManager.FindByNameAsync(model.Email);
-        //        if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
-        //        {
-        //            // Don't reveal that the user does not exist or is not confirmed
-        //            return View("ForgotPasswordConfirmation");
-        //        }
 
-        //        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-        //        // Send an email with this link
-        //        // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-        //        // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-        //        // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-        //        // return RedirectToAction("ForgotPasswordConfirmation", "Account");
-        //    }
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var isEmailExist = _login.CheckForgotPasswordEmailExists(model.Email);
+                if (!isEmailExist) { ModelState.AddModelError("", "Email does not exists"); return View(model); }
+                string code = _login.GeneratePasswordResetToken(model.Email);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { code = code }, protocol: Request.Url.Scheme);
+                var body = "Please reset your password by clicking <a href =\"" + callbackUrl + "\">here</a>";
+                var subject = "Reset Password";
+                _notificationService.SendForgotPasswordEmail(model.Email, subject, body);
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
+            }
+            return View(model);
+        }
 
-        //    // If we got this far, something failed, redisplay form
-        //    return View(model);
-        //}
 
         //
         // GET: /Account/ForgotPasswordConfirmation
@@ -190,34 +196,35 @@ namespace VHS.Controllers
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
-            return code == null ? View("Error") : View();
+            if (string.IsNullOrEmpty(code)) return View("Error");
+
+            var userEmail = _login.GetUserEmailFromToken(code);
+
+            if (string.IsNullOrEmpty(userEmail)) return View("Error");
+
+            var model = new ResetPasswordViewModel { Email = userEmail };
+
+            return View(model);
+
         }
 
         //
         // POST: /Account/ResetPassword
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(model);
-        //    }
-        //    var user = await UserManager.FindByNameAsync(model.Email);
-        //    if (user == null)
-        //    {
-        //        // Don't reveal that the user does not exist
-        //        return RedirectToAction("ResetPasswordConfirmation", "Account");
-        //    }
-        //    var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
-        //    if (result.Succeeded)
-        //    {
-        //        return RedirectToAction("ResetPasswordConfirmation", "Account");
-        //    }
-        //    AddErrors(result);
-        //    return View();
-        //}
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult ResetPassword(ResetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var isEmailExist = _login.CheckForgotPasswordEmailExists(model.Email);
+            if (!isEmailExist) { ModelState.AddModelError("", "Invalid request"); return View(model); }
+            _login.ResetPassword(model.Email, model.Password);
+            return RedirectToAction("ResetPasswordConfirmation", "Account");
+
+        }
 
         //
         // GET: /Account/ResetPasswordConfirmation
