@@ -18,7 +18,10 @@ namespace VHS.Core
         public bool IsAssigned { get; set; }
         public bool SendApprovedRequest { get; set; }
         public bool SendDeleteRequest { get; set; }
-
+        /// <summary>
+        /// if 1 : region kokan, if 2 : region spain
+        /// </summary>
+        public int RegionId { get; set; }
         public int NumberOfRooms { get; set; }
 
         public Nullable<int> LocalOrder { get; set; }

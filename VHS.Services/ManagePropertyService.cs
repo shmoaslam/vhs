@@ -146,6 +146,9 @@ namespace VHS.Services
                 propertyGeneralInfo.NoOfRooms = propGenralIngoobj.NumberOfRooms;
                 propertyGeneralInfo.NoOfBathrooms = propGenralIngoobj.NumberOfBathRoom;
                 propertyGeneralInfo.Price = propGenralIngoobj.Price;
+                propertyGeneralInfo.RegionId = propGenralIngoobj.RegionId;
+                propertyGeneralInfo.Region = GetRegion();
+
                 var propAddressobj = _unitOfWork.PropertyAddressRepository.GetFirst(m => m.PropertyId == PropertyId);
                 if (propAddressobj != null)
                 {
@@ -161,6 +164,7 @@ namespace VHS.Services
             {
                 propertyGeneralInfo.Category = GetCategory();
                 propertyGeneralInfo.ListBy = GetListBy();
+                propertyGeneralInfo.Region = GetRegion();
             }
             return propertyGeneralInfo;
         }
@@ -356,6 +360,7 @@ namespace VHS.Services
                 propertObj.ListedId = propGeneralInfo.ListById;
                 propertObj.CategoryId = propGeneralInfo.CategoryId;
                 propertObj.IsApproved = false;
+                propertObj.RegionId = propGeneralInfo.RegionId;
                 _unitOfWork.PropertyRepository.Update(propertObj);
                 _unitOfWork.Save();
                 //Create Property Address:-
@@ -375,18 +380,20 @@ namespace VHS.Services
                     _unitOfWork.PropertyImageMapRepository.Delete(m => m.PropertyId == propGeneralInfo.PropertyId);
                     foreach (var item in file)
                     {
-                        var imageObj = new Core.Image();
-                        string extension = Path.GetExtension(item.FileName).ToString();
-                        string filename = Path.GetFileNameWithoutExtension(item.FileName) + "_" + System.DateTime.Now.ToString("yyyyMMddHHmmss") + extension;
-                        var path = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadFile/PropertyImage/"), filename);
-                        item.SaveAs(path);
-                        imageObj.Name = filename;
-                        _unitOfWork.ImageRepository.Insert(imageObj);
-                        _unitOfWork.Save();
+                        if(item != null && !string.IsNullOrEmpty(item.FileName))
+                        {
+                            var imageObj = new Core.Image();
+                            string extension = Path.GetExtension(item.FileName).ToString();
+                            string filename = Path.GetFileNameWithoutExtension(item.FileName) + "_" + System.DateTime.Now.ToString("yyyyMMddHHmmss") + extension;
+                            var path = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadFile/PropertyImage/"), filename);
+                            item.SaveAs(path);
+                            imageObj.Name = filename;
+                            _unitOfWork.ImageRepository.Insert(imageObj);
+                            _unitOfWork.Save();
 
-                        _unitOfWork.PropertyImageMapRepository.Insert(new PropertyImageMapping { ImageId = imageObj.ImageId, PropertyId = propGeneralInfo.PropertyId });
-                        _unitOfWork.Save();
-
+                            _unitOfWork.PropertyImageMapRepository.Insert(new PropertyImageMapping { ImageId = imageObj.ImageId, PropertyId = propGeneralInfo.PropertyId });
+                            _unitOfWork.Save();
+                        }
                     }
                     result = true;
                 }
@@ -502,6 +509,14 @@ namespace VHS.Services
             lstListBy.Add(new ddlListedBy { Value = 1, Text = "Representative" });
             SelectList selesctedListBy = new SelectList(lstListBy, "Value", "Text");
             return selesctedListBy;
+        }
+        public SelectList GetRegion()
+        {
+            var lstRegion = new List<ddlRegion>();
+            lstRegion.Add(new ddlRegion { Value = 1, Text = "Konkan" });
+            lstRegion.Add(new ddlRegion { Value = 2, Text = "Spain" });
+            SelectList selesctedRegion = new SelectList(lstRegion, "Value", "Text");
+            return selesctedRegion;
         }
 
         public SelectList GetPetsAllowed()

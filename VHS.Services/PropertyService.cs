@@ -91,7 +91,7 @@ namespace VHS.Services
             var propertyModel = _unitOfWork.GetAllProperty();
 
             foreach (var model in propertyModel)
-                models.Add(new PropertyDisplayViewModel { Id = model.Id, Title = model.Title, Category = model.Category, Price = model.Price, PersonPerRoom = Convert.ToString( model.PersonPerRoom), GuestCount = model.GuestCount });
+                models.Add(new PropertyDisplayViewModel { Id = model.Id, Title = model.Title,CoverImage = model.CoverImage, Category = model.Category, Price = model.Price, PersonPerRoom = Convert.ToString( model.PersonPerRoom), GuestCount = model.GuestCount });
 
             return models;
 

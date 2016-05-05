@@ -21,7 +21,7 @@
         <span style="color:red">
             @Html.ValidationMessageFor(m => m.NoOfGuests)
         </span><br />
-                            <label>No. of Bedrooms<span class="required">*</span></label>
+        <label>No. of Bedrooms<span class="required">*</span></label>
                             @Html.TextBoxFor(m => m.NoOfRooms)
                             <span style="color:red">
                                 @Html.ValidationMessageFor(m => m.NoOfRooms)
@@ -37,11 +37,14 @@
                             <span style="color:red">
                                 @Html.ValidationMessageFor(m => m.Address)
                             </span><br />
-                                <label>City<span class="required">*</span></label>
+                            <label>City<span class="required">*</span></label>
                                 @Html.TextBoxFor(m => m.City)
                                 <span style="color:red">
                                     @Html.ValidationMessageFor(m => m.City)
                                 </span><br />
+                                <label>Region<span class="required">*</span></label>
+                                @Html.DropDownListFor(m => m.RegionId, new SelectList(Model.Region, "Value", "Text"), "Select")
+                                <span style="color:red">@Html.ValidationMessageFor(m => m.RegionId)</span><br />
                                 <label>Country<span class="required">*</span></label>
                                 @Html.TextBoxFor(m => m.Country)
                                 <span style="color:red">
@@ -65,9 +68,9 @@
                                 </span><br />
                                 <label>Upload Property Images<span class="required">*</span><span class="error-msg">Maximum two images</span></label>
                                 @Html.TextBoxFor(m => m.Image, new { type = "file", multiple = "multiple" })
-                                <span style="color:red">
+                                @*<span style="color:red">
                                     @Html.ValidationMessageFor(m => m.Image)
-                                </span><br />
+                                </span>*@<br />
                                 <label>Price</label>
                                 @Html.TextBoxFor(m => m.Price)
                                 <span style="color:red">
