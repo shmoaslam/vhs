@@ -12,7 +12,7 @@
         <div class="col-lg-8 centered aligncenter">
             <div class="centralizing-wrapper">
                 <div class="centralized-content-property">
-                    <h1>@Model.Category</h1>
+                    <h1>@Model.Title</h1>
                     <p class="uppercase">@Model.City</p>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                     <div class="col-md-12 pull-left">
                         <div class="col-md-3 col-xs-6 text-center"><p class="intro-pik"><img class="intro-icons" src="/images/category.png" width="20" alt="Category" title="Category" /></p><p class="category"><b>@Model.Category</b></p></div>
                         <div class="col-md-3 col-xs-6 text-center"><p class="intro-pik"><img class="intro-icons" src="/images/price.png" width="20" alt="Price" title="Price" /></p><p class="price"><b>@Model.Price/-</b></p></div>
-                        <div class="col-md-3 col-xs-6 text-center"><p class="intro-pik"><img class="intro-icons" src="/images/guest.png" width="20" alt="Guests" title="Guests" /></p><p class="guests"><b>Upto 24</b></p></div>
+                        <div class="col-md-3 col-xs-6 text-center"><p class="intro-pik"><img class="intro-icons" src="/images/guest.png" width="20" alt="Guests" title="Guests" /></p><p class="guests"><b>Upto @Model.GuestCount</b></p></div>
                         <div class="col-md-3 col-xs-6 text-center"><p class="intro-pik"><img class="intro-icons" src="/images/star-rating.png" width="20" alt="Rating" title="Rating" /></p><p class="rating"><b>4/5</b></p></div>
                     </div>
                     <div class="clear"></div>
@@ -102,16 +102,6 @@
                                     </div>
                                     }
                             </div>
-
-
-                            <!-- Controls -->
-                           @* <a class="carousel-control" href="#carousel-example-generic" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                            </a>
-                            <a class="carousel-control" href="#carousel-example-generic" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                            </a> *@
-
                         </div>
                             <!--slider end-->
                     }
@@ -158,7 +148,7 @@
                         </tr>
                         <tr>
                             <td class="col-md-8 am-pad">Parking : </td>
-                            <td><span class="sm-txt">Covered Parking, Paid Parking, Valet</span></td>
+                            <td><span class="sm-txt">@(Model.Parking != null ? string.Join(", ", Model.Parking) : string.Empty)</span></td>
                         </tr>
 
                     </table>

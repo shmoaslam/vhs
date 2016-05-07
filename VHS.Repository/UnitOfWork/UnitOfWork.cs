@@ -7,6 +7,7 @@ using System.Data.Entity.Validation;
 using System.Diagnostics;
 using VHS.Core;
 using VHS.Data;
+using System.Data.SqlClient;
 
 namespace VHS.Repository
 {
@@ -82,6 +83,7 @@ namespace VHS.Repository
                 return _loginRepository;
             }
         }
+
 
         /// <summary>
         /// Get/Set Property for user repository.
@@ -675,7 +677,13 @@ namespace VHS.Repository
 
         public List<PropertyDisplayViewModel> GetAllProperty()
         {
-            return _context.Database.SqlQuery<PropertyDisplayViewModel>("select p.id Id, title Title, cat.CategoryName Category, i.Name CoverImage , pai.PersonPerRoom [PersonPerRoom] , p.NumberOfGuest [GuestCount] , pfp.PricePerNight Price from property p join [dbo].[PropertyCategory] cat on cat.id = p.categoryid join[dbo].[PropertyFixedPrice] pfp on pfp.propertyid = p.id join[dbo].[PropertyAdditionalInfo] pai on p.id = pai.propertyid join[dbo].[PropertyCoverPhotoMap] pcpm on p.id = pcpm.propertyid join[dbo].[Image] i on pcpm.imageid = i.imageid  where p.isactive = 1 and p.isapproved = 1").ToList();
+            return _context.Database.SqlQuery<PropertyDisplayViewModel>("select p.id Id, title Title, cat.CategoryName Category, i.Name CoverImage ,p.NumberofRooms [Bedroom] , p.NumberOfGuest [GuestCount] , pfp.PricePerNight Price from property p join [dbo].[PropertyCategory] cat on cat.id = p.categoryid join[dbo].[PropertyFixedPrice] pfp on pfp.propertyid = p.id join[dbo].[PropertyAdditionalInfo] pai on p.id = pai.propertyid join[dbo].[PropertyCoverPhotoMap] pcpm on p.id = pcpm.propertyid join[dbo].[Image] i on pcpm.imageid = i.imageid  where p.isactive = 1 and p.isapproved = 1").ToList();
+        }
+
+        public PropertyDetialModel GetPropertyDetails(int? id)
+        {
+            if (id == null) return null;
+            return _context.Database.SqlQuery<PropertyDetialModel>(" Exec GetPropertyDetails @propid", new SqlParameter("@propid", id)).FirstOrDefault();
         }
         public class PropertyDisplayViewModel
         {
@@ -683,33 +691,31 @@ namespace VHS.Repository
             public string CoverImage { get; set; }
             public string Category { get; set; }
             public decimal Price { get; set; }
-            public int PersonPerRoom { get; set; }
+            public int Bedroom { get; set; }
             public string Title { get; set; }
             public int GuestCount { get; set; }
         }
-        public List<string> GetAmennities(int propId, Anemities amenities)
+        public class PropertyDetialModel : PropertyDisplayViewModel
         {
-            if (propId == 0) return null;
-            switch (amenities)
-            {
-                case Anemities.General:
-                    return _context.Database.SqlQuery<string>("select Name from PropertyGeneralMap join General on PropertyGeneralMap.generalid =  General.id where propertyid = " + propId).ToList();
-                case Anemities.Kitchen:
-                    return _context.Database.SqlQuery<string>("select Name from PropertyKitchenMap join Kitchen on PropertyKitchenMap.kitchenid =  Kitchen.id where propertyid = " + propId).ToList();
-                case Anemities.SleepingArrangments:
-                    return _context.Database.SqlQuery<string>("select Name from PropertySleepingMap join SleepingArrangement on PropertySleepingMap.sleeparrengid =  SleepingArrangement.id where propertyid = " + propId).ToList();
-                case Anemities.EntertainmentElectronic:
-                    return _context.Database.SqlQuery<string>("select Name from PropertyEnterElecMap join EntertainmentElectronics on PropertyEnterElecMap.enterelecid =  EntertainmentElectronics.id where propertyid =" + propId).ToList();
-                case Anemities.Bathroom:
-                    return _context.Database.SqlQuery<string>("select Name from PropertyBathRoomsMap join BathRooms on PropertyBathRoomsMap.BathRoomId =  BathRooms.id where propertyid = " + propId).ToList();
-                case Anemities.Outdoor:
-                    return _context.Database.SqlQuery<string>("select Name from PropertyOutdoorMap join OutdoorFacilities on PropertyOutdoorMap.outfaciId =  OutdoorFacilities.id where propertyid = " + propId).ToList();
-                case Anemities.Parking:
-                    return _context.Database.SqlQuery<string>("select Name from PropertyParkingMap join Parking on PropertyParkingMap.parkingid = Parking.id where propertyid = " + propId).ToList();
-                default:
-                    return null;
-            }
-           
+            public string GalaryImage { get; set; }
+            public string Desc { get; set; }
+            public string CheckIn { get; set; }
+            public string CheckOut { get; set; }
+            public string IsPetAllowed { get; set; }
+            public string IsSmokingAllowed { get; set; }
+            public string IsWheelchairAccessible { get; set; }
+            public string IsFamilyKidFriendly { get; set; }
+            public string IsDrinkingAllowed { get; set; }
+            public int PersonPerRoom { get; set; }
+            public string City { get; set; }
+            public string Address { get; set; }
+            public string General { get; set; }
+            public string Parking { get; set; }
+            public string Outdoor { get; set; }
+            public string Bathroom { get; set; }
+            public string Entertainment { get; set; }
+            public string Sleeping { get; set; }
+            public string Kitchen { get; set; }
         }
         #endregion
     }
