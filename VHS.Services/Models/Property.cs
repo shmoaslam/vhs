@@ -26,6 +26,9 @@ namespace VHS.Services.Models
         public string Address { get; set; }
         [Required(ErrorMessage = "Please enter city")]
         public string City { get; set; }
+        [Required(ErrorMessage = "Please select region")]
+        public int RegionId { get; set; }
+        public SelectList Region { get; set; }
         [Required(ErrorMessage = "Please enter country")]
         public string Country { get; set; }
         [Required(ErrorMessage = "Please enter zipcode")]
@@ -45,7 +48,7 @@ namespace VHS.Services.Models
         [Required(ErrorMessage = "Please enter your contact no.")]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Please enter valid contact no.")]
         public string ContactNo { get; set; }
-        [Required(ErrorMessage = "Please upload image")]
+        //[Required(ErrorMessage = "Please upload image")]
         public HttpPostedFile Image { get; set; }
         [Required(ErrorMessage = "Please enter price")]
         [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
@@ -57,6 +60,11 @@ namespace VHS.Services.Models
         public string Text { get; set; }
     }
     public class ddlListedBy
+    {
+        public int Value { get; set; }
+        public string Text { get; set; }
+    }
+    public class ddlRegion
     {
         public int Value { get; set; }
         public string Text { get; set; }

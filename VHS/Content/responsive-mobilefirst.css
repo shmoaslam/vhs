@@ -43,9 +43,9 @@
 @media only screen and (max-width: 480px) {
 .col-lg-12 .client {width:50%; }
 
-h1 {font-size:40px; letter-spacing:0; }
-h2, .element h2 {font-size:36px; }
-h3 {font-size:30px; }
+h1 {font-size:30px; letter-spacing:0; }
+h2, .element h2 {font-size:24px; }
+h3 {font-size:20px; }
 
 footer .alignleft, footer .alignright { float:none; }
 .add-padding { padding:0; }

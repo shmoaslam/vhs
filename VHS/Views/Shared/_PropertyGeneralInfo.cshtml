@@ -17,11 +17,11 @@
         @Html.DropDownListFor(m => m.ListById, new SelectList(Model.ListBy, "Value", "Text"), "None")
         <span style="color:red">@Html.ValidationMessageFor(m => m.CategoryId)</span><br />
         <label>No. of Guests<span class="required">*</span></label>
-                            @Html.TextBoxFor(m => m.NoOfGuests)
-                            <span style="color:red">
-                                @Html.ValidationMessageFor(m => m.NoOfGuests)
-                            </span><br />
-                            <label>No. of Rooms<span class="required">*</span></label>
+        @Html.TextBoxFor(m => m.NoOfGuests)
+        <span style="color:red">
+            @Html.ValidationMessageFor(m => m.NoOfGuests)
+        </span><br />
+        <label>No. of Bedrooms<span class="required">*</span></label>
                             @Html.TextBoxFor(m => m.NoOfRooms)
                             <span style="color:red">
                                 @Html.ValidationMessageFor(m => m.NoOfRooms)
@@ -33,15 +33,18 @@
                             </span><br />
 
                             <label>Address<span class="required">*</span></label>
-                                @Html.TextAreaFor(m => m.Address)
-                                <span style="color:red">
-                                    @Html.ValidationMessageFor(m => m.Address)
-                                </span><br />
-                                <label>City<span class="required">*</span></label>
+                            @Html.TextAreaFor(m => m.Address)
+                            <span style="color:red">
+                                @Html.ValidationMessageFor(m => m.Address)
+                            </span><br />
+                            <label>City<span class="required">*</span></label>
                                 @Html.TextBoxFor(m => m.City)
                                 <span style="color:red">
                                     @Html.ValidationMessageFor(m => m.City)
                                 </span><br />
+                                <label>Region<span class="required">*</span></label>
+                                @Html.DropDownListFor(m => m.RegionId, new SelectList(Model.Region, "Value", "Text"), "Select")
+                                <span style="color:red">@Html.ValidationMessageFor(m => m.RegionId)</span><br />
                                 <label>Country<span class="required">*</span></label>
                                 @Html.TextBoxFor(m => m.Country)
                                 <span style="color:red">
@@ -65,9 +68,9 @@
                                 </span><br />
                                 <label>Upload Property Images<span class="required">*</span><span class="error-msg">Maximum two images</span></label>
                                 @Html.TextBoxFor(m => m.Image, new { type = "file", multiple = "multiple" })
-                                <span style="color:red">
+                                @*<span style="color:red">
                                     @Html.ValidationMessageFor(m => m.Image)
-                                </span><br />
+                                </span>*@<br />
                                 <label>Price</label>
                                 @Html.TextBoxFor(m => m.Price)
                                 <span style="color:red">
@@ -84,7 +87,7 @@
 <script>
     $('#frmGeneralInfo').click(function () {
         if ($(this).find('.input-validation-error').length == 0 && $(this).find('.valid').length > 0) {
-           
+
             (function () {
                 //var bar = $('#progressbarCoverPhoto');
                 //var percent = $('#progressbarCoverPhoto');
@@ -104,7 +107,7 @@
                         //percent.html(percentValue);
                     },
                     success: function (d) {
-                        if (d=="1") {
+                        if (d == "1") {
                             alert("Information is updated sucessfully.");
                             //$("#btnCovertPhoto").removeAttr("disabled");
                             //$("#progressCoverPhoto").hide();

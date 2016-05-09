@@ -21,12 +21,18 @@ namespace VHS.Controllers
             _property = property;
             _propertyBooking = propBooking;
         }
+        [AllowAnonymous]
         public ActionResult Add()
         {
-            var property = new Property();
-            property.Category = GetCategory();
-            property.ListBy = GetListBy();
-            return View(property);
+            if(Request.IsAuthenticated)
+            {
+                var property = new Property();
+                property.Category = GetCategory();
+                property.ListBy = GetListBy();
+                return View(property);
+            }
+            else
+                return View();
         }
         [HttpPost]
         public ActionResult Add(Property property, List<HttpPostedFileBase> Image)

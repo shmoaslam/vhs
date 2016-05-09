@@ -224,6 +224,8 @@
     </Compile>
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\FacebookLogin.cs" />
+    <Compile Include="Models\ForgotPasswordViewModel.cs" />
+    <Compile Include="Models\ResetPasswordViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

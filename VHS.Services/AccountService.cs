@@ -180,6 +180,73 @@ namespace VHS.Services
             return userInfo;
         }
 
+        public string GeneratePasswordResetToken(string email)
+        {
+            if (string.IsNullOrEmpty(email)) return string.Empty;
+            var login = _unitOfWork.LoginRepository.Get(m => m.Email == email && m.IsActive == true);
+            if (login != null)
+            {
+                var tokenExist = _unitOfWork.ResetPasswordTokenRepository.GetMany(x => x.Email == login.Email).Any();
+                var returnToken = string.Empty;
+                if(tokenExist)
+                {
+                    var token = _unitOfWork.ResetPasswordTokenRepository.GetSingle(x => x.Email == login.Email);
+                    token.Token = Guid.NewGuid();
+                    token.ExpirationDate = DateTime.Now.AddHours(24);
+                    _unitOfWork.ResetPasswordTokenRepository.Update(token);
+                    returnToken = token.Token.ToString();
+                }
+                else
+                {
+                    var resetToken = new ResetPasswordToken
+                    {
+                        Email = login.Email,
+                        LoginId = login.LoginId,
+                        Token = Guid.NewGuid(),
+                        ExpirationDate = DateTime.Now.AddHours(24),
+                    };
+                    _unitOfWork.ResetPasswordTokenRepository.Insert(resetToken);
+                    returnToken = resetToken.Token.ToString();
+                }
 
+
+                _unitOfWork.Save();
+
+                return returnToken;
+
+            }
+            return string.Empty;
+        }
+
+        public void ResetPassword(string email, string password)
+        {
+            if (string.IsNullOrEmpty(email)) return;
+            var login = _unitOfWork.LoginRepository.Get(m => m.Email == email && m.IsActive == true);
+            if (login != null)
+            {
+                login.Password = password;
+
+                _unitOfWork.LoginRepository.Update(login);
+
+                _unitOfWork.Save();
+            }
+        }
+
+        public bool CheckForgotPasswordEmailExists(string email)
+        {
+            return _unitOfWork.LoginRepository.GetMany(m => m.Email == email && m.IsActive).Any();
+        }
+
+        public string GetUserEmailFromToken(string code)
+        {
+            if (string.IsNullOrEmpty(code)) return string.Empty;
+
+            var tokens = _unitOfWork.ResetPasswordTokenRepository.GetMany(x => x.Token.ToString() == code && x.ExpirationDate > DateTime.Now);
+
+            if(tokens != null)
+                return tokens.FirstOrDefault().Email;
+
+            return string.Empty;
+        }
     }
 }

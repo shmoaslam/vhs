@@ -17,5 +17,9 @@ namespace VHS.Interface
         RmCreatePassword RmAccountConfirmation(string token);
         bool RmAccountCreatePassword(RmCreatePassword rmchangePassword);
         UserInfo GetUserDetail(string emailId);
+        string GeneratePasswordResetToken(string email);
+        void ResetPassword(string email, string password);
+        bool CheckForgotPasswordEmailExists(string email);
+        string GetUserEmailFromToken(string code);
     }
 }

@@ -6,19 +6,23 @@
 }
 
 
-<section class="section header-section dark">
+<section class="section header-section-property dark">
     <div class="overlay"><img class="property-cover" src="/UploadFile/PropertyCoverPhoto/@Model.CoverImage"></div>
     <div class="container clearfix centered">
         <div class="col-lg-8 centered aligncenter">
-            <div class="centralizing-wrapper">
+            <div class="centralizing-wrapper-property">
                 <div class="centralized-content">
-                    <h1>@Model.Category</h1>
+                    <h1>@Model.Title</h1>
                     <p class="uppercase">@Model.City</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+
+
+
 
 <section class="section2 bordered">
     <div class="container clearfix">
@@ -33,18 +37,18 @@
                     <div class="col-md-12 pull-left">
                         <div class="col-md-3 col-xs-6 text-center"><p class="intro-pik"><img class="intro-icons" src="/images/category.png" width="20" alt="Category" title="Category" /></p><p class="category"><b>@Model.Category</b></p></div>
                         <div class="col-md-3 col-xs-6 text-center"><p class="intro-pik"><img class="intro-icons" src="/images/price.png" width="20" alt="Price" title="Price" /></p><p class="price"><b>@Model.Price/-</b></p></div>
-                        <div class="col-md-3 col-xs-6 text-center"><p class="intro-pik"><img class="intro-icons" src="/images/guest.png" width="20" alt="Guests" title="Guests" /></p><p class="guests"><b>Upto 24</b></p></div>
-                        <div class="col-md-3 col-xs-6 text-center"><p class="intro-pik"><img class="intro-icons" src="/images/star-rating.png" width="20" alt="Rating" title="Rating" /></p><p class="rating"><b>4/5</b></p></div>
+                        <div class="col-md-3 col-xs-6 text-center"><p class="intro-pik"><img class="intro-icons" src="/images/guest.png" width="20" alt="Guests" title="Guests" /></p><p class="guests"><b>Upto @Model.GuestCount</b></p></div>
+                        @*<div class="col-md-3 col-xs-6 text-center"><p class="intro-pik"><img class="intro-icons" src="/images/star-rating.png" width="20" alt="Rating" title="Rating" /></p><p class="rating"><b>4/5</b></p></div>*@
                     </div>
                     <div class="clear"></div>
 
                     <div class="borderline"></div>
                     <p class="alignleft"><img class="social-share" src="/images/bg-share.png" width="20" alt="Share" title="Share" /></p>
-                    <ul class="social-list alignleft">
-                        <li> <a href="#"><i class="fa fa-pinterest-p"></i></a> </li>
+                    <ul class="social-list alignleft">                        
                         <li> <a href="#"><i class="fa fa-twitter"></i></a> </li>
                         <li> <a href="#"><i class="fa fa-facebook"></i></a> </li>
-                        <li> <a href="#"><i class="fa fa-instagram"></i></a> </li>
+                        @*<li> <a href="#"><i class="fa fa-instagram"></i></a> </li>
+						<li> <a href="#"><i class="fa fa-pinterest-p"></i></a> </li>*@
                     </ul>
                     <p class="alignright"><img class="social-share" src="/images/wishlist.png" width="20" alt="Wishlist" title="Add to Wishlist" /></p>
 
@@ -147,7 +151,7 @@
                         </tr>
                         <tr>
                             <td class="col-md-8 am-pad">Parking : </td>
-                            <td><span class="sm-txt">Covered Parking, Paid Parking, Valet</span></td>
+                            <td><span class="sm-txt">@(Model.Parking != null ? string.Join(", ", Model.Parking) : string.Empty)</span></td>
                         </tr>
 
                     </table>

@@ -95,5 +95,10 @@ namespace VHS.Services
             }
 
         }
+
+        public void SendForgotPasswordEmail(string email, string subject, string body)
+        {
+            MailSend.SendEmail(email, subject, body, true);
+        }
     }
 }

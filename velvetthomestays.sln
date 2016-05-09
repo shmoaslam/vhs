@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VHS.Repository", "VHS.Repos
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VHS.Services", "VHS.Services\VHS.Services.csproj", "{3A0AE4AF-7607-4BA9-A3E4-CA909E4B83F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{EB3D2035-9326-44BF-9B0C-AAED3D0DCB14}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{3A0AE4AF-7607-4BA9-A3E4-CA909E4B83F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A0AE4AF-7607-4BA9-A3E4-CA909E4B83F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A0AE4AF-7607-4BA9-A3E4-CA909E4B83F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB3D2035-9326-44BF-9B0C-AAED3D0DCB14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB3D2035-9326-44BF-9B0C-AAED3D0DCB14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB3D2035-9326-44BF-9B0C-AAED3D0DCB14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB3D2035-9326-44BF-9B0C-AAED3D0DCB14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
