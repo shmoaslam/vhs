@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,11 @@ namespace VHS.Core
         {
             CreatedOn = DateTime.Now;
             UpdatedOn = DateTime.Now;
+            if (CreatedBy == null && UpdatedBy == null)
+            {
+                CreatedBy = 1;
+                UpdatedBy = 1;
+            }
             IsActive = true;
         }
     }

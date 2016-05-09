@@ -191,7 +191,7 @@ namespace VHS.Services
 
             var generalId = _unitOfWork.PropGeneralRepository.GetMany(x => x.PropertyId == id).ToList().Select(x => x.GeneralId);
 
-            propertyViemodle.General = _unitOfWork.GetAmennities(id??0, Anemities.General);
+            propertyViemodle.General = _unitOfWork.GetAmennities(id ?? 0, Anemities.General);
             propertyViemodle.Kitchen = _unitOfWork.GetAmennities(id ?? 0, Anemities.Kitchen);
             propertyViemodle.EntertainmentElectronic = _unitOfWork.GetAmennities(id ?? 0, Anemities.EntertainmentElectronic);
             propertyViemodle.Outdoor = _unitOfWork.GetAmennities(id ?? 0, Anemities.Outdoor);
@@ -211,6 +211,10 @@ namespace VHS.Services
             if (_unitOfWork.PropertyAddressRepository.GetMany(x => x.PropertyId == id).Any())
                 propertyViemodle.City = _unitOfWork.PropertyAddressRepository.GetMany(x => x.PropertyId == id).FirstOrDefault().City;
 
+            //Set proprtyId for Booking Check Avalibility
+            var propertyBooking = new Models.PropertyBooking();
+            propertyBooking.PropertyId = (int)id;
+            propertyViemodle.objPropertyBooking = propertyBooking;
             return propertyViemodle;
         }
         public List<PropertyViewModel> GetPropertyList()

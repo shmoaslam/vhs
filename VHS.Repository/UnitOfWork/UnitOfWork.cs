@@ -7,6 +7,9 @@ using System.Data.Entity.Validation;
 using System.Diagnostics;
 using VHS.Core;
 using VHS.Data;
+using System.Data.SqlClient;
+using System.Data.Entity.Core.Objects;
+using System.Data;
 
 namespace VHS.Repository
 {
@@ -57,17 +60,18 @@ namespace VHS.Repository
         private GenericRepository<PropertyWeekendPrice> _propertyWeekendPriceRepository;
         private GenericRepository<BookingRequest> _bookingRequestRepository;
         private GenericRepository<Newsletter> _newsletterRepository;
+        private GenericRepository<PropertyBooking> _propertyBooking;
 
         #endregion
 
         public UnitOfWork()
         {
             _context = new VHSDbContext();
-            
+
         }
 
 
-        
+
         #region Public Repository Creation properties...
 
         /// <summary>
@@ -588,6 +592,19 @@ namespace VHS.Repository
                 return _newsletterRepository;
             }
         }
+
+        /// <summary>
+        /// Get/Set Property for Newsletter repository.
+        /// </summary>
+        public GenericRepository<PropertyBooking> PropertyBookingRepository
+        {
+            get
+            {
+                if (this._propertyBooking == null)
+                    this._propertyBooking = new GenericRepository<PropertyBooking>(_context);
+                return _propertyBooking;
+            }
+        }
         #endregion
 
         #region Public member methods...
@@ -679,7 +696,18 @@ namespace VHS.Repository
                 default:
                     return null;
             }
-           
+
+        }
+        //Procedure to Check Property Availabilty:-
+        public bool CheckAvailbilityProerty(int PropertyId, DateTime StartDate, DateTime EndDate)
+        {
+            //var outParam = new SqlParameter();
+            //outParam.ParameterName = "Result";
+            //outParam.SqlDbType = SqlDbType.Bit;
+            //outParam.Direction = ParameterDirection.Output;
+           // var outputParameter = new ObjectParameter("Result", typeof(bool));
+            var result = _context.Database.SqlQuery<bool>("CheckAvailbilityProperty @propertyId, @StartDate, @EndDate", new SqlParameter("propertyId", PropertyId), new SqlParameter("StartDate", StartDate), new SqlParameter("EndDate", EndDate)).FirstOrDefault();
+            return true;
         }
         #endregion
     }

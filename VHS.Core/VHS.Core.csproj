@@ -64,6 +64,7 @@
     <Compile Include="PropertyAmenitiesMap.cs" />
     <Compile Include="PropertyBathRoomsMap.cs" />
     <Compile Include="PropertyBlackOutDay.cs" />
+    <Compile Include="PropertyBooking.cs" />
     <Compile Include="PropertyCategory.cs" />
     <Compile Include="PropertyCoverPhotoMap.cs" />
     <Compile Include="PropertyEnterElecMap.cs" />

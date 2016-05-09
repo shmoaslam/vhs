@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using VHS.App_Start;
 using VHS.Interface;
+using VHS.Services.Interface;
 using VHS.Services.Models;
 
 namespace VHS.Controllers
@@ -14,9 +15,11 @@ namespace VHS.Controllers
     public class PropertyController : Controller
     {
         private IProperty _property;
-        public PropertyController(IProperty property)
+        private IPropertyBooking _propertyBooking;
+        public PropertyController(IProperty property, IPropertyBooking propBooking)
         {
             _property = property;
+            _propertyBooking = propBooking;
         }
         public ActionResult Add()
         {
@@ -28,7 +31,7 @@ namespace VHS.Controllers
         [HttpPost]
         public ActionResult Add(Property property, List<HttpPostedFileBase> Image)
         {
-           var proper= _property.AddProperty(property, Image);
+            var proper = _property.AddProperty(property, Image);
             if (proper)
             {
                 ViewBag.Message = "Property added sucessfully";
@@ -37,7 +40,7 @@ namespace VHS.Controllers
             {
                 ViewBag.Message = "Error occured during property add.Please try later.";
             }
-           
+
             return RedirectToAction("Add");
             //return View();
         }
@@ -74,6 +77,54 @@ namespace VHS.Controllers
         {
             var propertyViewModel = _property.GetAllProperty();
             return View(propertyViewModel);
+        }
+
+        [AllowAnonymous]
+        public JsonResult CheckAvailbility(PropertyBooking propertyBooking, string ButtonType)
+        {
+            if (propertyBooking.StartDate != null && propertyBooking.EndDate != null)
+            {
+                var checkAval = true;
+                if (ButtonType == "Check Availibility")
+                {
+                    checkAval = _propertyBooking.CheckPropertyAvailbility(propertyBooking);
+                }
+                else if (ButtonType == "Book Property")
+                {
+                    checkAval = _propertyBooking.BookProperty(propertyBooking);
+                }
+                else
+                {
+                    return Json("3");
+                }
+                if (checkAval)
+                {
+                    return Json("1");
+                }
+                else
+                {
+                    return Json("0");
+                }
+            }
+            else
+            {
+                return Json("5");
+            }
+
+
+        }
+        public JsonResult BookProperty(PropertyBooking propertyBooking)
+        {
+            var checkAval = _propertyBooking.CheckPropertyAvailbility(propertyBooking);
+            if (checkAval)
+            {
+                return Json("1");
+            }
+            else
+            {
+                return Json("0");
+            }
+
         }
     }
 
