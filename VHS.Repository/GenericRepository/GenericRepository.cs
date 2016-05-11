@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Data;
 using VHS.Data;
+using System.Data.Entity.Infrastructure;
 
 namespace VHS.Repository
 {
@@ -183,10 +184,7 @@ namespace VHS.Repository
         {
             return dbSet.FirstOrDefault<TEntity>(predicate);
         }
-        //public TEntity ExecuteSql() {
-        //    return this.Context.Database.ExecuteSqlCommand("");
-
-        //}
+   
 
     }
 }

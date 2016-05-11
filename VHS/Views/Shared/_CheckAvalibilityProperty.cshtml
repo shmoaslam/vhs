@@ -1,0 +1,65 @@
+﻿@model VHS.Services.Models.PropertyBooking
+@*<form class="form-part" method="post" action="contact.php" name="contactform" id="contactform" autocomplete="off">
+        <label>Check in</label>
+        <input name="" type="date" id="check-in" size="30" title="Email" />
+        <label>Check out</label>
+        <input name="" type="date" id="check-out" size="30" title="Password" />
+        <label>Guests</label>
+        <input class="sm-input" name="" type="text" id="guest" size="30" title="" />
+        <a class="button alignleft" href="#">Check Availibility</a>
+    </form>*@
+@using (Ajax.BeginForm("CheckAvailbility", "Property", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccess", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
+            {
+    <p class="sub-heading" id="errormessage" style="display:none"><span class="error-msg"> Username/Password does not match</span></p>
+    @Html.AntiForgeryToken()
+    <label>Check in</label>
+    @Html.HiddenFor(m => m.PropertyId)
+    @Html.TextBoxFor(m => m.StartDate, new { placeholder = "Start Date", @type = "date" })
+    @Html.ValidationMessageFor(m => m.StartDate, "", new { @class = "text-danger" })
+    <label>Check out</label>
+    @Html.TextBoxFor(m => m.EndDate, new { placeholder = "End Date", @type = "date" })
+    @Html.ValidationMessageFor(m => m.EndDate, "", new { @class = "text-danger" })
+    <label>Guests</label>
+    @Html.TextBoxFor(m => m.EndDate)
+    @*@Html.ValidationMessageFor(m => m.StartDate, "", new { @class = "text-danger" })*@
+    <div class="input-wrapper clearfix">
+        <input type="submit" class="button alignleft" value="Check Availibility" id="submit" name="ButtonType" />
+        <input type="submit" class="button alignleft" value="Book Property" id="submit" name="ButtonType" />
+        <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
+    </div>
+}
+<script>
+    $(document).ready(function () {
+
+        $("#loginLink").addClass("active");
+    });
+    //Show the Forgot Password  Div:-
+    function ShowForgotPassword() {
+        window.location.href = '@Url.Action("ForgotPassword", "Account")';
+    }
+    //Show the Success:-
+    function fnBegin() {
+        $('#imgLoader').show();
+        //Show any loder when process start:-
+    }
+    function fnSuccess(response, status, xhr) {
+        if (response == "1") {
+            $('#imgLoader').hide();
+            alert("Property available for this Date");
+        }
+        else if (response == "0") {
+            $('#imgLoader').hide();
+            alert("Property is no available for this Date.Please try another day ");
+
+        }
+    }
+    function fnFailure(xhr, status, err) {
+        $('#imgLoader').hide();
+        alert("'failure occured!!.Please try after '")
+    }
+    function fnComplete() {
+        if (response != "1") {
+            $('#imgLoader').hide();
+        }
+    }
+</script>

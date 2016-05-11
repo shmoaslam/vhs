@@ -56,7 +56,7 @@
 
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 border-left-wrapper">
 
-                    <form class="form-part" method="post" action="contact.php" name="contactform" id="contactform" autocomplete="off">
+                    @*<form class="form-part" method="post" action="contact.php" name="contactform" id="contactform" autocomplete="off">
                         <label>Check in</label>
                         <input name="" type="date" id="check-in" size="30" title="Email" />
                         <label>Check out</label>
@@ -64,7 +64,9 @@
                         <label>Guests</label>
                         <input class="sm-input" name="" type="text" id="guest" size="30" title="" />
                         <a class="button alignleft" href="#">Check Availibility</a>
-                    </form>
+                    </form>*@
+
+                    @Html.Partial("_CheckAvalibilityProperty",Model.objPropertyBooking)
                 </div>
 
                 <div class="clear"></div>
@@ -103,6 +105,7 @@
                                     }
                             </div>
                         </div>
+                        
                             <!--slider end-->
                     }
                 </div>
@@ -253,28 +256,6 @@
 
             <div class="col-lg-4 col-md-4 col-sm-4">
 
-
-
-
-
-
-                @*<article class="element clearfix">
-                    <h3>Travel Ambassator Review</h3>
-                    <div class="head-underline-s"> </div>
-                    <div class="travel-review">
-                        <p><img src="/images/02.jpg" width="300" alt="" /></p>
-                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum</p>
-                        <p><a class="button" href="#">Read More</a></p>
-                    </div>
-                </article>
-
-                <article class="element clearfix">
-                    <h3>Travel Beats</h3>
-                    <div class="head-underline-s"> </div>
-                    <div class="travel-beats">
-                        <p><img src="/images/13.jpg" width="300" alt="" /></p>
-                    </div>
-                </article>*@
             </div>
         </div>
     </div>

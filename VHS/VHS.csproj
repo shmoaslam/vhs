@@ -192,6 +192,7 @@
   <ItemGroup>
     <Compile Include="App_Start\ActionFilter.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\CustomSelectorAction.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
@@ -661,6 +662,7 @@
     <Content Include="Views\Home\Newsletter.cshtml" />
     <Content Include="Views\Mailer\BookingRequestEmailTemplate.cshtml" />
     <Content Include="Views\Shared\_PropertyWeekEndPricing.cshtml" />
+    <Content Include="Views\Shared\_CheckAvalibilityProperty.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

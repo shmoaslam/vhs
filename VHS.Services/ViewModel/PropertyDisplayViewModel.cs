@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VHS.Services.Models;
 
 namespace VHS.Services.ViewModel
 {
@@ -35,6 +36,7 @@ namespace VHS.Services.ViewModel
         public List<string> EntertainmentElectronic { get; set; }
         public List<string> SleepingArrangments { get; set; }
         public List<string> Kitchen { get; set; }
-        
+        public PropertyBooking objPropertyBooking { get; set; }
+
     }
 }
