@@ -679,7 +679,14 @@ namespace VHS.Repository
         {
             return _context.Database.SqlQuery<PropertyDisplayViewModel>("select p.id Id, title Title, cat.CategoryName Category, i.Name CoverImage ,p.NumberofRooms [Bedroom] , p.NumberOfGuest [GuestCount] , pfp.PricePerNight Price from property p join [dbo].[PropertyCategory] cat on cat.id = p.categoryid join[dbo].[PropertyFixedPrice] pfp on pfp.propertyid = p.id join[dbo].[PropertyAdditionalInfo] pai on p.id = pai.propertyid join[dbo].[PropertyCoverPhotoMap] pcpm on p.id = pcpm.propertyid join[dbo].[Image] i on pcpm.imageid = i.imageid  where p.isactive = 1 and p.isapproved = 1").ToList();
         }
-
+        public List<PropertyDisplayViewModel> GetAllSpainProperty()
+        {
+            return _context.Database.SqlQuery<PropertyDisplayViewModel>("select p.id Id, title Title, cat.CategoryName Category, i.Name CoverImage ,p.NumberofRooms [Bedroom] , p.NumberOfGuest [GuestCount] , pfp.PricePerNight Price from property p join [dbo].[PropertyCategory] cat on cat.id = p.categoryid join[dbo].[PropertyFixedPrice] pfp on pfp.propertyid = p.id join[dbo].[PropertyAdditionalInfo] pai on p.id = pai.propertyid join[dbo].[PropertyCoverPhotoMap] pcpm on p.id = pcpm.propertyid join[dbo].[Image] i on pcpm.imageid = i.imageid  where p.isactive = 1 and p.isapproved = 1 and p.RegionId = 2").ToList();
+        }
+        public List<PropertyDisplayViewModel> GetAllIndainProperty()
+        {
+            return _context.Database.SqlQuery<PropertyDisplayViewModel>("select p.id Id, title Title, cat.CategoryName Category, i.Name CoverImage ,p.NumberofRooms [Bedroom] , p.NumberOfGuest [GuestCount] , pfp.PricePerNight Price from property p join [dbo].[PropertyCategory] cat on cat.id = p.categoryid join[dbo].[PropertyFixedPrice] pfp on pfp.propertyid = p.id join[dbo].[PropertyAdditionalInfo] pai on p.id = pai.propertyid join[dbo].[PropertyCoverPhotoMap] pcpm on p.id = pcpm.propertyid join[dbo].[Image] i on pcpm.imageid = i.imageid  where p.isactive = 1 and p.isapproved = 1 and p.RegionId = 1").ToList();
+        }
         public PropertyDetialModel GetPropertyDetails(int? id)
         {
             if (id == null) return null;
@@ -708,7 +715,7 @@ namespace VHS.Repository
             public string IsDrinkingAllowed { get; set; }
             public int PersonPerRoom { get; set; }
             public string City { get; set; }
-            public string Address { get; set; }
+            public string Country { get; set; }
             public string General { get; set; }
             public string Parking { get; set; }
             public string Outdoor { get; set; }

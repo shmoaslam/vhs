@@ -89,13 +89,39 @@ namespace VHS.Services
             IList<PropertyDisplayViewModel> models = new List<PropertyDisplayViewModel>();
 
             var propertyModel = _unitOfWork.GetAllProperty();
-
-            foreach (var model in propertyModel)
-                models.Add(new PropertyDisplayViewModel { Id = model.Id, Title = model.Title,CoverImage = model.CoverImage, Category = model.Category, Price = model.Price, PersonPerRoom = Convert.ToString( model.Bedroom), GuestCount = model.GuestCount });
+            if (propertyModel != null)
+                foreach (var model in propertyModel)
+                    models.Add(new PropertyDisplayViewModel { Id = model.Id, Title = model.Title, CoverImage = model.CoverImage, Category = model.Category, Price = model.Price, PersonPerRoom = Convert.ToString(model.Bedroom), GuestCount = model.GuestCount });
 
             return models;
 
         }
+
+        public IList<PropertyDisplayViewModel> GetAllSpainProperty()
+        {
+            IList<PropertyDisplayViewModel> models = new List<PropertyDisplayViewModel>();
+
+            var propertyModel = _unitOfWork.GetAllSpainProperty();
+            if (propertyModel != null)
+                foreach (var model in propertyModel)
+                    models.Add(new PropertyDisplayViewModel { Id = model.Id, Title = model.Title, CoverImage = model.CoverImage, Category = model.Category, Price = model.Price, PersonPerRoom = Convert.ToString(model.Bedroom), GuestCount = model.GuestCount });
+
+            return models;
+        }
+
+        public IList<PropertyDisplayViewModel> GetIndianProperty()
+        {
+            IList<PropertyDisplayViewModel> models = new List<PropertyDisplayViewModel>();
+
+            var propertyModel = _unitOfWork.GetAllIndainProperty();
+            if (propertyModel != null)
+                foreach (var model in propertyModel)
+                    models.Add(new PropertyDisplayViewModel { Id = model.Id, Title = model.Title, CoverImage = model.CoverImage, Category = model.Category, Price = model.Price, PersonPerRoom = Convert.ToString(model.Bedroom), GuestCount = model.GuestCount });
+
+            return models;
+
+        }
+
         public PropertyDisplayViewModel GetPropertyDisplayModel(int? id)
         {
             if (id == null) return null;
@@ -114,7 +140,7 @@ namespace VHS.Services
             propertyViemodle.IsDrinkingAllowed = propertyModel.IsDrinkingAllowed == "1" ? "Yes" : "No";
             propertyViemodle.PersonPerRoom = propertyModel.PersonPerRoom.ToString();
             propertyViemodle.City = propertyModel.City;
-            propertyViemodle.Address = propertyModel.Address;
+            propertyViemodle.Country = propertyModel.Country;
             propertyViemodle.Category = propertyModel.Category;
             propertyViemodle.Price = propertyModel.Price;
             propertyViemodle.Title = propertyModel.Title;

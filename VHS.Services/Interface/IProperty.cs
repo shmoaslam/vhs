@@ -15,5 +15,7 @@ namespace VHS.Interface
         List<PropertyViewModel> GetPropertyList();
         PropertyDisplayViewModel GetPropertyDisplayModel(int? id);
         IList<PropertyDisplayViewModel> GetAllProperty();
+        IList<PropertyDisplayViewModel> GetAllSpainProperty();
+        IList<PropertyDisplayViewModel> GetIndianProperty();
     }
 }

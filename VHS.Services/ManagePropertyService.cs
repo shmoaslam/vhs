@@ -380,7 +380,7 @@ namespace VHS.Services
                     _unitOfWork.PropertyImageMapRepository.Delete(m => m.PropertyId == propGeneralInfo.PropertyId);
                     foreach (var item in file)
                     {
-                        if(item != null && !string.IsNullOrEmpty(item.FileName))
+                        if (item != null && !string.IsNullOrEmpty(item.FileName))
                         {
                             var imageObj = new Core.Image();
                             string extension = Path.GetExtension(item.FileName).ToString();
@@ -429,20 +429,23 @@ namespace VHS.Services
                 {
                     foreach (var item in file)
                     {
-                        var imageObj = new Core.Image();
-                        string extension = Path.GetExtension(item.FileName).ToString();
-                        string filename = Path.GetFileNameWithoutExtension(item.FileName) + "_" + System.DateTime.Now.ToString("yyyyMMddHHmmss") + extension;
-                        var path = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadFile/PropertyImage/"), filename);
-                        item.SaveAs(path);
-                        imageObj.Name = filename;
-                        _unitOfWork.ImageRepository.Insert(imageObj);
-                        _unitOfWork.Save();
+                        if (item != null && !string.IsNullOrEmpty(item.FileName))
+                        {
+                            var imageObj = new Core.Image();
+                            string extension = Path.GetExtension(item.FileName).ToString();
+                            string filename = Path.GetFileNameWithoutExtension(item.FileName) + "_" + System.DateTime.Now.ToString("yyyyMMddHHmmss") + extension;
+                            var path = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadFile/PropertyImage/"), filename);
+                            item.SaveAs(path);
+                            imageObj.Name = filename;
+                            _unitOfWork.ImageRepository.Insert(imageObj);
+                            _unitOfWork.Save();
 
-                        var imgPropMap = new Core.PropertyImageMapping();
-                        imgPropMap.ImageId = imageObj.ImageId;
-                        imgPropMap.PropertyId = propertObj.Id;
-                        _unitOfWork.PropertyImageMapRepository.Insert(imgPropMap);
-                        _unitOfWork.Save();
+                            var imgPropMap = new Core.PropertyImageMapping();
+                            imgPropMap.ImageId = imageObj.ImageId;
+                            imgPropMap.PropertyId = propertObj.Id;
+                            _unitOfWork.PropertyImageMapRepository.Insert(imgPropMap);
+                            _unitOfWork.Save();
+                        }
                     }
                     result = true;
                 }
