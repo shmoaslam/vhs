@@ -39,7 +39,7 @@
                     {
                         string userdata = userCookie["User"];
                         var _currentUser = JsonConvert.DeserializeObject<VHS.Services.UserInfo>(userdata);
-                        <li><span style="color:hotpink">@_currentUser.Name</span></li>
+                        <li>Welcome <span style="color:hotpink">@_currentUser.Name</span></li>
                     }
                 }
 
