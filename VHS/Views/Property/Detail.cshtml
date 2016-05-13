@@ -29,11 +29,11 @@
         <div id="container" class="no-bg">
             <article class="element clearfix col-lg-12 col-md-12 col-sm-12 col-xs-12 home">
                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                    <h3 class="title">@Model.Title</h3>
+                    <h3 class="title"><span class="property-id">VH001012</span>: @Model.Title</h3>
                     <p>
                         @Model.Desc
                     </p>
-                    <p class="address"><b>Address:</b> @Model.City, @Model.Country</p>
+                    <p class="address"><b>Located in:</b> @Model.Address</p>
                     <div class="col-md-12 pull-left">
                         <div class="col-md-3 col-xs-6 text-center"><p class="intro-pik"><img class="intro-icons" src="/images/category.png" width="20" alt="Category" title="Category" /></p><p class="category"><b>@Model.Category</b></p></div>
                         <div class="col-md-3 col-xs-6 text-center"><p class="intro-pik"><img class="intro-icons" src="/images/price.png" width="20" alt="Price" title="Price" /></p><p class="price"><b>@Model.Price/-</b></p></div>
@@ -63,7 +63,7 @@
                         <input name="" type="date" id="check-out" size="30" title="Password" />
                         <label>Guests</label>
                         <input class="sm-input" name="" type="text" id="guest" size="30" title="" />
-                        <a class="button alignleft" href="#">Check Availibility</a>
+                        <a class="button alignleft" href="#">Check Availability</a>
                     </form>*@
 
                     @Html.Partial("_CheckAvalibilityProperty",Model.objPropertyBooking)
@@ -104,6 +104,7 @@
                                     </div>
                                     }
                             </div>
+                           <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
                         </div>
                         
                             <!--slider end-->
@@ -180,14 +181,14 @@
                     <div class="head-underline-s"> </div>
                     <table class="table-responsive col-md-12">
                         <tr>
-                            <td class="col-md-4 am-pad">General : <span class="sm-txt">@(Model.General != null ? string.Join(", ", Model.General) : string.Empty)</span></td>
-                            <td class="col-md-4 am-pad">Sleeping Arrangments : <span class="sm-txt">@(Model.SleepingArrangments != null ? string.Join(", ", Model.SleepingArrangments) : string.Empty)</span></td>
-                            <td class="col-md-4 am-pad">Bathroom(s) : <span class="sm-txt">@(Model.Bathroom != null ? string.Join(", ", Model.Bathroom) : string.Empty)</span></td>
+                            <td class="col-md-4 am-pad"><b>General:</b><br/> <span class="sm-txt">@(Model.General != null ? string.Join(", ", Model.General) : string.Empty)</span></td>
+                            <td class="col-md-4 am-pad"><b>Sleeping Arrangments:</b><br/> <span class="sm-txt">@(Model.SleepingArrangments != null ? string.Join(", ", Model.SleepingArrangments) : string.Empty)</span></td>
+                            <td class="col-md-4 am-pad"><b>Bathroom(s):</b><br/> <span class="sm-txt">@(Model.Bathroom != null ? string.Join(", ", Model.Bathroom) : string.Empty)</span></td>
                         </tr>
                         <tr>
-                            <td class="col-md-4 am-pad">Kitchen : <span class="sm-txt">@(Model.Kitchen != null ? string.Join(", ", Model.Kitchen) : string.Empty)</span></td>
-                            <td class="col-md-4 am-pad">Entertainment & Electronics : <span class="sm-txt">@(Model.EntertainmentElectronic != null ? string.Join(", ", Model.EntertainmentElectronic) : string.Empty)</span></td>
-                            <td class="col-md-4 am-pad">Outdoor Facilities : <span class="sm-txt">@(Model.Outdoor != null ? string.Join(", ", Model.Outdoor) : string.Empty)</span></td>
+                            <td class="col-md-4 am-pad"><b>Kitchen:</b><br/> <span class="sm-txt">@(Model.Kitchen != null ? string.Join(", ", Model.Kitchen) : string.Empty)</span></td>
+                            <td class="col-md-4 am-pad"><b>Entertainment & Electronics:</b><br/> <span class="sm-txt">@(Model.EntertainmentElectronic != null ? string.Join(", ", Model.EntertainmentElectronic) : string.Empty)</span></td>
+                            <td class="col-md-4 am-pad"><b>Outdoor Facilities:</b><br/> <span class="sm-txt">@(Model.Outdoor != null ? string.Join(", ", Model.Outdoor) : string.Empty)</span></td>
                         </tr>
                         <tr>
                             <td></td>

@@ -39,7 +39,7 @@
                     {
                         string userdata = userCookie["User"];
                         var _currentUser = JsonConvert.DeserializeObject<VHS.Services.UserInfo>(userdata);
-                        <li><span style="color:hotpink">@_currentUser.Name</span></li>
+                        <li>Welcome <span style="color:hotpink">@_currentUser.Name</span></li>
                     }
                 }
 
@@ -76,11 +76,11 @@
         <div id="social-connect">
             <p>Follow us:</p>
             <ul class="social-list clearfix">
-                <li> <a href="https://www.facebook.com/VelvettHomestays" target="_blank"><img src="/images/fb.png" width="30" title="facebook" alt="facebook" /></a> </li>
-                <li> <a href="https://twitter.com/VHomestays" target="_blank"><img src="/images/twr.png" width="30" title="twitter" alt="twitter" /></a> </li>
-                <li> <a href="https://www.instagram.com/velvetthomestays/" target="_blank"><img src="/images/insta.png" width="30" title="instagram" alt="instagram" /></a> </li>
-                <li> <a href="http://velvetthomestays.tumblr.com/" target="_blank"><img src="/images/tmbr.png" width="30" title="tumblr" alt="tumblr" /></a> </li>
-                <li> <a href="https://in.pinterest.com/velvetthomestay/" target="_blank"><img src="/images/pin.png" width="30" title="pinterest" alt="pinterest" /></a> </li>
+                <li> <a href="https://www.facebook.com/VelvettHomestays" target="_blank"><i class="fa fa-facebook"></i></a> </li>
+                <li> <a href="https://twitter.com/VHomestays" target="_blank"><i class="fa fa-twitter"></i></a> </li>
+                <li> <a href="https://www.instagram.com/velvetthomestays/" target="_blank"><i class="fa fa-instagram"></i></a></a> </li>
+                <li> <a href="http://velvetthomestays.tumblr.com/" target="_blank"><i class="fa fa-tumblr"></i></a></a> </li>
+                <li> <a href="https://in.pinterest.com/velvetthomestay/" target="_blank"><i class="fa fa-pinterest"></i></a> </li>
             </ul>
         </div>
     </header>
