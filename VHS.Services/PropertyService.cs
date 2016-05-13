@@ -131,6 +131,12 @@ namespace VHS.Services
             propertyViemodle.Parking = !string.IsNullOrEmpty(propertyModel.Parking) ? propertyModel.Parking.Split(',').ToList() : new List<string>();
             propertyViemodle.Bathroom = !string.IsNullOrEmpty(propertyModel.Bathroom) ? propertyModel.Bathroom.Split(',').ToList() : new List<string>();
             propertyViemodle.Kitchen = !string.IsNullOrEmpty(propertyModel.Kitchen) ? propertyModel.Kitchen.Split(',').ToList() : new List<string>();
+
+            //Set proprtyId for Booking Check Avalibility
+            var propertyBooking = new Models.PropertyBooking();
+            propertyBooking.PropertyId = (int)id;
+            propertyViemodle.objPropertyBooking = propertyBooking;
+
             return propertyViemodle;
         }
         public List<PropertyViewModel> GetPropertyList()
