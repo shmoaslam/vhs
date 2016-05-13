@@ -48,6 +48,11 @@ namespace VHS.Controllers
             return View();
         }
         [HttpGet]
+        public ActionResult Travelogy()
+        {
+            return View();
+        }
+        [HttpGet]
         public ActionResult VelvettHolidays()
         {
             return View();
@@ -61,7 +66,7 @@ namespace VHS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult BookingRequest(BookingRequestViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 bool isBookingRequestAddedSuccessfully = _homeService.AddBookingRequest(model);
                 if (isBookingRequestAddedSuccessfully)

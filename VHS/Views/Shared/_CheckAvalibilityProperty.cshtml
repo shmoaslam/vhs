@@ -1,23 +1,23 @@
 ﻿@model VHS.Services.Models.PropertyBooking
-@*<form class="form-part" method="post" action="contact.php" name="contactform" id="contactform" autocomplete="off">
-        <label>Check in</label>
-        <input name="" type="date" id="check-in" size="30" title="Email" />
-        <label>Check out</label>
-        <input name="" type="date" id="check-out" size="30" title="Password" />
-        <label>Guests</label>
-        <input class="sm-input" name="" type="text" id="guest" size="30" title="" />
-        <a class="button alignleft" href="#">Check Availibility</a>
-    </form>*@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script>
+    $(function () {
+        alert('hi');
+        $("#startDate").datepicker();
+        $("#endDate").datepicker();
+  });
+</script>
 @using (Ajax.BeginForm("CheckAvailbility", "Property", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccess", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
             {
     <p class="sub-heading" id="errormessage" style="display:none"><span class="error-msg"> Username/Password does not match</span></p>
     @Html.AntiForgeryToken()
     <label>Check in</label>
     @Html.HiddenFor(m => m.PropertyId)
-    @Html.TextBoxFor(m => m.StartDate, new { placeholder = "Start Date", @type = "date" })
+    @Html.TextBoxFor(m => m.StartDate, new { placeholder = "Start Date", @id = "startDate" })
     @Html.ValidationMessageFor(m => m.StartDate, "", new { @class = "text-danger" })
     <label>Check out</label>
-    @Html.TextBoxFor(m => m.EndDate, new { placeholder = "End Date", @type = "date" })
+    @Html.TextBoxFor(m => m.EndDate, new { placeholder = "End Date", @id = "endDate" })
     @Html.ValidationMessageFor(m => m.EndDate, "", new { @class = "text-danger" })
     <label>Guests</label>
     @Html.TextBoxFor(m => m.EndDate)

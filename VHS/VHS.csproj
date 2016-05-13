@@ -506,6 +506,9 @@
     <Content Include="Images\symbol2.png" />
     <Content Include="Images\symbol22.png" />
     <Content Include="Images\tmbr.png" />
+    <Content Include="Images\Travelogy\nikhil2.jpg" />
+    <Content Include="Images\Travelogy\sagar2.jpg" />
+    <Content Include="Images\Travelogy\vandana2.jpg" />
     <Content Include="Images\twr.png" />
     <Content Include="Images\wishlist.png" />
     <Content Include="Scripts\AjaxPostFile.js" />
@@ -663,6 +666,7 @@
     <Content Include="Views\Mailer\BookingRequestEmailTemplate.cshtml" />
     <Content Include="Views\Shared\_PropertyWeekEndPricing.cshtml" />
     <Content Include="Views\Shared\_CheckAvalibilityProperty.cshtml" />
+    <Content Include="Views\Home\Travelogy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
