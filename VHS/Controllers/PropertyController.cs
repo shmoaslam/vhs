@@ -132,6 +132,18 @@ namespace VHS.Controllers
             }
 
         }
+        [AllowAnonymous]
+        public ActionResult ListedSpainProperty()
+        {
+            var propertyViewModel = _property.GetAllSpainProperty();
+            return View("ListedProperty",propertyViewModel);
+        }
+        [AllowAnonymous]
+        public ActionResult ListedIndianProperty()
+        {
+            var propertyViewModel = _property.GetIndianProperty();
+            return View("ListedProperty",propertyViewModel);
+        }
     }
 
 }
