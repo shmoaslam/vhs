@@ -24,7 +24,7 @@ namespace VHS.Controllers
         [AllowAnonymous]
         public ActionResult Add()
         {
-            if(Request.IsAuthenticated)
+            if (Request.IsAuthenticated)
             {
                 var property = new Property();
                 property.Category = GetCategory();
@@ -88,61 +88,68 @@ namespace VHS.Controllers
         [AllowAnonymous]
         public JsonResult CheckAvailbility(PropertyBooking propertyBooking, string ButtonType)
         {
+            int i = 0;
             if (propertyBooking.StartDate != null && propertyBooking.EndDate != null)
             {
                 var checkAval = true;
+                var bookProperty = true;
+
                 if (ButtonType == "Check Availibility")
                 {
                     checkAval = _propertyBooking.CheckPropertyAvailbility(propertyBooking);
+                    if (!checkAval)
+                    {
+                        i = 1;
+                    }
+                    else
+                    {
+                        i = 2;
+                    }
                 }
                 else if (ButtonType == "Book Property")
                 {
-                    checkAval = _propertyBooking.BookProperty(propertyBooking);
+                    if (Request.IsAuthenticated)
+                    {
+                        bookProperty = _propertyBooking.BookProperty(propertyBooking);
+                        if (bookProperty)
+                        {
+                            i = 3;
+                        }
+                        else
+                        {
+                            i = 4;
+                        }
+                    }
+                    else
+                    {
+                        i = 6;
+
+                    }
                 }
                 else
                 {
-                    return Json("3");
+                    i = 5;
                 }
-                if (checkAval)
-                {
-                    return Json("1");
-                }
-                else
-                {
-                    return Json("0");
-                }
+                return Json(i);
             }
             else
             {
-                return Json("5");
+                return Json(i);
             }
 
-
-        }
-        public JsonResult BookProperty(PropertyBooking propertyBooking)
-        {
-            var checkAval = _propertyBooking.CheckPropertyAvailbility(propertyBooking);
-            if (checkAval)
-            {
-                return Json("1");
-            }
-            else
-            {
-                return Json("0");
-            }
 
         }
         [AllowAnonymous]
         public ActionResult ListedSpainProperty()
         {
             var propertyViewModel = _property.GetAllSpainProperty();
-            return View("ListedProperty",propertyViewModel);
+            return View("ListedProperty", propertyViewModel);
         }
         [AllowAnonymous]
         public ActionResult ListedIndianProperty()
         {
             var propertyViewModel = _property.GetIndianProperty();
-            return View("ListedProperty",propertyViewModel);
+            return View("ListedProperty", propertyViewModel);
         }
     }
 

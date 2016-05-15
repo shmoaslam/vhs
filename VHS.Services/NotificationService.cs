@@ -61,7 +61,7 @@ namespace VHS.Services
             }
             catch (Exception ex)
             {
-                
+
             }
         }
 
@@ -86,7 +86,7 @@ namespace VHS.Services
                 var templateService = new TemplateService();
                 var mailDetails = new RMCreationMailer() { Name = Name, Link = Links, Description = "Click link to generate password and activate account." };
                 var emailHtmlBody = templateService.Parse(File.ReadAllText(templateFilePath), mailDetails, null, null);
-                MailSend.SendEmail(Email, Subject, emailHtmlBody,true);
+                MailSend.SendEmail(Email, Subject, emailHtmlBody, true);
             }
             catch (Exception ex)
             {
@@ -99,6 +99,68 @@ namespace VHS.Services
         public void SendForgotPasswordEmail(string email, string subject, string body)
         {
             MailSend.SendEmail(email, subject, body, true);
+        }
+
+        //Property Booking Mail Confirmation:-
+        public void BookingConfirmationMail(BookingConfirmation bookingConfirmation)
+        {
+            BookingRequestConfirmToAdmin(bookingConfirmation);
+            BookingRequestConfirmToRm(bookingConfirmation);
+            BookingRequestConfirmToUser(bookingConfirmation);
+        }
+        public async void BookingRequestConfirmToAdmin(BookingConfirmation bookingConfirmAdmin)
+        {
+            try
+            {
+                string Subject = "Booking request received";
+                var templateFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views");
+                var templateFilePath = templateFolderPath + "\\Mailer\\BookedPropertyConfirmationToAdmin.cshtml";
+                var templateService = new TemplateService();
+                var emailHtmlBody = templateService.Parse(File.ReadAllText(templateFilePath), bookingConfirmAdmin, null, null);
+                await Task.Run(() => MailSend.SendEmail(bookingConfirmAdmin.AdminEmail, Subject, emailHtmlBody, true));
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+        public async void BookingRequestConfirmToRm(BookingConfirmation bookingConfirmRm)
+        {
+            try
+            {
+                string Subject = "Booking request received";
+                var templateFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views");
+                var templateFilePath = templateFolderPath + "\\Mailer\\BookedPropertyConfirmationToRm.cshtml";
+                var templateService = new TemplateService();
+                var emailHtmlBody = templateService.Parse(File.ReadAllText(templateFilePath), bookingConfirmRm, null, null);
+                await Task.Run(() => MailSend.SendEmail(bookingConfirmRm.RmEmail, Subject, emailHtmlBody, true));
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+        public async void BookingRequestConfirmToUser(BookingConfirmation bookingConfirmUser)
+        {
+            try
+            {
+                string Subject = "Booking request received";
+                var templateFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views");
+                var templateFilePath = templateFolderPath + "\\Mailer\\BookedPropertyConfirmationToUser.cshtml";
+                var templateService = new TemplateService();
+                var emailHtmlBody = templateService.Parse(File.ReadAllText(templateFilePath), bookingConfirmUser, null, null);
+                await Task.Run(() => MailSend.SendEmail(bookingConfirmUser.Email, Subject, emailHtmlBody, true));
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
     }
 }

@@ -1,24 +1,16 @@
 ﻿@model VHS.Services.Models.PropertyBooking
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<script>
-    $(function () {
-        alert('hi');
-        $("#startDate").datepicker();
-        $("#endDate").datepicker();
-  });
-</script>
 @using (Ajax.BeginForm("CheckAvailbility", "Property", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccess", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
             {
     <p class="sub-heading" id="errormessage" style="display:none"><span class="error-msg"> Username/Password does not match</span></p>
     @Html.AntiForgeryToken()
     <label>Check in</label>
     @Html.HiddenFor(m => m.PropertyId)
-    @Html.TextBoxFor(m => m.StartDate, new { placeholder = "Start Date", @id = "startDate" })
-    @Html.ValidationMessageFor(m => m.StartDate, "", new { @class = "text-danger" })
+    @Html.TextBoxFor(m => m.StartDate, new { placeholder = "Start Date", @type = "date", @id = "startDate" })
+    @Html.ValidationMessageFor(m => m.StartDate, "", new { @class = "text-danger" })<br>
     <label>Check out</label>
-    @Html.TextBoxFor(m => m.EndDate, new { placeholder = "End Date", @id = "endDate" })
+    @Html.TextBoxFor(m => m.EndDate, new { placeholder = "End Date", @type = "date", @id = "endDate" })
     @Html.ValidationMessageFor(m => m.EndDate, "", new { @class = "text-danger" })
+    <br />
     <label>Guests</label>
     @Html.TextBoxFor(m => m.EndDate)
     @*@Html.ValidationMessageFor(m => m.StartDate, "", new { @class = "text-danger" })*@
@@ -30,8 +22,34 @@
 }
 <script>
     $(document).ready(function () {
+        var input = document.getElementById("startDate");
+        var input1 = document.getElementById("endDate");
+        var today = new Date();
+        // Set month and day to string to add leading 0
+        var day = new String(today.getDate());
+        var mon = new String(today.getMonth() + 1); //January is 0!
+        var yr = today.getFullYear();
 
-        $("#loginLink").addClass("active");
+        if (day.length < 2) { day = "0" + day; }
+        if (mon.length < 2) { mon = "0" + mon; }
+
+        var date = new String(yr + '-' + mon + '-' + day);
+
+        input.disabled = false;
+        input.setAttribute('min', date)
+        input1.disabled = false;
+        input1.setAttribute('min', date)
+    });
+    $("#endDate").change(function () {
+        var startDate = document.getElementById("startDate").value;
+        var endDate = document.getElementById("endDate").value;
+        if ((Date.parse(startDate) > Date.parse(endDate))) {
+            alert("End date should be greater than Start date");
+            document.getElementById("endDate").value = "";
+        }
+    });
+    $("#startDate").change(function () {
+        document.getElementById("endDate").value = "";
     });
     //Show the Forgot Password  Div:-
     function ShowForgotPassword() {
@@ -43,13 +61,39 @@
         //Show any loder when process start:-
     }
     function fnSuccess(response, status, xhr) {
-        if (response == "1") {
-            $('#imgLoader').hide();
-            alert("Property available for this Date");
-        }
-        else if (response == "0") {
-            $('#imgLoader').hide();
-            alert("Property is no available for this Date.Please try another day ");
+        $('#imgLoader').hide();
+        switch (response) {
+
+            case 1:
+                alert("Property available for this Date");
+                break;
+
+            case 2:
+                alert("Property is no available for this Date.Please try another day ");
+                break;
+
+            case 3:
+                alert("Property booking successfully,Our reppresentative will contact you shortly.");
+                break;
+
+            case 4:
+                alert("Property is no available for this Date.Please try another day and book");
+                break;
+
+            case 5:
+                alert("Please try Later.");
+                break;
+
+            case 6:
+                alert("Please login first to book property.");
+                break;
+
+            case 0:
+                alert("Please select date to check availability and book property.");
+                break;
+
+            default:
+                alert("Please try Later.");
 
         }
     }

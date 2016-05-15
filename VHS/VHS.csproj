@@ -668,6 +668,9 @@
     <Content Include="Views\Shared\_PropertyWeekEndPricing.cshtml" />
     <Content Include="Views\Shared\_CheckAvalibilityProperty.cshtml" />
     <Content Include="Views\Home\Travelogy.cshtml" />
+    <Content Include="Views\Mailer\BookedPropertyConfirmationToAdmin.cshtml" />
+    <Content Include="Views\Mailer\BookedPropertyConfirmationToUser.cshtml" />
+    <Content Include="Views\Mailer\BookedPropertyConfirmationToRM.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

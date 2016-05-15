@@ -96,6 +96,7 @@
     <Compile Include="UserService.cs" />
     <Compile Include="ViewModel\AdminHomeViewModel.cs" />
     <Compile Include="ViewModel\Aminities.cs" />
+    <Compile Include="ViewModel\BookingConfirmation.cs" />
     <Compile Include="ViewModel\BookingRequestViewModel.cs" />
     <Compile Include="ViewModel\ImageViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
