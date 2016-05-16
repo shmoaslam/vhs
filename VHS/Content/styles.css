@@ -637,7 +637,7 @@ article:hover .hidden-content .borderline { width:145px; -webkit-transition: wid
 
 .carousel-control .icon-prev, .carousel-control .icon-next, .carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right {
     position: absolute;
-    top: 50%;
+    top: 46%;
     z-index: 5;
     display: inline-block;
     margin-top: -10px;
@@ -648,7 +648,12 @@ article:hover .hidden-content .borderline { width:145px; -webkit-transition: wid
 
 
 /*my css*/
-
+.property-id{
+	color:#f06eaa;
+	display: block;
+    float: left;
+    padding-right: 4px;
+}
 .login-box{
 	box-shadow:0px 0px 10px #ccc;
 }
@@ -848,6 +853,9 @@ img.line-pc {
 .property-thumb-title{
 	font-size:15px;
 	font-weight:600;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	height:20px;
 }
 .property-thumb-info{
 	 font-size:13px;
