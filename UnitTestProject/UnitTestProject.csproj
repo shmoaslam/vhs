@@ -63,6 +63,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\VHS.Repository\VHS.Repository.csproj">
+      <Project>{082227f6-1606-41e5-8424-4a118802122d}</Project>
+      <Name>VHS.Repository</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VHS.Services\VHS.Services.csproj">
       <Project>{3a0ae4af-7607-4ba9-a3e4-ca909e4b83f9}</Project>
       <Name>VHS.Services</Name>

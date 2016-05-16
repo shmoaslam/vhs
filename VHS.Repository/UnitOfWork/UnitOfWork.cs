@@ -703,6 +703,30 @@ namespace VHS.Repository
             if (id == null) return null;
             return _context.Database.SqlQuery<PropertyDetialModel>(" Exec GetPropertyDetails @propid", new SqlParameter("@propid", id)).FirstOrDefault();
         }
+        public List<PropertyListForAdmin> GetPropertyListForAdmin(int rmid)
+        {
+            return _context.Database.SqlQuery<PropertyListForAdmin>(" Exec GetPropertyListForAdmin @rmId", new SqlParameter("@rmId", rmid)).ToList();
+        }
+
+
+
+
+        //Procedure to Check Property Availabilty:-
+        public bool CheckAvailbilityProerty(int PropertyId, DateTime StartDate, DateTime EndDate)
+        {
+            //var outParam = new SqlParameter();
+            //outParam.ParameterName = "Result";
+            //outParam.SqlDbType = SqlDbType.Bit;
+            //outParam.Direction = ParameterDirection.Output;
+            // var outputParameter = new ObjectParameter("Result", typeof(bool));
+            var result = _context.Database.SqlQuery<bool>("CheckAvailbilityProperty @propertyId, @StartDate, @EndDate", new SqlParameter("propertyId", PropertyId), new SqlParameter("StartDate", StartDate), new SqlParameter("EndDate", EndDate)).FirstOrDefault();
+            return result;
+        }
+        #endregion
+
+
+        #region Class need to be moved
+
         public class PropertyDisplayViewModel
         {
             public int Id { get; set; }
@@ -735,18 +759,11 @@ namespace VHS.Repository
             public string Sleeping { get; set; }
             public string Kitchen { get; set; }
         }
-
-        //Procedure to Check Property Availabilty:-
-        public bool CheckAvailbilityProerty(int PropertyId, DateTime StartDate, DateTime EndDate)
+        public class PropertyListForAdmin
         {
-            //var outParam = new SqlParameter();
-            //outParam.ParameterName = "Result";
-            //outParam.SqlDbType = SqlDbType.Bit;
-            //outParam.Direction = ParameterDirection.Output;
-            // var outputParameter = new ObjectParameter("Result", typeof(bool));
-            var result = _context.Database.SqlQuery<bool>("CheckAvailbilityProperty @propertyId, @StartDate, @EndDate", new SqlParameter("propertyId", PropertyId), new SqlParameter("StartDate", StartDate), new SqlParameter("EndDate", EndDate)).FirstOrDefault();
-            return result;
-        }
+            public int Id { get; set; }
+            public string Name { get; set; }
+        } 
         #endregion
     }
 }
