@@ -178,6 +178,7 @@ namespace VHS.Services
             propertyAdditionalInfo.FamilyKidAllowed = GetFamilyAllowed();
             propertyAdditionalInfo.PetsAllowed = GetPetsAllowed();
             propertyAdditionalInfo.WheelChairAllowed = GetWheelChairAllowed();
+            propertyAdditionalInfo.ProperyRating = GetPropertyRatingList();
 
             var propAdditional = _unitOfWork.PropertyAdditionalRepository.Get(m => m.PropertyId == propertyId);
             if (propAdditional != null)
@@ -193,6 +194,8 @@ namespace VHS.Services
                 propertyAdditionalInfo.PetsAllowedId = Convert.ToInt32(propAdditional.IsPetsAllowed);
                 propertyAdditionalInfo.WheelChairId = Convert.ToInt32(propAdditional.IsWheelChairAccess);
                 propertyAdditionalInfo.PropertySize = Convert.ToInt32(propAdditional.PropertySize);
+                propertyAdditionalInfo.PropRatingId = Convert.ToInt32(propAdditional.PropertyRating);
+                propertyAdditionalInfo.MaxGuest = Convert.ToInt32(propAdditional.MaxGuest);
                 propertyAdditionalInfo.Logitude = propAdditional.MapLongitude;
                 propertyAdditionalInfo.Latitude = propAdditional.MapLatitude;
                 propertyAdditionalInfo.PersonPerRoom = propAdditional.PersonPerRoom;
@@ -572,6 +575,18 @@ namespace VHS.Services
             SelectList selesctedListBy = new SelectList(lstPriceCurrency, "Value", "Text");
             return selesctedListBy;
         }
+        public SelectList GetPropertyRatingList()
+        {
+            var lstPropRating = new List<ddlPropertyRating>();
+            lstPropRating.Add(new ddlPropertyRating { Value = 1, Text = "3" });
+            lstPropRating.Add(new ddlPropertyRating { Value = 2, Text = "3.5" });
+            lstPropRating.Add(new ddlPropertyRating { Value = 3, Text = "4" });
+            lstPropRating.Add(new ddlPropertyRating { Value = 4, Text = "4.5" });
+            lstPropRating.Add(new ddlPropertyRating { Value = 4, Text = "5" });
+
+            SelectList selesctedListBy = new SelectList(lstPropRating, "Value", "Text");
+            return selesctedListBy;
+        }
 
         //Master Aminities List:-
         public IEnumerable<ViewModel.BathRommsModel> GetAllBathRooms(int propertyId)
@@ -686,13 +701,17 @@ namespace VHS.Services
                     MapLatitude = propAdditionalInfoInfo.Latitude,
                     MapLongitude = propAdditionalInfoInfo.Logitude,
                     PersonPerRoom = propAdditionalInfoInfo.PersonPerRoom,
+
+                    PropertyRating = propAdditionalInfoInfo.PropRatingId.ToString(),
+                    MaxGuest = propAdditionalInfoInfo.MaxGuest,
+
                     PropDescription = propAdditionalInfoInfo.PropertyDescription
 
                 });
             }
             else
             {
-                var propfixedobj = _unitOfWork.PropertyAdditionalRepository.GetByID(propAdditionalInfoInfo.PropertyId);
+                var propfixedobj = _unitOfWork.PropertyAdditionalRepository.GetFirst(m => m.PropertyId == propAdditionalInfoInfo.PropertyId);
                 if (propfixedobj != null)
                 {
 
@@ -708,6 +727,8 @@ namespace VHS.Services
                     propfixedobj.MapLongitude = propAdditionalInfoInfo.Logitude;
                     propfixedobj.PropDescription = propAdditionalInfoInfo.PropertyDescription;
                     propfixedobj.PersonPerRoom = propAdditionalInfoInfo.PersonPerRoom;
+                    propfixedobj.MaxGuest = propAdditionalInfoInfo.MaxGuest;
+                    propfixedobj.PropertyRating = propAdditionalInfoInfo.PropRatingId.ToString();
                     _unitOfWork.PropertyAdditionalRepository.Update(propfixedobj);
                 }
             }

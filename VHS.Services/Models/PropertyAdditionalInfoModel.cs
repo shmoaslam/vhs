@@ -51,6 +51,18 @@ namespace VHS.Services.Models
         [Required(ErrorMessage = "Please enter longitude")]
         public string Logitude { get; set; }
 
+
+        [Required(ErrorMessage = "Please select rating")]
+        public int PropRatingId { get; set; }
+        public SelectList ProperyRating { get; set; }
+
+        [Required(ErrorMessage = "Please enter max guest ")]
+        public int MaxGuest { get; set; }
+
+
+
+
+
     }
     public class ddlCallTime
     {
@@ -154,6 +166,12 @@ namespace VHS.Services.Models
         public decimal Price { get; set; }
     }
     public class ddlPriceCurrency
+    {
+        public int Value { get; set; }
+        public string Text { get; set; }
+    }
+
+    public class ddlPropertyRating
     {
         public int Value { get; set; }
         public string Text { get; set; }
