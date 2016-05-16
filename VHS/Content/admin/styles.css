@@ -565,6 +565,13 @@ input[type="checkbox"]:not(:disabled)+span:hover:before {
   text-shadow: 0 1px 2px #ccc;
   }
 
+  img#image {
+    width: 200px;
+    height: auto;
+    float: left;
+    margin: 3px;
+}
+
   .check-column{
 	  width:115px;
   }
@@ -614,14 +621,14 @@ input[type="checkbox"]:not(:disabled)+span:hover:before {
 	font-size:15px;	
 }
 .sm-input{
-	width:100px!important;
+	width:120px!important;
 	float:left;
 }
 .half-input{
 	width:200px;
 }
 .sm-label{
-	width:150px;
+	width:175px;
 	float:left;
 }
 .half-label{
@@ -640,7 +647,7 @@ span.sm-txt {
 	position:fixed;
 }
 .right-content{
-	margin-left:30%;
+	margin-left:40%;
 min-height:500px;	
 }
 
