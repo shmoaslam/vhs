@@ -745,7 +745,7 @@ namespace VHS.Repository
             //outParam.Direction = ParameterDirection.Output;
             // var outputParameter = new ObjectParameter("Result", typeof(bool));
             var result = _context.Database.SqlQuery<bool>("CheckAvailbilityProperty @propertyId, @StartDate, @EndDate", new SqlParameter("propertyId", PropertyId), new SqlParameter("StartDate", StartDate), new SqlParameter("EndDate", EndDate)).FirstOrDefault();
-            return true;
+            return result;
         }
         #endregion
     }
