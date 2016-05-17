@@ -474,26 +474,13 @@ namespace VHS.Services
         public List<PropertyViewModel> GetPropertyForManage(int rmID)
         {
             var rmHomeVm = new List<PropertyViewModel>();
-            var propertyRmList = GetPropRmMap();
-            var propertyList = _property.GetPropertyList();
-            if (rmID == 0)
-            {
-                var result = (from pr in propertyRmList
-                              join pl in propertyList on pr.ProprtyId equals pl.PropertyId
-                              select new PropertyViewModel { PropertyId = pl.PropertyId, PropertyName = pl.PropertyName, ShortInfo = pl.ShortInfo, PropertImageList = pl.PropertImageList }).ToList();
-                return result;
 
-            }
-            else
-            {
-                var result = (from pr in propertyRmList
-                              join pl in propertyList on pr.ProprtyId equals pl.PropertyId
-                              where (pr.RMId == rmID)
-                              select new PropertyViewModel { PropertyId = pl.PropertyId, PropertyName = pl.PropertyName, ShortInfo = pl.ShortInfo, PropertImageList = pl.PropertImageList }).ToList();
-                return result;
-            }
+            var propList = _unitOfWork.GetPropertyListForAdmin(rmID);
 
-
+            if(propList != null)
+                foreach (var prop in propList)
+                    rmHomeVm.Add(new PropertyViewModel { PropertyId = prop.Id, PropertyName = prop.Name });
+            return rmHomeVm;
         }
         public SelectList GetCategory()
         {

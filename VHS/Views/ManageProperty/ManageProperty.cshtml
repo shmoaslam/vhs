@@ -50,7 +50,7 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <th class="check-column"><label><input type="checkbox"><span>@item.PropertyId</span></label></th>
+                        <th class="check-column"><label><input type="checkbox"><span>VH@(item.PropertyId.ToString("D5"))</span></label></th>
                         <td class="info-td">@item.PropertyName</td>
                         <td class="sm-td">@Html.ActionLink("Edit", "EditProperty", "ManageProperty", new { @id = item.PropertyId }, null)</td>
                         <td class="sm-td">Transfer</td>
