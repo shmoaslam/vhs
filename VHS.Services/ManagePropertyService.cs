@@ -477,7 +477,7 @@ namespace VHS.Services
 
             var propList = _unitOfWork.GetPropertyListForAdmin(rmID);
 
-            if(propList != null)
+            if (propList != null)
                 foreach (var prop in propList)
                     rmHomeVm.Add(new PropertyViewModel { PropertyId = prop.Id, PropertyName = prop.Name });
             return rmHomeVm;
@@ -945,19 +945,24 @@ namespace VHS.Services
                     otherprice = propFixedPrice.OtherPrice.ToString();
                 }
 
-                _unitOfWork.PropFixedPriceRepository.Insert(new PropertyFixedPrice { PricePerMonth = Convert.ToDecimal(propFixedPrice.PricePerMonth), CleaningFeeDaily = Convert.ToDecimal(propFixedPrice.CleaningFeeDaily), CleaningFeeWeek = Convert.ToDecimal(propFixedPrice.CleaningFeeWeekly), CleaningFeeMonth = Convert.ToDecimal(propFixedPrice.CleaningFeeMonthly), PricePerNight = Convert.ToDecimal(propFixedPrice.PricePerNight), PricePerWeek = Convert.ToDecimal(propFixedPrice.PricePerWeek), OneTimeFee = Convert.ToDecimal(propFixedPrice.PriceOneTime), PropertyId = propFixedPrice.PropertyId, Currency = propFixedPrice.CurrencyId.ToString(), OtherFee = otherprice, Comision = propFixedPrice.Comision });
+                _unitOfWork.PropFixedPriceRepository.Insert(new PropertyFixedPrice { StartDate = propFixedPrice.StartDate, EndDate = propFixedPrice.StopDate, PricePerAdult = Convert.ToDecimal(propFixedPrice.PricePerAdult), PricePerChild = Convert.ToDecimal(propFixedPrice.PricePerChild), CleaningFeeDaily = Convert.ToDecimal(propFixedPrice.CleaningFeeDaily), CleaningFeeWeek = Convert.ToDecimal(propFixedPrice.CleaningFeeWeekly), CleaningFeeMonth = Convert.ToDecimal(propFixedPrice.CleaningFeeMonthly), PricePerNight = Convert.ToDecimal(propFixedPrice.PricePerNight), PricePerWeek = Convert.ToDecimal(propFixedPrice.PricePerWeek), OneTimeFee = Convert.ToDecimal(propFixedPrice.PriceOneTime), PropertyId = propFixedPrice.PropertyId, Currency = propFixedPrice.CurrencyId.ToString(), OtherFee = otherprice, Comision = propFixedPrice.Comision });
             }
             else
             {
                 var propfixedobj = _unitOfWork.PropFixedPriceRepository.GetByID(propFixedPrice.PropFixedPriceId);
                 if (propfixedobj != null)
                 {
+
                     propfixedobj.PricePerMonth = Convert.ToDecimal(propFixedPrice.PricePerMonth);
                     propfixedobj.PricePerNight = Convert.ToDecimal(propFixedPrice.PricePerNight);
                     propfixedobj.PricePerWeek = Convert.ToDecimal(propFixedPrice.PricePerWeek);
                     propfixedobj.CleaningFeeDaily = Convert.ToDecimal(propFixedPrice.CleaningFeeDaily);
                     propfixedobj.CleaningFeeMonth = Convert.ToDecimal(propFixedPrice.CleaningFeeMonthly);
                     propfixedobj.CleaningFeeWeek = Convert.ToDecimal(propFixedPrice.CleaningFeeWeekly);
+
+                    propfixedobj.PricePerAdult = Convert.ToDecimal(propFixedPrice.PricePerAdult);
+                    propfixedobj.PricePerChild = Convert.ToDecimal(propFixedPrice.PricePerChild);
+
                     if (propFixedPrice.OtherPrice != null)
                     {
                         propfixedobj.OtherFee = propFixedPrice.OtherPrice.ToString();
@@ -967,7 +972,8 @@ namespace VHS.Services
                         propfixedobj.OtherFee = otherprice;
                     }
 
-
+                    propfixedobj.StartDate = propFixedPrice.StartDate;
+                    propfixedobj.EndDate = propFixedPrice.StopDate;
                     propfixedobj.OneTimeFee = Convert.ToDecimal(propFixedPrice.PriceOneTime);
                     propfixedobj.Comision = propFixedPrice.Comision;
                     propfixedobj.Currency = propFixedPrice.CurrencyId.ToString();

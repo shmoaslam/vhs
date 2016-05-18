@@ -128,6 +128,10 @@ namespace VHS.Services.Models
         [Required(ErrorMessage = "Please select option")]
         public int CurrencyId { get; set; }
         public SelectList PriceCurrency { get; set; }
+        [Required(ErrorMessage = "Please select start date")]
+        public DateTime StartDate { get; set; }
+        [Required(ErrorMessage = "Please select stop date")]
+        public DateTime StopDate { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
         public double PricePerNight { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
@@ -140,6 +144,10 @@ namespace VHS.Services.Models
         public double PriceOneTime { get; set; }
         public string OtherPrice { get; set; }
         public decimal Comision { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
+        public double PricePerAdult { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
+        public double PricePerChild { get; set; }
     }
     public class PropertyVarablePricing
     {
