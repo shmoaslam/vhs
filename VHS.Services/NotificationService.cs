@@ -57,7 +57,7 @@ namespace VHS.Services
                 var templateFilePath = templateFolderPath + "\\Mailer\\BookingRequestEmailTemplate.cshtml";
                 var templateService = new TemplateService();
                 var emailHtmlBody = templateService.Parse(File.ReadAllText(templateFilePath), viewModel, null, null);
-                MailSend.SendEmail("info@velvetthomestays.com", Subject, emailHtmlBody, true);
+                MailSend.SendEmail("velvetthomestays@vikasgroup.com", Subject, emailHtmlBody, true);
             }
             catch (Exception ex)
             {

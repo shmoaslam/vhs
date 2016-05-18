@@ -569,7 +569,7 @@ namespace VHS.Services
             lstPropRating.Add(new ddlPropertyRating { Value = 2, Text = "3.5" });
             lstPropRating.Add(new ddlPropertyRating { Value = 3, Text = "4" });
             lstPropRating.Add(new ddlPropertyRating { Value = 4, Text = "4.5" });
-            lstPropRating.Add(new ddlPropertyRating { Value = 4, Text = "5" });
+            lstPropRating.Add(new ddlPropertyRating { Value = 5, Text = "5" });
 
             SelectList selesctedListBy = new SelectList(lstPropRating, "Value", "Text");
             return selesctedListBy;

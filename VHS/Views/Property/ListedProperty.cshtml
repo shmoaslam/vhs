@@ -78,13 +78,30 @@
                                 <span class="property-category">@property.Category</span>
                                 <span class="property-rooms">@property.PersonPerRoom Bedrooms</span>
                                 <span class="property-guests">@property.GuestCount Guests</span>
-                                @*<span class="property-rating">
+                                <span class="property-rating">
                                     <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
                                     <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
                                     <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                                    <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                                    <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                                </span>*@
+                                    @switch (property.Rating)
+                                    {
+                                        case "2":
+                                            <img class="rated-star" src="~/images/halfstar.png" width="15" alt="star" />
+                                            break;
+                                        case "3":
+                                            <img class="rated-star" src="~/images/starp.png" width="15" alt="star" />
+                                            break;
+                                        case "4":
+                                            <img class="rated-star" src="~/images/starp.png" width="15" alt="star" />
+                                            <img class="rated-star" src="~/images/halfstar.png" width="15" alt="star" />
+                                            break;
+                                        case "5":
+                                            <img class="rated-star" src="~/images/starp.png" width="15" alt="star" />
+                                            <img class="rated-star" src="~/images/starp.png" width="15" alt="star" />
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                </span>
                             </p>
                         </div>
                     </a>

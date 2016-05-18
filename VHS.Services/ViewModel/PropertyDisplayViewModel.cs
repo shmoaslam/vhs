@@ -28,7 +28,7 @@ namespace VHS.Services.ViewModel
         public string Address { get; set; }
         public string Country { get; set; }
         public int GuestCount { get; set; }
-
+        public string Rating { get; set; }
         public List<string> General { get; set; }
         public List<string> Parking { get; set; }
         public List<string> Outdoor { get; set; }
