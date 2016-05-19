@@ -688,15 +688,15 @@ namespace VHS.Repository
 
         public List<PropertyDisplayViewModel> GetAllProperty()
         {
-            return _context.Database.SqlQuery<PropertyDisplayViewModel>("select distinct p.id Id, title Title, cat.CategoryName Category, i.Name CoverImage ,p.NumberofRooms [Bedroom] , p.NumberOfGuest [GuestCount] , pfp.PricePerNight Price,ISNULL(pai.PropertyRating,1) Rating from property p join [dbo].[PropertyCategory] cat on cat.id = p.categoryid join[dbo].[PropertyFixedPrice] pfp on pfp.propertyid = p.id join[dbo].[PropertyAdditionalInfo] pai on p.id = pai.propertyid join[dbo].[PropertyCoverPhotoMap] pcpm on p.id = pcpm.propertyid join[dbo].[Image] i on pcpm.imageid = i.imageid  where p.isactive = 1 and p.isapproved = 1").ToList();
+            return _context.Database.SqlQuery<PropertyDisplayViewModel>("select distinct p.id Id, p.RegionId RegionId, title Title, cat.CategoryName Category, i.Name CoverImage ,p.NumberofRooms [Bedroom] , p.NumberOfGuest [GuestCount] , pfp.PricePerNight Price,ISNULL(pai.PropertyRating,1) Rating from property p join [dbo].[PropertyCategory] cat on cat.id = p.categoryid join[dbo].[PropertyFixedPrice] pfp on pfp.propertyid = p.id join[dbo].[PropertyAdditionalInfo] pai on p.id = pai.propertyid join[dbo].[PropertyCoverPhotoMap] pcpm on p.id = pcpm.propertyid join[dbo].[Image] i on pcpm.imageid = i.imageid  where p.isactive = 1 and p.isapproved = 1").ToList();
         }
         public List<PropertyDisplayViewModel> GetAllSpainProperty()
         {
-            return _context.Database.SqlQuery<PropertyDisplayViewModel>("select distinct p.id Id, title Title, cat.CategoryName Category, i.Name CoverImage ,p.NumberofRooms [Bedroom] , p.NumberOfGuest [GuestCount] , pfp.PricePerNight Price,ISNULL(pai.PropertyRating,1)  Rating from property p join [dbo].[PropertyCategory] cat on cat.id = p.categoryid join[dbo].[PropertyFixedPrice] pfp on pfp.propertyid = p.id join[dbo].[PropertyAdditionalInfo] pai on p.id = pai.propertyid join[dbo].[PropertyCoverPhotoMap] pcpm on p.id = pcpm.propertyid join[dbo].[Image] i on pcpm.imageid = i.imageid  where p.isactive = 1 and p.isapproved = 1 and p.RegionId = 2").ToList();
+            return _context.Database.SqlQuery<PropertyDisplayViewModel>("select distinct p.id Id, p.RegionId RegionId, title Title, cat.CategoryName Category, i.Name CoverImage ,p.NumberofRooms [Bedroom] , p.NumberOfGuest [GuestCount] , pfp.PricePerNight Price,ISNULL(pai.PropertyRating,1)  Rating from property p join [dbo].[PropertyCategory] cat on cat.id = p.categoryid join[dbo].[PropertyFixedPrice] pfp on pfp.propertyid = p.id join[dbo].[PropertyAdditionalInfo] pai on p.id = pai.propertyid join[dbo].[PropertyCoverPhotoMap] pcpm on p.id = pcpm.propertyid join[dbo].[Image] i on pcpm.imageid = i.imageid  where p.isactive = 1 and p.isapproved = 1 and p.RegionId = 2").ToList();
         }
         public List<PropertyDisplayViewModel> GetAllIndainProperty()
         {
-            return _context.Database.SqlQuery<PropertyDisplayViewModel>("select distinct p.id Id, title Title, cat.CategoryName Category, i.Name CoverImage ,p.NumberofRooms [Bedroom] , p.NumberOfGuest [GuestCount] , pfp.PricePerNight Price,ISNULL(pai.PropertyRating,1)  Rating from property p join [dbo].[PropertyCategory] cat on cat.id = p.categoryid join[dbo].[PropertyFixedPrice] pfp on pfp.propertyid = p.id join[dbo].[PropertyAdditionalInfo] pai on p.id = pai.propertyid join[dbo].[PropertyCoverPhotoMap] pcpm on p.id = pcpm.propertyid join[dbo].[Image] i on pcpm.imageid = i.imageid  where p.isactive = 1 and p.isapproved = 1 and p.RegionId = 1").ToList();
+            return _context.Database.SqlQuery<PropertyDisplayViewModel>("select distinct p.id Id, p.RegionId RegionId, title Title, cat.CategoryName Category, i.Name CoverImage ,p.NumberofRooms [Bedroom] , p.NumberOfGuest [GuestCount] , pfp.PricePerNight Price,ISNULL(pai.PropertyRating,1)  Rating from property p join [dbo].[PropertyCategory] cat on cat.id = p.categoryid join[dbo].[PropertyFixedPrice] pfp on pfp.propertyid = p.id join[dbo].[PropertyAdditionalInfo] pai on p.id = pai.propertyid join[dbo].[PropertyCoverPhotoMap] pcpm on p.id = pcpm.propertyid join[dbo].[Image] i on pcpm.imageid = i.imageid  where p.isactive = 1 and p.isapproved = 1 and p.RegionId = 1").ToList();
         }
         public PropertyDetialModel GetPropertyDetails(int? id)
         {
@@ -714,13 +714,13 @@ namespace VHS.Repository
         //Procedure to Check Property Availabilty:-
         public bool CheckAvailbilityProerty(int PropertyId, DateTime StartDate, DateTime EndDate)
         {
-            //var outParam = new SqlParameter();
-            //outParam.ParameterName = "Result";
-            //outParam.SqlDbType = SqlDbType.Bit;
-            //outParam.Direction = ParameterDirection.Output;
-            // var outputParameter = new ObjectParameter("Result", typeof(bool));
             var result = _context.Database.SqlQuery<bool>("CheckAvailbilityProperty @propertyId, @StartDate, @EndDate", new SqlParameter("propertyId", PropertyId), new SqlParameter("StartDate", StartDate), new SqlParameter("EndDate", EndDate)).FirstOrDefault();
             return result;
+        }
+
+        public List<PropertyDetialModel> GetPropertyWaitingForApproval()
+        {
+            return _context.Database.SqlQuery<PropertyDetialModel>("select Title, Id, name GalaryImage, categoryname + ', ' + city [Desc] from ( select Title, p.id Id,i.name , pc.categoryname , pa.city  , row_number() over (partition by Title order by name) as RowNbr   from property p  join PropertyImageMapping pim on p.Id = pim.propertyid  join Image i on pim.Imageid = i.imageid join PropertyCategory pc on pc.id = p.categoryid join PropertyAddress pa on pa.propertyid = p.id where p.isactive  = 1 and p.sendapprovedrequest = 1 and  p.isapproved = 0) a where RowNbr = 1").ToList();
         }
         #endregion
 
@@ -737,6 +737,7 @@ namespace VHS.Repository
             public string Title { get; set; }
             public int GuestCount { get; set; }
             public string Rating { get; set; }
+            public int RegionId { get; set; }
         }
         public class PropertyDetialModel : PropertyDisplayViewModel
         {
@@ -759,12 +760,17 @@ namespace VHS.Repository
             public string Entertainment { get; set; }
             public string Sleeping { get; set; }
             public string Kitchen { get; set; }
+            public int MaxGuestCount { get; set; }
+            public decimal PricePerAdult { get; set; }
+            public decimal PricePerChild { get; set; }
         }
         public class PropertyListForAdmin
         {
             public int Id { get; set; }
             public string Name { get; set; }
-        } 
+        }
+
+        
         #endregion
     }
 }

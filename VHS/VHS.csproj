@@ -501,6 +501,7 @@
     <Content Include="Images\property2.jpg" />
     <Content Include="Images\rating.png" />
     <Content Include="Images\signature.png" />
+    <Content Include="Images\spain.jpg" />
     <Content Include="Images\star-rating.png" />
     <Content Include="Images\star.png" />
     <Content Include="Images\starp.png" />
@@ -672,6 +673,8 @@
     <Content Include="Views\Mailer\BookedPropertyConfirmationToAdmin.cshtml" />
     <Content Include="Views\Mailer\BookedPropertyConfirmationToUser.cshtml" />
     <Content Include="Views\Mailer\BookedPropertyConfirmationToRM.cshtml" />
+    <Content Include="Views\Home\TC.cshtml" />
+    <Content Include="Views\Home\TCBooking.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

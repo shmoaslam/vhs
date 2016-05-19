@@ -29,6 +29,10 @@ namespace VHS.Services.ViewModel
         public string Country { get; set; }
         public int GuestCount { get; set; }
         public string Rating { get; set; }
+        public int RegionId { get; set; }
+        public int MaxGuestCount { get; set; }
+        public decimal PricePerAdult { get; set; }
+        public decimal PricePerChild { get; set; }
         public List<string> General { get; set; }
         public List<string> Parking { get; set; }
         public List<string> Outdoor { get; set; }

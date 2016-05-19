@@ -31,6 +31,16 @@ namespace VHS.Controllers
             return View();
         }
         [HttpGet]
+        public ActionResult TC()
+        {
+            return View();
+        }
+        [HttpGet]
+        public ActionResult TCBooking()
+        {
+            return View();
+        }
+        [HttpGet]
         public ActionResult Contact()
         {
             var contact = new Contact();

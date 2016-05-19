@@ -33,7 +33,7 @@
                     <p>
                         @Model.Desc
                     </p>
-                    <p class="address"><b>Located in:</b> @Model.Address</p>
+                    <p class="address"><b>Located in:</b> @Model.City, @Model.Country</p>
                     <div class="col-md-12 pull-left">
                         <div class="col-md-3 col-xs-6 text-center"><p class="intro-pik"><img class="intro-icons" src="/images/category.png" width="20" alt="Category" title="Category" /></p><p class="category"><b>@Model.Category</b></p></div>
                         <div class="col-md-3 col-xs-6 text-center"><p class="intro-pik"><img class="intro-icons" src="/images/price.png" width="20" alt="Price" title="Price" /></p><p class="price"><b>@Model.Price/-</b></p></div>
@@ -44,11 +44,11 @@
 
                     <div class="borderline"></div>
                     <p class="alignleft"><img class="social-share" src="/images/bg-share.png" width="20" alt="Share" title="Share" /></p>
-                    <ul class="social-list alignleft">                        
+                    <ul class="social-list alignleft">
                         <li> <a href="#"><i class="fa fa-twitter"></i></a> </li>
                         <li> <a href="#"><i class="fa fa-facebook"></i></a> </li>
                         @*<li> <a href="#"><i class="fa fa-instagram"></i></a> </li>
-						<li> <a href="#"><i class="fa fa-pinterest-p"></i></a> </li>*@
+                            <li> <a href="#"><i class="fa fa-pinterest-p"></i></a> </li>*@
                     </ul>
                     <p class="alignright"><img class="social-share" src="/images/wishlist.png" width="20" alt="Wishlist" title="Add to Wishlist" /></p>
 
@@ -57,16 +57,16 @@
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 border-left-wrapper">
 
                     @*<form class="form-part" method="post" action="contact.php" name="contactform" id="contactform" autocomplete="off">
-                        <label>Check in</label>
-                        <input name="" type="date" id="check-in" size="30" title="Email" />
-                        <label>Check out</label>
-                        <input name="" type="date" id="check-out" size="30" title="Password" />
-                        <label>Guests</label>
-                        <input class="sm-input" name="" type="text" id="guest" size="30" title="" />
-                        <a class="button alignleft" href="#">Check Availability</a>
-                    </form>*@
+                            <label>Check in</label>
+                            <input name="" type="date" id="check-in" size="30" title="Email" />
+                            <label>Check out</label>
+                            <input name="" type="date" id="check-out" size="30" title="Password" />
+                            <label>Guests</label>
+                            <input class="sm-input" name="" type="text" id="guest" size="30" title="" />
+                            <a class="button alignleft" href="#">Check Availability</a>
+                        </form>*@
 
-                    @Html.Partial("_CheckAvalibilityProperty",Model.objPropertyBooking)
+                    @Html.Partial("_CheckAvalibilityProperty", Model.objPropertyBooking)
                 </div>
 
                 <div class="clear"></div>
@@ -88,25 +88,25 @@
                             <!-- Indicators -->
                             <ol class="carousel-indicators">
                                 @for (int i = 0; i < Model.GalaryImages.Length; i++)
-                                    {
+                                {
 
                                     <li data-target="#carousel-example-generic" data-slide-to="@i" @(i == 0 ? "class=active" : "")></li>
-                                    }
+                                }
                             </ol>
                             <!-- Slider Content (Wrapper for slides )-->
                             <div class="carousel-inner">
                                 @for (int i = 0; i < Model.GalaryImages.Length; i++)
-                                    {
+                                {
                                     <div class="item @(i==0 ?"active" : "")">
                                         <p class=""><img src="/UploadFile/PropertyGallary/@Model.GalaryImages[i]" alt="" /></p>
                                         <!--<div class="carousel-caption">
                                         </div>-->
                                     </div>
-                                    }
+                                }
                             </div>
-                           
+
                         </div>
-                        
+
                             <!--slider end-->
                     }
                 </div>
@@ -129,6 +129,18 @@
                         <tr>
                             <td class="col-md-8 am-pad">Guests per Bedroom : </td>
                             <td><span class="sm-txt">@Model.PersonPerRoom</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-8 am-pad">Max. Guest Occupancy of Property: </td>
+                            <td><span class="sm-txt">@Model.MaxGuestCount</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-8 am-pad">Extra per person cost (Adult) : </td>
+                            <td><span class="sm-txt">@Model.PricePerAdult</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-8 am-pad">Extra per person cost (Child) : </td>
+                            <td><span class="sm-txt">@Model.PricePerChild</span></td>
                         </tr>
                         <tr>
                             <td class="col-md-8 am-pad">Pets Allowed : </td>
@@ -181,14 +193,14 @@
                     <div class="head-underline-s"> </div>
                     <table class="table-responsive col-md-12">
                         <tr>
-                            <td class="col-md-4 am-pad"><b>General:</b><br/> <span class="sm-txt">@(Model.General != null ? string.Join(", ", Model.General) : string.Empty)</span></td>
-                            <td class="col-md-4 am-pad"><b>Sleeping Arrangments:</b><br/> <span class="sm-txt">@(Model.SleepingArrangments != null ? string.Join(", ", Model.SleepingArrangments) : string.Empty)</span></td>
-                            <td class="col-md-4 am-pad"><b>Bathroom(s):</b><br/> <span class="sm-txt">@(Model.Bathroom != null ? string.Join(", ", Model.Bathroom) : string.Empty)</span></td>
+                            <td class="col-md-4 am-pad"><b>General:</b><br /> <span class="sm-txt">@(Model.General != null ? string.Join(", ", Model.General) : string.Empty)</span></td>
+                            <td class="col-md-4 am-pad"><b>Sleeping Arrangments:</b><br /> <span class="sm-txt">@(Model.SleepingArrangments != null ? string.Join(", ", Model.SleepingArrangments) : string.Empty)</span></td>
+                            <td class="col-md-4 am-pad"><b>Bathroom(s):</b><br /> <span class="sm-txt">@(Model.Bathroom != null ? string.Join(", ", Model.Bathroom) : string.Empty)</span></td>
                         </tr>
                         <tr>
-                            <td class="col-md-4 am-pad"><b>Kitchen:</b><br/> <span class="sm-txt">@(Model.Kitchen != null ? string.Join(", ", Model.Kitchen) : string.Empty)</span></td>
-                            <td class="col-md-4 am-pad"><b>Entertainment & Electronics:</b><br/> <span class="sm-txt">@(Model.EntertainmentElectronic != null ? string.Join(", ", Model.EntertainmentElectronic) : string.Empty)</span></td>
-                            <td class="col-md-4 am-pad"><b>Outdoor Facilities:</b><br/> <span class="sm-txt">@(Model.Outdoor != null ? string.Join(", ", Model.Outdoor) : string.Empty)</span></td>
+                            <td class="col-md-4 am-pad"><b>Kitchen:</b><br /> <span class="sm-txt">@(Model.Kitchen != null ? string.Join(", ", Model.Kitchen) : string.Empty)</span></td>
+                            <td class="col-md-4 am-pad"><b>Entertainment & Electronics:</b><br /> <span class="sm-txt">@(Model.EntertainmentElectronic != null ? string.Join(", ", Model.EntertainmentElectronic) : string.Empty)</span></td>
+                            <td class="col-md-4 am-pad"><b>Outdoor Facilities:</b><br /> <span class="sm-txt">@(Model.Outdoor != null ? string.Join(", ", Model.Outdoor) : string.Empty)</span></td>
                         </tr>
                         <tr>
                             <td></td>
@@ -203,54 +215,54 @@
 
 
                 @*<article class="element clearfix">
-     <h3>Location Map</h3>
-     <div class="head-underline-s"> </div>
-     <div id="dvMap" style="width: 500px; height: 500px">
-     </div>
-    <img class="property-map" src="/images/map.jpg" id="dvMap"/>
-                </article>*@
+                     <h3>Location Map</h3>
+                     <div class="head-underline-s"> </div>
+                     <div id="dvMap" style="width: 500px; height: 500px">
+                     </div>
+                    <img class="property-map" src="/images/map.jpg" id="dvMap"/>
+                                </article>*@
 
                 @*<article class="element clearfix">
 
-        <h3>Reviews</h3>
-        <div class="head-underline-s"> </div>
-        <blockquote class="clearfix centered">
-            <div class="borderline"></div>
-            <div class="questionmark">&rdquo;</div>
-            <p>Our expectations were absolutely surpassed. We are so glad we chose Peekskill for our new project.</p>
-            <p class="small">John Doe</p>
-            <p class="ratings">
-                <img class="star" src="/images/star.png" width="15" alt="star" />
-                <img class="star" src="/images/star.png" width="15" alt="star" />
-                <img class="star" src="/images/star.png" width="15" alt="star" />
-                <img class="star" src="/images/star.png" width="15" alt="star" />
-                <img class="star" src="/images/star.png" width="15" alt="star" />
-            </p>
-            <div class="borderline"></div>
-        </blockquote>
-        <div class="review">
-            <p class="add-rating text-center">Rate & Review</p>
-            <form class="form-part" id="" action="" method="">
-                <div class="input-wrapper clearfix">
-                    <label>
-                        Rate this<br>
-                        <div class="add-star-rating"></div>
-                        <div class="add-star-rating"></div>
-                        <div class="add-star-rating"></div>
-                        <div class="add-star-rating"></div>
-                        <div class="add-star-rating"></div>
-                    </label>
-                </div>
-                <label>Write Review</label>
-                <textarea></textarea>
-                <div class="input-wrapper clearfix">
-                    <input class="send-btn" type="submit" name="" value="Submit" />
-                    <input type="reset" class="send-btn" value="Reset" id="" name="">
-                </div>
-            </form>
-            </p>
+                        <h3>Reviews</h3>
+                        <div class="head-underline-s"> </div>
+                        <blockquote class="clearfix centered">
+                            <div class="borderline"></div>
+                            <div class="questionmark">&rdquo;</div>
+                            <p>Our expectations were absolutely surpassed. We are so glad we chose Peekskill for our new project.</p>
+                            <p class="small">John Doe</p>
+                            <p class="ratings">
+                                <img class="star" src="/images/star.png" width="15" alt="star" />
+                                <img class="star" src="/images/star.png" width="15" alt="star" />
+                                <img class="star" src="/images/star.png" width="15" alt="star" />
+                                <img class="star" src="/images/star.png" width="15" alt="star" />
+                                <img class="star" src="/images/star.png" width="15" alt="star" />
+                            </p>
+                            <div class="borderline"></div>
+                        </blockquote>
+                        <div class="review">
+                            <p class="add-rating text-center">Rate & Review</p>
+                            <form class="form-part" id="" action="" method="">
+                                <div class="input-wrapper clearfix">
+                                    <label>
+                                        Rate this<br>
+                                        <div class="add-star-rating"></div>
+                                        <div class="add-star-rating"></div>
+                                        <div class="add-star-rating"></div>
+                                        <div class="add-star-rating"></div>
+                                        <div class="add-star-rating"></div>
+                                    </label>
+                                </div>
+                                <label>Write Review</label>
+                                <textarea></textarea>
+                                <div class="input-wrapper clearfix">
+                                    <input class="send-btn" type="submit" name="" value="Submit" />
+                                    <input type="reset" class="send-btn" value="Reset" id="" name="">
+                                </div>
+                            </form>
+                            </p>
 
-    </article>*@
+                    </article>*@
 
             </div>
 

@@ -3,9 +3,19 @@
 @{
     ViewBag.Title = "ListedProperty";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var PropertyFrom = ViewBag.PropertyFrom != null ? ViewBag.PropertyFrom : string.Empty;
 }
 <section class="section header-section dark">
-    <div class="overlay"><img class="property-cover" src="/images/bg1.jpg" /></div>
+    <div class="overlay">
+        @if (PropertyFrom == "Spain")
+        {
+            <img class="property-cover" src="/images/spain.jpg" />
+        }
+        else
+        {
+            <img class="property-cover" src="/images/bg1.jpg" />
+        }
+    </div>
     <div class="container clearfix">
         <div class="col-lg-6 centered aligncenter">
             <div class="centralizing-wrapper">
@@ -20,6 +30,42 @@
 <section class="section2 bordered">
     <div class="container clearfix">
         <div class="row">
+            @if (!string.IsNullOrEmpty(PropertyFrom))
+            {
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    @if (PropertyFrom == "Spain")
+                    {
+                        <article class="element clearfix">
+                            <h3>Spain Homestays</h3>
+                            <div class="head-underline-s"> </div>
+                            <p>
+                                The Mediterranean Coast of Spain is so stunning that one cannot help but fall in love with it. We did.
+                            </p>
+                            <p>
+                                To make your experience as memorable and exciting we have curated a select set of Homestays that will meet your discerning eye.
+                                And we are continuously adding to our range of Homestays.
+                            </p>
+                        </article>
+                    }
+                    else if (PropertyFrom == "India")
+                    {
+                        <article class="element clearfix">
+                            <h3>Konkan Homestays, India</h3>
+                            <div class="head-underline-s"> </div>
+                            <p>
+                                The Konkan stretch running south from Mumbai all the way to Goa offers some amazing postcard beaches, fishing villages, and a series of
+                                serene hill stations. Travelling and staying through this stretch is an enriching experience.
+                            </p>
+                            <p>
+                                We have curated and are continuously on the lookout for a select set of Homestays in Mumbai, Goa, Alibaug, Khandala, Lonavala, Karla, Mahabaleshwar,
+                                Panchgani, Ganpatiphule, and more.
+                            </p>
+                        </article>
+                    }
+                </div>
+            }
+
+
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 myfilters">
                 <div class="filters-main">
                     <form class="form-part" id="" method="post" action="">
@@ -70,7 +116,10 @@
                             <p class="property-thumb-img">
                                 <img src="~/UploadFile/PropertyCoverPhoto/@property.CoverImage" />
                                 <div class="property-price-box">
-                                    <span class="property-price-currency">Rs.</span><span class="property-price">@property.Price/-</span>
+                                    <span class="property-price-currency">
+                                    @if (property.RegionId == 2) { <text>&euro;</text> }
+                                    else { <text>&#8377;</text>}
+                                    </span><span class="property-price">@property.Price/-</span>
                                 </div>
                             </p>
                             <h3 class="property-thumb-title"><span class="property-id">VH@(property.Id.ToString("D5"))</span>: @property.Title</h3>
@@ -107,7 +156,7 @@
                     </a>
                 }
 
-              
+
 
             </article>
         </div>

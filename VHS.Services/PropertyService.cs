@@ -91,7 +91,7 @@ namespace VHS.Services
             var propertyModel = _unitOfWork.GetAllProperty();
             if (propertyModel != null)
                 foreach (var model in propertyModel)
-                    models.Add(new PropertyDisplayViewModel { Id = model.Id, Title = model.Title, Rating = model.Rating, CoverImage = model.CoverImage, Category = model.Category, Price = model.Price, PersonPerRoom = Convert.ToString(model.Bedroom), GuestCount = model.GuestCount });
+                    models.Add(new PropertyDisplayViewModel { Id = model.Id, RegionId = model.RegionId, Title = model.Title, Rating = model.Rating, CoverImage = model.CoverImage, Category = model.Category, Price = model.Price, PersonPerRoom = Convert.ToString(model.Bedroom), GuestCount = model.GuestCount });
 
             return models;
 
@@ -104,7 +104,7 @@ namespace VHS.Services
             var propertyModel = _unitOfWork.GetAllSpainProperty();
             if (propertyModel != null)
                 foreach (var model in propertyModel)
-                    models.Add(new PropertyDisplayViewModel { Id = model.Id, Title = model.Title, Rating = model.Rating, CoverImage = model.CoverImage, Category = model.Category, Price = model.Price, PersonPerRoom = Convert.ToString(model.Bedroom), GuestCount = model.GuestCount });
+                    models.Add(new PropertyDisplayViewModel { Id = model.Id,RegionId = model.RegionId, Title = model.Title, Rating = model.Rating, CoverImage = model.CoverImage, Category = model.Category, Price = model.Price, PersonPerRoom = Convert.ToString(model.Bedroom), GuestCount = model.GuestCount });
 
             return models;
         }
@@ -116,7 +116,7 @@ namespace VHS.Services
             var propertyModel = _unitOfWork.GetAllIndainProperty();
             if (propertyModel != null)
                 foreach (var model in propertyModel)
-                    models.Add(new PropertyDisplayViewModel { Id = model.Id, Title = model.Title, Rating = model.Rating, CoverImage = model.CoverImage, Category = model.Category, Price = model.Price, PersonPerRoom = Convert.ToString(model.Bedroom), GuestCount = model.GuestCount });
+                    models.Add(new PropertyDisplayViewModel { Id = model.Id, RegionId = model.RegionId, Title = model.Title, Rating = model.Rating, CoverImage = model.CoverImage, Category = model.Category, Price = model.Price, PersonPerRoom = Convert.ToString(model.Bedroom), GuestCount = model.GuestCount });
 
             return models;
 
@@ -157,7 +157,9 @@ namespace VHS.Services
             propertyViemodle.Parking = !string.IsNullOrEmpty(propertyModel.Parking) ? propertyModel.Parking.Split(',').ToList() : new List<string>();
             propertyViemodle.Bathroom = !string.IsNullOrEmpty(propertyModel.Bathroom) ? propertyModel.Bathroom.Split(',').ToList() : new List<string>();
             propertyViemodle.Kitchen = !string.IsNullOrEmpty(propertyModel.Kitchen) ? propertyModel.Kitchen.Split(',').ToList() : new List<string>();
-
+            propertyViemodle.MaxGuestCount = propertyModel.MaxGuestCount;
+            propertyViemodle.PricePerAdult = propertyModel.PricePerAdult;
+            propertyViemodle.PricePerChild = propertyModel.PricePerChild;
             //Set proprtyId for Booking Check Avalibility
             var propertyBooking = new Models.PropertyBooking();
             propertyBooking.PropertyId = (int)id;

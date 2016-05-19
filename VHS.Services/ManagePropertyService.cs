@@ -1029,7 +1029,19 @@ namespace VHS.Services
         public AdminHomeViewModel GetApprovedWaitingProperty()
         {
             var adminHomeVm = new AdminHomeViewModel();
-            adminHomeVm.propertyListVm = _property.GetPropertyList().Where(m => !m.IsApproved & m.WaitingForApproval && !m.IsApproved).ToList();
+            var adminViewModelDb = _unitOfWork.GetPropertyWaitingForApproval();
+            var list = new List<PropertyViewModel>();
+            if(adminViewModelDb != null && adminViewModelDb.Count() > 0)
+            {
+                foreach (var item in adminViewModelDb)
+                {
+                    var imagelist = new List<ImageViewModel>();
+                    imagelist.Add(new ImageViewModel { ImageName = item.GalaryImage });
+                    list.Add(new PropertyViewModel { PropertyId = item.Id, PropertyName = item.Title, PropertImageList = imagelist,ShortInfo = item.Desc });
+                }
+            }
+
+            adminHomeVm.propertyListVm = list;
             return adminHomeVm;
         }
 

@@ -143,12 +143,14 @@ namespace VHS.Controllers
         public ActionResult ListedSpainProperty()
         {
             var propertyViewModel = _property.GetAllSpainProperty();
+            ViewBag.PropertyFrom = "Spain";
             return View("ListedProperty", propertyViewModel);
         }
         [AllowAnonymous]
         public ActionResult ListedIndianProperty()
         {
             var propertyViewModel = _property.GetIndianProperty();
+            ViewBag.PropertyFrom = "India";
             return View("ListedProperty", propertyViewModel);
         }
     }
