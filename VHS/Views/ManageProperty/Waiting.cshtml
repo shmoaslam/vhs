@@ -14,15 +14,15 @@
                 {
                     <a href="/ManageProperty/EditProperty/@item.PropertyId">
                         <div class="col-md-3">
-                            <h3>@item.PropertyName</h3>
+                        <h5 class="thumb-wa">@item.PropertyName</h5>
                             <p>@item.ShortInfo</p>
                             @if (item.PropertImageList.Count() > 0)
                             {
-                                <img src="~/UploadFile/PropertyImage/@item.PropertImageList[0].ImageName" width="250" alt="@item.PropertImageList[0].ImageName" />
+                            <img class="wa-img" src="~/UploadFile/PropertyImage/@item.PropertImageList[0].ImageName" width="250" alt="@item.PropertImageList[0].ImageName" />
                             }
                             else
                             {
-                                <img src="#" width="250" alt="No Image Available" />
+                            <img class="wa-img" src="#" width="250" alt="No Image Available" />
                             }
                         </div>
                     </a>
