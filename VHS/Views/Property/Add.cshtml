@@ -23,15 +23,18 @@
     <section class="section">
         <div class="container clearfix centered">
             <div class="col-lg-12">
-            <h3 class="header">List Your Property</h3>
-			<div class="head-underline"></div>
-			<p>Take a memorable journey with us.</p> 
-			<p>As the homestay business continues to burgeon the world over, there are very few facilitators who make this experience as rewarding and seamless for both, 
-			the end customer and the service provider. </p>
-			<p>At Velvett Homestays, we don’t just bring consumers and home-owners together. We market and share information, while paying attention to those little details that 
-			make for a holistic homestay experience. The vision after all, is to create a unique niche that combines excellence and authenticity. We welcome home-owners like yourself 
-			you to be a part of this vision. Are you ready to belong? 
-			</p>
+                <h3 class="header">List Your Property</h3>
+                <div class="head-underline"></div>
+                <p>Take a memorable journey with us.</p>
+                <p>
+                    As the homestay business continues to burgeon the world over, there are very few facilitators who make this experience as rewarding and seamless for both,
+                    the end customer and the service provider.
+                </p>
+                <p>
+                    At Velvett Homestays, we don’t just bring consumers and home-owners together. We market and share information, while paying attention to those little details that
+                    make for a holistic homestay experience. The vision after all, is to create a unique niche that combines excellence and authenticity. We welcome home-owners like yourself
+                    you to be a part of this vision. Are you ready to belong?
+                </p>
                 <p class="sub-heading"><span class="required">*</span>Mandatory fields</p>
             </div>
         </div>
@@ -77,40 +80,44 @@
                         @Html.ValidationMessageFor(m => m.City)
                     </span><br />
                     <label>Country<span class="required">*</span></label>
-                        @Html.TextBoxFor(m => m.Country)
-                        <span style="color:red">
-                            @Html.ValidationMessageFor(m => m.Country)
-                        </span><br />
+                    @Html.TextBoxFor(m => m.Country)
+                    <span style="color:red">
+                        @Html.ValidationMessageFor(m => m.Country)
+                    </span><br />
                         <label>Zipcode</label>
 
-                            @Html.TextBoxFor(m => m.ZipCode)
-                            <span style="color:red">
-                                @Html.ValidationMessageFor(m => m.ZipCode)
-                            </span><br />
+                        @Html.TextBoxFor(m => m.ZipCode)
+                        <span style="color:red">
+                            @Html.ValidationMessageFor(m => m.ZipCode)
+                        </span><br />
                             <label>Email<span class="required">*</span></label>
-                                @Html.TextBoxFor(m => m.Email)
-                                <span style="color:red">
-                                    @Html.ValidationMessageFor(m => m.Email)
-                                </span><br />
+                            @Html.TextBoxFor(m => m.Email)
+                            <span style="color:red">
+                                @Html.ValidationMessageFor(m => m.Email)
+                            </span><br />
                                 <label>Contact No.<span class="required">*</span></label>
-                                    @Html.TextBoxFor(m => m.ContactNo)
-                                    <span style="color:red">
-                                        @Html.ValidationMessageFor(m => m.ContactNo)
-                                    </span><br />
+                                @Html.TextBoxFor(m => m.ContactNo)
+                                <span style="color:red">
+                                    @Html.ValidationMessageFor(m => m.ContactNo)
+                                </span><br />
                                     <label>Upload Property Images<span class="required">*</span><span class="error-msg">Maximum two images</span></label>
-                                        @Html.TextBoxFor(m => m.Image, new { type = "file", multiple = "multiple" })
-                                        <span style="color:red">
-                                            @Html.ValidationMessageFor(m => m.Image)
-                                        </span><br />
-                                        @*<input id="file" type="file" name="file" />
-                                            @Html.ValidationMessageFor(m => m.Image)*@
+                                    @Html.TextBoxFor(m => m.Image, new { type = "file", multiple = "multiple" })
+                                    <span style="color:red">
+                                        @Html.ValidationMessageFor(m => m.Image)
+                                    </span><br />
                                         <label>Price</label>
-                                            @Html.TextBoxFor(m => m.Price)
-                                            <span style="color:red">
-                                                @Html.ValidationMessageFor(m => m.Price)
-                                            </span>
+                                        @Html.TextBoxFor(m => m.Price)
+                                        <span style="color:red">
+                                            @Html.ValidationMessageFor(m => m.Price)
+                                        </span><br />
+                                        <div class="input-wrapper clearfix">
+                                            <label>
+                                                <input class="checkbox" data-val="true" data-val-required="The bTermsCondition field is required." id="bTermsCondition" name="bTermsCondition" type="checkbox" value="true">
+                                                <span>I accept <a href="http://velvetthomestays.com/home/tc" target="_blank">Terms & Conditions</a></span>
+                                            </label>
+                                        </div>
                                             <div class="input-wrapper clearfix text-center">
-                                                <input type="submit" class="send-btn" value="Submit" id="submit-property" name="submit-property" />
+                                                <input type="submit" class="send-btn" value="Submit" id="submit-property" name="submit-property" onclick="return TCValidation()" />
                                                 <input type="reset" class="send-btn" value="Reset" id="submit-property" name="submit-property" />
                                             </div>
                 }
@@ -118,6 +125,13 @@
         </div>
 
     </section>
+    <script>
+        function TCValidation() {
+            if (!$("#bTermsCondition").is(":checked")) { alert("Please Select Terms and Conditions"); return false; }
+            return true;
+            //Show any loder when process start:-
+        }
+    </script>
 }
 else
 {

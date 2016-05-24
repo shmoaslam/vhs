@@ -26,17 +26,17 @@
     </div>
     <div class="container clearfix centered">
         <div class="col-lg-5 col-md-5 col-sm-12 aligncenter centered">
-            @using (Ajax.BeginForm("Register", "Account", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccess", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
+            @using (Ajax.BeginForm("Register", "Account", new AjaxOptions { OnBegin = "return fnBegin();", HttpMethod = "Post", OnSuccess = "fnSuccess", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
             {
                 <p class="sub-heading" id="errormessage" style="display:none"><span id="spnMessage" class="error-msg"></span></p>
                 @Html.AntiForgeryToken()
                 @*@Html.TextBoxFor(m => m.Name, new { placeholder = "Name" })
-                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
-                @Html.TextAreaFor(m => m.Address, new { placeholder = "Your Address" })
-                @Html.TextBoxFor(m => m.Telephone, new { placeholder = "Telephone" })
-                @Html.ValidationMessageFor(m => m.Telephone, "", new { @class = "text-danger" })
-                @Html.TextBoxFor(m => m.Mobile, new { placeholder = "Mobile" })
-                @Html.ValidationMessageFor(m => m.Mobile, "", new { @class = "text-danger" })*@
+                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                    @Html.TextAreaFor(m => m.Address, new { placeholder = "Your Address" })
+                    @Html.TextBoxFor(m => m.Telephone, new { placeholder = "Telephone" })
+                    @Html.ValidationMessageFor(m => m.Telephone, "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(m => m.Mobile, new { placeholder = "Mobile" })
+                    @Html.ValidationMessageFor(m => m.Mobile, "", new { @class = "text-danger" })*@
                 @Html.TextBoxFor(m => m.EmailId, new { placeholder = "Email Id" })
                 @Html.ValidationMessageFor(m => m.EmailId, "", new { @class = "text-danger" })
                 @Html.PasswordFor(m => m.Password, new { placeholder = "Password" })
@@ -44,20 +44,17 @@
                 <br />
                 <br />
                 @*@Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Confirm password" })
-                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })*@
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })*@
                 <div class="input-wrapper clearfix">
                     <label>
                         <input class="checkbox" data-val="true" data-val-required="The bTermsCondition field is required." id="bTermsCondition" name="bTermsCondition" type="checkbox" value="true">
-                     
-                
-                        @*<input type="checkbox" />*@
                         <span>I accept <a href="http://velvetthomestays.com/home/tc" target="_blank">Terms & Conditions</a></span>
                     </label>
                 </div>
-                    <div class="input-wrapper clearfix">
-                        <input type="submit" class="send-btn" value="Sign up" id="signup" name="signup" />
-                        <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
-                    </div>
+                <div class="input-wrapper clearfix">
+                    <input type="submit" class="send-btn" value="Sign up" id="signup" name="signup" />
+                    <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
+                </div>
             }
             <div class="input-wrapper clearfix">
                 <span id="message">OR</span>
@@ -80,7 +77,9 @@
     }
     //Show the Success:-
     function fnBegin() {
+        if (!$("#bTermsCondition").is(":checked")) { alert("Please Select Terms and Conditions"); return false; }
         $('#imgLoader').show();
+        return true;
         //Show any loder when process start:-
     }
     function fnSuccess(response, status, xhr) {
@@ -95,7 +94,7 @@
             $("#errormessage").show();
             $("#spnMessage").empty();
             $("#spnMessage").text('Error during registration please try later');
-            
+
         }
     }
     function fnFailure(xhr, status, err) {
