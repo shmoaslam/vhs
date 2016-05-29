@@ -24,6 +24,8 @@ namespace VHS.Core
         public int RegionId { get; set; }
         public int NumberOfRooms { get; set; }
 
+        public string PropertyUID { get; set; }
+
         public Nullable<int> LocalOrder { get; set; }
 
         [ForeignKey("UserLogin")]

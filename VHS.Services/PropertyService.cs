@@ -84,43 +84,19 @@ namespace VHS.Services
 
             return result;
         }
-        public IList<PropertyDisplayViewModel> GetAllProperty()
+
+        public IList<PropertyDisplayViewModel> GetProperties(SearchPropertyModel searchModel)
         {
             IList<PropertyDisplayViewModel> models = new List<PropertyDisplayViewModel>();
-
-            var propertyModel = _unitOfWork.GetAllProperty();
+            
+            var propertyModel = _unitOfWork.GetProperties(searchModel.Query,searchModel.Region, searchModel.Category);
             if (propertyModel != null)
                 foreach (var model in propertyModel)
                     models.Add(new PropertyDisplayViewModel { Id = model.Id, RegionId = model.RegionId, Title = model.Title, Rating = model.Rating, CoverImage = model.CoverImage, Category = model.Category, Price = model.Price, PersonPerRoom = Convert.ToString(model.Bedroom), GuestCount = model.GuestCount });
 
             return models;
-
         }
 
-        public IList<PropertyDisplayViewModel> GetAllSpainProperty()
-        {
-            IList<PropertyDisplayViewModel> models = new List<PropertyDisplayViewModel>();
-
-            var propertyModel = _unitOfWork.GetAllSpainProperty();
-            if (propertyModel != null)
-                foreach (var model in propertyModel)
-                    models.Add(new PropertyDisplayViewModel { Id = model.Id,RegionId = model.RegionId, Title = model.Title, Rating = model.Rating, CoverImage = model.CoverImage, Category = model.Category, Price = model.Price, PersonPerRoom = Convert.ToString(model.Bedroom), GuestCount = model.GuestCount });
-
-            return models;
-        }
-
-        public IList<PropertyDisplayViewModel> GetIndianProperty()
-        {
-            IList<PropertyDisplayViewModel> models = new List<PropertyDisplayViewModel>();
-
-            var propertyModel = _unitOfWork.GetAllIndainProperty();
-            if (propertyModel != null)
-                foreach (var model in propertyModel)
-                    models.Add(new PropertyDisplayViewModel { Id = model.Id, RegionId = model.RegionId, Title = model.Title, Rating = model.Rating, CoverImage = model.CoverImage, Category = model.Category, Price = model.Price, PersonPerRoom = Convert.ToString(model.Bedroom), GuestCount = model.GuestCount });
-
-            return models;
-
-        }
 
         public PropertyDisplayViewModel GetPropertyDisplayModel(int? id)
         {
@@ -128,6 +104,7 @@ namespace VHS.Services
             var propertyViemodle = new PropertyDisplayViewModel();
 
             var propertyModel = _unitOfWork.GetPropertyDetails(id);
+            propertyViemodle.Id = propertyModel.Id;
             propertyViemodle.CoverImage = propertyModel.CoverImage;
             propertyViemodle.GalaryImages = propertyModel.GalaryImage.Split(',');
             propertyViemodle.Desc = propertyModel.Desc;

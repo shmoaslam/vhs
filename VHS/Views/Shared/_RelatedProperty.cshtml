@@ -1,0 +1,67 @@
+﻿@model VHS.Services.Models.RelatedProperty
+<div class="col-md-5">
+    <p><br></p>
+    <h5>Add Related Properties</h5>
+    <p>Enter Property IDs</p>
+    @using (Ajax.BeginForm("UpdateRelatedProperty", "ManageProperty", new AjaxOptions { OnBegin = "fnBeginRelatedProperty", HttpMethod = "Post", OnSuccess = "fnSuccessRelatedProperty", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
+    {
+        <p class="sub-heading" id="errormessage" style="display:none"><span class="error-msg"> Error occured during update</span></p>
+        @Html.HiddenFor(m => m.PropertyId)
+        @Html.HiddenFor(m => m.Id)
+        <label>Property 1</label>
+        @Html.TextBoxFor(m => m.Related1)
+        <label>Property 2</label>
+        @Html.TextBoxFor(m => m.Related2)
+        <label>Property 3</label>
+        @Html.TextBoxFor(m => m.Related3)
+        <label>Property 4</label>
+        @Html.TextBoxFor(m => m.Related4)
+        <div style="clear:both;"></div>
+        <div class="input-wrapper clearfix">
+            <input type="submit" class="send-btn" value="Update" id="" name="">
+            <input type="reset" class="send-btn" value="Cancel" id="" name="">
+            <p id="imgLoaderFixed" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
+        </div>
+    }
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+        $("#loginLink").addClass("active");
+    });
+    //Show the Forgot Password  Div:-
+    //Show the Success:-
+    function fnBeginRelatedProperty() {
+        $('#imgLoaderFixed').show();
+        //Show any loder when process start:-
+    }
+    function fnSuccessRelatedProperty(response, status, xhr) {
+        if (response == "1") {
+            alert("Information is updated successfully.");
+            $('#imgLoaderFixed').hide();
+        }
+        else if (response == "0") {
+            $('#imgLoaderFixed').hide();
+            $("#errormessage").show();
+
+        }
+        else {
+            $('#imgLoaderFixed').hide();
+            alert("Please try after '")
+        }
+    }
+    function fnFailure(xhr, status, err) {
+        $('#imgLoaderFixed').hide();
+        alert("'failure occured!!.Please try after '")
+    }
+    function fnComplete() {
+        if (response != "1") {
+            $('#imgLoaderFixed').hide();
+        }
+    }
+</script>
+<script type="text/javascript" language=javascript>
+    $.validator.unobtrusive.parse(document);
+</script>

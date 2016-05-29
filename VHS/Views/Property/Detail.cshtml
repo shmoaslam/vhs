@@ -29,7 +29,7 @@
         <div id="container" class="no-bg">
             <article class="element clearfix col-lg-12 col-md-12 col-sm-12 col-xs-12 home">
                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                    <h3 class="title"><span class="property-id">VH001012</span>: @Model.Title</h3>
+                    <h3 class="title"><span class="property-id">VH@(Model.Id.ToString("D5"))</span>: @Model.Title</h3>
                     <p>
                         @Model.Desc
                     </p>
@@ -47,8 +47,6 @@
                     <ul class="social-list alignleft">
                         <li> <a href="#"><i class="fa fa-twitter"></i></a> </li>
                         <li> <a href="#"><i class="fa fa-facebook"></i></a> </li>
-                        @*<li> <a href="#"><i class="fa fa-instagram"></i></a> </li>
-                            <li> <a href="#"><i class="fa fa-pinterest-p"></i></a> </li>*@
                     </ul>
                     <p class="alignright"><img class="social-share" src="/images/wishlist.png" width="20" alt="Wishlist" title="Add to Wishlist" /></p>
 
@@ -56,15 +54,7 @@
 
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 border-left-wrapper">
 
-                    @*<form class="form-part" method="post" action="contact.php" name="contactform" id="contactform" autocomplete="off">
-                            <label>Check in</label>
-                            <input name="" type="date" id="check-in" size="30" title="Email" />
-                            <label>Check out</label>
-                            <input name="" type="date" id="check-out" size="30" title="Password" />
-                            <label>Guests</label>
-                            <input class="sm-input" name="" type="text" id="guest" size="30" title="" />
-                            <a class="button alignleft" href="#">Check Availability</a>
-                        </form>*@
+                   
 
                     @Html.Partial("_CheckAvalibilityProperty", Model.objPropertyBooking)
                 </div>

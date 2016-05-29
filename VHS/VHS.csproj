@@ -675,6 +675,7 @@
     <Content Include="Views\Mailer\BookedPropertyConfirmationToRM.cshtml" />
     <Content Include="Views\Home\TC.cshtml" />
     <Content Include="Views\Home\TCBooking.cshtml" />
+    <Content Include="Views\Shared\_RelatedProperty.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

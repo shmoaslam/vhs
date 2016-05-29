@@ -111,6 +111,7 @@
     <Compile Include="ViewModel\RegisterViewModel.cs" />
     <Compile Include="ViewModel\RmHomeViewModel.cs" />
     <Compile Include="ViewModel\RMViewModel.cs" />
+    <Compile Include="ViewModel\SearchPropertyModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VHS.Core\VHS.Core.csproj">

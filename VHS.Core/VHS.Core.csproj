@@ -83,6 +83,7 @@
     <Compile Include="PropertyTravelBeatsMap.cs" />
     <Compile Include="PropertyVraiblePrice.cs" />
     <Compile Include="PropertyWeekendPrice.cs" />
+    <Compile Include="RelatedProperty.cs" />
     <Compile Include="ResetPasswordToken.cs" />
     <Compile Include="SleepingArrangement.cs" />
     <Compile Include="TravelPreferences.cs" />

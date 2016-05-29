@@ -5,8 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using VHS.App_Start;
 using VHS.Interface;
+using VHS.Models;
 using VHS.Services.Interface;
 using VHS.Services.Models;
+using VHS.Services.ViewModel;
 
 namespace VHS.Controllers
 {
@@ -78,12 +80,7 @@ namespace VHS.Controllers
             var propertyViewModel = _property.GetPropertyDisplayModel(id);
             return View(propertyViewModel);
         }
-        [AllowAnonymous]
-        public ActionResult ListedProperty()
-        {
-            var propertyViewModel = _property.GetAllProperty();
-            return View(propertyViewModel);
-        }
+     
 
         [AllowAnonymous]
         public JsonResult CheckAvailbility(PropertyBooking propertyBooking, string ButtonType)
@@ -94,7 +91,7 @@ namespace VHS.Controllers
                 var checkAval = true;
                 var bookProperty = true;
 
-                if (ButtonType == "Check Availibility")
+                if (ButtonType == "Check Availability")
                 {
                     checkAval = _propertyBooking.CheckPropertyAvailbility(propertyBooking);
                     if (!checkAval)
@@ -139,17 +136,26 @@ namespace VHS.Controllers
 
 
         }
+
         [AllowAnonymous]
-        public ActionResult ListedSpainProperty()
+        public ActionResult ListedProperty(SearchPropertyModel model)
         {
-            var propertyViewModel = _property.GetAllSpainProperty();
+            var propertyViewModel = _property.GetProperties(model);
+            return View(propertyViewModel);
+        }
+        [AllowAnonymous]
+        public ActionResult ListedSpainProperty(SearchPropertyModel model)
+        {
+            model.Region = 2;
+            var propertyViewModel = _property.GetProperties(model);
             ViewBag.PropertyFrom = "Spain";
             return View("ListedProperty", propertyViewModel);
         }
         [AllowAnonymous]
-        public ActionResult ListedIndianProperty()
+        public ActionResult ListedIndianProperty(SearchPropertyModel model)
         {
-            var propertyViewModel = _property.GetIndianProperty();
+            model.Region = 1;
+            var propertyViewModel = _property.GetProperties(model);
             ViewBag.PropertyFrom = "India";
             return View("ListedProperty", propertyViewModel);
         }

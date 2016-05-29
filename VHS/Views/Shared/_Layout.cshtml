@@ -48,37 +48,11 @@
                         <li>Welcome <span style="color:hotpink">@_currentUser.Name</span></li>
                     }
                 }
-
                 <li> @Html.ActionLink("Listed Properties", "ListedProperty", "Property")</li>
-                @*<li>
-                        <a href="#" class="sub-nav-toggle">Features</a>
-                        <ul class="sub-nav hidden">
-                            <li>@Html.ActionLink("Project", "Project", "Blog")</li>
-                            <li>@Html.ActionLink("Post", "SinglePost", "Blog") </li>
-                            <li>@Html.ActionLink("Blog Alternative", "Alternative", "Blog")</li>
-                        </ul>
-                    </li>*@
-                @*<li> <a href="index.html">Properties</a></li>*@
-				
 				<li> <a href="http://velvetthomestays.com/Property/ListedIndianProperty">Konkan Homestays</a></li>
 				<li> <a href="http://velvetthomestays.com/Property/ListedSpainProperty">Spain Homestays</a></li>
-				
-                @*<li>
-                    <a href="#" class="sub-nav-toggle">Categories</a>
-                    <ul class="sub-nav hidden">
-                        <li><a href="/Category/Index/1">Appartment</a></li>
-                        <li> @Html.ActionLink("Beach House", "Index", "Category") </li>
-                        <li>@Html.ActionLink("Boat House", "Index", "Category") </li>
-                        <li>@Html.ActionLink("Farmhouse", "Index", "Category")</li>
-                        <li>@Html.ActionLink("Private Room", "Index", "Category")</li>
-                        <li>@Html.ActionLink("Villa", "Index", "Category")</li>
-                        <li>@Html.ActionLink("Other", "Index", "Category")</li>
-                    </ul>
-                </li>*@
-				
                 <li>@Html.ActionLink("List your property", "Add", "Property")</li>
                 @Html.Partial("_LoginPartial")
-                @*<li>@Html.ActionLink("Blog", "Index", "Blog")</li>*@
                 <li>@Html.ActionLink("About", "About", "Home")</li>
                 <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
             </ul>

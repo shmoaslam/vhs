@@ -31,7 +31,7 @@ namespace VHS.Services
         {
             bool result = false;
             int loginId = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
-            if (CheckPropertyAvailbility(propertyBook))
+            if (!CheckPropertyAvailbility(propertyBook))
             {
                 _unitOfWork.PropertyBookingRepository.Insert(new Core.PropertyBooking { LoginId = loginId, StartDate = propertyBook.StartDate, EndDate = propertyBook.EndDate, PropertyId = propertyBook.PropertyId });
                 _unitOfWork.Save();
@@ -45,8 +45,8 @@ namespace VHS.Services
                     var bookingConfirmation = new BookingConfirmation();
                     bookingConfirmation.StartDate = propertyBook.StartDate.ToString();
                     bookingConfirmation.EndDate = propertyBook.EndDate.ToString();
-                    bookingConfirmation.Property = "VHS" + propertyBook.PropertyId.ToString();
-                    bookingConfirmation.AdminEmail = adminEmail.Where(m => m.TypeId == 1).FirstOrDefault().Email.ToString();
+                    bookingConfirmation.Property = "VHS" + propertyBook.PropertyId.ToString("D5");
+                    bookingConfirmation.AdminEmail = "velvetthomestays@vikasgroup.com";//adminEmail.Where(m => m.TypeId == 1).FirstOrDefault().Email.ToString();
                     bookingConfirmation.RmEmail = adminEmail.Where(m => m.LoginId == propertyRMId).FirstOrDefault().Email;
                     var userDetail = adminEmail.Where(m => m.LoginId == loginId).FirstOrDefault();
                     bookingConfirmation.Email = userDetail.Email;

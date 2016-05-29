@@ -14,8 +14,6 @@ namespace VHS.Interface
         bool AddProperty(Property property, List<HttpPostedFileBase> file);
         List<PropertyViewModel> GetPropertyList();
         PropertyDisplayViewModel GetPropertyDisplayModel(int? id);
-        IList<PropertyDisplayViewModel> GetAllProperty();
-        IList<PropertyDisplayViewModel> GetAllSpainProperty();
-        IList<PropertyDisplayViewModel> GetIndianProperty();
+        IList<PropertyDisplayViewModel> GetProperties(SearchPropertyModel model);
     }
 }

@@ -318,6 +318,11 @@ namespace VHS.Services
             propertyPhoto.imageGalaryPhoto = photo;
             return propertyPhoto;
         }
+
+        public Models.RelatedProperty GetRelatedProperty(int id)
+        {
+            return null;
+        }
         public PropertyTravelAmbassador GetPropertyTravelAmbassReview(int PropertyId)
         {
             var propertyTravleAmbassReview = new PropertyTravelAmbassador();
@@ -859,7 +864,10 @@ namespace VHS.Services
             }
             return result;
         }
-
+        public bool UpdateRelatedProperty(Models.RelatedProperty model)
+        {
+            return false;
+        }
         public bool UpdatePropCoverPhoto(PropertyCoverPhoto propertyCoverPhoto, List<HttpPostedFileBase> CoverPhoto)
         {
             bool result = false;
@@ -1067,5 +1075,6 @@ namespace VHS.Services
             return result;
         }
 
+       
     }
 }
