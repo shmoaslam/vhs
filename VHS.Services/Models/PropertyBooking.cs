@@ -15,5 +15,11 @@ namespace VHS.Services.Models
         [Required(ErrorMessage = "Please select end date")]
         public DateTime? EndDate { get; set; }
         public int GuestNo { get; set; }
+
+        public int AdultNo { get; set; }
+
+        public int ChildNo { get; set; }
+
+        public decimal? AprroxPrice { get; set; }
     }
 }

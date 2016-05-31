@@ -1,6 +1,7 @@
 ﻿@model VHS.Services.Models.PropertyBooking
+
 @using (Ajax.BeginForm("CheckAvailbility", "Property", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccess", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
-            {
+{
     <p class="sub-heading" id="errormessage" style="display:none"><span class="error-msg"> Username/Password does not match</span></p>
     @Html.AntiForgeryToken()
     <label>Check in</label>
@@ -12,10 +13,27 @@
     @Html.ValidationMessageFor(m => m.EndDate, "", new { @class = "text-danger" })
     <br />
     <label>Guests</label>
-    @Html.TextBoxFor(m => m.EndDate)
-    @*@Html.ValidationMessageFor(m => m.StartDate, "", new { @class = "text-danger" })*@
+    @Html.TextBoxFor(m => m.GuestNo, new { type = "number", min = "1", id="totalGuestCount" })
+
+    <div class="xtr-fields"  id="extraCountDiv" style="display:none">
+        <h5>Add extra persons details</h5>
+        <span class="xtr-ins">
+            <label class="sm-width">Adult(s) (12 yrs above)</label>
+            @Html.TextBoxFor(m => m.AdultNo, new { type = "number", min = "1", @class="sm-input", id = "totalAdultCount" })
+        </span>
+        <span class="xtr-ins">
+            <label class="sm-width">Child(s) (5-12 yrs)</label>
+            @Html.TextBoxFor(m => m.ChildNo, new { type = "number", min = "1", @class = "sm-input", id = "totalAdultCount" })
+        </span>
+        <span class="xtr-ins">
+            <label class="sm-width">Total Price (approx.)</label>
+            @Html.TextBoxFor(m => m.AprroxPrice, new { type = "number", min = "1", @class = "sm-input", id = "totalAdultCount" })
+        </span>
+    </div>
+
+
     <div class="input-wrapper clearfix">
-        <input type="submit" class="button alignleft" value="Check Availability" id="submit" name="ButtonType" />
+        <input type="submit" class="button alignleft" value="Check Availability" id="checkAvailability" name="ButtonType" />
         <input type="submit" class="button alignleft" value="Book Property" id="submit" name="ButtonType" />
         <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
     </div>
@@ -48,6 +66,22 @@
             document.getElementById("endDate").value = "";
         }
     });
+
+    $("#checkAvailability").on("click", function (e) {
+        if (!ValidationSuccess()) {
+            e.preventDefault();
+        }
+    });
+
+    function ValidationSuccess() {
+        var standardCount = parseInt($("#standardGuestCount").text());
+        var totalCount = standardCount + parseInt($("#maxGuest").text());
+        var totalCountEnter = parseInt($("#totalGuestCount").val());
+        if (totalCountEnter > totalCount) { alert('Please enter lesser number of Guest or choose other property!'); return false; }
+        else if (totalCountEnter > standardCount) { $("#extraCountDiv").show(); return false; }
+        return true;
+    }
+
     $("#startDate").change(function () {
         document.getElementById("endDate").value = "";
     });
