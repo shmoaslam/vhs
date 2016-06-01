@@ -73,7 +73,8 @@ html { overflow: -moz-scrollbars-vertical; overflow-y: scroll;  height:100%; wid
 body { font-size: 15px; font-family:'Lato', Arial, Helvetica, sans-serif; color:#888; background:#f5f5f5;  height:100%; width:100%; -webkit-text-size-adjust: 100%; -moz-osx-font-smoothing:grayscale; -webkit-font-smoothing: antialiased;  }
 strong { font-weight:600; color:#2b2b2b; }
 a, a > * { -webkit-transition: all 0.2s ease 0s; transition: all 0.2s ease 0s; }
-a, a:hover, a:focus { color:#2b2b2b; text-decoration:none; outline: 0; }
+a { color:#2b2b2b; text-decoration:none; outline: 0; }
+a:hover, a:focus { color:#f06eaa; text-decoration:none; outline: 0; }
 *, *:after, *:before { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding: 0; margin: 0; text-rendering: optimizeLegibility; outline: 0; }
 *:focus, *:after:focus, *:before:focus { outline: 0; }
 *:after, *:before { -moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; }
@@ -163,6 +164,11 @@ h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover {color:#2b2b2b }
 .header { margin-top:5px !important; }
 .more-info h6, .more-info h5, .more-info h4, .more-info h3 { margin-bottom:5px; }
 .bordered-content h5, .bordered-content h4, .bordered-content h3 { margin-top:0; }
+.active{
+	color:#f06eaa;
+}
+
+
 /* End Headings
 --------------------------------------------------------------------------------------------------------*/
 
@@ -679,6 +685,7 @@ input[type="checkbox"]:not(:disabled)+span:hover:before {
     height: 300px;
     padding: 0;
 	overflow:hidden;
+	margin-bottom:30px;
 }
 ..section.header-section-property{
 	height: 450px;
@@ -775,7 +782,7 @@ span.property-rating {
 .property-cover{
 	width:100%;
 	min-width:900px;
-	margin-top:-150px;
+	margin-top:-210px;
 }
 .title{
 	font-size:18px;
@@ -788,7 +795,8 @@ span.property-rating {
 	padding-bottom:20px;
 }
  article.element.clearfix{
-	 margin:30px auto;
+	 margin:20px auto;
+	 float:left;
  }
  span.sm-txt{
 	 font-size:13px;
@@ -887,6 +895,44 @@ padding:2px 10px 2px 0px;
 }
 .form-part2 input, .form-part2 textarea, .form-part2 select{
 padding:5px;	
+}
+
+.s-filters{
+display:block;
+float:left;
+min-width:225px;
+width:auto;
+margin-left:20px;
+margin-bottom:10px;	
+}
+
+.s-filters input{
+	padding: 16px 18px 16px 18px;
+    width: 100%;
+    margin-bottom: 10px;
+	margin-right:25px;
+    border: 1px solid #d8d8d8;
+    font-style: normal;
+    line-height: 20px;
+    background: #f5f5f5;	
+}
+
+
+
+.xtr-ins{
+	display:block;
+	float:left;
+	width:160px;
+}
+.xtr-ins input{
+	padding: 16px 18px 16px 18px;
+    width: 100%;
+    margin-bottom: 10px;
+	margin-right:25px;
+    border: 1px solid #d8d8d8;
+    font-style: normal;
+    line-height: 20px;
+    background: #f5f5f5;
 }
 
 @media(max-width:480px){
