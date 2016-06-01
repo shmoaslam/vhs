@@ -797,6 +797,8 @@ span.property-rating {
  article.element.clearfix{
 	 margin:20px auto;
 	 float:left;
+	 position: relative!important;
+     top: auto!important;
  }
  span.sm-txt{
 	 font-size:13px;
@@ -917,7 +919,11 @@ margin-bottom:10px;
     background: #f5f5f5;	
 }
 
-
+.xtr-fields{
+	float:left;
+	background:#ffffff;
+	display:block;
+}
 
 .xtr-ins{
 	display:block;
@@ -935,6 +941,10 @@ margin-bottom:10px;
     background: #f5f5f5;
 }
 
+.pos-rel{
+	position:relative!important;
+	top:auto!important;
+}
 @media(max-width:480px){
 .property-thumb{
 	width:100%;
