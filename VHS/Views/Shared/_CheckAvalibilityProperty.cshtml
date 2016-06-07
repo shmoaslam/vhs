@@ -23,11 +23,11 @@
         </span>
         <span class="xtr-ins">
             <label class="sm-width">Child(s) (5-12 yrs)</label>
-            @Html.TextBoxFor(m => m.ChildNo, new { type = "number", min = "1", @class = "sm-input", id = "totalAdultCount" })
+            @Html.TextBoxFor(m => m.ChildNo, new { type = "number", min = "1", @class = "sm-input", id = "totalChildCount" })
         </span>
         <span class="xtr-ins">
             <label class="sm-width">Total Price (approx.)</label>
-            @Html.TextBoxFor(m => m.AprroxPrice, new { type = "number", min = "1", @class = "sm-input", id = "totalAdultCount" })
+            @Html.TextBoxFor(m => m.AprroxPrice, new { type = "number", @class = "sm-input", id = "totalPrice" })
         </span>
     </div>
 
@@ -69,13 +69,29 @@
 
     $("#checkAvailability").on("click", function (e) {
         if (!ValidationSuccess()) {
+            checkExtraGuestCount();
             e.preventDefault();
         }
     });
 
+    function checkExtraGuestCount() {
+        var standardCount = parseInt($("#standardGuestCount").text());
+        var totalCount = parseInt($("#maxGuest").text());
+        if (totalCount > standardCount) {
+            var difference = totalCount - standardCount;
+            var totalExtraGuestCount = parseInt($("#totalAdultCount").val()) + parseInt($("#totalChildCount").val());
+            if (totalExtraGuestCount != difference) {
+                alert('Please enter proper extra guest count');
+            }
+            var totalApproxPrice = parseInt($("#standardPrice").text()) + parseInt($("#totalAdultCount").val()) * parseInt($("#pricePerAdult").text()) + parseInt($("#totalChildCount").val()) * parseInt($("#pricePerChild").text());
+            $("#totalPrice").val(totalApproxPrice);
+        }
+    }
+
     function ValidationSuccess() {
         var standardCount = parseInt($("#standardGuestCount").text());
-        var totalCount = standardCount + parseInt($("#maxGuest").text());
+        var totalCount = parseInt($("#maxGuest").text());
+        if (totalCount < standardCount) return true;
         var totalCountEnter = parseInt($("#totalGuestCount").val());
         if (totalCountEnter > totalCount) { alert('Please enter lesser number of Guest or choose other property!'); return false; }
         else if (totalCountEnter > standardCount) { $("#extraCountDiv").show(); return false; }

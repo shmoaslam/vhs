@@ -362,7 +362,7 @@ namespace VHS.Services
                 var propertObj = _unitOfWork.PropertyRepository.GetByID(propGeneralInfo.PropertyId);
                 propertObj.Title = propGeneralInfo.Title;
                 propertObj.NumberOfBathRoom = propGeneralInfo.NoOfBathrooms;
-                propertObj.NumberOfGuest = propGeneralInfo.NoOfGuests;
+                //propertObj.NumberOfGuest = propGeneralInfo.NoOfGuests;
                 propertObj.NumberOfRooms = propGeneralInfo.NoOfRooms;
                 propertObj.Price = propGeneralInfo.Price;
                 propertObj.ListedId = propGeneralInfo.ListById;
@@ -412,7 +412,7 @@ namespace VHS.Services
                 propertObj.Title = propGeneralInfo.Title;
 
                 propertObj.NumberOfBathRoom = propGeneralInfo.NoOfBathrooms;
-                propertObj.NumberOfGuest = propGeneralInfo.NoOfGuests;
+                //propertObj.NumberOfGuest = propGeneralInfo.NoOfGuests;
                 propertObj.NumberOfRooms = propGeneralInfo.NoOfRooms;
                 propertObj.Price = propGeneralInfo.Price;
                 propertObj.ListedId = propGeneralInfo.ListById;
@@ -685,7 +685,7 @@ namespace VHS.Services
                     CheckOutTime = propAdditionalInfoInfo.CheckOut,
                     IsDrinikingAllowed = propAdditionalInfoInfo.DrinkAllowedId.ToString(),
                     IsFamKidFriendAllowed = propAdditionalInfoInfo.FamilyKidAllowedId.ToString(),
-                    IsSmokingAllowed = propAdditionalInfoInfo.FamilyKidAllowedId.ToString(),
+                    IsSmokingAllowed = propAdditionalInfoInfo.SmokeAllowedId.ToString(),
                     IsWheelChairAccess = propAdditionalInfoInfo.WheelChairId.ToString(),
                     IsPetsAllowed = propAdditionalInfoInfo.PetsAllowedId.ToString(),
                     PropertySize = propAdditionalInfoInfo.PropertySize.ToString(),
@@ -711,7 +711,7 @@ namespace VHS.Services
                     propfixedobj.CheckOutTime = propAdditionalInfoInfo.CheckOut;
                     propfixedobj.IsDrinikingAllowed = propAdditionalInfoInfo.DrinkAllowedId.ToString();
                     propfixedobj.IsFamKidFriendAllowed = propAdditionalInfoInfo.FamilyKidAllowedId.ToString();
-                    propfixedobj.IsSmokingAllowed = propAdditionalInfoInfo.FamilyKidAllowedId.ToString();
+                    propfixedobj.IsSmokingAllowed = propAdditionalInfoInfo.SmokeAllowedId.ToString();
                     propfixedobj.IsWheelChairAccess = propAdditionalInfoInfo.WheelChairId.ToString();
                     propfixedobj.IsPetsAllowed = propAdditionalInfoInfo.PetsAllowedId.ToString();
                     propfixedobj.PropertySize = propAdditionalInfoInfo.PropertySize.ToString();

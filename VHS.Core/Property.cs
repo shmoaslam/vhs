@@ -11,6 +11,7 @@ namespace VHS.Core
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public int NumberOfGuest { get; set; }
         public int NumberOfBathRoom { get; set; }
         public int Price { get; set; }
@@ -23,7 +24,7 @@ namespace VHS.Core
         /// </summary>
         public int RegionId { get; set; }
         public int NumberOfRooms { get; set; }
-
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public string PropertyUID { get; set; }
 
         public Nullable<int> LocalOrder { get; set; }
