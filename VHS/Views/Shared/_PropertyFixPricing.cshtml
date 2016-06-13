@@ -4,9 +4,16 @@
 { <p class="sub-heading" id="errormessage" style="display:none"><span class="error-msg"> Error occured during update</span></p>
     @Html.HiddenFor(m => m.PropertyId)
     @Html.HiddenFor(m => m.PropFixedPriceId)
+
     <label class="sm-label">Select Currency</label>
     @Html.DropDownListFor(m => m.CurrencyId, new SelectList(Model.PriceCurrency, "Value", "Text"), "Select")
     <span style="color:red">@Html.ValidationMessageFor(m => m.CurrencyId)</span><br />
+    <label class="sm-label">Start date</label>
+    @Html.TextBoxFor(m => m.StartDate, new { @id = "txtStartDate", @type = "date" })
+    <span style="color:red">@Html.ValidationMessageFor(m => m.StartDate)</span><br />
+    <label class="sm-label">Stop date</label>
+    @Html.TextBoxFor(m => m.StopDate, new { @id = "txtStopDate", @type = "date" })
+    <span style="color:red">@Html.ValidationMessageFor(m => m.StopDate)</span><br />
     <label class="sm-label">Price per night</label>
     @Html.TextBoxFor(m => m.PricePerNight)
     <span style="color:red">@Html.ValidationMessageFor(m => m.PricePerNight)</span><br />
@@ -16,25 +23,25 @@
     <label class="sm-label">Price per month</label>
     @Html.TextBoxFor(m => m.PricePerMonth)
     <span style="color:red">@Html.ValidationMessageFor(m => m.PricePerMonth)</span><br />
+    <label class="sm-label">Extra Person Price Per Adult</label>
+    @Html.TextBoxFor(m => m.PricePerAdult)
+    <span style="color:red">@Html.ValidationMessageFor(m => m.PricePerAdult)</span><br />
+    <label class="sm-label">Per Child</label>
+    @Html.TextBoxFor(m => m.PricePerChild)
+    <span style="color:red">@Html.ValidationMessageFor(m => m.PricePerChild)</span><br />
     <label class="full-label">Cleaning Fee</label>
     <label class="sm-label">Daily</label>
     @Html.TextBoxFor(m => m.CleaningFeeDaily)
-    <span style="color:red">@Html.ValidationMessageFor(m => m.CleaningFeeDaily)</span><br />
     <label class="sm-label">Weekly</label>
     @Html.TextBoxFor(m => m.CleaningFeeWeekly)
-    <span style="color:red">@Html.ValidationMessageFor(m => m.CleaningFeeWeekly)</span><br />
     <label class="sm-label">Montly</label>
     @Html.TextBoxFor(m => m.CleaningFeeMonthly)
-    <span style="color:red">@Html.ValidationMessageFor(m => m.CleaningFeeMonthly)</span><br />
     <label class="sm-label">One time</label>
     @Html.TextBoxFor(m => m.PriceOneTime)
-    <span style="color:red">@Html.ValidationMessageFor(m => m.PriceOneTime)</span><br />
     <label class="sm-label">Comission</label>
     @Html.TextBoxFor(m => m.Comision)
-    <span style="color:red">@Html.ValidationMessageFor(m => m.Comision)</span><br />
     <label class="sm-label">Other fee</label>
     @Html.TextAreaFor(m => m.OtherPrice)
-    <span style="color:red">@Html.ValidationMessageFor(m => m.OtherPrice)</span><br />
     <div style="clear:both;"></div>
     <div class="input-wrapper clearfix">
         <input type="submit" class="send-btn" value="Update" id="" name="" />

@@ -70,6 +70,7 @@
     <Compile Include="Interface\INotificationService.cs" />
     <Compile Include="Interface\IProfile.cs" />
     <Compile Include="Interface\IProperty.cs" />
+    <Compile Include="Interface\IPropertyBooking.cs" />
     <Compile Include="Interface\IUser.cs" />
     <Compile Include="AccountService.cs" />
     <Compile Include="ManagePropertyService.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Models\ManagePropertyList.cs" />
     <Compile Include="Models\Property.cs" />
     <Compile Include="Models\PropertyAdditionalInfoModel.cs" />
+    <Compile Include="Models\PropertyBooking.cs" />
     <Compile Include="Models\PropertyDelete.cs" />
     <Compile Include="Models\PropertyGeneralInfo.cs" />
     <Compile Include="Models\PropertyApperance.cs" />
@@ -89,10 +91,12 @@
     <Compile Include="NotificationService.cs" />
     <Compile Include="ProfileService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyBookingService.cs" />
     <Compile Include="PropertyService.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="ViewModel\AdminHomeViewModel.cs" />
     <Compile Include="ViewModel\Aminities.cs" />
+    <Compile Include="ViewModel\BookingConfirmation.cs" />
     <Compile Include="ViewModel\BookingRequestViewModel.cs" />
     <Compile Include="ViewModel\ImageViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
@@ -107,6 +111,7 @@
     <Compile Include="ViewModel\RegisterViewModel.cs" />
     <Compile Include="ViewModel\RmHomeViewModel.cs" />
     <Compile Include="ViewModel\RMViewModel.cs" />
+    <Compile Include="ViewModel\SearchPropertyModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VHS.Core\VHS.Core.csproj">

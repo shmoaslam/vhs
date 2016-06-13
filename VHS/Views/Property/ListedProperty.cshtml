@@ -3,9 +3,23 @@
 @{
     ViewBag.Title = "ListedProperty";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var PropertyFrom = ViewBag.PropertyFrom != null ? ViewBag.PropertyFrom : string.Empty;
+    string ActionName = "";
+    if (PropertyFrom == "Spain") { ActionName = "ListedSpainProperty"; }
+    else if (PropertyFrom == "India") { ActionName = "ListedIndianProperty"; }
+    else { ActionName = "ListedProperty"; }
 }
 <section class="section header-section dark">
-    <div class="overlay"><img class="property-cover" src="/images/bg1.jpg" /></div>
+    <div class="overlay">
+        @if (PropertyFrom == "Spain")
+        {
+            <img class="property-cover" src="/images/spain.jpg" />
+        }
+        else
+        {
+            <img class="property-cover" src="/images/bg1.jpg" />
+        }
+    </div>
     <div class="container clearfix">
         <div class="col-lg-6 centered aligncenter">
             <div class="centralizing-wrapper">
@@ -20,21 +34,58 @@
 <section class="section2 bordered">
     <div class="container clearfix">
         <div class="row">
+            @if (!string.IsNullOrEmpty(PropertyFrom))
+            {
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    @if (PropertyFrom == "Spain")
+                    {
+                        <article class="element clearfix">
+                            <h3>Spain Homestays</h3>
+                            <div class="head-underline-s"> </div>
+                            <p>
+                                The Mediterranean Coast of Spain is so stunning that one cannot help but fall in love with it. We did.
+                            </p>
+                            <p>
+                                To make your experience as memorable and exciting we have curated a select set of Homestays that will meet your discerning eye.
+                                And we are continuously adding to our range of Homestays.
+                            </p>
+                        </article>
+                    }
+                    else if (PropertyFrom == "India")
+                    {
+                        <article class="element clearfix">
+                            <h3>Konkan Homestays, India</h3>
+                            <div class="head-underline-s"> </div>
+                            <p>
+                                The Konkan stretch running south from Mumbai all the way to Goa offers some amazing postcard beaches, fishing villages, and a series of
+                                serene hill stations. Travelling and staying through this stretch is an enriching experience.
+                            </p>
+                            <p>
+                                We have curated and are continuously on the lookout for a select set of Homestays in Mumbai, Goa, Alibaug, Khandala, Lonavala, Karla, Mahabaleshwar,
+                                Panchgani, Ganpatiphule, and more.
+                            </p>
+                        </article>
+                    }
+                </div>
+            }
+
+
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 myfilters">
                 <div class="filters-main">
-                    <form class="form-part" id="" method="post" action="">
+                    @using (Html.BeginForm(ActionName, "Property", FormMethod.Get, new { @class = "form-part", id = "" }))
+                    {
                         <label class="sm-label-filter">Category</label>
-                        <select class="sm-input myselect">
+                        <select class="sm-input myselect" id="Category" name="Category">
                             <option value="0">Select</option>
-                            <option value="Apartment">Apartment</option>
-                            <option value="Beach House">Beach House</option>
-                            <option value="Boat House">Boat House</option>
-                            <option value="Farmhouse">Farmhouse</option>
-                            <option value="Private Room">Private Room</option>
-                            <option value="Villa">Villa</option>
-                            <option value="Other">Other</option>
+                            <option value="1">Apartment</option>
+                            <option value="2">Beach House</option>
+                            <option value="3">Boat House</option>
+                            <option value="4">Farmhouse</option>
+                            <option value="5">Private Room</option>
+                            <option value="6">Villa</option>
+                            <option value="7">Other</option>
                         </select>
-                        <label class="sm-label-filter">Bedrooms</label>
+                        @*<label class="sm-label-filter">Bedrooms</label>
                         <select class="sm-input myselect">
                             <option value="0">Select</option>
                             <option value="yes">1</option>
@@ -43,11 +94,13 @@
                             <option value="yes">4</option>
                             <option value="yes">5</option>
                             <option value="yes">More than 5</option>
-                        </select>
+                        </select>*@
+                        <input type="text" name="Query" id="Query" placeholder="Search" style="width: 170px;height: 36px;" />
                         <button class="btn-primary">Apply</button>
-                    </form>
+                    }
+                    
                 </div>
-                <div class="sort-by">
+                @*<div class="sort-by">
                     <form class="form-part" id="" method="post" action="">
                         <label class="sm-label-filter">Sort by Price</label>
                         <select class="sm-input myselect">
@@ -56,7 +109,7 @@
                             <option value="yes">Low to High</option>
                         </select>
                     </form>
-                </div>
+                </div>*@
             </div>
         </div>
 
@@ -70,155 +123,47 @@
                             <p class="property-thumb-img">
                                 <img src="~/UploadFile/PropertyCoverPhoto/@property.CoverImage" />
                                 <div class="property-price-box">
-                                    <span class="property-price-currency">Rs.</span><span class="property-price">@property.Price/-</span>
+                                    <span class="property-price-currency">
+                                    @if (property.RegionId == 2) { <text>&euro;</text> }
+                                    else { <text>&#8377;</text>}
+                                    </span><span class="property-price">@property.Price/-</span>
                                 </div>
                             </p>
-                            <h3 class="property-thumb-title"><span class="property-id">VH001012</span>: @property.Title</h3>
+                            <h3 class="property-thumb-title"><span class="property-id">VH@(property.Id.ToString("D5"))</span>: @property.Title</h3>
                             <p class="property-thumb-info">
                                 <span class="property-category">@property.Category</span>
                                 <span class="property-rooms">@property.PersonPerRoom Bedrooms</span>
-                                <span class="property-guests">24 Guests</span>
+                                <span class="property-guests">@property.GuestCount Guests</span>
                                 <span class="property-rating">
                                     <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
                                     <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
                                     <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                                    <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                                    <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
+                                    @switch (property.Rating)
+                                    {
+                                        case "2":
+                                            <img class="rated-star" src="~/images/halfstar.png" width="15" alt="star" />
+                                            break;
+                                        case "3":
+                                            <img class="rated-star" src="~/images/starp.png" width="15" alt="star" />
+                                            break;
+                                        case "4":
+                                            <img class="rated-star" src="~/images/starp.png" width="15" alt="star" />
+                                            <img class="rated-star" src="~/images/halfstar.png" width="15" alt="star" />
+                                            break;
+                                        case "5":
+                                            <img class="rated-star" src="~/images/starp.png" width="15" alt="star" />
+                                            <img class="rated-star" src="~/images/starp.png" width="15" alt="star" />
+                                            break;
+                                        default:
+                                            break;
+                                    }
                                 </span>
                             </p>
                         </div>
                     </a>
                 }
 
-                @*<div class="property-thumb">
-                    <p class="property-thumb-img">
-                        <img src="/images/1.jpg" />
-                        <div class="property-price-box">
-                            <span class="property-price-currency">Rs.</span><span class="property-price">15000/-</span>
-                        </div>
-                    </p>
-                    <h3 class="property-thumb-title">Property 1</h3>
-                    <p class="property-thumb-info">
-                        <span class="property-category">Villa</span>
-                        <span class="property-rooms">5 Bedrooms</span>
-                        <span class="property-guests">24 Guests</span>
-                        <span class="property-rating">
-                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                        </span>
-                    </p>
-                </div>
 
-                <div class="property-thumb">
-                    <p class="property-thumb-img">
-                        <img src="/images/2.jpg" />
-                        <div class="property-price-box">
-                            <span class="property-price-currency">Rs.</span><span class="property-price">15000/-</span>
-                        </div>
-                    </p>
-                    <h3 class="property-thumb-title">Property 2</h3>
-                    <p class="property-thumb-info">
-                        <span class="property-category">Farmhouse</span>
-                        <span class="property-rooms">5 Bedrooms</span>
-                        <span class="property-guests">20 Guests</span>
-                        <span class="property-rating">
-                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                        </span>
-                    </p>
-                </div>
-
-                <div class="property-thumb">
-                    <p class="property-thumb-img">
-                        <img src="/images/3.jpg" />
-                        <div class="property-price-box">
-                            <span class="property-price-currency">Rs.</span><span class="property-price">15000/-</span>
-                        </div>
-                    </p>
-                    <h5 class="property-thumb-title">Property 3</h5>
-                    <p class="property-thumb-info">
-                        <span class="property-category">Boat house</span>
-                        <span class="property-rooms">2 Bedrooms</span>
-                        <span class="property-guests">4 Guests</span>
-                        <span class="property-rating">
-                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                        </span>
-                    </p>
-                </div>
-
-                <div class="property-thumb">
-                    <p class="property-thumb-img">
-                        <img src="/images/4.jpg" />
-                        <div class="property-price-box">
-                            <span class="property-price-currency">Rs.</span><span class="property-price">12000/-</span>
-                        </div>
-                    </p>
-                    <h5 class="property-thumb-title">Property 4</h5>
-                    <p class="property-thumb-info">
-                        <span class="property-category">Villa</span>
-                        <span class="property-rooms">4 Bedrooms</span>
-                        <span class="property-guests">16 Guests</span>
-                        <span class="property-rating">
-                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                        </span>
-                    </p>
-                </div>
-
-                <div class="property-thumb">
-                    <p class="property-thumb-img">
-                        <img src="/images/5.jpg" />
-                        <div class="property-price-box">
-                            <span class="property-price-currency">Rs.</span><span class="property-price">5000/-</span>
-                        </div>
-                    </p>
-                    <h5 class="property-thumb-title">Property 5</h5>
-                    <p class="property-thumb-info">
-                        <span class="property-category">Apartment</span>
-                        <span class="property-rooms">1 Bedroom</span>
-                        <span class="property-guests">4 Guests</span>
-                        <span class="property-rating">
-                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                        </span>
-                    </p>
-                </div>
-
-                <div class="property-thumb">
-                    <p class="property-thumb-img">
-                        <img src="/images/6.jpg" />
-                        <div class="property-price-box">
-                            <span class="property-price-currency">Rs.</span><span class="property-price">15000/-</span>
-                        </div>
-                    </p>
-                    <h5 class="property-thumb-title">Property 6</h5>
-                    <p class="property-thumb-info">
-                        <span class="property-category">Farmhouse</span>
-                        <span class="property-rooms">5 Bedrooms</span>
-                        <span class="property-guests">24 Guests</span>
-                        <span class="property-rating">
-                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                        </span>
-                    </p>
-                </div>*@
 
             </article>
         </div>

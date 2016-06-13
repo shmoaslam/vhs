@@ -140,6 +140,12 @@ namespace VHS.Controllers
             return PartialView("_PropertyGallaryPhoto", propGallaryPhoto);
         }
         [HttpGet]
+        public ActionResult GetRelatedProperty(int id)
+        {
+            var propGallaryPhoto = _manageProperty.GetRelatedProperty(id);
+            return PartialView("_RelatedProperty", propGallaryPhoto);
+        }
+        [HttpGet]
         public ActionResult GetPropertyTravleAmbassador(int id)
         {
             // var propGallaryPhoto = _manageProperty.GetPropertyDetail(id);
@@ -321,6 +327,25 @@ namespace VHS.Controllers
             {
                 var imageList = _manageProperty.GetPropertyGallaryPhoto(propertyCoverPhoto.PropertyId);
                 return Json(imageList.imageGalaryPhoto, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("0");
+            }
+        }
+
+        [HttpPost]
+        public JsonResult UpdateRelatedProperty(RelatedProperty model)
+        {
+            if (model == null)
+            {
+                return Json("0");
+            }
+            var proper = _manageProperty.UpdateRelatedProperty(model);
+            if (proper)
+            {
+               
+                return Json("1");
             }
             else
             {

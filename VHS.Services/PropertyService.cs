@@ -84,135 +84,88 @@ namespace VHS.Services
 
             return result;
         }
-        public IList<PropertyDisplayViewModel> GetAllProperty()
+
+        public IList<PropertyDisplayViewModel> GetProperties(SearchPropertyModel searchModel)
         {
             IList<PropertyDisplayViewModel> models = new List<PropertyDisplayViewModel>();
+            
+            var propertyModel = _unitOfWork.GetProperties(searchModel.Query,searchModel.Region, searchModel.Category);
+            if (propertyModel != null)
+                foreach (var model in propertyModel)
+                    models.Add(new PropertyDisplayViewModel { Id = model.Id, RegionId = model.RegionId, Title = model.Title, Rating = model.Rating, CoverImage = model.CoverImage, Category = model.Category, Price = model.Price, PersonPerRoom = Convert.ToString(model.Bedroom), GuestCount = model.GuestCount });
 
-            var properties = _unitOfWork.PropertyRepository.GetMany(x => x.IsApproved && x.IsActive);
-
-            if (properties != null && properties.Count() > 0)
-            {
-                foreach (var property in properties)
-                {
-                    var id = property.Id;
-
-                    var propertyViemodle = new PropertyDisplayViewModel();
-                    IList<string> galaryImages = new List<string>();
-
-                    if (_unitOfWork.PropCoverPhotoRepository.GetMany(x => x.PropertyId == id).Any())
-                    {
-                        int coverImageId = _unitOfWork.PropCoverPhotoRepository.GetMany(x => x.PropertyId == id).FirstOrDefault().ImageId;
-                        propertyViemodle.CoverImage = coverImageId != 0 ? _unitOfWork.ImageRepository.GetByID(coverImageId).Name : string.Empty;
-                    }
-                    if (_unitOfWork.PropertyGallaryRepository.GetMany(x => x.PropertyId == id).Any())
-                    {
-                        var imageids = _unitOfWork.PropertyGallaryRepository.GetMany(x => x.PropertyId == id).Select(X => X.ImageId);
-                        if (imageids != null)
-                            foreach (var imageid in imageids)
-                                galaryImages.Add(_unitOfWork.ImageRepository.GetByID(imageid).Name);
-                        propertyViemodle.GalaryImages = galaryImages.ToArray();
-                    }
-                    if (_unitOfWork.PropertyAdditionalRepository.GetMany(x => x.PropertyId == id).Any())
-                    {
-                        var additionnalDetails = _unitOfWork.PropertyAdditionalRepository.GetMany(x => x.PropertyId == id).FirstOrDefault();
-                        propertyViemodle.Desc = additionnalDetails.PropDescription;
-                        propertyViemodle.CheckIn = additionnalDetails.CheckInTime;
-                        propertyViemodle.CheckOut = additionnalDetails.CheckOutTime;
-                        propertyViemodle.IsPetAllowed = additionnalDetails.IsPetsAllowed == "1" ? "Yes" : "No";
-                        propertyViemodle.IsSmokingAllowed = additionnalDetails.IsSmokingAllowed == "1" ? "Yes" : "No";
-                        propertyViemodle.IsWheelchairAccessible = additionnalDetails.IsWheelChairAccess == "1" ? "Yes" : "No";
-                        propertyViemodle.IsFamilyKidFriendly = additionnalDetails.IsFamKidFriendAllowed == "1" ? "Yes" : "No";
-                        propertyViemodle.IsDrinkingAllowed = additionnalDetails.IsDrinikingAllowed == "1" ? "Yes" : "No";
-                        propertyViemodle.PersonPerRoom = additionnalDetails.PersonPerRoom.ToString();
-                        propertyViemodle.Title = property.Title;
-                    }
-
-                    var categoryId = _unitOfWork.PropertyRepository.GetByID(id) != null ? _unitOfWork.PropertyRepository.GetByID(id).CategoryId : 0;
-
-                    if (categoryId != 0)
-                        propertyViemodle.Category = _unitOfWork.PropertyCategoryRepository.GetFirst(x => x.Id == categoryId).CategoryName;
-
-                    if (_unitOfWork.PropFixedPriceRepository.GetMany(x => x.PropertyId == id).Any())
-                        propertyViemodle.Price = _unitOfWork.PropFixedPriceRepository.GetMany(x => x.PropertyId == id).FirstOrDefault().PricePerNight;
-
-                    if (_unitOfWork.PropertyAddressRepository.GetMany(x => x.PropertyId == id).Any())
-                    {
-                        var address = _unitOfWork.PropertyAddressRepository.GetMany(x => x.PropertyId == id).FirstOrDefault();
-                        propertyViemodle.City = address.City;
-                        propertyViemodle.Address = address.Address;
-                    }
-                    propertyViemodle.Id = property.Id;
-                    models.Add(propertyViemodle);
-
-                }
-
-            }
             return models;
-
         }
+
+
         public PropertyDisplayViewModel GetPropertyDisplayModel(int? id)
         {
             if (id == null) return null;
             var propertyViemodle = new PropertyDisplayViewModel();
-            IList<string> galaryImages = new List<string>();
-            if (_unitOfWork.PropCoverPhotoRepository.GetMany(x => x.PropertyId == id).Any())
-            {
-                int coverImageId = _unitOfWork.PropCoverPhotoRepository.GetMany(x => x.PropertyId == id).FirstOrDefault().ImageId;
-                propertyViemodle.CoverImage = coverImageId != 0 ? _unitOfWork.ImageRepository.GetByID(coverImageId).Name : string.Empty;
-            }
-            if (_unitOfWork.PropertyGallaryRepository.GetMany(x => x.PropertyId == id).Any())
-            {
-                var imageids = _unitOfWork.PropertyGallaryRepository.GetMany(x => x.PropertyId == id).Select(X => X.ImageId);
-                if (imageids != null)
-                    foreach (var imageid in imageids)
-                        galaryImages.Add(_unitOfWork.ImageRepository.GetByID(imageid).Name);
-                propertyViemodle.GalaryImages = galaryImages.ToArray();
-            }
-            if (_unitOfWork.PropertyAdditionalRepository.GetMany(x => x.PropertyId == id).Any())
-            {
-                var additionnalDetails = _unitOfWork.PropertyAdditionalRepository.GetMany(x => x.PropertyId == id).FirstOrDefault();
-                propertyViemodle.Desc = additionnalDetails.PropDescription;
-                propertyViemodle.CheckIn = additionnalDetails.CheckInTime;
-                propertyViemodle.CheckOut = additionnalDetails.CheckOutTime;
-                propertyViemodle.IsPetAllowed = additionnalDetails.IsPetsAllowed == "1" ? "Yes" : "No";
-                propertyViemodle.IsSmokingAllowed = additionnalDetails.IsSmokingAllowed == "1" ? "Yes" : "No";
-                propertyViemodle.IsWheelchairAccessible = additionnalDetails.IsWheelChairAccess == "1" ? "Yes" : "No";
-                propertyViemodle.IsFamilyKidFriendly = additionnalDetails.IsFamKidFriendAllowed == "1" ? "Yes" : "No";
-                propertyViemodle.IsDrinkingAllowed = additionnalDetails.IsDrinikingAllowed == "1" ? "Yes" : "No";
-                propertyViemodle.PersonPerRoom = additionnalDetails.PersonPerRoom.ToString();
-            }
 
-            if (_unitOfWork.PropertyAddressRepository.GetMany(x => x.PropertyId == id).Any())
-            {
-                var address = _unitOfWork.PropertyAddressRepository.GetMany(x => x.PropertyId == id).FirstOrDefault();
-                propertyViemodle.City = address.City;
-                propertyViemodle.Address = address.Address;
-            }
-
-            var generalId = _unitOfWork.PropGeneralRepository.GetMany(x => x.PropertyId == id).ToList().Select(x => x.GeneralId);
-
-            propertyViemodle.General = _unitOfWork.GetAmennities(id??0, Anemities.General);
-            propertyViemodle.Kitchen = _unitOfWork.GetAmennities(id ?? 0, Anemities.Kitchen);
-            propertyViemodle.EntertainmentElectronic = _unitOfWork.GetAmennities(id ?? 0, Anemities.EntertainmentElectronic);
-            propertyViemodle.Outdoor = _unitOfWork.GetAmennities(id ?? 0, Anemities.Outdoor);
-            propertyViemodle.Parking = _unitOfWork.GetAmennities(id ?? 0, Anemities.Parking);
-            propertyViemodle.Bathroom = _unitOfWork.GetAmennities(id ?? 0, Anemities.Bathroom);
-            propertyViemodle.SleepingArrangments = _unitOfWork.GetAmennities(id ?? 0, Anemities.SleepingArrangments);
-
-
-            var categoryId = _unitOfWork.PropertyRepository.GetByID(id) != null ? _unitOfWork.PropertyRepository.GetByID(id).CategoryId : 0;
-
-            if (categoryId != 0)
-                propertyViemodle.Category = _unitOfWork.PropertyCategoryRepository.GetFirst(x => x.Id == categoryId).CategoryName;
-
-            if (_unitOfWork.PropFixedPriceRepository.GetMany(x => x.PropertyId == id).Any())
-                propertyViemodle.Price = _unitOfWork.PropFixedPriceRepository.GetMany(x => x.PropertyId == id).FirstOrDefault().PricePerNight;
-
-            if (_unitOfWork.PropertyAddressRepository.GetMany(x => x.PropertyId == id).Any())
-                propertyViemodle.City = _unitOfWork.PropertyAddressRepository.GetMany(x => x.PropertyId == id).FirstOrDefault().City;
+            var propertyModel = _unitOfWork.GetPropertyDetails(id);
+            propertyViemodle.Id = propertyModel.Id;
+            propertyViemodle.CoverImage = propertyModel.CoverImage;
+            propertyViemodle.GalaryImages = propertyModel.GalaryImage.Split(',');
+            propertyViemodle.Desc = propertyModel.Desc;
+            propertyViemodle.CheckIn = propertyModel.CheckIn;
+            propertyViemodle.CheckOut = propertyModel.CheckOut;
+            propertyViemodle.IsPetAllowed = propertyModel.IsPetAllowed == "1" ? "Yes" : "No";
+            propertyViemodle.IsSmokingAllowed = propertyModel.IsSmokingAllowed == "1" ? "Yes" : "No";
+            propertyViemodle.IsWheelchairAccessible = propertyModel.IsWheelchairAccessible == "1" ? "Yes" : "No";
+            propertyViemodle.IsFamilyKidFriendly = propertyModel.IsFamilyKidFriendly == "1" ? "Yes" : "No";
+            propertyViemodle.IsDrinkingAllowed = propertyModel.IsDrinkingAllowed == "1" ? "Yes" : "No";
+            propertyViemodle.PersonPerRoom = propertyModel.PersonPerRoom.ToString();
+            propertyViemodle.City = propertyModel.City;
+            propertyViemodle.Country = propertyModel.Country;
+            propertyViemodle.Category = propertyModel.Category;
+            propertyViemodle.Price = propertyModel.Price;
+            propertyViemodle.Title = propertyModel.Title;
+            propertyViemodle.CoverImage = propertyModel.CoverImage;
+            propertyViemodle.Category = propertyModel.Category;
+            propertyViemodle.Price = propertyModel.Price;
+            propertyViemodle.PersonPerRoom = Convert.ToString(propertyModel.Bedroom);
+            propertyViemodle.GuestCount = propertyModel.GuestCount;
+            propertyViemodle.Rating = GetPropertyRating(propertyModel.Rating);
+            propertyViemodle.General = !string.IsNullOrEmpty(propertyModel.General) ? propertyModel.General.Split(',').ToList() : new List<string>();
+            propertyViemodle.SleepingArrangments = !string.IsNullOrEmpty(propertyModel.Sleeping) ? propertyModel.Sleeping.Split(',').ToList() : new List<string>();
+            propertyViemodle.EntertainmentElectronic = !string.IsNullOrEmpty(propertyModel.Entertainment) ? propertyModel.Entertainment.Split(',').ToList() : new List<string>();
+            propertyViemodle.Outdoor = !string.IsNullOrEmpty(propertyModel.Outdoor) ? propertyModel.Outdoor.Split(',').ToList() : new List<string>();
+            propertyViemodle.Parking = !string.IsNullOrEmpty(propertyModel.Parking) ? propertyModel.Parking.Split(',').ToList() : new List<string>();
+            propertyViemodle.Bathroom = !string.IsNullOrEmpty(propertyModel.Bathroom) ? propertyModel.Bathroom.Split(',').ToList() : new List<string>();
+            propertyViemodle.Kitchen = !string.IsNullOrEmpty(propertyModel.Kitchen) ? propertyModel.Kitchen.Split(',').ToList() : new List<string>();
+            propertyViemodle.MaxGuestCount = propertyModel.MaxGuestCount;
+            propertyViemodle.PricePerAdult = propertyModel.PricePerAdult;
+            propertyViemodle.PricePerChild = propertyModel.PricePerChild;
+            //Set proprtyId for Booking Check Avalibility
+            var propertyBooking = new Models.PropertyBooking();
+            propertyBooking.PropertyId = (int)id;
+            propertyViemodle.objPropertyBooking = propertyBooking;
 
             return propertyViemodle;
         }
+
+        private string GetPropertyRating(string rating)
+        {
+            if (string.IsNullOrEmpty(rating)) return string.Empty;
+
+            switch (rating)
+            {
+                case "1":
+                    return "3";
+                case "2":
+                    return "3.5";
+                case "3":
+                    return "4";
+                case "4":
+                    return "4.5";
+                case "5":
+                    return "5";
+                default:
+                    return string.Empty;
+            }
+        }
+
         public List<PropertyViewModel> GetPropertyList()
         {
             var propertyList = new List<PropertyViewModel>();

@@ -22,6 +22,9 @@ namespace VHS.Core
         public string IsFamKidFriendAllowed { get; set; }
         public int PersonPerRoom { get; set; }
 
+        public string PropertyRating { get; set; }
+        public int MaxGuest { get; set; }
+
         public string MapLatitude { get; set; }
         public string MapLongitude { get; set; }
         public string PropertySize { get; set; }

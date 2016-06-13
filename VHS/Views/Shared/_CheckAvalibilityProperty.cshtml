@@ -1,0 +1,159 @@
+﻿@model VHS.Services.Models.PropertyBooking
+
+@using (Ajax.BeginForm("CheckAvailbility", "Property", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccess", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
+{
+    <p class="sub-heading" id="errormessage" style="display:none"><span class="error-msg"> Username/Password does not match</span></p>
+    @Html.AntiForgeryToken()
+    <label>Check in</label>
+    @Html.HiddenFor(m => m.PropertyId)
+    @Html.TextBoxFor(m => m.StartDate, new { placeholder = "Start Date", @type = "date", @id = "startDate" })
+    @Html.ValidationMessageFor(m => m.StartDate, "", new { @class = "text-danger" })<br>
+    <label>Check out</label>
+    @Html.TextBoxFor(m => m.EndDate, new { placeholder = "End Date", @type = "date", @id = "endDate" })
+    @Html.ValidationMessageFor(m => m.EndDate, "", new { @class = "text-danger" })
+    <br />
+    <label>Guests</label>
+    @Html.TextBoxFor(m => m.GuestNo, new { type = "number", min = "1", id="totalGuestCount" })
+
+    <div class="xtr-fields"  id="extraCountDiv" style="display:none">
+        <h5>Add extra persons details</h5>
+        <span class="xtr-ins">
+            <label class="sm-width">Adult(s) (12 yrs above)</label>
+            @Html.TextBoxFor(m => m.AdultNo, new { type = "number", min = "1", @class="sm-input", id = "totalAdultCount" })
+        </span>
+        <span class="xtr-ins">
+            <label class="sm-width">Child(s) (5-12 yrs)</label>
+            @Html.TextBoxFor(m => m.ChildNo, new { type = "number", min = "1", @class = "sm-input", id = "totalChildCount" })
+        </span>
+        <span class="xtr-ins">
+            <label class="sm-width">Total Price (approx.)</label>
+            @Html.TextBoxFor(m => m.AprroxPrice, new { type = "number", @class = "sm-input", id = "totalPrice" })
+        </span>
+    </div>
+
+
+    <div class="input-wrapper clearfix">
+        <input type="submit" class="button alignleft" value="Check Availability" id="checkAvailability" name="ButtonType" />
+        <input type="submit" class="button alignleft" value="Book Property" id="submit" name="ButtonType" />
+        <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        var input = document.getElementById("startDate");
+        var input1 = document.getElementById("endDate");
+        var today = new Date();
+        // Set month and day to string to add leading 0
+        var day = new String(today.getDate());
+        var mon = new String(today.getMonth() + 1); //January is 0!
+        var yr = today.getFullYear();
+
+        if (day.length < 2) { day = "0" + day; }
+        if (mon.length < 2) { mon = "0" + mon; }
+
+        var date = new String(yr + '-' + mon + '-' + day);
+
+        input.disabled = false;
+        input.setAttribute('min', date)
+        input1.disabled = false;
+        input1.setAttribute('min', date)
+    });
+    $("#endDate").change(function () {
+        var startDate = document.getElementById("startDate").value;
+        var endDate = document.getElementById("endDate").value;
+        if ((Date.parse(startDate) > Date.parse(endDate))) {
+            alert("End date should be greater than Start date");
+            document.getElementById("endDate").value = "";
+        }
+    });
+
+    $("#checkAvailability").on("click", function (e) {
+        if (!ValidationSuccess()) {
+            checkExtraGuestCount();
+            e.preventDefault();
+        }
+    });
+
+    function checkExtraGuestCount() {
+        var standardCount = parseInt($("#standardGuestCount").text());
+        var totalCount = parseInt($("#maxGuest").text());
+        if (totalCount > standardCount) {
+            var difference = totalCount - standardCount;
+            var totalExtraGuestCount = parseInt($("#totalAdultCount").val()) + parseInt($("#totalChildCount").val());
+            if (totalExtraGuestCount != difference) {
+                alert('Please enter proper extra guest count');
+            }
+            var totalApproxPrice = parseInt($("#standardPrice").text()) + parseInt($("#totalAdultCount").val()) * parseInt($("#pricePerAdult").text()) + parseInt($("#totalChildCount").val()) * parseInt($("#pricePerChild").text());
+            $("#totalPrice").val(totalApproxPrice);
+        }
+    }
+
+    function ValidationSuccess() {
+        var standardCount = parseInt($("#standardGuestCount").text());
+        var totalCount = parseInt($("#maxGuest").text());
+        if (totalCount < standardCount) return true;
+        var totalCountEnter = parseInt($("#totalGuestCount").val());
+        if (totalCountEnter > totalCount) { alert('Please enter lesser number of Guest or choose other property!'); return false; }
+        else if (totalCountEnter > standardCount) { $("#extraCountDiv").show(); return false; }
+        return true;
+    }
+
+    $("#startDate").change(function () {
+        document.getElementById("endDate").value = "";
+    });
+    //Show the Forgot Password  Div:-
+    function ShowForgotPassword() {
+        window.location.href = '@Url.Action("ForgotPassword", "Account")';
+    }
+    //Show the Success:-
+    function fnBegin() {
+        $('#imgLoader').show();
+        //Show any loder when process start:-
+    }
+    function fnSuccess(response, status, xhr) {
+        $('#imgLoader').hide();
+        switch (response) {
+
+            case 1:
+                alert("Property available for this Date");
+                break;
+
+            case 2:
+                alert("Property is no available for this Date.Please try another day ");
+                break;
+
+            case 3:
+                alert("Property booking successfully,Our reppresentative will contact you shortly.");
+                break;
+
+            case 4:
+                alert("Property is no available for this Date.Please try another day and book");
+                break;
+
+            case 5:
+                alert("Please try Later.");
+                break;
+
+            case 6:
+                alert("Please login first to book property.");
+                break;
+
+            case 0:
+                alert("Please select date to check availability and book property.");
+                break;
+
+            default:
+                alert("Please try Later.");
+
+        }
+    }
+    function fnFailure(xhr, status, err) {
+        $('#imgLoader').hide();
+        alert("'failure occured!!.Please try after '")
+    }
+    function fnComplete() {
+        if (response != "1") {
+            $('#imgLoader').hide();
+        }
+    }
+</script>

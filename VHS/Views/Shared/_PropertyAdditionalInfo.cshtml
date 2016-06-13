@@ -5,7 +5,9 @@
     {
         @Html.HiddenFor(m => m.PropertyId)
         @Html.HiddenFor(m => m.PropAdditionalId)
-        <p class="sub-heading" id="errormessage" style="display:none"><span class="error-msg"> Error occured during update</span></p>
+        <p class="sub-heading" id="errormessage" style="display:none"><span class="error-msg"> Error occured during update</span></p><label class="sm-label">Rate this Property (3-5)<span class="required">*</span></label>
+        @Html.DropDownListFor(m => m.PropRatingId, new SelectList(Model.ProperyRating, "Value", "Text"), "Select")
+        <span style="color:red">@Html.ValidationMessageFor(m => m.PropRatingId)</span><br />
         <label>Add Property Description<span class="required">*</span></label>
         @Html.TextAreaFor(m => m.PropertyDescription)
         <span style="color:red">@Html.ValidationMessageFor(m => m.PropertyDescription)</span><br />
@@ -18,7 +20,10 @@
         <label class="sm-label">Size of Property<br />(/sq. ft)<span class="required">*</span></label>
         @Html.TextBoxFor(m => m.PropertySize)
         <span style="color:red">@Html.ValidationMessageFor(m => m.PropertySize)</span><br />
-        <label class="sm-label">Persons per room<span class="required">*</span></label>
+        <label class="sm-label">Maximum Guests allowed<span class="required">*</span></label>
+                @Html.TextBoxFor(m => m.MaxGuest)
+                <span style="color:red">@Html.ValidationMessageFor(m => m.MaxGuest)</span><br />
+        <label class="sm-label">Persons per bedroom<span class="required">*</span></label>
         @Html.TextBoxFor(m => m.PersonPerRoom)
         <span style="color:red">@Html.ValidationMessageFor(m => m.PersonPerRoom)</span><br />
         <div style="clear:both;"></div>

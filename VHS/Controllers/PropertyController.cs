@@ -5,7 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using VHS.App_Start;
 using VHS.Interface;
+using VHS.Models;
+using VHS.Services.Interface;
 using VHS.Services.Models;
+using VHS.Services.ViewModel;
 
 namespace VHS.Controllers
 {
@@ -14,21 +17,29 @@ namespace VHS.Controllers
     public class PropertyController : Controller
     {
         private IProperty _property;
-        public PropertyController(IProperty property)
+        private IPropertyBooking _propertyBooking;
+        public PropertyController(IProperty property, IPropertyBooking propBooking)
         {
             _property = property;
+            _propertyBooking = propBooking;
         }
+        [AllowAnonymous]
         public ActionResult Add()
         {
-            var property = new Property();
-            property.Category = GetCategory();
-            property.ListBy = GetListBy();
-            return View(property);
+            if (Request.IsAuthenticated)
+            {
+                var property = new Property();
+                property.Category = GetCategory();
+                property.ListBy = GetListBy();
+                return View(property);
+            }
+            else
+                return View();
         }
         [HttpPost]
         public ActionResult Add(Property property, List<HttpPostedFileBase> Image)
         {
-           var proper= _property.AddProperty(property, Image);
+            var proper = _property.AddProperty(property, Image);
             if (proper)
             {
                 ViewBag.Message = "Property added sucessfully";
@@ -37,7 +48,7 @@ namespace VHS.Controllers
             {
                 ViewBag.Message = "Error occured during property add.Please try later.";
             }
-           
+
             return RedirectToAction("Add");
             //return View();
         }
@@ -69,11 +80,84 @@ namespace VHS.Controllers
             var propertyViewModel = _property.GetPropertyDisplayModel(id);
             return View(propertyViewModel);
         }
+     
+
         [AllowAnonymous]
-        public ActionResult ListedProperty()
+        public JsonResult CheckAvailbility(PropertyBooking propertyBooking, string ButtonType)
         {
-            var propertyViewModel = _property.GetAllProperty();
+            int i = 0;
+            if (propertyBooking.StartDate != null && propertyBooking.EndDate != null)
+            {
+                var checkAval = true;
+                var bookProperty = true;
+
+                if (ButtonType == "Check Availability")
+                {
+                    checkAval = _propertyBooking.CheckPropertyAvailbility(propertyBooking);
+                    if (!checkAval)
+                    {
+                        i = 1;
+                    }
+                    else
+                    {
+                        i = 2;
+                    }
+                }
+                else if (ButtonType == "Book Property")
+                {
+                    if (Request.IsAuthenticated)
+                    {
+                        bookProperty = _propertyBooking.BookProperty(propertyBooking);
+                        if (bookProperty)
+                        {
+                            i = 3;
+                        }
+                        else
+                        {
+                            i = 4;
+                        }
+                    }
+                    else
+                    {
+                        i = 6;
+
+                    }
+                }
+                else
+                {
+                    i = 5;
+                }
+                return Json(i);
+            }
+            else
+            {
+                return Json(i);
+            }
+
+
+        }
+
+        [AllowAnonymous]
+        public ActionResult ListedProperty(SearchPropertyModel model)
+        {
+            var propertyViewModel = _property.GetProperties(model);
             return View(propertyViewModel);
+        }
+        [AllowAnonymous]
+        public ActionResult ListedSpainProperty(SearchPropertyModel model)
+        {
+            model.Region = 2;
+            var propertyViewModel = _property.GetProperties(model);
+            ViewBag.PropertyFrom = "Spain";
+            return View("ListedProperty", propertyViewModel);
+        }
+        [AllowAnonymous]
+        public ActionResult ListedIndianProperty(SearchPropertyModel model)
+        {
+            model.Region = 1;
+            var propertyViewModel = _property.GetProperties(model);
+            ViewBag.PropertyFrom = "India";
+            return View("ListedProperty", propertyViewModel);
         }
     }
 

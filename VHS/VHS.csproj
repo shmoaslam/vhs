@@ -192,6 +192,7 @@
   <ItemGroup>
     <Compile Include="App_Start\ActionFilter.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\CustomSelectorAction.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
@@ -223,6 +224,8 @@
     </Compile>
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\FacebookLogin.cs" />
+    <Compile Include="Models\ForgotPasswordViewModel.cs" />
+    <Compile Include="Models\ResetPasswordViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -267,6 +270,7 @@
     <Content Include="Images\18.jpg" />
     <Content Include="Images\19.jpg" />
     <Content Include="Images\2.jpg" />
+    <Content Include="Images\halfstar.png" />
     <Content Include="Images\3.jpg" />
     <Content Include="Images\4.jpg" />
     <Content Include="Images\5.jpg" />
@@ -306,6 +310,7 @@
     <Content Include="Images\home\list-prop1.jpg" />
     <Content Include="Images\home\nl.jpg" />
     <Content Include="Images\home\spain.jpg" />
+    <Content Include="Images\home\velvett.jpg" />
     <Content Include="Images\home\vh.jpg" />
     <Content Include="Images\icons\bg-adjust%402x.png" />
     <Content Include="Images\icons\bg-adjust.png" />
@@ -496,6 +501,7 @@
     <Content Include="Images\property2.jpg" />
     <Content Include="Images\rating.png" />
     <Content Include="Images\signature.png" />
+    <Content Include="Images\spain.jpg" />
     <Content Include="Images\star-rating.png" />
     <Content Include="Images\star.png" />
     <Content Include="Images\starp.png" />
@@ -503,6 +509,9 @@
     <Content Include="Images\symbol2.png" />
     <Content Include="Images\symbol22.png" />
     <Content Include="Images\tmbr.png" />
+    <Content Include="Images\Travelogy\nikhil2.jpg" />
+    <Content Include="Images\Travelogy\sagar2.jpg" />
+    <Content Include="Images\Travelogy\vandana2.jpg" />
     <Content Include="Images\twr.png" />
     <Content Include="Images\wishlist.png" />
     <Content Include="Scripts\AjaxPostFile.js" />
@@ -659,6 +668,14 @@
     <Content Include="Views\Home\Newsletter.cshtml" />
     <Content Include="Views\Mailer\BookingRequestEmailTemplate.cshtml" />
     <Content Include="Views\Shared\_PropertyWeekEndPricing.cshtml" />
+    <Content Include="Views\Shared\_CheckAvalibilityProperty.cshtml" />
+    <Content Include="Views\Home\Travelogy.cshtml" />
+    <Content Include="Views\Mailer\BookedPropertyConfirmationToAdmin.cshtml" />
+    <Content Include="Views\Mailer\BookedPropertyConfirmationToUser.cshtml" />
+    <Content Include="Views\Mailer\BookedPropertyConfirmationToRM.cshtml" />
+    <Content Include="Views\Home\TC.cshtml" />
+    <Content Include="Views\Home\TCBooking.cshtml" />
+    <Content Include="Views\Shared\_RelatedProperty.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

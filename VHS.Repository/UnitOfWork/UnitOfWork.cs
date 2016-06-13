@@ -7,6 +7,7 @@ using System.Data.Entity.Validation;
 using System.Diagnostics;
 using VHS.Core;
 using VHS.Data;
+using System.Data.SqlClient;
 
 namespace VHS.Repository
 {
@@ -57,17 +58,18 @@ namespace VHS.Repository
         private GenericRepository<PropertyWeekendPrice> _propertyWeekendPriceRepository;
         private GenericRepository<BookingRequest> _bookingRequestRepository;
         private GenericRepository<Newsletter> _newsletterRepository;
-
+        private GenericRepository<ResetPasswordToken> _resetPasswordToken;
+        private GenericRepository<PropertyBooking> _propertyBooking;
         #endregion
 
         public UnitOfWork()
         {
             _context = new VHSDbContext();
-            
+
         }
 
 
-        
+
         #region Public Repository Creation properties...
 
         /// <summary>
@@ -83,6 +85,7 @@ namespace VHS.Repository
             }
         }
 
+
         /// <summary>
         /// Get/Set Property for user repository.
         /// </summary>
@@ -95,6 +98,7 @@ namespace VHS.Repository
                 return _userProfileRepository;
             }
         }
+
 
         /// <summary>
         /// Get/Set Property for user repository.
@@ -588,6 +592,29 @@ namespace VHS.Repository
                 return _newsletterRepository;
             }
         }
+
+        /// <summary>
+        /// Get/Set Property for ResetPasswordToken repository.
+        /// </summary>
+        public GenericRepository<ResetPasswordToken> ResetPasswordTokenRepository
+        {
+            get
+            {
+                if (this._resetPasswordToken == null)
+                    this._resetPasswordToken = new GenericRepository<ResetPasswordToken>(_context);
+                return _resetPasswordToken;
+            }
+        }
+
+        public GenericRepository<PropertyBooking> PropertyBookingRepository
+        {
+            get
+            {
+                if (this._propertyBooking == null)
+                    this._propertyBooking = new GenericRepository<PropertyBooking>(_context);
+                return _propertyBooking;
+            }
+        }
         #endregion
 
         #region Public member methods...
@@ -657,30 +684,82 @@ namespace VHS.Repository
         #endregion
 
         #region Store Procedure
-        public List<string> GetAmennities(int propId, Anemities amenities)
+
+        public List<PropertyDisplayViewModel> GetProperties(string query, int region, int category)
         {
-            if (propId == 0) return null;
-            switch (amenities)
-            {
-                case Anemities.General:
-                    return _context.Database.SqlQuery<string>("select Name from PropertyGeneralMap join General on PropertyGeneralMap.generalid =  General.id where propertyid = " + propId).ToList();
-                case Anemities.Kitchen:
-                    return _context.Database.SqlQuery<string>("select Name from PropertyKitchenMap join Kitchen on PropertyKitchenMap.kitchenid =  Kitchen.id where propertyid = " + propId).ToList();
-                case Anemities.SleepingArrangments:
-                    return _context.Database.SqlQuery<string>("select Name from PropertySleepingMap join SleepingArrangement on PropertySleepingMap.sleeparrengid =  SleepingArrangement.id where propertyid = " + propId).ToList();
-                case Anemities.EntertainmentElectronic:
-                    return _context.Database.SqlQuery<string>("select Name from PropertyEnterElecMap join EntertainmentElectronics on PropertyEnterElecMap.enterelecid =  EntertainmentElectronics.id where propertyid =" + propId).ToList();
-                case Anemities.Bathroom:
-                    return _context.Database.SqlQuery<string>("select Name from PropertyBathRoomsMap join BathRooms on PropertyBathRoomsMap.BathRoomId =  BathRooms.id where propertyid = " + propId).ToList();
-                case Anemities.Outdoor:
-                    return _context.Database.SqlQuery<string>("select Name from PropertyOutdoorMap join OutdoorFacilities on PropertyOutdoorMap.outfaciId =  OutdoorFacilities.id where propertyid = " + propId).ToList();
-                case Anemities.Parking:
-                    return _context.Database.SqlQuery<string>("select Name from PropertyParkingMap join Parking on PropertyParkingMap.parkingid = Parking.id where propertyid = " + propId).ToList();
-                default:
-                    return null;
-            }
-           
+            return _context.Database.SqlQuery<PropertyDisplayViewModel>("exec GetListingProperty @regionId, @query, @category ", new SqlParameter("@regionId", region), new SqlParameter("@query", string.IsNullOrEmpty(query) ? string.Empty : query) , new SqlParameter("@category", category)).ToList();
         }
+        
+        public PropertyDetialModel GetPropertyDetails(int? id)
+        {
+            if (id == null) return null;
+            return _context.Database.SqlQuery<PropertyDetialModel>(" Exec GetPropertyDetails @propid", new SqlParameter("@propid", id)).FirstOrDefault();
+        }
+        public List<PropertyListForAdmin> GetPropertyListForAdmin(int rmid)
+        {
+            return _context.Database.SqlQuery<PropertyListForAdmin>(" Exec GetPropertyListForAdmin @rmId", new SqlParameter("@rmId", rmid)).ToList();
+        }
+
+        //Procedure to Check Property Availabilty:-
+        public bool CheckAvailbilityProerty(int PropertyId, DateTime StartDate, DateTime EndDate)
+        {
+            var result = _context.Database.SqlQuery<bool>("CheckAvailbilityProperty @propertyId, @StartDate, @EndDate", new SqlParameter("propertyId", PropertyId), new SqlParameter("StartDate", StartDate), new SqlParameter("EndDate", EndDate)).FirstOrDefault();
+            return result;
+        }
+
+        public List<PropertyDetialModel> GetPropertyWaitingForApproval()
+        {
+            return _context.Database.SqlQuery<PropertyDetialModel>("select Title, Id, name GalaryImage, categoryname + ', ' + city [Desc] from ( select Title, p.id Id,i.name , pc.categoryname , pa.city  , row_number() over (partition by Title order by name) as RowNbr   from property p  join PropertyImageMapping pim on p.Id = pim.propertyid  join Image i on pim.Imageid = i.imageid join PropertyCategory pc on pc.id = p.categoryid join PropertyAddress pa on pa.propertyid = p.id where p.isactive  = 1 and p.sendapprovedrequest = 1 and  p.isapproved = 0) a where RowNbr = 1").ToList();
+        }
+        #endregion
+
+
+        #region Class need to be moved
+
+        public class PropertyDisplayViewModel
+        {
+            public int Id { get; set; }
+            public string CoverImage { get; set; }
+            public string Category { get; set; }
+            public decimal Price { get; set; }
+            public int Bedroom { get; set; }
+            public string Title { get; set; }
+            public int GuestCount { get; set; }
+            public string Rating { get; set; }
+            public int RegionId { get; set; }
+        }
+        public class PropertyDetialModel : PropertyDisplayViewModel
+        {
+            public string GalaryImage { get; set; }
+            public string Desc { get; set; }
+            public string CheckIn { get; set; }
+            public string CheckOut { get; set; }
+            public string IsPetAllowed { get; set; }
+            public string IsSmokingAllowed { get; set; }
+            public string IsWheelchairAccessible { get; set; }
+            public string IsFamilyKidFriendly { get; set; }
+            public string IsDrinkingAllowed { get; set; }
+            public int PersonPerRoom { get; set; }
+            public string City { get; set; }
+            public string Country { get; set; }
+            public string General { get; set; }
+            public string Parking { get; set; }
+            public string Outdoor { get; set; }
+            public string Bathroom { get; set; }
+            public string Entertainment { get; set; }
+            public string Sleeping { get; set; }
+            public string Kitchen { get; set; }
+            public int MaxGuestCount { get; set; }
+            public decimal PricePerAdult { get; set; }
+            public decimal PricePerChild { get; set; }
+        }
+        public class PropertyListForAdmin
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+        }
+
+
         #endregion
     }
 }

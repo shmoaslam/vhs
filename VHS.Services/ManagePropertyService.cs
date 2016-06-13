@@ -146,6 +146,9 @@ namespace VHS.Services
                 propertyGeneralInfo.NoOfRooms = propGenralIngoobj.NumberOfRooms;
                 propertyGeneralInfo.NoOfBathrooms = propGenralIngoobj.NumberOfBathRoom;
                 propertyGeneralInfo.Price = propGenralIngoobj.Price;
+                propertyGeneralInfo.RegionId = propGenralIngoobj.RegionId;
+                propertyGeneralInfo.Region = GetRegion();
+
                 var propAddressobj = _unitOfWork.PropertyAddressRepository.GetFirst(m => m.PropertyId == PropertyId);
                 if (propAddressobj != null)
                 {
@@ -161,6 +164,7 @@ namespace VHS.Services
             {
                 propertyGeneralInfo.Category = GetCategory();
                 propertyGeneralInfo.ListBy = GetListBy();
+                propertyGeneralInfo.Region = GetRegion();
             }
             return propertyGeneralInfo;
         }
@@ -174,6 +178,7 @@ namespace VHS.Services
             propertyAdditionalInfo.FamilyKidAllowed = GetFamilyAllowed();
             propertyAdditionalInfo.PetsAllowed = GetPetsAllowed();
             propertyAdditionalInfo.WheelChairAllowed = GetWheelChairAllowed();
+            propertyAdditionalInfo.ProperyRating = GetPropertyRatingList();
 
             var propAdditional = _unitOfWork.PropertyAdditionalRepository.Get(m => m.PropertyId == propertyId);
             if (propAdditional != null)
@@ -189,6 +194,8 @@ namespace VHS.Services
                 propertyAdditionalInfo.PetsAllowedId = Convert.ToInt32(propAdditional.IsPetsAllowed);
                 propertyAdditionalInfo.WheelChairId = Convert.ToInt32(propAdditional.IsWheelChairAccess);
                 propertyAdditionalInfo.PropertySize = Convert.ToInt32(propAdditional.PropertySize);
+                propertyAdditionalInfo.PropRatingId = Convert.ToInt32(propAdditional.PropertyRating);
+                propertyAdditionalInfo.MaxGuest = Convert.ToInt32(propAdditional.MaxGuest);
                 propertyAdditionalInfo.Logitude = propAdditional.MapLongitude;
                 propertyAdditionalInfo.Latitude = propAdditional.MapLatitude;
                 propertyAdditionalInfo.PersonPerRoom = propAdditional.PersonPerRoom;
@@ -311,6 +318,11 @@ namespace VHS.Services
             propertyPhoto.imageGalaryPhoto = photo;
             return propertyPhoto;
         }
+
+        public Models.RelatedProperty GetRelatedProperty(int id)
+        {
+            return null;
+        }
         public PropertyTravelAmbassador GetPropertyTravelAmbassReview(int PropertyId)
         {
             var propertyTravleAmbassReview = new PropertyTravelAmbassador();
@@ -350,12 +362,13 @@ namespace VHS.Services
                 var propertObj = _unitOfWork.PropertyRepository.GetByID(propGeneralInfo.PropertyId);
                 propertObj.Title = propGeneralInfo.Title;
                 propertObj.NumberOfBathRoom = propGeneralInfo.NoOfBathrooms;
-                propertObj.NumberOfGuest = propGeneralInfo.NoOfGuests;
+                //propertObj.NumberOfGuest = propGeneralInfo.NoOfGuests;
                 propertObj.NumberOfRooms = propGeneralInfo.NoOfRooms;
                 propertObj.Price = propGeneralInfo.Price;
                 propertObj.ListedId = propGeneralInfo.ListById;
                 propertObj.CategoryId = propGeneralInfo.CategoryId;
                 propertObj.IsApproved = false;
+                propertObj.RegionId = propGeneralInfo.RegionId;
                 _unitOfWork.PropertyRepository.Update(propertObj);
                 _unitOfWork.Save();
                 //Create Property Address:-
@@ -375,18 +388,20 @@ namespace VHS.Services
                     _unitOfWork.PropertyImageMapRepository.Delete(m => m.PropertyId == propGeneralInfo.PropertyId);
                     foreach (var item in file)
                     {
-                        var imageObj = new Core.Image();
-                        string extension = Path.GetExtension(item.FileName).ToString();
-                        string filename = Path.GetFileNameWithoutExtension(item.FileName) + "_" + System.DateTime.Now.ToString("yyyyMMddHHmmss") + extension;
-                        var path = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadFile/PropertyImage/"), filename);
-                        item.SaveAs(path);
-                        imageObj.Name = filename;
-                        _unitOfWork.ImageRepository.Insert(imageObj);
-                        _unitOfWork.Save();
+                        if (item != null && !string.IsNullOrEmpty(item.FileName))
+                        {
+                            var imageObj = new Core.Image();
+                            string extension = Path.GetExtension(item.FileName).ToString();
+                            string filename = Path.GetFileNameWithoutExtension(item.FileName) + "_" + System.DateTime.Now.ToString("yyyyMMddHHmmss") + extension;
+                            var path = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadFile/PropertyImage/"), filename);
+                            item.SaveAs(path);
+                            imageObj.Name = filename;
+                            _unitOfWork.ImageRepository.Insert(imageObj);
+                            _unitOfWork.Save();
 
-                        _unitOfWork.PropertyImageMapRepository.Insert(new PropertyImageMapping { ImageId = imageObj.ImageId, PropertyId = propGeneralInfo.PropertyId });
-                        _unitOfWork.Save();
-
+                            _unitOfWork.PropertyImageMapRepository.Insert(new PropertyImageMapping { ImageId = imageObj.ImageId, PropertyId = propGeneralInfo.PropertyId });
+                            _unitOfWork.Save();
+                        }
                     }
                     result = true;
                 }
@@ -397,7 +412,7 @@ namespace VHS.Services
                 propertObj.Title = propGeneralInfo.Title;
 
                 propertObj.NumberOfBathRoom = propGeneralInfo.NoOfBathrooms;
-                propertObj.NumberOfGuest = propGeneralInfo.NoOfGuests;
+                //propertObj.NumberOfGuest = propGeneralInfo.NoOfGuests;
                 propertObj.NumberOfRooms = propGeneralInfo.NoOfRooms;
                 propertObj.Price = propGeneralInfo.Price;
                 propertObj.ListedId = propGeneralInfo.ListById;
@@ -422,20 +437,23 @@ namespace VHS.Services
                 {
                     foreach (var item in file)
                     {
-                        var imageObj = new Core.Image();
-                        string extension = Path.GetExtension(item.FileName).ToString();
-                        string filename = Path.GetFileNameWithoutExtension(item.FileName) + "_" + System.DateTime.Now.ToString("yyyyMMddHHmmss") + extension;
-                        var path = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadFile/PropertyImage/"), filename);
-                        item.SaveAs(path);
-                        imageObj.Name = filename;
-                        _unitOfWork.ImageRepository.Insert(imageObj);
-                        _unitOfWork.Save();
+                        if (item != null && !string.IsNullOrEmpty(item.FileName))
+                        {
+                            var imageObj = new Core.Image();
+                            string extension = Path.GetExtension(item.FileName).ToString();
+                            string filename = Path.GetFileNameWithoutExtension(item.FileName) + "_" + System.DateTime.Now.ToString("yyyyMMddHHmmss") + extension;
+                            var path = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadFile/PropertyImage/"), filename);
+                            item.SaveAs(path);
+                            imageObj.Name = filename;
+                            _unitOfWork.ImageRepository.Insert(imageObj);
+                            _unitOfWork.Save();
 
-                        var imgPropMap = new Core.PropertyImageMapping();
-                        imgPropMap.ImageId = imageObj.ImageId;
-                        imgPropMap.PropertyId = propertObj.Id;
-                        _unitOfWork.PropertyImageMapRepository.Insert(imgPropMap);
-                        _unitOfWork.Save();
+                            var imgPropMap = new Core.PropertyImageMapping();
+                            imgPropMap.ImageId = imageObj.ImageId;
+                            imgPropMap.PropertyId = propertObj.Id;
+                            _unitOfWork.PropertyImageMapRepository.Insert(imgPropMap);
+                            _unitOfWork.Save();
+                        }
                     }
                     result = true;
                 }
@@ -461,26 +479,13 @@ namespace VHS.Services
         public List<PropertyViewModel> GetPropertyForManage(int rmID)
         {
             var rmHomeVm = new List<PropertyViewModel>();
-            var propertyRmList = GetPropRmMap();
-            var propertyList = _property.GetPropertyList();
-            if (rmID == 0)
-            {
-                var result = (from pr in propertyRmList
-                              join pl in propertyList on pr.ProprtyId equals pl.PropertyId
-                              select new PropertyViewModel { PropertyId = pl.PropertyId, PropertyName = pl.PropertyName, ShortInfo = pl.ShortInfo, PropertImageList = pl.PropertImageList }).ToList();
-                return result;
 
-            }
-            else
-            {
-                var result = (from pr in propertyRmList
-                              join pl in propertyList on pr.ProprtyId equals pl.PropertyId
-                              where (pr.RMId == rmID)
-                              select new PropertyViewModel { PropertyId = pl.PropertyId, PropertyName = pl.PropertyName, ShortInfo = pl.ShortInfo, PropertImageList = pl.PropertImageList }).ToList();
-                return result;
-            }
+            var propList = _unitOfWork.GetPropertyListForAdmin(rmID);
 
-
+            if (propList != null)
+                foreach (var prop in propList)
+                    rmHomeVm.Add(new PropertyViewModel { PropertyId = prop.Id, PropertyName = prop.Name });
+            return rmHomeVm;
         }
         public SelectList GetCategory()
         {
@@ -502,6 +507,14 @@ namespace VHS.Services
             lstListBy.Add(new ddlListedBy { Value = 1, Text = "Representative" });
             SelectList selesctedListBy = new SelectList(lstListBy, "Value", "Text");
             return selesctedListBy;
+        }
+        public SelectList GetRegion()
+        {
+            var lstRegion = new List<ddlRegion>();
+            lstRegion.Add(new ddlRegion { Value = 1, Text = "Konkan" });
+            lstRegion.Add(new ddlRegion { Value = 2, Text = "Spain" });
+            SelectList selesctedRegion = new SelectList(lstRegion, "Value", "Text");
+            return selesctedRegion;
         }
 
         public SelectList GetPetsAllowed()
@@ -552,6 +565,18 @@ namespace VHS.Services
             lstPriceCurrency.Add(new ddlPriceCurrency { Value = 3, Text = "Doller" });
             lstPriceCurrency.Add(new ddlPriceCurrency { Value = 4, Text = "Sterling Pound" });
             SelectList selesctedListBy = new SelectList(lstPriceCurrency, "Value", "Text");
+            return selesctedListBy;
+        }
+        public SelectList GetPropertyRatingList()
+        {
+            var lstPropRating = new List<ddlPropertyRating>();
+            lstPropRating.Add(new ddlPropertyRating { Value = 1, Text = "3" });
+            lstPropRating.Add(new ddlPropertyRating { Value = 2, Text = "3.5" });
+            lstPropRating.Add(new ddlPropertyRating { Value = 3, Text = "4" });
+            lstPropRating.Add(new ddlPropertyRating { Value = 4, Text = "4.5" });
+            lstPropRating.Add(new ddlPropertyRating { Value = 5, Text = "5" });
+
+            SelectList selesctedListBy = new SelectList(lstPropRating, "Value", "Text");
             return selesctedListBy;
         }
 
@@ -660,7 +685,7 @@ namespace VHS.Services
                     CheckOutTime = propAdditionalInfoInfo.CheckOut,
                     IsDrinikingAllowed = propAdditionalInfoInfo.DrinkAllowedId.ToString(),
                     IsFamKidFriendAllowed = propAdditionalInfoInfo.FamilyKidAllowedId.ToString(),
-                    IsSmokingAllowed = propAdditionalInfoInfo.FamilyKidAllowedId.ToString(),
+                    IsSmokingAllowed = propAdditionalInfoInfo.SmokeAllowedId.ToString(),
                     IsWheelChairAccess = propAdditionalInfoInfo.WheelChairId.ToString(),
                     IsPetsAllowed = propAdditionalInfoInfo.PetsAllowedId.ToString(),
                     PropertySize = propAdditionalInfoInfo.PropertySize.ToString(),
@@ -668,13 +693,17 @@ namespace VHS.Services
                     MapLatitude = propAdditionalInfoInfo.Latitude,
                     MapLongitude = propAdditionalInfoInfo.Logitude,
                     PersonPerRoom = propAdditionalInfoInfo.PersonPerRoom,
+
+                    PropertyRating = propAdditionalInfoInfo.PropRatingId.ToString(),
+                    MaxGuest = propAdditionalInfoInfo.MaxGuest,
+
                     PropDescription = propAdditionalInfoInfo.PropertyDescription
 
                 });
             }
             else
             {
-                var propfixedobj = _unitOfWork.PropertyAdditionalRepository.GetByID(propAdditionalInfoInfo.PropertyId);
+                var propfixedobj = _unitOfWork.PropertyAdditionalRepository.GetFirst(m => m.PropertyId == propAdditionalInfoInfo.PropertyId);
                 if (propfixedobj != null)
                 {
 
@@ -682,7 +711,7 @@ namespace VHS.Services
                     propfixedobj.CheckOutTime = propAdditionalInfoInfo.CheckOut;
                     propfixedobj.IsDrinikingAllowed = propAdditionalInfoInfo.DrinkAllowedId.ToString();
                     propfixedobj.IsFamKidFriendAllowed = propAdditionalInfoInfo.FamilyKidAllowedId.ToString();
-                    propfixedobj.IsSmokingAllowed = propAdditionalInfoInfo.FamilyKidAllowedId.ToString();
+                    propfixedobj.IsSmokingAllowed = propAdditionalInfoInfo.SmokeAllowedId.ToString();
                     propfixedobj.IsWheelChairAccess = propAdditionalInfoInfo.WheelChairId.ToString();
                     propfixedobj.IsPetsAllowed = propAdditionalInfoInfo.PetsAllowedId.ToString();
                     propfixedobj.PropertySize = propAdditionalInfoInfo.PropertySize.ToString();
@@ -690,6 +719,8 @@ namespace VHS.Services
                     propfixedobj.MapLongitude = propAdditionalInfoInfo.Logitude;
                     propfixedobj.PropDescription = propAdditionalInfoInfo.PropertyDescription;
                     propfixedobj.PersonPerRoom = propAdditionalInfoInfo.PersonPerRoom;
+                    propfixedobj.MaxGuest = propAdditionalInfoInfo.MaxGuest;
+                    propfixedobj.PropertyRating = propAdditionalInfoInfo.PropRatingId.ToString();
                     _unitOfWork.PropertyAdditionalRepository.Update(propfixedobj);
                 }
             }
@@ -833,7 +864,10 @@ namespace VHS.Services
             }
             return result;
         }
-
+        public bool UpdateRelatedProperty(Models.RelatedProperty model)
+        {
+            return false;
+        }
         public bool UpdatePropCoverPhoto(PropertyCoverPhoto propertyCoverPhoto, List<HttpPostedFileBase> CoverPhoto)
         {
             bool result = false;
@@ -919,19 +953,24 @@ namespace VHS.Services
                     otherprice = propFixedPrice.OtherPrice.ToString();
                 }
 
-                _unitOfWork.PropFixedPriceRepository.Insert(new PropertyFixedPrice { PricePerMonth = Convert.ToDecimal(propFixedPrice.PricePerMonth), CleaningFeeDaily = Convert.ToDecimal(propFixedPrice.CleaningFeeDaily), CleaningFeeWeek = Convert.ToDecimal(propFixedPrice.CleaningFeeWeekly), CleaningFeeMonth = Convert.ToDecimal(propFixedPrice.CleaningFeeMonthly), PricePerNight = Convert.ToDecimal(propFixedPrice.PricePerNight), PricePerWeek = Convert.ToDecimal(propFixedPrice.PricePerWeek), OneTimeFee = Convert.ToDecimal(propFixedPrice.PriceOneTime), PropertyId = propFixedPrice.PropertyId, Currency = propFixedPrice.CurrencyId.ToString(), OtherFee = otherprice, Comision = propFixedPrice.Comision });
+                _unitOfWork.PropFixedPriceRepository.Insert(new PropertyFixedPrice { StartDate = propFixedPrice.StartDate, EndDate = propFixedPrice.StopDate, PricePerAdult = Convert.ToDecimal(propFixedPrice.PricePerAdult), PricePerChild = Convert.ToDecimal(propFixedPrice.PricePerChild), CleaningFeeDaily = Convert.ToDecimal(propFixedPrice.CleaningFeeDaily), CleaningFeeWeek = Convert.ToDecimal(propFixedPrice.CleaningFeeWeekly), CleaningFeeMonth = Convert.ToDecimal(propFixedPrice.CleaningFeeMonthly), PricePerNight = Convert.ToDecimal(propFixedPrice.PricePerNight), PricePerWeek = Convert.ToDecimal(propFixedPrice.PricePerWeek), OneTimeFee = Convert.ToDecimal(propFixedPrice.PriceOneTime), PropertyId = propFixedPrice.PropertyId, Currency = propFixedPrice.CurrencyId.ToString(), OtherFee = otherprice, Comision = propFixedPrice.Comision });
             }
             else
             {
                 var propfixedobj = _unitOfWork.PropFixedPriceRepository.GetByID(propFixedPrice.PropFixedPriceId);
                 if (propfixedobj != null)
                 {
+
                     propfixedobj.PricePerMonth = Convert.ToDecimal(propFixedPrice.PricePerMonth);
                     propfixedobj.PricePerNight = Convert.ToDecimal(propFixedPrice.PricePerNight);
                     propfixedobj.PricePerWeek = Convert.ToDecimal(propFixedPrice.PricePerWeek);
                     propfixedobj.CleaningFeeDaily = Convert.ToDecimal(propFixedPrice.CleaningFeeDaily);
                     propfixedobj.CleaningFeeMonth = Convert.ToDecimal(propFixedPrice.CleaningFeeMonthly);
                     propfixedobj.CleaningFeeWeek = Convert.ToDecimal(propFixedPrice.CleaningFeeWeekly);
+
+                    propfixedobj.PricePerAdult = Convert.ToDecimal(propFixedPrice.PricePerAdult);
+                    propfixedobj.PricePerChild = Convert.ToDecimal(propFixedPrice.PricePerChild);
+
                     if (propFixedPrice.OtherPrice != null)
                     {
                         propfixedobj.OtherFee = propFixedPrice.OtherPrice.ToString();
@@ -941,7 +980,8 @@ namespace VHS.Services
                         propfixedobj.OtherFee = otherprice;
                     }
 
-
+                    propfixedobj.StartDate = propFixedPrice.StartDate;
+                    propfixedobj.EndDate = propFixedPrice.StopDate;
                     propfixedobj.OneTimeFee = Convert.ToDecimal(propFixedPrice.PriceOneTime);
                     propfixedobj.Comision = propFixedPrice.Comision;
                     propfixedobj.Currency = propFixedPrice.CurrencyId.ToString();
@@ -997,7 +1037,19 @@ namespace VHS.Services
         public AdminHomeViewModel GetApprovedWaitingProperty()
         {
             var adminHomeVm = new AdminHomeViewModel();
-            adminHomeVm.propertyListVm = _property.GetPropertyList().Where(m => !m.IsApproved & m.WaitingForApproval && !m.IsApproved).ToList();
+            var adminViewModelDb = _unitOfWork.GetPropertyWaitingForApproval();
+            var list = new List<PropertyViewModel>();
+            if(adminViewModelDb != null && adminViewModelDb.Count() > 0)
+            {
+                foreach (var item in adminViewModelDb)
+                {
+                    var imagelist = new List<ImageViewModel>();
+                    imagelist.Add(new ImageViewModel { ImageName = item.GalaryImage });
+                    list.Add(new PropertyViewModel { PropertyId = item.Id, PropertyName = item.Title, PropertImageList = imagelist,ShortInfo = item.Desc });
+                }
+            }
+
+            adminHomeVm.propertyListVm = list;
             return adminHomeVm;
         }
 
@@ -1023,5 +1075,6 @@ namespace VHS.Services
             return result;
         }
 
+       
     }
 }

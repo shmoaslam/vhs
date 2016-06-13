@@ -57,7 +57,9 @@ namespace VHS.Data
         public DbSet<PropertyWeekendPrice> PropertyWeekendPrices { get; set; }
         public DbSet<BookingRequest> BookingRequest { get; set; }
         public DbSet<Newsletter> Newsletter { get; set; }
-
+        public DbSet<PropertyBooking> PropertyBooking { get; set; }
+        public DbSet<ResetPasswordToken> ResetPasswordToken { get; set; }
+        public DbSet<RelatedProperty> RelatedPropertys { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
@@ -103,7 +105,9 @@ namespace VHS.Data
             modelBuilder.Entity<PropertyVraiblePrice>().ToTable("PropertyVraiblePrice");
             modelBuilder.Entity<PropertyWeekendPrice>().ToTable("PropertyWeekendPrice");
             modelBuilder.Entity<Newsletter>().ToTable("Newsletter");
-
+            modelBuilder.Entity<PropertyBooking>().ToTable("PropertyBooking");
+            modelBuilder.Entity<ResetPasswordToken>().ToTable("ResetPasswordToken");
+            modelBuilder.Entity<RelatedProperty>().ToTable("RelatedProperty");
             //one-to-many:-One Usertype have many user:-
             modelBuilder.Entity<UserLogin>().HasRequired<UserType>(s => s.UserType).WithMany(s => s.UserLogin).HasForeignKey(s => s.TypeId);
             modelBuilder.Entity<Document>().HasRequired<UserLogin>(s => s.UserLogin).WithMany(s => s.Document).HasForeignKey(s => s.LoginId);

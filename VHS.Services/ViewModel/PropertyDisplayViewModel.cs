@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VHS.Services.Models;
 
 namespace VHS.Services.ViewModel
 {
@@ -25,7 +26,13 @@ namespace VHS.Services.ViewModel
         public string PersonPerRoom { get; set; }
         public string Title { get; set; }
         public string Address { get; set; }
-
+        public string Country { get; set; }
+        public int GuestCount { get; set; }
+        public string Rating { get; set; }
+        public int RegionId { get; set; }
+        public int MaxGuestCount { get; set; }
+        public decimal PricePerAdult { get; set; }
+        public decimal PricePerChild { get; set; }
         public List<string> General { get; set; }
         public List<string> Parking { get; set; }
         public List<string> Outdoor { get; set; }
@@ -33,6 +40,7 @@ namespace VHS.Services.ViewModel
         public List<string> EntertainmentElectronic { get; set; }
         public List<string> SleepingArrangments { get; set; }
         public List<string> Kitchen { get; set; }
-        
+        public PropertyBooking objPropertyBooking { get; set; }
+
     }
 }

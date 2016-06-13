@@ -51,6 +51,18 @@ namespace VHS.Services.Models
         [Required(ErrorMessage = "Please enter longitude")]
         public string Logitude { get; set; }
 
+
+        [Required(ErrorMessage = "Please select rating")]
+        public int PropRatingId { get; set; }
+        public SelectList ProperyRating { get; set; }
+
+        [Required(ErrorMessage = "Please enter max guest ")]
+        public int MaxGuest { get; set; }
+
+
+
+
+
     }
     public class ddlCallTime
     {
@@ -86,9 +98,7 @@ namespace VHS.Services.Models
     public class BlakOutDate
     {
         public int BlackOutDateId { get; set; }
-        [Required(ErrorMessage = "Please enter start date")]
         public string StartDate { get; set; }
-        [Required(ErrorMessage = "Please enter end date")]
         public string EndDate { get; set; }
     }
     public class PropertyAmenities
@@ -118,24 +128,26 @@ namespace VHS.Services.Models
         [Required(ErrorMessage = "Please select option")]
         public int CurrencyId { get; set; }
         public SelectList PriceCurrency { get; set; }
+        [Required(ErrorMessage = "Please select start date")]
+        public DateTime StartDate { get; set; }
+        [Required(ErrorMessage = "Please select stop date")]
+        public DateTime StopDate { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
         public double PricePerNight { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
         public double PricePerWeek { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
         public double PricePerMonth { get; set; }
-        [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
         public double CleaningFeeDaily { get; set; }
-        [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
         public double CleaningFeeWeekly { get; set; }
-        [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
         public double CleaningFeeMonthly { get; set; }
-        [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
         public double PriceOneTime { get; set; }
-
         public string OtherPrice { get; set; }
-        [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
         public decimal Comision { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
+        public double PricePerAdult { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
+        public double PricePerChild { get; set; }
     }
     public class PropertyVarablePricing
     {
@@ -162,6 +174,12 @@ namespace VHS.Services.Models
         public decimal Price { get; set; }
     }
     public class ddlPriceCurrency
+    {
+        public int Value { get; set; }
+        public string Text { get; set; }
+    }
+
+    public class ddlPropertyRating
     {
         public int Value { get; set; }
         public string Text { get; set; }

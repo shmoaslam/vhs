@@ -49,6 +49,7 @@ namespace VHS.Interface
         bool PropertyAprrovalRequest(PropertyNotification notification);
         bool PropertyDeleteRequest(PropertyNotification notification);
         bool ApprovedProperty(PropertyNotification notification);
-        
+        RelatedProperty GetRelatedProperty(int id);
+        bool UpdateRelatedProperty(RelatedProperty model);
     }
 }

@@ -39,7 +39,7 @@ namespace VHS.DependencyResolution
                 c.For<IAdminHome>().Use<AdminService>();
                 c.For<ICategoryService>().Use<CategoryService>();
                 c.For<IHomeService>().Use<HomeService>();
-                //c.For<IAccount>().Use<AccountService>();
+                c.For<IPropertyBooking>().Use<PropertyBookingService>();
                 //c.For<IProfile>().Use<ProfileService>();
                 //c.For<IAccount>().Use<AccountService>();
                 //c.For<IProfile>().Use<ProfileService>();
