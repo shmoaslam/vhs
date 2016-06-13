@@ -29,7 +29,7 @@
         <div id="container" class="no-bg">
             <article class="element clearfix col-lg-12 col-md-12 col-sm-12 col-xs-12 home">
                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                    <h3 class="title"><span class="property-id">VH@(Model.Id.ToString("D5"))</span>: @Model.Title</h3>
+                    <h3 class="title"><span class="property-id">VH@(Model.Id.ToString("D5"))</span>: <span id="propertyTitle"> @Model.Title</span></h3>
                     <p>
                         @Model.Desc
                     </p>
@@ -54,18 +54,18 @@
 
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 border-left-wrapper">
 
-                   
+
 
                     @Html.Partial("_CheckAvalibilityProperty", Model.objPropertyBooking)
                 </div>
 
-                <div class="clear"><p><br/></p></div>
+                <div class="clear"><p><br /></p></div>
 
 
-            <!--</article>
+                <!--</article>
 
-            <article class="element clearfix col-lg-12 col-md-12 col-sm-12 col-xs-12 home">-->
-			
+                <article class="element clearfix col-lg-12 col-md-12 col-sm-12 col-xs-12 home">-->
+
 
                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
 
@@ -97,8 +97,8 @@
                             </div>
 
                         </div>
-						
-						
+
+
                             <!--slider end-->
                     }
                 </div>
@@ -128,11 +128,11 @@
                         </tr>
                         <tr>
                             <td class="col-md-8 am-pad">Extra per person cost (Adult) : </td>
-                            <td><span class="sm-txt"  id="pricePerAdult">@Model.PricePerAdult</span></td>
+                            <td><span class="sm-txt" id="pricePerAdult">@Model.PricePerAdult</span></td>
                         </tr>
                         <tr>
                             <td class="col-md-8 am-pad">Extra per person cost (Child) : </td>
-                            <td><span class="sm-txt"  id="pricePerChild">@Model.PricePerChild</span></td>
+                            <td><span class="sm-txt" id="pricePerChild">@Model.PricePerChild</span></td>
                         </tr>
                         <tr>
                             <td class="col-md-8 am-pad">Pets Allowed : </td>
@@ -205,56 +205,34 @@
 
                 </article>
 
-
-                @*<article class="element clearfix">
-                     <h3>Location Map</h3>
-                     <div class="head-underline-s"> </div>
-                     <div id="dvMap" style="width: 500px; height: 500px">
-                     </div>
-                    <img class="property-map" src="/images/map.jpg" id="dvMap"/>
-                                </article>*@
-
-                @*<article class="element clearfix">
-
-                        <h3>Reviews</h3>
+                @if (Model.CancellationPolicy != 0)
+                {
+                    <article class="element clearfix">
+                        <h3>Cancellation Policy</h3>
                         <div class="head-underline-s"> </div>
-                        <blockquote class="clearfix centered">
-                            <div class="borderline"></div>
-                            <div class="questionmark">&rdquo;</div>
-                            <p>Our expectations were absolutely surpassed. We are so glad we chose Peekskill for our new project.</p>
-                            <p class="small">John Doe</p>
-                            <p class="ratings">
-                                <img class="star" src="/images/star.png" width="15" alt="star" />
-                                <img class="star" src="/images/star.png" width="15" alt="star" />
-                                <img class="star" src="/images/star.png" width="15" alt="star" />
-                                <img class="star" src="/images/star.png" width="15" alt="star" />
-                                <img class="star" src="/images/star.png" width="15" alt="star" />
-                            </p>
-                            <div class="borderline"></div>
-                        </blockquote>
-                        <div class="review">
-                            <p class="add-rating text-center">Rate & Review</p>
-                            <form class="form-part" id="" action="" method="">
-                                <div class="input-wrapper clearfix">
-                                    <label>
-                                        Rate this<br>
-                                        <div class="add-star-rating"></div>
-                                        <div class="add-star-rating"></div>
-                                        <div class="add-star-rating"></div>
-                                        <div class="add-star-rating"></div>
-                                        <div class="add-star-rating"></div>
-                                    </label>
-                                </div>
-                                <label>Write Review</label>
-                                <textarea></textarea>
-                                <div class="input-wrapper clearfix">
-                                    <input class="send-btn" type="submit" name="" value="Submit" />
-                                    <input type="reset" class="send-btn" value="Reset" id="" name="">
-                                </div>
-                            </form>
-                            </p>
+                        @switch (Model.CancellationPolicy)
+                        {
+                            case 1:
+                                <p>The guest is not charged for any cancellations done before the day of arrival. Cancellations done on the day of arrival will be charged 20% of the total booking amount.</p>
+                                break;
+                            case 2:
+                                <p>
+                                    Reservation must be cancelled 7 days prior to the planned date of arrival for FIT. One night's stay will be levied for cancellations received upto 2 days prior to arrival. Full stay will be levied for cancellations received within 1 days prior to arrival.
+                                    For group bookings all bookings must be reconfirmed 30 days in advance either by payment or voucher. Any changes/cancellation prior to 30 days of arrival will attract no cancellation charges.
+                                    NOSHOW will be charged in full.
+                                </p>
+                                break;
+                            case 3:
+                                <p>
+                                    Reservations cancelled 7 days prior to booking will not receive any amount in return. If the reservation is cancelled between 7-15 days prior to the date of booking 50% amount will be returned and bookings cancelled before 15 days of the booking date will get fully refunded.
+                                </p>
+                                break;
 
-                    </article>*@
+                        }
+
+                    </article>
+                }
+
 
             </div>
 
@@ -298,29 +276,33 @@
 
 
 @section scripts{
+    @*<script>
+        $("#endDate").datepick({ dateFormat: 'dd/mm/yyyy' });
+        $("#startDate").datepick({ dateFormat: 'dd/mm/yyyy' });
+    </script>*@
 
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var LatLng = new google.maps.LatLng("19.128662", "72.862866");
-            var mapOptions = {
-                center: LatLng,
-                zoom: 13,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
-            var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
-            var marker = new google.maps.Marker({
-                position: LatLng,
-                map: map,
-                title: "<div style = 'height:60px;width:200px'><b>Your location:</b><br />Latitude: " + p.coords.latitude + "<br />Longitude: " + p.coords.longitude
-            });
-            google.maps.event.addListener(marker, "click", function (e) {
-                var infoWindow = new google.maps.InfoWindow();
-                infoWindow.setContent(marker.title);
-                infoWindow.open(map, marker);
-            });
-        })
-    </script>
+    @*<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var LatLng = new google.maps.LatLng("19.128662", "72.862866");
+                var mapOptions = {
+                    center: LatLng,
+                    zoom: 13,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+                var marker = new google.maps.Marker({
+                    position: LatLng,
+                    map: map,
+                    title: "<div style = 'height:60px;width:200px'><b>Your location:</b><br />Latitude: " + p.coords.latitude + "<br />Longitude: " + p.coords.longitude
+                });
+                google.maps.event.addListener(marker, "click", function (e) {
+                    var infoWindow = new google.maps.InfoWindow();
+                    infoWindow.setContent(marker.title);
+                    infoWindow.open(map, marker);
+                });
+            })
+        </script>*@
 
 }
 

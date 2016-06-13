@@ -38,7 +38,7 @@ namespace VHS.Services
                 //var emailHtmlBody = templateService.Parse(File.ReadAllText(templateFilePath), mailDetails, null, null);
                 //MailSend.SendEmail(Email, Subject, emailHtmlBody, true);
                 //MailSend.SendEmail(Email, Subject, "", true);
-                MailSend.SendGmail(Email, Subject, Links);
+                //MailSend.SendGmail(Email, Subject, Links);
             }
             catch (Exception ex)
             {

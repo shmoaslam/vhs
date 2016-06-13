@@ -61,6 +61,7 @@
     <Compile Include="Enum\Anemities.cs" />
     <Compile Include="Enum\UserTypeEnum.cs" />
     <Compile Include="HomeService.cs" />
+    <Compile Include="IManageBookingService.cs" />
     <Compile Include="Interface\IAccount.cs" />
     <Compile Include="Interface\IAdminHome.cs" />
     <Compile Include="Interface\ICategoryService.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Interface\IPropertyBooking.cs" />
     <Compile Include="Interface\IUser.cs" />
     <Compile Include="AccountService.cs" />
+    <Compile Include="ManageBookingService.cs" />
     <Compile Include="ManagePropertyService.cs" />
     <Compile Include="ManageRmService.cs" />
     <Compile Include="Models\MailSendLink.cs" />
@@ -101,6 +103,7 @@
     <Compile Include="ViewModel\ImageViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\ManagePropertyViewModel.cs" />
+    <Compile Include="ViewModel\ManganeBookingViewModel.cs" />
     <Compile Include="ViewModel\NewsletterViewModel.cs" />
     <Compile Include="ViewModel\ProfileViewModel.cs" />
     <Compile Include="ViewModel\PropertyDisplayViewModel.cs" />

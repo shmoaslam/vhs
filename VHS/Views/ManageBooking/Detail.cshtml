@@ -1,0 +1,141 @@
+﻿@model VHS.Services.ViewModel.ManganeBookingViewModel
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="section">
+    <div class="container clearfix centered">
+        <div class="col-lg-12">
+            <h3 class="header">Booking Process</h3>
+            <div class="head-underline"></div>
+        </div>
+    </div>
+    <div class="container clearfix centered">
+        <div class="col-lg-6 col-md-6 col-sm-12 aligncenter">
+            <p class="sub-heading"><span class="error-msg">some error occured</span></p>
+            @if (Model != null)
+            {
+                using (Html.BeginForm("UpdateBooking", "ManageBooking", FormMethod.Post, new { @class = "form-part", autocomplete = "off" }))
+                {
+                    @Html.HiddenFor(x=>x.Id)
+                    <table class="table table-responsive">
+                        <tbody>
+                            <tr>
+                                <td colspan="2"><h4>Booking Details</h4></td>
+                            </tr>
+                            <tr>
+                                <td><label style="width:100px;">Property ID:</label></td>
+                                <td>@Html.TextBoxFor(x => x.PropertyId, new { @class = "sm-input", @readonly = "readonly" }) </td>
+                            </tr>
+                            <tr>
+                                <td><label>Booking ID:</label></td>
+                                <td>@Html.TextBoxFor(x => x.BookingId, new { @class = "sm-input", @readonly = "readonly" })</td>
+                            </tr>
+                            <tr>
+                                <td><label>Name</label></td>
+                                <td>@Html.TextBoxFor(x => x.Name, new { @class = "sm-input", @readonly = "readonly", size = "30" })</td>
+                            </tr>
+                            <tr>
+                                <td><label>Email</label></td>
+                                <td>@Html.TextBoxFor(x => x.Email, new { @class = "sm-input", @readonly = "readonly", size = "30" })</td>
+                            </tr>
+                            <tr>
+                                <td><label>Contact No.</label></td>
+                                <td>@Html.TextBoxFor(x => x.ContactNumber, new { @class = "sm-input", @readonly = "readonly", size = "30" })</td>
+                            </tr>
+                            <tr>
+                                <td><label>Check in</label></td>
+                                <td>@Html.TextBoxFor(x => x.CheckIn, new { @class = "sm-input", id = "checkin", type = "date"})</td>
+                            </tr>
+                            <tr>
+                                <td><label>Check out</label></td>
+                                <td>@Html.TextBoxFor(x => x.CheckOut, new { @class = "sm-input", id = "checkout", type = "date" })</td>
+                            </tr>
+                            <tr>
+                                <td><label>Guests</label></td>
+                                <td>@Html.TextBoxFor(x => x.Guests, new { @class = "sm-input", type = "number" })</td>
+                            </tr>
+                            <tr>
+                                <td><label>Is Customer ID collected?</label></td>
+                                <td>
+                                    <select class="sm-input">
+                                        <option value="0">Select</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><h4>Extra Person Details</h4></td>
+                            </tr>
+                            <tr>
+                                <td><label>Adult(s)</label></td>
+                                <td>@Html.TextBoxFor(x => x.AdultCount, new { @class = "sm-input", type = "number" })</td>
+                            </tr>
+                            <tr>
+                                <td><label>Child(s)</label></td>
+                                <td>@Html.TextBoxFor(x => x.ChildCount, new { @class = "sm-input", type = "number" })</td>
+                            </tr>
+                            <tr>
+                                <td><label>Comments,<br> if any:</label></td>
+                                <td>@Html.TextAreaFor(x => x.UserComment, new { rows = "4", cols = "50" })</td>
+                            </tr>
+                            <tr></tr>
+                            <tr>
+                                <td colspan="2"><h4>Pricing</h4></td>
+                            </tr>
+                            <tr>
+                                <td><label>Quoted Price</label></td>
+                                <td>@Html.TextBoxFor(x => x.QuotedPrice, new { @class = "sm-input" })</td>
+                            </tr>
+                            <tr>
+                                <td><label>Price after negotiations</label></td>
+                                <td>@Html.TextBoxFor(x => x.NegotiatePrice, new { @class = "sm-input" })</td>
+                            </tr>
+                            <tr>
+                                <td><label>Payment to be received</label></td>
+                                <td>@Html.TextBoxFor(x => x.RecievedPayment, new { @class = "sm-input" })</td>
+                            </tr>
+                            <tr>
+                                <td><label>Comments,<br> if any:</label></td>
+                                <td>@Html.TextAreaFor(x => x.UserComment, new { rows = "4", cols = "50" })</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><input type="submit" class="button alignleft" value="Update"> </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><a class="button alignleft" href="#">Send Payment Request</a> <a class="button alignleft" href="#">Confirm</a> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                }
+
+            }
+            else
+            {
+                <p>Invalid booking Id</p>
+            }
+
+        </div>
+    </div>
+    @section scripts{
+    <script>
+        $(document).ready(function () {
+           
+        });
+        //jQuery(function ($) { //on document.ready
+        //    $('#checkin').datepick({ dateFormat: 'dd/mm/yyyy' });
+        //    $("#checkout").datepick({ dateFormat: 'dd/mm/yyyy' });
+        //})
+
+        $("#checkin").val('@Model.CheckIn.ToString("yyyy-MM-dd")');
+        $("#checkout").val('@Model.CheckOut.ToString("yyyy-MM-dd")');
+    </script>
+        }
+  
+
+</section>

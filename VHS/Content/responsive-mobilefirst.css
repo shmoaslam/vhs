@@ -35,7 +35,7 @@
 .comment-form { padding: 0; }
 .comment-form > input, .comment-form > textarea { width: 100%; }
 
-.border-left-wrapper { padding-left:15px; padding-top:25px; }
+.border-left-wrapper { padding-left:15px; padding-top:25px; border-color:#fff;}
 }
 
 

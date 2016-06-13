@@ -1,5 +1,5 @@
 /* Form style */
-input, textarea, select { font: 15px 'Lato', Arial, Helvetica, sans-serif; color:#777; border:0; -webkit-transition: all 0.2s ease 0s; -moz-transition: all 0.2s ease 0s; -o-transition: all 0.2s ease 0s; transition: all 0.2s ease 0s; float:none; display:block; margin:0px; -webkit-appearance: none; background:none }
+input, textarea, select { font: 15px 'Lato', Arial, Helvetica, sans-serif; padding:4px; color:#777; border:1px solid #ebebeb; -webkit-transition: all 0.2s ease 0s; -moz-transition: all 0.2s ease 0s; -o-transition: all 0.2s ease 0s; transition: all 0.2s ease 0s; float:none; display:block; margin:0px; -webkit-appearance: none; background:none }
 textarea {  }
 #message { margin: 0; padding: 0px; z-index:200; height:auto; }
 .error_message, #success_page { display: block; height:auto; color:#d31800; font-style:italic; font-family: "Lato",'Open Sans', 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: 12px; padding: 6px 0px 0px 0px; line-height:1.5 }
@@ -9,7 +9,8 @@ textarea {  }
 .contact > .elem-content {background:#fff !important }
 .form-part { padding: 0; margin-top:0px;  }
 .form-part > textarea, .form-part > select, .form-part > input:not([type="submit"]):not([type="image"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]) {
- padding: 16px 18px 16px 18px; width: 100%; margin-bottom: 10px; border:1px solid #d8d8d8; font-style: normal; line-height: 20px; background:#f5f5f5;
+ padding: 10px; 
+ width: 100%; margin-bottom: 10px; border:1px solid #d8d8d8; font-style: normal; line-height: 20px; background:#f5f5f5;
 }
 .grey .form-part > textarea, .grey .form-part > select, .grey .form-part > input:not([type="submit"]):not([type="image"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]) { border:1px solid #fff; }
 .form-part > input:focus, .form-part > textarea:focus { }

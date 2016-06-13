@@ -700,6 +700,11 @@ namespace VHS.Repository
             return _context.Database.SqlQuery<PropertyListForAdmin>(" Exec GetPropertyListForAdmin @rmId", new SqlParameter("@rmId", rmid)).ToList();
         }
 
+        public ManganeBookingViewModel GetBookingDetails(int bookingId)
+        {
+            return _context.Database.SqlQuery<ManganeBookingViewModel>(" Exec GetBookingDetail @bookingId", new SqlParameter("@bookingId", bookingId)).FirstOrDefault();
+        }
+
         //Procedure to Check Property Availabilty:-
         public bool CheckAvailbilityProerty(int PropertyId, DateTime StartDate, DateTime EndDate)
         {
@@ -715,6 +720,33 @@ namespace VHS.Repository
 
 
         #region Class need to be moved
+
+        public class ManganeBookingViewModel
+        {
+            public int Id { get; set; }
+            public string PropertyId { get; set; }
+            public string BookingId { get; set; }
+            public string Name { get; set; }
+            public int LoginId { get; set; }
+            public string Email { get; set; }
+            public string ContactNumber { get; set; }
+            public DateTime CheckIn { get; set; }
+            public DateTime CheckOut { get; set; }
+            public int Guests { get; set; }
+            public bool IsCustomerIdAvailable { get; set; }
+
+            public int AdultCount { get; set; }
+            public int ChildCount { get; set; }
+            public string UserComment { get; set; }
+
+            public decimal QuotedPrice { get; set; }
+            public decimal NegotiatePrice { get; set; }
+            public decimal RecievedPayment { get; set; }
+
+            public string RmComment { get; set; }
+
+
+        }
 
         public class PropertyDisplayViewModel
         {
@@ -752,6 +784,7 @@ namespace VHS.Repository
             public int MaxGuestCount { get; set; }
             public decimal PricePerAdult { get; set; }
             public decimal PricePerChild { get; set; }
+            public int CancellationPolicy { get; set; }
         }
         public class PropertyListForAdmin
         {

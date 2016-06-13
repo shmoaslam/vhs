@@ -33,7 +33,9 @@ namespace VHS.Services
             int loginId = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
             if (!CheckPropertyAvailbility(propertyBook))
             {
-                _unitOfWork.PropertyBookingRepository.Insert(new Core.PropertyBooking { LoginId = loginId, StartDate = propertyBook.StartDate, EndDate = propertyBook.EndDate, PropertyId = propertyBook.PropertyId });
+                _unitOfWork.PropertyBookingRepository.Insert(new Core.PropertyBooking { LoginId = loginId, StartDate = propertyBook.StartDate,
+                    EndDate = propertyBook.EndDate, PropertyId = propertyBook.PropertyId, GuestCount = propertyBook.GuestNo, ChildCount = propertyBook.ChildNo
+                , AdultCount = propertyBook.AdultNo, AproxPrice = propertyBook.AprroxPrice});
                 _unitOfWork.Save();
                 result = true;
 
@@ -43,15 +45,25 @@ namespace VHS.Services
                 {
                     var propertyRMId = _unitOfWork.PropertyRMMapRepository.GetSingle(m => m.PropertyId == propertyBook.PropertyId).LoginId;
                     var bookingConfirmation = new BookingConfirmation();
-                    bookingConfirmation.StartDate = propertyBook.StartDate.ToString();
-                    bookingConfirmation.EndDate = propertyBook.EndDate.ToString();
-                    bookingConfirmation.Property = "VHS" + propertyBook.PropertyId.ToString("D5");
+
+
                     bookingConfirmation.AdminEmail = "velvetthomestays@vikasgroup.com";//adminEmail.Where(m => m.TypeId == 1).FirstOrDefault().Email.ToString();
-                    bookingConfirmation.RmEmail = adminEmail.Where(m => m.LoginId == propertyRMId).FirstOrDefault().Email;
+
+                    var rm = adminEmail.Where(m => m.LoginId == propertyRMId).FirstOrDefault();
+                    bookingConfirmation.RmEmail = rm.Email;
+                    bookingConfirmation.RmName = rm.Name;
+
                     var userDetail = adminEmail.Where(m => m.LoginId == loginId).FirstOrDefault();
                     bookingConfirmation.Email = userDetail.Email;
                     bookingConfirmation.UserName = userDetail.Name;
-                    bookingConfirmation.Mobile = "";
+                    bookingConfirmation.Mobile = _unitOfWork.UserProfileRepository.GetFirst(x => x.LoginId == loginId).Mobile; ;
+
+                    bookingConfirmation.GuestCount = propertyBook.GuestNo;
+                    bookingConfirmation.StartDate = Convert.ToDateTime( propertyBook.StartDate).ToShortDateString();
+                    bookingConfirmation.EndDate = Convert.ToDateTime(propertyBook.EndDate).ToShortDateString();
+                    bookingConfirmation.Property = "VHS" + propertyBook.PropertyId.ToString("D5");
+                    bookingConfirmation.PropertyName = propertyBook.PropertyName;
+
                     _notificationService.BookingConfirmationMail(bookingConfirmation);
                 }
 
