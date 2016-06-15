@@ -23,9 +23,9 @@
         <label class="sm-label">Maximum Guests allowed<span class="required">*</span></label>
                 @Html.TextBoxFor(m => m.MaxGuest)
                 <span style="color:red">@Html.ValidationMessageFor(m => m.MaxGuest)</span><br />
-        <label class="sm-label">Persons per bedroom<span class="required">*</span></label>
+        @*<label class="sm-label">Persons per bedroom<span class="required">*</span></label>
         @Html.TextBoxFor(m => m.PersonPerRoom)
-        <span style="color:red">@Html.ValidationMessageFor(m => m.PersonPerRoom)</span><br />
+        <span style="color:red">@Html.ValidationMessageFor(m => m.PersonPerRoom)</span><br />*@
         <div style="clear:both;"></div>
         <label class="sm-label">Pets allowed<span class="required">*</span></label>
         @Html.DropDownListFor(m => m.PetsAllowedId, new SelectList(Model.PetsAllowed, "Value", "Text"), "Select")
@@ -46,6 +46,15 @@
         <label class="sm-label">Wheelchair Accessible<span class="required">*</span></label>
         @Html.DropDownListFor(m => m.WheelChairId, new SelectList(Model.WheelChairAllowed, "Value", "Text"), "Select")
         <span style="color:red">@Html.ValidationMessageFor(m => m.WheelChairId)</span><br />
+        <div style="clear:both;"></div>
+        <label class="full-label"><b>Select Cancellation Policy</b><span class="required">*</span></label>
+        <div style="clear:both;"></div>
+        <span id="cp1">@Html.RadioButtonFor(x=>x.CancellationPolicy, "1") 1. Easy</span>
+        <br />
+        <span id="cp1">@Html.RadioButtonFor(x => x.CancellationPolicy, "2") 2. Moderate</span>
+        <br />
+        <span id="cp1">@Html.RadioButtonFor(x => x.CancellationPolicy, "3") 3. Strict</span>
+        <span style="color:red">@Html.ValidationMessageFor(m => m.WheelChairId)</span><br /><br />
         <div style="clear:both;"></div>
         <label class="full-label">Update map</label>
         <label class="sm-label">Latitude<span class="required">*</span></label>

@@ -40,6 +40,7 @@ namespace VHS.Services.ViewModel
         public List<string> EntertainmentElectronic { get; set; }
         public List<string> SleepingArrangments { get; set; }
         public List<string> Kitchen { get; set; }
+        public int CancellationPolicy { get; set; }
         public PropertyBooking objPropertyBooking { get; set; }
 
     }

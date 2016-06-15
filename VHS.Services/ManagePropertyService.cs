@@ -199,6 +199,7 @@ namespace VHS.Services
                 propertyAdditionalInfo.Logitude = propAdditional.MapLongitude;
                 propertyAdditionalInfo.Latitude = propAdditional.MapLatitude;
                 propertyAdditionalInfo.PersonPerRoom = propAdditional.PersonPerRoom;
+                propertyAdditionalInfo.CancellationPolicy = propAdditional.CancellationPolicy;
 
             }
 
@@ -696,7 +697,7 @@ namespace VHS.Services
 
                     PropertyRating = propAdditionalInfoInfo.PropRatingId.ToString(),
                     MaxGuest = propAdditionalInfoInfo.MaxGuest,
-
+                    CancellationPolicy = propAdditionalInfoInfo.CancellationPolicy,
                     PropDescription = propAdditionalInfoInfo.PropertyDescription
 
                 });
@@ -721,6 +722,7 @@ namespace VHS.Services
                     propfixedobj.PersonPerRoom = propAdditionalInfoInfo.PersonPerRoom;
                     propfixedobj.MaxGuest = propAdditionalInfoInfo.MaxGuest;
                     propfixedobj.PropertyRating = propAdditionalInfoInfo.PropRatingId.ToString();
+                    propfixedobj.CancellationPolicy = propAdditionalInfoInfo.CancellationPolicy;
                     _unitOfWork.PropertyAdditionalRepository.Update(propfixedobj);
                 }
             }

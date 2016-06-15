@@ -9,6 +9,8 @@ namespace VHS.Services.Models
 {
     public class PropertyBooking
     {
+        public string PropertyName { get; set; }
+
         public int PropertyId { get; set; }
         [Required(ErrorMessage = "Please select start date")]
         public DateTime? StartDate { get; set; }
@@ -20,6 +22,6 @@ namespace VHS.Services.Models
 
         public int ChildNo { get; set; }
 
-        public decimal? AprroxPrice { get; set; }
+        public decimal AprroxPrice { get; set; }
     }
 }

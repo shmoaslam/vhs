@@ -33,7 +33,7 @@ namespace VHS.Services.App_Code
                 smtpmail.EnableSsl = false; /* New added for testing */
                 smtpmail.UseDefaultCredentials = false;
                 smtpmail.Credentials = Credential;
-                smtpmail.Port = 587;/* New added for testing */
+                smtpmail.Port = 25;/* New added for testing */
                 smtpmail.Host = i_sSMTPHost;
                 try
                 {
@@ -116,43 +116,6 @@ namespace VHS.Services.App_Code
             return o_sStatus;
         }
 
-        public static string SendGmail(string i_sTo, string i_sSubject, string i_sEmailBody)
-        {
-            string result = "ok";
-            try
-            {
-                string i_sSMTPHost = "smtp.gmail.com";
-                MailMessage oMail = new MailMessage();
-                oMail.To.Add(i_sTo);
-                oMail.From = new MailAddress("smaslam16121985@gmail.com");
-                oMail.Subject = i_sSubject;
-                oMail.IsBodyHtml = true;
-                oMail.Body = i_sEmailBody;
-                SmtpClient smtpmail = new SmtpClient();
-                smtpmail.Credentials = new NetworkCredential("smaslam16121985@gmail.com", "moon953busy402"); /* New added for testing */
-                smtpmail.Port = 25; /* New added for testing */
-                smtpmail.EnableSsl = true; /* New added for testing */
-                smtpmail.DeliveryMethod = SmtpDeliveryMethod.Network; /* New added for testing */
-                smtpmail.Host = i_sSMTPHost;
-                try
-                {
-                    smtpmail.Send(oMail);
 
-                }
-                catch (Exception)
-                {
-                    result = "Email not Sent";
-                    throw;
-
-                }
-
-
-            }
-            catch (Exception)
-            {
-                result = "Email not Sent";
-            }
-            return result;
-        }
     }
 }

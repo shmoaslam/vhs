@@ -6,39 +6,57 @@
     <meta charset="utf-8" />
     <title>Velvett Homestays</title>
 </head>
+   
+
 
 <body>
-    <div>
-        <p>Booking request received from @Model.UserName</p>
-        <p>Following are the booking details.</p>
-        <table cellpadding="5" cellspacing="5" border="0">
-            <tbody>
-                <tr>
-                    <td><b>Property : </b></td>
-                    <td>@Model.Property</td>
-                </tr>
-                <tr>
-                    <td><b>Name : </b></td>
-                    <td>@Model.UserName</td>
-                </tr>
-                <tr>
-                    <td><b>Email : </b></td>
-                    <td>@Model.Email</td>
-                </tr>
-                <tr>
-                    <td><b>Start Date : </b></td>
-                    <td>@Model.StartDate</td>
-                </tr>
-                <tr>
-                    <td><b>End Date : </b></td>
-                    <td>@Model.EndDate</td>
-                </tr>
-                <tr>
-                    <td><b>Mobile No. : </b></td>
-                    <td>@Model.Mobile</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <p>Hello @Model.RmName</p>
+    <p>Woohoo! You have been assigned to this property request.</p>
+    <p>Please find the details below:</p>
+
+    <table cellpadding="5" cellspacing="5" border="0">
+        <tbody>
+            <tr>
+                <td><b>Property Name: </b></td>
+                <td>@Model.PropertyName</td>
+            </tr>
+            <tr>
+                <td><b>Property ID: </b></td>
+                <td>@Model.Property</td>
+            </tr>
+            <tr>
+                <td><b>Check in : </b></td>
+                <td>@Model.StartDate</td>
+            </tr>
+            <tr>
+                <td><b>Check out : </b></td>
+                <td>@Model.EndDate</td>
+            </tr>
+            <tr>
+                <td><b>No. of Guests : </b></td>
+                <td>@Model.GuestCount</td>
+            </tr>
+            <tr>
+                <td><b>Name : </b></td>
+                <td>@Model.UserName</td>
+            </tr>
+            <tr>
+                <td><b>Contact No. : </b></td>
+                <td>@Model.Mobile</td>
+            </tr>
+            <tr>
+                <td><b>Email : </b></td>
+                <td>@Model.Email</td>
+            </tr>
+            <tr>
+                <td><b>Notes : </b></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><b>Date to respond by : </b></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>

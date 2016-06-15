@@ -59,7 +59,8 @@ namespace VHS.Services.Models
         [Required(ErrorMessage = "Please enter max guest ")]
         public int MaxGuest { get; set; }
 
-
+        //[Required(ErrorMessage = "Please select cancellation policy ")]
+        public int CancellationPolicy { get; set; }
 
 
 

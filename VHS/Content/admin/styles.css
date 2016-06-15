@@ -1,4 +1,4 @@
-﻿ @charset "utf-8";
+ @charset "utf-8";
 /* CSS Document */
 
 /*------------------------------------------------------------------
@@ -696,6 +696,31 @@ margin:0 4px;
 	height:150px;
 }
 
+.p-name{
+	color:#f06eaa;
+	height: 25px;
+    overflow: hidden;
+}
+.xtr-ins{
+	display:block;
+	float:left;
+}
+input[type="radio"] {
+    border: 2px solid #ccc;
+    padding: 5px;
+    margin: 3px 5px 0px 0px;
+    float: left;
+    border-radius: 10px;
+    height: 10px;
+    width: 10px;
+}
+
+input:checked {
+	border-radius: 10px;
+    height: 10px;
+    width: 10px;
+    background: #f06eaa;
+}
 
 
 @media(max-width:768px){
