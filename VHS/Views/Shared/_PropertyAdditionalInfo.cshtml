@@ -16,6 +16,8 @@
         <span style="color:red">@Html.ValidationMessageFor(m => m.CheckIn)</span><br />
         <label class="sm-label">Check-out time<span class="required">*</span></label>
         @Html.TextBoxFor(m => m.CheckOut, new { type = "time" })
+        <label class="sm-label">Minimum Stay (Night(s))<span class="required">*</span></label>
+        @Html.TextBoxFor(m => m.MininumStay)
         <span style="color:red">@Html.ValidationMessageFor(m => m.CheckOut)</span><br />
         <label class="sm-label">Size of Property<br />(/sq. ft)<span class="required">*</span></label>
         @Html.TextBoxFor(m => m.PropertySize)

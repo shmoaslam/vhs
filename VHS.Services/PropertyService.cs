@@ -138,6 +138,7 @@ namespace VHS.Services
             propertyViemodle.PricePerAdult = propertyModel.PricePerAdult;
             propertyViemodle.PricePerChild = propertyModel.PricePerChild;
             propertyViemodle.CancellationPolicy = propertyModel.CancellationPolicy;
+            propertyViemodle.MininumStay = propertyModel.MininumStay;
             //Set proprtyId for Booking Check Avalibility
             var propertyBooking = new Models.PropertyBooking();
             propertyBooking.PropertyId = (int)id;

@@ -30,6 +30,8 @@ namespace VHS.Core
         public string PropertySize { get; set; }
         public int CancellationPolicy { get; set; }
 
+        public int? MininumStay { get; set; }
+
         [ForeignKey("Property")]
         public int PropertyId { get; set; }
         public Property Property { get; set; }

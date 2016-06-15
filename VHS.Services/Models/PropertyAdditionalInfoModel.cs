@@ -59,6 +59,8 @@ namespace VHS.Services.Models
         [Required(ErrorMessage = "Please enter max guest ")]
         public int MaxGuest { get; set; }
 
+        public int? MininumStay { get; set; }
+
         //[Required(ErrorMessage = "Please select cancellation policy ")]
         public int CancellationPolicy { get; set; }
 
@@ -173,6 +175,15 @@ namespace VHS.Services.Models
         public string To { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
         public decimal Price { get; set; }
+
+        [Required(ErrorMessage = "Please select start date")]
+        public DateTime? StartDate { get; set; }
+
+        [Required(ErrorMessage = "Please select end date")]
+        public DateTime? EndDate { get; set; }
+
+        public decimal? AdultPrice { get; set; }
+        public decimal? ChildPrice { get; set; }
     }
     public class ddlPriceCurrency
     {

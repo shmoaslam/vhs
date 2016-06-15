@@ -39,6 +39,11 @@ namespace VHS.Services
             };
         }
 
+        public BookingDisplayViewModel GetPropertyForManage(int rmId)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool UpdateBooking(ManganeBookingViewModel model)
         {
             var booking = _unitOfWork.PropertyBookingRepository.GetByID(model.Id);

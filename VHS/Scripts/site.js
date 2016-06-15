@@ -24,19 +24,19 @@ $(document).ready(function (e) {
                     if (jqXHR.status === 0) {
                         msg = 'Not connect.\n Verify Network.';
                     } else if (jqXHR.status == 404) {
-                        msg = 'Requested page not found. [404]';
+                        alert('Requested page not found. [404]');
                     } else if (jqXHR.status == 500) {
-                        msg = 'Internal Server Error [500].';
+                        alert( 'Internal Server Error [500].');
                     } else if (exception === 'parsererror') {
-                        msg = 'Requested JSON parse failed.';
+                        alert('Requested JSON parse failed.');
                     } else if (exception === 'timeout') {
-                        msg = 'Time out error.';
+                        alert('Time out error.');
                     } else if (exception === 'abort') {
-                        msg = 'Ajax request aborted.';
+                        alert('Ajax request aborted.');
                     } else {
-                        msg = 'Uncaught Error.\n' + jqXHR.responseText;
+                        alert('Uncaught Error.\n' + jqXHR.responseText);
                     }
-                    alert(msg);
+                    //alert(msg);
                 }
             });
         }

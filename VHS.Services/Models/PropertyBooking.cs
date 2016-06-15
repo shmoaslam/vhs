@@ -16,6 +16,8 @@ namespace VHS.Services.Models
         public DateTime? StartDate { get; set; }
         [Required(ErrorMessage = "Please select end date")]
         public DateTime? EndDate { get; set; }
+
+        [Required(ErrorMessage = "Please provide Guest Count")]
         public int GuestNo { get; set; }
 
         public int AdultNo { get; set; }

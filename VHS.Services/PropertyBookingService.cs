@@ -74,5 +74,21 @@ namespace VHS.Services
                 return result;
             }
         }
+
+        public decimal GetTotalPrice(PropertyBooking propertyBooking)
+        {
+            foreach (DateTime day in EachDay(Convert.ToDateTime(propertyBooking.StartDate), Convert.ToDateTime(propertyBooking.EndDate)))
+            {
+
+            }
+
+            return 0;
+        }
+
+        public IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
+        {
+            for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
+                yield return day;
+        }
     }
 }

@@ -126,10 +126,10 @@
                             <td class="col-md-8 am-pad">Check-out Time : </td>
                             <td><span class="sm-txt">@Model.CheckOut</span></td>
                         </tr>
-                       @* <tr>
-                            <td class="col-md-8 am-pad">Guests per Bedroom : </td>
-                            <td><span class="sm-txt">@Model.PersonPerRoom</span></td>
-                        </tr>*@
+                       <tr>
+                            <td class="col-md-8 am-pad">Minimum Stays : </td>
+                            <td><span class="sm-txt">@Model.MininumStay</span></td>
+                        </tr>
                         <tr>
                             <td class="col-md-8 am-pad">Max. Guest Occupancy of Property: </td>
                             <td><span class="sm-txt" id="maxGuest">@Model.MaxGuestCount</span></td>
@@ -284,10 +284,16 @@
 
 
 @section scripts{
-    @*<script>
-        $("#endDate").datepick({ dateFormat: 'dd/mm/yyyy' });
-        $("#startDate").datepick({ dateFormat: 'dd/mm/yyyy' });
-    </script>*@
+    <script>
+        $("#endDate").datepick({
+            dateFormat: 'dd/mm/yyyy',
+            onSelect: function (dates) {
+                var date = new Date(dates)
+                alert(date);
+            },
+        });
+        $("#startDate").datepick({ dateFormat: 'dd/mm/yyyy', onSelect: function (dates) { alert('The chosen date(s): ' + dates); }, });
+    </script>
 
     @*<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
         <script type="text/javascript">

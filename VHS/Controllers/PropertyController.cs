@@ -23,6 +23,7 @@ namespace VHS.Controllers
             _property = property;
             _propertyBooking = propBooking;
         }
+
         [AllowAnonymous]
         public ActionResult Add()
         {
@@ -36,6 +37,7 @@ namespace VHS.Controllers
             else
                 return View();
         }
+
         [HttpPost]
         public ActionResult Add(Property property, List<HttpPostedFileBase> Image)
         {
@@ -94,6 +96,9 @@ namespace VHS.Controllers
                 if (ButtonType == "Check Availability")
                 {
                     checkAval = _propertyBooking.CheckPropertyAvailbility(propertyBooking);
+
+                    var totalPrice = _propertyBooking.GetTotalPrice(propertyBooking);
+
                     if (!checkAval)
                     {
                         i = 1;
@@ -160,5 +165,4 @@ namespace VHS.Controllers
             return View("ListedProperty", propertyViewModel);
         }
     }
-
 }

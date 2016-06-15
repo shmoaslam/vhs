@@ -7,15 +7,15 @@
     <label>Check in</label>
     @Html.HiddenFor(m => m.PropertyId)
     @Html.HiddenFor(m => m.PropertyName, new { id = "propName" })
-    @Html.TextBoxFor(m => m.StartDate, new { placeholder = "Start Date", @id = "startDate", type="date" })
+    @Html.TextBoxFor(m => m.StartDate, new { placeholder = "Start Date", @id = "startDate" })
     @Html.ValidationMessageFor(m => m.StartDate, "", new { @class = "text-danger" })<br>
     <label>Check out</label>
-    @Html.TextBoxFor(m => m.EndDate, new { placeholder = "End Date",@id = "endDate", type = "date" })
+    @Html.TextBoxFor(m => m.EndDate, new { placeholder = "End Date",@id = "endDate" })
     @Html.ValidationMessageFor(m => m.EndDate, "", new { @class = "text-danger" })
     <br />
     <label>Guests</label>
     @Html.TextBoxFor(m => m.GuestNo, new { type = "number", min = "1", id = "totalGuestCount" })
-
+    @Html.ValidationMessageFor(m => m.GuestNo, "", new { @class = "text-danger" })
     <div id="extraCountDiv" style="display:none">
         <h5>Add extra persons details</h5>
         <span>

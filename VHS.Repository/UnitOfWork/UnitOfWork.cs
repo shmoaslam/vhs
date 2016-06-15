@@ -785,6 +785,8 @@ namespace VHS.Repository
             public decimal PricePerAdult { get; set; }
             public decimal PricePerChild { get; set; }
             public int CancellationPolicy { get; set; }
+
+            public int? MininumStay { get; set; }
         }
         public class PropertyListForAdmin
         {

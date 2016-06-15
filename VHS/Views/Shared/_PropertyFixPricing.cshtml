@@ -1,4 +1,5 @@
 ﻿@model VHS.Services.Models.PropertyFixedPricing
+
 <h4>Fixed Pricing</h4>
 @using (Ajax.BeginForm("PropertyFixedPricing", "ManageProperty", new AjaxOptions { OnBegin = "fnBeginFixedPrice", HttpMethod = "Post", OnSuccess = "fnSuccessFixedPrice", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
 { <p class="sub-heading" id="errormessage" style="display:none"><span class="error-msg"> Error occured during update</span></p>
@@ -50,6 +51,11 @@
     </div>
 }
 <script>
+    Date.prototype.toDateInputValue = (function () {
+        var local = new Date(this);
+        local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+        return local.toJSON().slice(0, 10);
+    });
     $(document).ready(function () {
 
         $("#loginLink").addClass("active");
@@ -86,5 +92,8 @@
     }
 </script>
 <script type="text/javascript" language=javascript>
+
+    $("#txtStopDate").val(new Date('@Model.StopDate.ToString("yyyy-MM-dd")').toDateInputValue());
+    $("#txtStartDate").val(new Date('@Model.StartDate.ToString("yyyy-MM-dd")').toDateInputValue());
     $.validator.unobtrusive.parse(document);
 </script>

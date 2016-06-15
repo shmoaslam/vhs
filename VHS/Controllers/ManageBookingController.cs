@@ -8,7 +8,7 @@ using VHS.Services.ViewModel;
 
 namespace VHS.Controllers
 {
-    public class ManageBookingController : Controller
+    public class ManageBookingController : BaseController
     {
 
         private IManageBookingService _manageBooking;
@@ -48,6 +48,22 @@ namespace VHS.Controllers
         {
             var status = _manageBooking.UpdateBooking(model);
             return RedirectToAction("Detail", new { Id = model.Id});
+        }
+
+
+        public ActionResult Bookings()
+        {
+            if(IsRM)
+            {
+                int rmId = CurrentUser.LoginId;
+                var propertList = _manageBooking.GetPropertyForManage(rmId);
+                return View(propertList);
+            }
+            else
+            {
+                var propertList = _manageBooking.GetPropertyForManage(0);
+                return View(propertList);
+            }
         }
     }
 }

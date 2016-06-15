@@ -26,10 +26,7 @@
 }
 <script>
     $(document).ready(function () {
-        var startdate = @Html.Raw(JsonConvert.SerializeObject(Model.StartDate));
-        var enddate = @Html.Raw(JsonConvert.SerializeObject(Model.StartDate));
-        $("#txtStartDate").val(startdate);
-        $("#txtStopDate").val(enddate)
+       
     });
 </script>
 <script>
@@ -67,5 +64,8 @@
     }
 </script>
 <script type="text/javascript" language=javascript>
+
+    $("#txtStopDate").val(new Date('@Model.StopDate.ToString("yyyy-MM-dd")').toDateInputValue());
+    $("#txtStartDate").val(new Date('@Model.StartDate.ToString("yyyy-MM-dd")').toDateInputValue());
     $.validator.unobtrusive.parse(document);
 </script>

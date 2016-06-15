@@ -41,6 +41,7 @@ namespace VHS.Services.ViewModel
         public List<string> SleepingArrangments { get; set; }
         public List<string> Kitchen { get; set; }
         public int CancellationPolicy { get; set; }
+        public int? MininumStay { get; set; }
         public PropertyBooking objPropertyBooking { get; set; }
 
     }

@@ -1,11 +1,8 @@
 /* Default styling for jQuery Datepicker v5.0.1. */
 .datepick {
 	background-color: #fff;
-	color: #000;
-	border: 1px solid #444;
-    border-radius: 0.25em;
-    -moz-border-radius: 0.25em;
-    -webkit-border-radius: 0.25em;
+	color: #636363;
+	border: 1px solid #f06eaa;
 	font-family: Arial,Helvetica,Sans-serif;
 	font-size: 90%;
 }
@@ -26,6 +23,10 @@
 	color: #fff;
 	text-decoration: none;
 }
+.datepick a :hover{
+	color: #fff;
+	background:#f06eaa;
+}
 .datepick a.datepick-disabled {
 	color: #888;
 	cursor: auto;
@@ -43,22 +44,22 @@
 .datepick-nav, .datepick-ctrl {
 	float: left;
 	width: 100%;
-	background-color: #000;
+	background-color: #f06eaa;
 	color: #fff;
 	font-size: 90%;
 	font-weight: bold;
 }
 .datepick-ctrl {
-	background-color: #600;
+	background-color: #ccc;
 }
 .datepick-cmd {
 	width: 30%;
 }
 .datepick-cmd:hover {
-	background-color: #777;
+	background-color: #ebebeb;
 }
 .datepick-ctrl .datepick-cmd:hover {
-	background-color: #f08080;
+	background-color: #f06eaa;
 }
 .datepick-cmd-prevJump, .datepick-cmd-nextJump {
 	width: 8%;
@@ -162,7 +163,7 @@ button.datepick-cmd {
 }
 .datepick-month td {
 	background-color: #eee;
-	border: 1px solid #aaa;
+	border: 1px solid #ebebeb;
 }
 .datepick-month td.datepick-week {
 	border: 1px solid #777;
@@ -176,8 +177,8 @@ button.datepick-cmd {
 	display: block;
 	width: 100%;
 	padding: 0.125em 0em;
-	background-color: #eee;
-	color: #000;
+	background-color: #f5f5f5;
+	color: #555;
 	text-decoration: none;
 }
 .datepick-month span {
@@ -195,13 +196,15 @@ button.datepick-cmd {
 	background-color: #ddd;
 }
 .datepick-month td .datepick-today {
-	background-color: #f0c0c0;
+	background-color: #ccc;
+	color:#fff;
 }
 .datepick-month td .datepick-highlight {
-	background-color: #f08080;
+	background-color: #f06eaa;
+	color:#fff;
 }
 .datepick-month td .datepick-selected {
-	background-color: #777;
+	background-color: #f06eaa;
 	color: #fff;
 }
 .datepick-month th.datepick-week {
@@ -215,4 +218,8 @@ button.datepick-cmd {
 }
 .datepick-clear-fix {
 	clear: both;
+}
+.datepick-month-year {
+    width: 50%;
+    float: left;
 }

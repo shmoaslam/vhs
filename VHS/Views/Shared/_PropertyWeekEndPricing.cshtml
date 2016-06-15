@@ -17,6 +17,8 @@
         Text = "Sunday",
         Value = "Sunday"
     });
+    var startDate = Model.StartDate != null ? Convert.ToDateTime(Model.StartDate).ToString("yyyy-MM-dd") : string.Empty;
+    var endDate = Model.EndDate != null ? Convert.ToDateTime(Model.EndDate).ToString("yyyy-MM-dd") : string.Empty;
 }
 
 <h4>Weekend Pricing</h4>
@@ -24,27 +26,34 @@
 {
     @Html.HiddenFor(m => m.PropertyId)
     @Html.HiddenFor(m => m.PropWEPriceId)
-    <label class="sm-label">Price (per day)</label>
-    @Html.TextBoxFor(m => m.Price, new { @class = "sm-input", size = "12" })
-    <label class="sm-label">Weekend Start Day</label>
-    @Html.DropDownListFor(model => model.From, weekEndList, "-- Select --", new { @class = "sm-input" })
-    <label class="sm-label">Weekend End Day</label>
-    @Html.DropDownListFor(model => model.To, weekEndList, "-- Select --", new { @class = "sm-input" })
-    <div style="clear:both;"></div>
-    <div class="input-wrapper clearfix">
-        <input type="submit" class="send-btn" value="Update" id="" name="">
-        <input type="reset" class="send-btn" value="Cancel" id="" name="">
-    </div>
+    <label class="sm-label">Start date</label>
+    @Html.TextBoxFor(x => x.StartDate, new { @class = "sm-input", type = "date" })
+    <label class="sm-label">End date</label>
+    @Html.TextBoxFor(x => x.EndDate, new { @class = "sm-input", type = "date" })
+            <label class="sm-label">Price (per day)</label>
+            @Html.TextBoxFor(m => m.Price, new { @class = "sm-input", size = "12" })
+            <label class="sm-label">Weekend Start Day</label>
+            @Html.DropDownListFor(model => model.From, weekEndList, "-- Select --", new { @class = "sm-input" })
+            <label class="sm-label">Weekend End Day</label>
+            @Html.DropDownListFor(model => model.To, weekEndList, "-- Select --", new { @class = "sm-input" })
+            <label class="full-label">Extra Person Price</label>
+            <label class="sm-label">Per Adult</label>
+            @Html.TextBoxFor(x => x.AdultPrice, new { @class = "sm-input" })
+            <label class="sm-label">Per Child</label>
+                @Html.TextBoxFor(x => x.ChildPrice, new { @class = "sm-input" })
+                <div style="clear:both;"></div>
+                <div class="input-wrapper clearfix">
+                    <input type="submit" class="send-btn" value="Update" id="" name="">
+                    <input type="reset" class="send-btn" value="Cancel" id="" name="">
+                </div>
 }
-@*<script>
-        $(document).ready(function () {
-            var startdate = @Html.Raw(JsonConvert.SerializeObject(Model.StartDate));
-            var enddate = @Html.Raw(JsonConvert.SerializeObject(Model.StartDate));
-            $("#txtStartDate").val(startdate);
-            $("#txtStopDate").val(enddate)
-        });
-    </script>*@
+
 <script>
+    Date.prototype.toDateInputValue = (function () {
+        var local = new Date(this);
+        local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+        return local.toJSON().slice(0, 10);
+    });
     $(document).ready(function () {
 
         $("#loginLink").addClass("active");
@@ -56,6 +65,7 @@
         //Show any loder when process start:-
     }
     function fnSuccessWeekEndPrice(response, status, xhr) {
+
         if (response == "1") {
             alert("Information is updated successfully.");
             $('#imgLoaderVariable').hide();
@@ -79,5 +89,7 @@
     }
 </script>
 <script type="text/javascript" language=javascript>
+    $("#StartDate").val(new Date('@startDate').toDateInputValue());
+    $("#EndDate").val(new Date('@endDate').toDateInputValue());
     $.validator.unobtrusive.parse(document);
 </script>

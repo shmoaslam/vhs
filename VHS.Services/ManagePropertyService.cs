@@ -200,6 +200,7 @@ namespace VHS.Services
                 propertyAdditionalInfo.Latitude = propAdditional.MapLatitude;
                 propertyAdditionalInfo.PersonPerRoom = propAdditional.PersonPerRoom;
                 propertyAdditionalInfo.CancellationPolicy = propAdditional.CancellationPolicy;
+                propertyAdditionalInfo.MininumStay = propAdditional.MininumStay;
 
             }
 
@@ -243,6 +244,8 @@ namespace VHS.Services
                 propertyFixedPrice.PropFixedPriceId = propfixedPrice.id;
                 propertyFixedPrice.Comision = propfixedPrice.Comision;
                 propertyFixedPrice.CurrencyId = Convert.ToInt32(propfixedPrice.Currency);
+                propertyFixedPrice.StartDate = propfixedPrice.StartDate;
+                propertyFixedPrice.StopDate = propfixedPrice.EndDate;
             }
 
             return propertyFixedPrice;
@@ -277,6 +280,10 @@ namespace VHS.Services
                 propertyPriceWeekend.To = propWePrice.To;
                 propertyPriceWeekend.PropertyId = propWePrice.PropertyId;
                 propertyPriceWeekend.PropWEPriceId = propWePrice.Id;
+                propertyPriceWeekend.StartDate = propWePrice.StartDate;
+                propertyPriceWeekend.EndDate = propWePrice.EndDate;
+                propertyPriceWeekend.AdultPrice = propWePrice.AdultPrice;
+                propertyPriceWeekend.ChildPrice = propWePrice.ChildPrice;
             }
             return propertyPriceWeekend;
         }
@@ -694,7 +701,7 @@ namespace VHS.Services
                     MapLatitude = propAdditionalInfoInfo.Latitude,
                     MapLongitude = propAdditionalInfoInfo.Logitude,
                     PersonPerRoom = propAdditionalInfoInfo.PersonPerRoom,
-
+                    MininumStay = propAdditionalInfoInfo.MininumStay,
                     PropertyRating = propAdditionalInfoInfo.PropRatingId.ToString(),
                     MaxGuest = propAdditionalInfoInfo.MaxGuest,
                     CancellationPolicy = propAdditionalInfoInfo.CancellationPolicy,
@@ -721,6 +728,7 @@ namespace VHS.Services
                     propfixedobj.PropDescription = propAdditionalInfoInfo.PropertyDescription;
                     propfixedobj.PersonPerRoom = propAdditionalInfoInfo.PersonPerRoom;
                     propfixedobj.MaxGuest = propAdditionalInfoInfo.MaxGuest;
+                    propfixedobj.MininumStay = propAdditionalInfoInfo.MininumStay;
                     propfixedobj.PropertyRating = propAdditionalInfoInfo.PropRatingId.ToString();
                     propfixedobj.CancellationPolicy = propAdditionalInfoInfo.CancellationPolicy;
                     _unitOfWork.PropertyAdditionalRepository.Update(propfixedobj);
@@ -925,7 +933,7 @@ namespace VHS.Services
             var result = false;
             if (propWePrice.PropWEPriceId == 0)
             {
-                _unitOfWork.PropertyWeekendPriceRepository.Insert(new PropertyWeekendPrice { Price = Convert.ToDecimal(propWePrice.Price), From = propWePrice.From, To = propWePrice.To, PropertyId = propWePrice.PropertyId });
+                _unitOfWork.PropertyWeekendPriceRepository.Insert(new PropertyWeekendPrice { Price = Convert.ToDecimal(propWePrice.Price), From = propWePrice.From, To = propWePrice.To, PropertyId = propWePrice.PropertyId, StartDate = propWePrice.StartDate, EndDate = propWePrice.EndDate, AdultPrice = propWePrice.AdultPrice, ChildPrice = propWePrice.ChildPrice });
             }
             else
             {
@@ -935,6 +943,10 @@ namespace VHS.Services
                     propWEobj.Price = Convert.ToDecimal(propWePrice.Price);
                     propWEobj.From = propWePrice.From;
                     propWEobj.To = propWePrice.To;
+                    propWEobj.StartDate = propWePrice.StartDate;
+                    propWEobj.EndDate = propWePrice.EndDate;
+                    propWEobj.AdultPrice = propWePrice.AdultPrice;
+                    propWEobj.ChildPrice = propWePrice.ChildPrice;
                     _unitOfWork.PropertyWeekendPriceRepository.Update(propWEobj);
                 }
             }

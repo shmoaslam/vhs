@@ -11,5 +11,6 @@ namespace VHS.Services.Interface
     {
         bool CheckPropertyAvailbility(PropertyBooking propertyBooking);
         bool BookProperty(PropertyBooking propertyBooking);
+        decimal GetTotalPrice(PropertyBooking propertyBooking);
     }
 }
