@@ -285,14 +285,28 @@
 
 @section scripts{
     <script>
+        $("#endDate").on('change',function () {
+            var startDate = document.getElementById("startDate").value;
+            var endDate = document.getElementById("endDate").value;
+            if ((Date.parse(startDate) > Date.parse(endDate))) {
+                alert("End date should be greater than Start date");
+                document.getElementById("endDate").value = "";
+            }
+        });
         $("#endDate").datepick({
             dateFormat: 'dd/mm/yyyy',
             onSelect: function (dates) {
                 var date = new Date(dates)
-                alert(date);
+                $("#endDate").attr("value", date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate());
             },
         });
-        $("#startDate").datepick({ dateFormat: 'dd/mm/yyyy', onSelect: function (dates) { alert('The chosen date(s): ' + dates); }, });
+        $("#startDate").datepick({
+            dateFormat: 'dd/mm/yyyy',
+            onSelect: function (dates) {
+                var date = new Date(dates)
+                $("#startDate").attr("value", date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate());
+            },
+        });
     </script>
 
     @*<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>

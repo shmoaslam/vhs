@@ -11,7 +11,7 @@
         {
             foreach (var parking in Model.ParkingList)
             {
-                <label class="half-label"><input type="checkbox" checked="@parking.IsChecked" name="ParkingId" value="@parking.id"><span>@parking.Name</span></label>
+                <span class="half-label"><input type="checkbox" checked="@parking.IsChecked" name="ParkingId" value="@parking.id"><label>@parking.Name</label></span>
             }
         }
         <div style="clear:both;"></div>

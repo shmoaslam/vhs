@@ -246,6 +246,8 @@ namespace VHS.Services
                 propertyFixedPrice.CurrencyId = Convert.ToInt32(propfixedPrice.Currency);
                 propertyFixedPrice.StartDate = propfixedPrice.StartDate;
                 propertyFixedPrice.StopDate = propfixedPrice.EndDate;
+                 propertyFixedPrice.PricePerAdult = propfixedPrice.PricePerAdult;
+                propertyFixedPrice.PricePerChild = propfixedPrice.PricePerChild;
             }
 
             return propertyFixedPrice;
@@ -263,6 +265,8 @@ namespace VHS.Services
                 propertyPricevarable.Description = propVariablePrice.Description;
                 propertyPricevarable.Price = Convert.ToDouble(propVariablePrice.Price);
                 propertyPricevarable.PropVarPriceId = propVariablePrice.id;
+                propertyPricevarable.AdultPrice = propVariablePrice.AdultPrice;
+                propertyPricevarable.ChildPrice = propVariablePrice.ChildPrice;
             }
             return propertyPricevarable;
         }
@@ -908,7 +912,7 @@ namespace VHS.Services
             var result = false;
             if (propVarablePrice.PropVarPriceId == 0)
             {
-                _unitOfWork.PropVariablePriceRepository.Insert(new PropertyVraiblePrice { Price = Convert.ToDecimal(propVarablePrice.Price), StartDate = propVarablePrice.StartDate, EndDate = propVarablePrice.StopDate, Description = propVarablePrice.Description, PropertyId = propVarablePrice.PropertyId });
+                _unitOfWork.PropVariablePriceRepository.Insert(new PropertyVraiblePrice { AdultPrice = propVarablePrice.AdultPrice, ChildPrice = propVarablePrice.ChildPrice,  Price = Convert.ToDecimal(propVarablePrice.Price), StartDate = propVarablePrice.StartDate, EndDate = propVarablePrice.StopDate, Description = propVarablePrice.Description, PropertyId = propVarablePrice.PropertyId });
             }
             else
             {
@@ -919,6 +923,8 @@ namespace VHS.Services
                     propvariaobj.StartDate = propVarablePrice.StartDate;
                     propvariaobj.EndDate = propVarablePrice.StopDate;
                     propvariaobj.Description = propVarablePrice.Description;
+                    propvariaobj.AdultPrice = propVarablePrice.AdultPrice;
+                    propvariaobj.ChildPrice = propVarablePrice.ChildPrice;
                     _unitOfWork.PropVariablePriceRepository.Update(propvariaobj);
                 }
             }

@@ -23,6 +23,29 @@ namespace UnitTestProject
             }
         }
 
+
+        [TestMethod]
+        public void GetTotalPriceTest()
+        {
+            var startDate = new DateTime(2016, 06, 1);
+            var endDate = new DateTime(2016, 06, 15);
+            var adultCount = 1;
+            var childCount = 1;
+            var propId = 13;
+
+            try
+            {
+                var properbooking = new UnitOfWork();
+
+                var cost = properbooking.GetBookingPrice(propId, startDate, endDate, adultCount,childCount);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
         [TestMethod]
         public void PropertyListAdminTest()
         {

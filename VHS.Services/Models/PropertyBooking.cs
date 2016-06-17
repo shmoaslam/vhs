@@ -12,9 +12,7 @@ namespace VHS.Services.Models
         public string PropertyName { get; set; }
 
         public int PropertyId { get; set; }
-        [Required(ErrorMessage = "Please select start date")]
         public DateTime? StartDate { get; set; }
-        [Required(ErrorMessage = "Please select end date")]
         public DateTime? EndDate { get; set; }
 
         [Required(ErrorMessage = "Please provide Guest Count")]

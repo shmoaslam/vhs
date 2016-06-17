@@ -19,5 +19,8 @@ namespace VHS.Core
         [ForeignKey("Property")]
         public int PropertyId { get; set; }
         public Property Property { get; set; }
+
+        public decimal? AdultPrice { get; set; }
+        public decimal? ChildPrice { get; set; }
     }
 }

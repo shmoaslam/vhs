@@ -7,11 +7,11 @@
     <label>Check in</label>
     @Html.HiddenFor(m => m.PropertyId)
     @Html.HiddenFor(m => m.PropertyName, new { id = "propName" })
-    @Html.TextBoxFor(m => m.StartDate, new { placeholder = "Start Date", @id = "startDate" })
-    @Html.ValidationMessageFor(m => m.StartDate, "", new { @class = "text-danger" })<br>
+    <input type="text" name="StartDate" placeholder="Start Date" id = "startDate" />
+    @*@Html.ValidationMessageFor(m => m.StartDate, "", new { @class = "text-danger" })*@<br>
     <label>Check out</label>
-    @Html.TextBoxFor(m => m.EndDate, new { placeholder = "End Date",@id = "endDate" })
-    @Html.ValidationMessageFor(m => m.EndDate, "", new { @class = "text-danger" })
+    <input type="text" name="EndDate" placeholder="End Date" id = "endDate" />
+    @*@Html.ValidationMessageFor(m => m.EndDate, "", new { @class = "text-danger" })*@
     <br />
     <label>Guests</label>
     @Html.TextBoxFor(m => m.GuestNo, new { type = "number", min = "1", id = "totalGuestCount" })
@@ -39,6 +39,7 @@
         <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
     </div>
 }
+<br />
 <script>
     $(document).ready(function () {
         $("#propName").val($("#propertyTitle").text())
@@ -82,20 +83,20 @@
     
 
     $("#checkAvailability").on("click", function (e) {
-        if ($("#extraCountDiv").is(":visible")) {
-            var standardCount = parseInt($("#standardGuestCount").text());
-            var totalCount = parseInt($("#maxGuest").text());
-            var difference = totalCount - standardCount;
-            var totalExtraGuestCount = parseInt($("#totalAdultCount").val()) + parseInt($("#totalChildCount").val());
-            if (totalExtraGuestCount != difference) {
-                alert('Please enter proper extra guest count');
-                e.preventDefault();
-                return;
-            }
-            var totalApproxPrice = parseInt($("#standardPrice").text()) + parseInt($("#totalAdultCount").val()) * parseInt($("#pricePerAdult").text()) + parseInt($("#totalChildCount").val()) * parseInt($("#pricePerChild").text());
-            $("#totalPrice").val(totalApproxPrice);
+        //if ($("#extraCountDiv").is(":visible")) {
+        //    var standardCount = parseInt($("#standardGuestCount").text());
+        //    var totalCount = parseInt($("#maxGuest").text());
+        //    var difference = totalCount - standardCount;
+        //    var totalExtraGuestCount = parseInt($("#totalAdultCount").val()) + parseInt($("#totalChildCount").val());
+        //    if (totalExtraGuestCount != difference) {
+        //        alert('Please enter proper extra guest count');
+        //        e.preventDefault();
+        //        return;
+        //    }
+        //    var totalApproxPrice = parseInt($("#standardPrice").text()) + parseInt($("#totalAdultCount").val()) * parseInt($("#pricePerAdult").text()) + parseInt($("#totalChildCount").val()) * parseInt($("#pricePerChild").text());
+        //    $("#totalPrice").val(totalApproxPrice);
 
-        }
+        //}
 
     })
 
@@ -115,10 +116,11 @@
     }
     function fnSuccess(response, status, xhr) {
         $('#imgLoader').hide();
-        switch (response) {
+        switch (response.Status) {
 
             case 1:
                 alert("Property available for this Date");
+                $("#totalPrice").val(response.Price);
                 break;
 
             case 2:

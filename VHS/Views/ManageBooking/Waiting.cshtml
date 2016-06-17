@@ -1,12 +1,69 @@
-﻿
+﻿@model IEnumerable<VHS.Services.ViewModel.ManganeBookingViewModel>
 @{
-    ViewBag.Title = "Waiting";
+    ViewBag.Title = "Bookings";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<section class="section">
-    <div style="/* or absolute */top: 50%;left: 50%;">
-        <marquee><span style="color:red">Comming Soon.....</span> </marquee>
+
+<div class="container">
+
+    <div class="section">
+        <div class="row">
+            <div class="col-md-6 pull-left">
+                <form class="form-part" id="" method="post" action="">
+                    <label class="sm-label">Bulk action<span class="required">*</span></label>
+                    <select class="sm-input myselect">
+                        <option value="0">select</option>
+                        <option value="yes">Delete</option>
+                    </select>
+                    <button class="btn-primary">Submit</button>
+                </form>
+            </div>
+            <div class="col-md-6 pull-right">
+                <form class="form-part" id="" method="post" action="">
+                    <table class="table-responsive">
+                        <tbody>
+                            <tr>
+                                <td><label>Search properties: </label></td>
+                                <td>
+                                    <input class="search-pro" type="text">
+                                    <button class="btn-primary">Search</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <th class="check-column"><label><b>Booking ID</b></label></th>
+                            <th class="info-td"><b>Booking Details</b></th>
+                            <th colspan="2"><b>Actions</b></th>
+                        </tr>
+                        @foreach (var booking in Model)
+                        {
+                            <tr>
+                                <th class="check-column"><label><input type="checkbox"><span>@booking.BookingId</span></label></th>
+                                <td class="info-td">@booking.PropertyDisplayName</td>
+                                <td class="sm-td"><a href="@Url.Action("Detail", new { id= booking.Id })">View</a></td>
+                                <td class="sm-td">Delete</td>
+                            </tr>
+                        }
+
+
+
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-</section>
+
+</div>
 

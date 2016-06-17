@@ -28,7 +28,17 @@ namespace VHS.Controllers
         }
         public ActionResult Waiting()
         {
-            return View();
+            if (IsRM)
+            {
+                int rmId = CurrentUser.LoginId;
+                var propertList = _manageBooking.GetBookings(rmId);
+                return View(propertList);
+            }
+            else
+            {
+                var propertList = _manageBooking.GetBookings(0);
+                return View(propertList);
+            }
         }
         public ActionResult Cancelled()
         {
@@ -56,12 +66,12 @@ namespace VHS.Controllers
             if(IsRM)
             {
                 int rmId = CurrentUser.LoginId;
-                var propertList = _manageBooking.GetPropertyForManage(rmId);
+                var propertList = _manageBooking.GetBookings(rmId);
                 return View(propertList);
             }
             else
             {
-                var propertList = _manageBooking.GetPropertyForManage(0);
+                var propertList = _manageBooking.GetBookings(0);
                 return View(propertList);
             }
         }

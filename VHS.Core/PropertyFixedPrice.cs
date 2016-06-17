@@ -23,8 +23,8 @@ namespace VHS.Core
         public string OtherFee { get; set; }
         public decimal Comision { get; set; }
 
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public decimal PricePerAdult { get; set; }
         public decimal PricePerChild { get; set; }
 

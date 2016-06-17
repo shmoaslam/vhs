@@ -11,6 +11,6 @@ namespace VHS.Services
     {
         ManganeBookingViewModel GetBookingDetails(int id);
         bool UpdateBooking(ManganeBookingViewModel model);
-        BookingDisplayViewModel GetPropertyForManage(int rmId);
+        List<ManganeBookingViewModel> GetBookings(int rmId);
     }
 }

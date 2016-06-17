@@ -84,28 +84,48 @@ namespace VHS.Controllers
         }
      
 
-        [AllowAnonymous]
-        public JsonResult CheckAvailbility(PropertyBooking propertyBooking, string ButtonType)
+        public class AvailbilityModel
         {
+            public decimal Price { get; set; }
+            public int Status { get; set; }
+        }
+
+        [AllowAnonymous]
+        public JsonResult CheckAvailbility(PropertyBooking propertyBooking,string PropertyName, int PropertyId, DateTime? StartDate, DateTime? EndDate,
+             int GuestNo, int AdultNo, int ChildNo,  string ButtonType)
+        {
+            var propBooking = new PropertyBooking
+            {
+                PropertyId = PropertyId,
+                AdultNo = AdultNo,
+                ChildNo = ChildNo,
+                EndDate = EndDate,
+                StartDate = StartDate,
+                PropertyName = PropertyName,
+                GuestNo = GuestNo
+            };
             int i = 0;
-            if (propertyBooking.StartDate != null && propertyBooking.EndDate != null)
+            var response = new AvailbilityModel();
+            if (propBooking.StartDate != null && propBooking.EndDate != null)
             {
                 var checkAval = true;
                 var bookProperty = true;
 
                 if (ButtonType == "Check Availability")
                 {
-                    checkAval = _propertyBooking.CheckPropertyAvailbility(propertyBooking);
+                    checkAval = _propertyBooking.CheckPropertyAvailbility(propBooking);
 
-                    var totalPrice = _propertyBooking.GetTotalPrice(propertyBooking);
+                    
 
                     if (!checkAval)
                     {
-                        i = 1;
+                        response.Status = 1;
+                        var price = _propertyBooking.GetTotalPrice(propBooking);
+                        response.Price = price.HasValue ? price.Value : 0;
                     }
                     else
                     {
-                        i = 2;
+                        response.Status = 2;
                     }
                 }
                 else if (ButtonType == "Book Property")
@@ -115,30 +135,27 @@ namespace VHS.Controllers
                         bookProperty = _propertyBooking.BookProperty(propertyBooking);
                         if (bookProperty)
                         {
-                            i = 3;
+                            response.Status = 3;
                         }
                         else
                         {
-                            i = 4;
+                            response.Status = 4;
                         }
                     }
                     else
                     {
-                        i = 6;
+                        response.Status = 6;
 
                     }
                 }
                 else
                 {
-                    i = 5;
+                    response.Status = 5;
                 }
-                return Json(i);
-            }
-            else
-            {
-                return Json(i);
+           
             }
 
+            return Json(response);
 
         }
 
