@@ -55,10 +55,7 @@
                 <label>Your Travel Details</label>
                 @Html.TextAreaFor(m => m.Description, new { name = "comments", cols = "40", rows = "3", id = "comments", title = "Tell us about your travel plan!" })
                 <div class="input-wrapper clearfix">
-                    <label>
-                        <input class="checkbox" data-val="true" data-val-required="The bTermsCondition field is required." id="bTermsCondition" name="bTermsCondition" type="checkbox" value="true">
-                        <span>I accept <a href="http://velvetthomestays.com/home/tcbooking" target="_blank">Terms & Conditions</a></span>
-                    </label>
+				<span><input class="checkbox" id="tc1" data-val="true" data-val-required="The bTermsCondition field is required." id="bTermsCondition" name="bTermsCondition" type="checkbox" value="true"><label for="tc1">I accept <a href="http://velvetthomestays.com/home/tcbooking" target="_blank">Terms & Conditions</a></label></span>
                 </div>
                 <div class="input-wrapper clearfix">
                     <input type="submit" class="send-btn" value="Send" id="submit" name="Submit" onclick="return TCValidation()" >
