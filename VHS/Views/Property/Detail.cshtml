@@ -96,14 +96,14 @@
                                 }
                             </div>
 
-							 <!-- Controls -->
-							  <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-								<span class="glyphicon glyphicon-chevron-left"></span>
-							  </a>
-							  <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-								<span class="glyphicon glyphicon-chevron-right"></span>
-							  </a>
-				  
+                            <!-- Controls -->
+                            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+
                         </div>
 
 
@@ -126,7 +126,7 @@
                             <td class="col-md-8 am-pad">Check-out Time : </td>
                             <td><span class="sm-txt">@Model.CheckOut</span></td>
                         </tr>
-                       <tr>
+                        <tr>
                             <td class="col-md-8 am-pad">Minimum Stays : </td>
                             <td><span class="sm-txt">@Model.MininumStay</span></td>
                         </tr>
@@ -253,32 +253,32 @@
 </section>
 
 @*<section class="section2 bordered">
-    <div class="container clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h3>Recommended by us</h3>
-            <div class="head-underline-s"> </div>
-            <article class="element clearfix">
-                <div class="col-md-3">
-                    <p><img src="/images/3.jpg" /></p>
-                    <h5>Property 1</h5>
-                </div>
-                <div class="col-md-3">
-                    <p><img src="/images/02.jpg" /></p>
-                    <h5>Property 2</h5>
-                </div>
-                <div class="col-md-3">
-                    <p><img src="/images/5.jpg" /></p>
-                    <h5>Property 3</h5>
-                </div>
-                <div class="col-md-3">
-                    <p><img src="/images/13.jpg" /></p>
-                    <h5>Property 4</h5>
-                </div>
-            </article>
-        </div>
+        <div class="container clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h3>Recommended by us</h3>
+                <div class="head-underline-s"> </div>
+                <article class="element clearfix">
+                    <div class="col-md-3">
+                        <p><img src="/images/3.jpg" /></p>
+                        <h5>Property 1</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <p><img src="/images/02.jpg" /></p>
+                        <h5>Property 2</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <p><img src="/images/5.jpg" /></p>
+                        <h5>Property 3</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <p><img src="/images/13.jpg" /></p>
+                        <h5>Property 4</h5>
+                    </div>
+                </article>
+            </div>
 
-    </div>
-</section>*@
+        </div>
+    </section>*@
 
 
 
@@ -295,18 +295,34 @@
         });
         $("#endDate").datepick({
             dateFormat: 'dd/mm/yyyy',
+            minDate: new Date(new Date().getFullYear(), new Date().getMonth() + 1, new Date().getDate()),
             onSelect: function (dates) {
                 var date = new Date(dates)
                 $("#endDate").attr("value", date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate());
+                var startDate = document.getElementById("startDate").value;
+                var endDate = document.getElementById("endDate").value;
+                if ((parseDate(startDate) > parseDate(endDate))) {
+                    alert("End date should be greater than Start date");
+                    document.getElementById("endDate").value = "";
+                }
             },
         });
         $("#startDate").datepick({
             dateFormat: 'dd/mm/yyyy',
+            minDate: new Date(new Date().getFullYear(), new Date().getMonth() + 1 , new Date().getDate()),
             onSelect: function (dates) {
+                document.getElementById("endDate").value = "";
                 var date = new Date(dates)
                 $("#startDate").attr("value", date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate());
             },
         });
+
+        function parseDate(value)
+        {
+            var parts = value.split("/");
+            return new Date(Number(parts[2]), Number(parts[1]) - 1, Number(parts[0]));
+        }
+
     </script>
 
     @*<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>

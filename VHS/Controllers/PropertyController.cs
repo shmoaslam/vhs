@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -91,7 +92,7 @@ namespace VHS.Controllers
         }
 
         [AllowAnonymous]
-        public JsonResult CheckAvailbility(PropertyBooking propertyBooking,string PropertyName, int PropertyId, DateTime? StartDate, DateTime? EndDate,
+        public JsonResult CheckAvailbility(string PropertyName, int PropertyId, string StartDate, string EndDate,
              int GuestNo, int AdultNo, int ChildNo,  string ButtonType)
         {
             var propBooking = new PropertyBooking
@@ -99,23 +100,24 @@ namespace VHS.Controllers
                 PropertyId = PropertyId,
                 AdultNo = AdultNo,
                 ChildNo = ChildNo,
-                EndDate = EndDate,
-                StartDate = StartDate,
+                EndDate = DateTime.ParseExact(EndDate, "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                StartDate = DateTime.ParseExact(StartDate, "dd/MM/yyyy", CultureInfo.InvariantCulture),
                 PropertyName = PropertyName,
                 GuestNo = GuestNo
             };
-            int i = 0;
             var response = new AvailbilityModel();
+
+         
             if (propBooking.StartDate != null && propBooking.EndDate != null)
             {
                 var checkAval = true;
                 var bookProperty = true;
 
-                if (ButtonType == "Check Availability")
+                if (ButtonType == "CA")
                 {
                     checkAval = _propertyBooking.CheckPropertyAvailbility(propBooking);
 
-                    
+
 
                     if (!checkAval)
                     {
@@ -128,11 +130,11 @@ namespace VHS.Controllers
                         response.Status = 2;
                     }
                 }
-                else if (ButtonType == "Book Property")
+                else if (ButtonType == "BP")
                 {
                     if (Request.IsAuthenticated)
                     {
-                        bookProperty = _propertyBooking.BookProperty(propertyBooking);
+                        bookProperty = _propertyBooking.BookProperty(propBooking);
                         if (bookProperty)
                         {
                             response.Status = 3;
@@ -152,7 +154,7 @@ namespace VHS.Controllers
                 {
                     response.Status = 5;
                 }
-           
+
             }
 
             return Json(response);

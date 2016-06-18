@@ -11,7 +11,7 @@
         {
             foreach (var parking in Model.ParkingList)
             {
-                <span class="half-label"><input type="checkbox" checked="@parking.IsChecked" name="ParkingId" value="@parking.id"><label>@parking.Name</label></span>
+                <span class="half-label"><input type="checkbox" checked="@parking.IsChecked" name="ParkingId" value="@parking.id" id="@parking.Name"><label for="@parking.Name">@parking.Name</label></span>
             }
         }
         <div style="clear:both;"></div>
@@ -20,7 +20,7 @@
         {
             foreach (var sleeping in Model.SleepingArrangmentList)
             {
-                <label class="half-label"><input type="checkbox" checked="@sleeping.IsChecked" name="SleepingArrangmentId" value="@sleeping.id"><span>@sleeping.Name</span></label>
+                <span class="half-label"><input type="checkbox" checked="@sleeping.IsChecked" name="SleepingArrangmentId" value="@sleeping.id" id="@sleeping.Name"><label for="@sleeping.Name">@sleeping.Name</label></span>
             }
         }
         <div style="clear:both;"></div>
@@ -29,7 +29,7 @@
         {
             foreach (var bathRoom in Model.BathRoomsList)
             {
-                <label class="half-label"><input type="checkbox" checked="@bathRoom.IsChecked" name="BathRoomsId" value="@bathRoom.id"><span>@bathRoom.Name</span></label>
+                <span class="half-label"><input type="checkbox" checked="@bathRoom.IsChecked" name="BathRoomsId" value="@bathRoom.id" id="@bathRoom.Name"><label for="@bathRoom.Name">@bathRoom.Name</label></span>
             }
         }
         <label class="full-label">Kitchen</label>
@@ -37,7 +37,7 @@
         {
             foreach (var kitchen in Model.KitchenList)
             {
-                <label class="half-label"><input type="checkbox" checked="@kitchen.IsChecked" name="KitchenId" value="@kitchen.id"><span>@kitchen.Name</span></label>
+                <span class="half-label"><input type="checkbox" checked="@kitchen.IsChecked" name="KitchenId" value="@kitchen.id" id="@kitchen.Name"><label for="@kitchen.Name">@kitchen.Name</label></span>
             }
         }
         <label class="full-label">General</label>
@@ -45,7 +45,7 @@
         {
             foreach (var genearl in Model.GeneralList)
             {
-                <label class="half-label"><input type="checkbox" checked="@genearl.IsChecked" name="GeneralId" value="@genearl.id"><span>@genearl.Name</span></label>
+                <span class="half-label"><input type="checkbox" checked="@genearl.IsChecked" name="GeneralId" value="@genearl.id" id="@genearl.Name"><label for="@genearl.Name">@genearl.Name</label></span>
             }
         }
         <label class="full-label">Entertainment And Electronics</label>
@@ -53,7 +53,7 @@
         {
             foreach (var entertainMent in Model.EnterTaimentElecList)
             {
-                <label class="half-label"><input type="checkbox" checked="@entertainMent.IsChecked" name="EnterTaimentId" value="@entertainMent.id"><span>@entertainMent.Name</span></label>
+                <span class="half-label"><input type="checkbox" checked="@entertainMent.IsChecked" name="EnterTaimentId" value="@entertainMent.id" id="@entertainMent.Name"><label for="@entertainMent.Name">@entertainMent.Name</label></span>
             }
         }
         <label class="full-label">Outdoor Facilities</label>
@@ -61,7 +61,7 @@
         {
             foreach (var outdoor in Model.OutdoorFacilitiesList)
             {
-                <label class="half-label"><input type="checkbox" checked="@outdoor.IsChecked" name="OutdoorId" value="@outdoor.id"><span>@outdoor.Name</span></label>
+                <span class="half-label"><input type="checkbox" checked="@outdoor.IsChecked" name="OutdoorId" value="@outdoor.id" id="@outdoor.Name"><label for="@outdoor.Name">@outdoor.Name</label></span>
             }
         }
         <div style="clear:both;"></div>

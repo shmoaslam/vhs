@@ -548,22 +548,34 @@ article:hover .hidden-content .borderline { width:145px; -webkit-transition: wid
 }
 
 
-input[type="checkbox"] { position: absolute; opacity: 0; z-index: -1; }
+input[type="checkbox"] {
+  display: none;
+}
+label {
+  cursor: pointer;
+}
 
-input[type="checkbox"]+span { font: 10pt sans-serif; color: #666; }
+input[type="checkbox"] + label:before {
+  border: 1px solid #555;
+  content: "\00a0";
+  display: inline-block;
+  font: 16px/1em sans-serif;
+  height: 16px;
+  margin: 0 .25em 0 0;
+  padding:0;
+  vertical-align: top;
+  width: 16px;
+}
+input[type="checkbox"]:checked + label:before {
+  background: #f5f5f5;
+  color: #f06eaa;
+  content: "\2713";
+  text-align: center;
+}
+input[type="checkbox"]:checked + label:after {
+  font-weight: 700;
+}
 
-input[type="checkbox"]+span:before { font: 12pt FontAwesome; content: '\00f096';
-  display: inline-block; width: 12pt; padding: 2px 0 0 3px; margin-right: 0.5em; }
-  
-input[type="checkbox"]:checked+span:before { content: '\00f046'; }
-
-//input[type="checkbox"]:focus+span:before { outline: 1px dotted #f06eaa; }
-
-input[type="checkbox"]:disabled+span { color: #f06eaa; }
-
-input[type="checkbox"]:not(:disabled)+span:hover:before {
-  text-shadow: 0 1px 2px #ccc;
-  }
 
   img#image {
     width: 200px;
@@ -697,9 +709,11 @@ margin:0 4px;
 }
 
 .p-name{
-	color:#f06eaa;
-	height: 25px;
+	color: #f06eaa;
+	font-size:18px;
+    height: auto;
     overflow: hidden;
+    padding: 5px 15px;
 }
 .xtr-ins{
 	display:block;
@@ -715,12 +729,7 @@ input[type="radio"] {
     width: 10px;
 }
 
-input:checked {
-	border-radius: 10px;
-    height: 10px;
-    width: 10px;
-    background: #f06eaa;
-}
+
 
 
 @media(max-width:768px){

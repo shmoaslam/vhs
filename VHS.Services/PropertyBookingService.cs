@@ -31,6 +31,7 @@ namespace VHS.Services
         {
             bool result = false;
             int loginId = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
+
             if (!CheckPropertyAvailbility(propertyBook))
             {
                 _unitOfWork.PropertyBookingRepository.Insert(new Core.PropertyBooking { LoginId = loginId, StartDate = propertyBook.StartDate,

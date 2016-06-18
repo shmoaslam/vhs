@@ -1,6 +1,6 @@
 ﻿@model VHS.Services.Models.PropertyBooking
 
-@using (Ajax.BeginForm("CheckAvailbility", "Property", new AjaxOptions { OnBegin = "fnBegin", HttpMethod = "Post", OnSuccess = "fnSuccess", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part", id="bookingForm" }))
+@using (Ajax.BeginForm("CheckAvailbility", "Property", new AjaxOptions {  HttpMethod = "Post" }, new { @class = "form-part", id="bookingForm" }))
 {
     <p class="sub-heading" id="errormessage" style="display:none"><span class="error-msg"> Username/Password does not match</span></p>
     @Html.AntiForgeryToken()
@@ -35,7 +35,7 @@
 
     <div class="input-wrapper clearfix">
         <input type="submit" class="button alignleft" value="Check Availability" id="checkAvailability" name="ButtonType" />
-        <input type="submit" class="button alignleft" value="Book Property" id="submitBooking" name="ButtonType" />
+        @*<input type="submit" class="button alignleft" value="Book Property" id="submitBooking" name="ButtonType" />*@
         <p id="imgLoader" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
     </div>
 }
@@ -83,26 +83,63 @@
     
 
     $("#checkAvailability").on("click", function (e) {
-        //if ($("#extraCountDiv").is(":visible")) {
-        //    var standardCount = parseInt($("#standardGuestCount").text());
-        //    var totalCount = parseInt($("#maxGuest").text());
-        //    var difference = totalCount - standardCount;
-        //    var totalExtraGuestCount = parseInt($("#totalAdultCount").val()) + parseInt($("#totalChildCount").val());
-        //    if (totalExtraGuestCount != difference) {
-        //        alert('Please enter proper extra guest count');
-        //        e.preventDefault();
-        //        return;
-        //    }
-        //    var totalApproxPrice = parseInt($("#standardPrice").text()) + parseInt($("#totalAdultCount").val()) * parseInt($("#pricePerAdult").text()) + parseInt($("#totalChildCount").val()) * parseInt($("#pricePerChild").text());
-        //    $("#totalPrice").val(totalApproxPrice);
+        e.preventDefault();
 
-        //}
+        var guestCount = $('#totalGuestCount').val();
+        if (guestCount <= 0) { alert('Please enter guest greater then zero'); return;}
+        var buttonType = $("#checkAvailability").val() == "Check Availability" ? "CA" : "BP";
+        $('#imgLoader').show();
+        var data = $('#bookingForm').serialize();
+        data += "&ButtonType="+ buttonType
+        $.post('@Url.Action("CheckAvailbility")', data)
+        .done(function (data) {
+            $('#imgLoader').hide();
+            switch (data.Status) {
 
-    })
+                case 1:
+                    alert("Property available for this Date");
+                    $("#totalPrice").val(data.Price);
+                    $("#checkAvailability").val('Book Property');
+                    break;
+
+                case 2:
+                    alert("Property is no available for this Date.Please try another day ");
+                    break;
+
+                case 3:
+                    alert("Property booking successfully,Our reppresentative will contact you shortly.");
+                    location.reload();
+                    break;
+
+                case 4:
+                    alert("Property is no available for this Date.Please try another day and book");
+                    break;
+
+                case 5:
+                    alert("Please try Later.");
+                    break;
+
+                case 6:
+                    alert("Please login first to book property.");
+                    break;
+                
+
+                case 0:
+                    alert("Please select date to check availability and book property.");
+                    break;
+
+                default:
+                    alert("Please try Later.");
+
+            }
+        });
 
 
 
-    $("#startDate").change(function () {
+    });
+
+
+    $("#startDate").on('change', function () {
         document.getElementById("endDate").value = "";
     });
     //Show the Forgot Password  Div:-
@@ -110,55 +147,55 @@
         window.location.href = '@Url.Action("ForgotPassword", "Account")';
     }
     //Show the Success:-
-    function fnBegin() {
-        $('#imgLoader').show();
-        //Show any loder when process start:-
-    }
-    function fnSuccess(response, status, xhr) {
-        $('#imgLoader').hide();
-        switch (response.Status) {
+    //function fnBegin() {
+    //    $('#imgLoader').show();
+    //    //Show any loder when process start:-
+    //}
+    //function fnSuccess(response, status, xhr) {
+    //    $('#imgLoader').hide();
+    //    switch (response.Status) {
 
-            case 1:
-                alert("Property available for this Date");
-                $("#totalPrice").val(response.Price);
-                break;
+    //        case 1:
+    //            alert("Property available for this Date");
+    //            $("#totalPrice").val(response.Price);
+    //            break;
 
-            case 2:
-                alert("Property is no available for this Date.Please try another day ");
-                break;
+    //        case 2:
+    //            alert("Property is no available for this Date.Please try another day ");
+    //            break;
 
-            case 3:
-                alert("Property booking successfully,Our reppresentative will contact you shortly.");
-                break;
+    //        case 3:
+    //            alert("Property booking successfully,Our reppresentative will contact you shortly.");
+    //            break;
 
-            case 4:
-                alert("Property is no available for this Date.Please try another day and book");
-                break;
+    //        case 4:
+    //            alert("Property is no available for this Date.Please try another day and book");
+    //            break;
 
-            case 5:
-                alert("Please try Later.");
-                break;
+    //        case 5:
+    //            alert("Please try Later.");
+    //            break;
 
-            case 6:
-                alert("Please login first to book property.");
-                break;
+    //        case 6:
+    //            alert("Please login first to book property.");
+    //            break;
 
-            case 0:
-                alert("Please select date to check availability and book property.");
-                break;
+    //        case 0:
+    //            alert("Please select date to check availability and book property.");
+    //            break;
 
-            default:
-                alert("Please try Later.");
+    //        default:
+    //            alert("Please try Later.");
 
-        }
-    }
-    function fnFailure(xhr, status, err) {
-        $('#imgLoader').hide();
-        alert("'failure occured!!.Please try after '")
-    }
-    function fnComplete() {
-        if (response != "1") {
-            $('#imgLoader').hide();
-        }
-    }
+    //    }
+    //}
+    //function fnFailure(xhr, status, err) {
+    //    $('#imgLoader').hide();
+    //    alert("'failure occured!!.Please try after '")
+    //}
+    //function fnComplete() {
+    //    if (response != "1") {
+    //        $('#imgLoader').hide();
+    //    }
+    //}
 </script>
