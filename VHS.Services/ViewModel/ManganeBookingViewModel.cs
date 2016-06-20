@@ -28,6 +28,8 @@ namespace VHS.Services.ViewModel
         public decimal NegotiatePrice { get; set; }
         public decimal RecievedPayment { get; set; }
 
+        public string PropertyDisplayName { get; set; }
+
         public string RmComment { get; set; }
 
 

@@ -712,9 +712,25 @@ namespace VHS.Repository
             return result;
         }
 
+        public decimal? GetBookingPrice(int PropertyId, DateTime StartDate, DateTime EndDate, int adultCount, int childCount)
+        {
+            var result = _context.Database.SqlQuery<decimal?>("GetBookingAprroxPrice @startDate, @endDate, @AdultCount, @ChildCount, @propId"
+                , new SqlParameter("startDate", StartDate), new SqlParameter("endDate", EndDate)
+                , new SqlParameter("AdultCount", adultCount), new SqlParameter("ChildCount", childCount), new SqlParameter("propId", PropertyId)).FirstOrDefault();
+            return result;
+        }
+
         public List<PropertyDetialModel> GetPropertyWaitingForApproval()
         {
             return _context.Database.SqlQuery<PropertyDetialModel>("select Title, Id, name GalaryImage, categoryname + ', ' + city [Desc] from ( select Title, p.id Id,i.name , pc.categoryname , pa.city  , row_number() over (partition by Title order by name) as RowNbr   from property p  join PropertyImageMapping pim on p.Id = pim.propertyid  join Image i on pim.Imageid = i.imageid join PropertyCategory pc on pc.id = p.categoryid join PropertyAddress pa on pa.propertyid = p.id where p.isactive  = 1 and p.sendapprovedrequest = 1 and  p.isapproved = 0) a where RowNbr = 1").ToList();
+        }
+
+        public List<ManganeBookingViewModel> GetBookings(int rmId)
+        {
+            if(rmId == 0)
+                return _context.Database.SqlQuery<ManganeBookingViewModel>("select pb.Id Id, pb.BookingId, p.Title + ', ' + pa.City PropertyDisplayName, CONVERT(varchar, pb.PropertyId) PropertyId from PropertyBooking pb join Property p on  pb.PropertyId = p.Id join PropertyAddress pa on p.Id = pa.PropertyId and pb.IsComplete = 0").ToList();
+            else
+                return _context.Database.SqlQuery<ManganeBookingViewModel>("select pb.Id Id, pb.BookingId, p.Title + ', ' + pa.City PropertyDisplayName, CONVERT(varchar, pb.PropertyId) PropertyId from PropertyBooking pb join Property p on  pb.PropertyId = p.Id join PropertyAddress pa on p.Id = pa.PropertyId and pb.IsComplete = 0 and p.LoginId = @rmId", new SqlParameter("rmId", rmId)).ToList();
         }
         #endregion
 
@@ -743,6 +759,7 @@ namespace VHS.Repository
             public decimal NegotiatePrice { get; set; }
             public decimal RecievedPayment { get; set; }
 
+            public string PropertyDisplayName { get; set; }
             public string RmComment { get; set; }
 
 

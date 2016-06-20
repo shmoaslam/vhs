@@ -260,7 +260,6 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="HtmlPage1.html" />
     <Content Include="Images\02.jpg" />
     <Content Include="Images\1.jpg" />
     <Content Include="Images\11.jpg" />
@@ -546,7 +545,7 @@
     <Content Include="Scripts\jquery-easing-1.3.js" />
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.ba-bbq.min.js" />
-    <Content Include="Scripts\jquery.datepick.js" />
+    <Content Include="Scripts\jquery.datepic.js" />
     <Content Include="Scripts\jquery.fancybox.pack.js" />
     <Content Include="Scripts\jquery.fitvids.js" />
     <Content Include="Scripts\jquery.flexslider-min.js" />

@@ -39,9 +39,16 @@ namespace VHS.Services
             };
         }
 
-        public BookingDisplayViewModel GetPropertyForManage(int rmId)
+        public List<ManganeBookingViewModel> GetBookings(int rmId)
         {
-            throw new NotImplementedException();
+            var bookings = _unitOfWork.GetBookings(rmId);
+            var bookingsViewModel = new List<ManganeBookingViewModel>();
+            foreach (var booking in bookings)
+            {
+                bookingsViewModel.Add(new ManganeBookingViewModel { BookingId = booking.BookingId, Id = booking.Id, PropertyDisplayName = booking.PropertyDisplayName, PropertyId = booking.PropertyId });
+            }
+
+            return bookingsViewModel;
         }
 
         public bool UpdateBooking(ManganeBookingViewModel model)

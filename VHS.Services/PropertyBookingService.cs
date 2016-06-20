@@ -31,6 +31,7 @@ namespace VHS.Services
         {
             bool result = false;
             int loginId = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
+
             if (!CheckPropertyAvailbility(propertyBook))
             {
                 _unitOfWork.PropertyBookingRepository.Insert(new Core.PropertyBooking { LoginId = loginId, StartDate = propertyBook.StartDate,
@@ -75,20 +76,12 @@ namespace VHS.Services
             }
         }
 
-        public decimal GetTotalPrice(PropertyBooking propertyBooking)
+        public decimal? GetTotalPrice(PropertyBooking propertyBook)
         {
-            foreach (DateTime day in EachDay(Convert.ToDateTime(propertyBooking.StartDate), Convert.ToDateTime(propertyBooking.EndDate)))
-            {
-
-            }
-
-            return 0;
+            var totalPrice = _unitOfWork.GetBookingPrice(propertyBook.PropertyId, (DateTime)propertyBook.StartDate, (DateTime)propertyBook.EndDate, propertyBook.AdultNo, propertyBook.ChildNo);
+            return  totalPrice ;
         }
 
-        public IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
-        {
-            for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
-                yield return day;
-        }
+   
     }
 }

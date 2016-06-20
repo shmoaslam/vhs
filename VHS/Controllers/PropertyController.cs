@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -84,61 +85,79 @@ namespace VHS.Controllers
         }
      
 
-        [AllowAnonymous]
-        public JsonResult CheckAvailbility(PropertyBooking propertyBooking, string ButtonType)
+        public class AvailbilityModel
         {
-            int i = 0;
-            if (propertyBooking.StartDate != null && propertyBooking.EndDate != null)
+            public decimal Price { get; set; }
+            public int Status { get; set; }
+        }
+
+        [AllowAnonymous]
+        public JsonResult CheckAvailbility(string PropertyName, int PropertyId, string StartDate, string EndDate,
+             int GuestNo, int AdultNo, int ChildNo,  string ButtonType)
+        {
+            var propBooking = new PropertyBooking
+            {
+                PropertyId = PropertyId,
+                AdultNo = AdultNo,
+                ChildNo = ChildNo,
+                EndDate = DateTime.ParseExact(EndDate, "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                StartDate = DateTime.ParseExact(StartDate, "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                PropertyName = PropertyName,
+                GuestNo = GuestNo
+            };
+            var response = new AvailbilityModel();
+
+         
+            if (propBooking.StartDate != null && propBooking.EndDate != null)
             {
                 var checkAval = true;
                 var bookProperty = true;
 
-                if (ButtonType == "Check Availability")
+                if (ButtonType == "CA")
                 {
-                    checkAval = _propertyBooking.CheckPropertyAvailbility(propertyBooking);
+                    checkAval = _propertyBooking.CheckPropertyAvailbility(propBooking);
 
-                    var totalPrice = _propertyBooking.GetTotalPrice(propertyBooking);
+
 
                     if (!checkAval)
                     {
-                        i = 1;
+                        response.Status = 1;
+                        var price = _propertyBooking.GetTotalPrice(propBooking);
+                        response.Price = price.HasValue ? price.Value : 0;
                     }
                     else
                     {
-                        i = 2;
+                        response.Status = 2;
                     }
                 }
-                else if (ButtonType == "Book Property")
+                else if (ButtonType == "BP")
                 {
                     if (Request.IsAuthenticated)
                     {
-                        bookProperty = _propertyBooking.BookProperty(propertyBooking);
+                        bookProperty = _propertyBooking.BookProperty(propBooking);
                         if (bookProperty)
                         {
-                            i = 3;
+                            response.Status = 3;
                         }
                         else
                         {
-                            i = 4;
+                            response.Status = 4;
                         }
                     }
                     else
                     {
-                        i = 6;
+                        response.Status = 6;
 
                     }
                 }
                 else
                 {
-                    i = 5;
+                    response.Status = 5;
                 }
-                return Json(i);
-            }
-            else
-            {
-                return Json(i);
+
             }
 
+            return Json(response);
 
         }
 

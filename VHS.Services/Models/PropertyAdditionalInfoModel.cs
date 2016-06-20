@@ -132,9 +132,9 @@ namespace VHS.Services.Models
         public int CurrencyId { get; set; }
         public SelectList PriceCurrency { get; set; }
         [Required(ErrorMessage = "Please select start date")]
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
         [Required(ErrorMessage = "Please select stop date")]
-        public DateTime StopDate { get; set; }
+        public DateTime? StopDate { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
         public double PricePerNight { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
@@ -148,9 +148,9 @@ namespace VHS.Services.Models
         public string OtherPrice { get; set; }
         public decimal Comision { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
-        public double PricePerAdult { get; set; }
+        public decimal PricePerAdult { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
-        public double PricePerChild { get; set; }
+        public decimal PricePerChild { get; set; }
     }
     public class PropertyVarablePricing
     {
@@ -164,6 +164,10 @@ namespace VHS.Services.Models
         public double Price { get; set; }
         [Required(ErrorMessage = "Please enter description")]
         public string Description { get; set; }
+
+
+        public decimal? AdultPrice { get; set; }
+        public decimal? ChildPrice { get; set; }
     }
     public class PropertyWeekendPricing
     {

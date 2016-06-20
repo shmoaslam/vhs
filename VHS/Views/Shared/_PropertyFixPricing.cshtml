@@ -1,5 +1,10 @@
 ﻿@model VHS.Services.Models.PropertyFixedPricing
 
+@{ 
+    var startDate = Model.StartDate != null ? Convert.ToDateTime(Model.StartDate).ToString("yyyy-MM-dd") : string.Empty;
+    var endDate = Model.StopDate != null ? Convert.ToDateTime(Model.StopDate).ToString("yyyy-MM-dd") : string.Empty;
+}
+
 <h4>Fixed Pricing</h4>
 @using (Ajax.BeginForm("PropertyFixedPricing", "ManageProperty", new AjaxOptions { OnBegin = "fnBeginFixedPrice", HttpMethod = "Post", OnSuccess = "fnSuccessFixedPrice", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
 { <p class="sub-heading" id="errormessage" style="display:none"><span class="error-msg"> Error occured during update</span></p>
@@ -93,7 +98,7 @@
 </script>
 <script type="text/javascript" language=javascript>
 
-    $("#txtStopDate").val(new Date('@Model.StopDate.ToString("yyyy-MM-dd")').toDateInputValue());
-    $("#txtStartDate").val(new Date('@Model.StartDate.ToString("yyyy-MM-dd")').toDateInputValue());
+    $("#txtStopDate").val(new Date('@endDate').toDateInputValue());
+    $("#txtStartDate").val(new Date('@startDate').toDateInputValue());
     $.validator.unobtrusive.parse(document);
 </script>
