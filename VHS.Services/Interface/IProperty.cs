@@ -15,5 +15,6 @@ namespace VHS.Interface
         List<PropertyViewModel> GetPropertyList();
         PropertyDisplayViewModel GetPropertyDisplayModel(int? id);
         IList<PropertyDisplayViewModel> GetProperties(SearchPropertyModel model);
+        List<string> GetPropertyAutocompleteHelp(string query, string region);
     }
 }

@@ -84,6 +84,12 @@
 
     $("#checkAvailability").on("click", function (e) {
         e.preventDefault();
+        var standardCount = parseInt($("#standardGuestCount").text());
+        var adultCount = parseInt($("#totalAdultCount").val());
+        var childCount = parseInt($("#totalChildCount").val());
+        var totalCountEnter = parseInt($("#totalGuestCount").val());
+
+        if (totalCountEnter < (childCount + adultCount + standardCount)) { alert('Please enter proper guest count'); return; }
 
         var guestCount = $('#totalGuestCount').val();
         if (guestCount <= 0) { alert('Please enter guest greater then zero'); return;}

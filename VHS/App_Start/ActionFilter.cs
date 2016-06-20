@@ -64,51 +64,51 @@ namespace VHS.App_Start
         {
             return filterContext.HttpContext.Request.Headers["X-Requested-With"] == "XMLHttpRequest";
         }
-        //public override void OnException(ExceptionContext filterContext)
-        //{
-        //    if (filterContext.ExceptionHandled || !filterContext.HttpContext.IsCustomErrorEnabled)
-        //    {
-        //        var context = new RequestContext(new HttpContextWrapper(System.Web.HttpContext.Current), new RouteData());
-        //        var urlHelper = new UrlHelper(context);
-        //        filterContext.Result = new RedirectResult("../PageAccess/Error");
-        //    }
+        public override void OnException(ExceptionContext filterContext)
+        {
+            if (filterContext.ExceptionHandled || !filterContext.HttpContext.IsCustomErrorEnabled)
+            {
+                var context = new RequestContext(new HttpContextWrapper(System.Web.HttpContext.Current), new RouteData());
+                var urlHelper = new UrlHelper(context);
+                filterContext.Result = new RedirectResult("../PageAccess/Error");
+            }
 
-        //    // if the request is AJAX return JSON else view.
-        //    if (IsAjax(filterContext))
-        //    {
-        //        //Because its a exception raised after ajax invocation
-        //        //Lets return Json
-        //        filterContext.Result = new JsonResult()
-        //        {
-        //            Data = filterContext.Exception.Message,
-        //            JsonRequestBehavior = JsonRequestBehavior.AllowGet
-        //        };
-        //        filterContext.Result = new RedirectResult("../PageAccess/Error");
-        //        HttpContext.Current.Response.StatusCode = 500;
-        //        filterContext.ExceptionHandled = true;
-        //        filterContext.HttpContext.Response.Clear();
-        //    }
-        //    else
-        //    {
-        //        if (!HttpContext.Current.Response.IsRequestBeingRedirected)
-        //        {
-        //            var context = new RequestContext(new HttpContextWrapper(System.Web.HttpContext.Current), new RouteData());
-        //            var urlHelper = new UrlHelper(context);
-        //            var url = urlHelper.Action("Error", "PageAccess");
-        //            System.Web.HttpContext.Current.Response.Redirect(url);
-        //        }
-        //    }
+            // if the request is AJAX return JSON else view.
+            if (IsAjax(filterContext))
+            {
+                //Because its a exception raised after ajax invocation
+                //Lets return Json
+                filterContext.Result = new JsonResult()
+                {
+                    Data = filterContext.Exception.Message,
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
+                filterContext.Result = new RedirectResult("../PageAccess/Error");
+                HttpContext.Current.Response.StatusCode = 500;
+                filterContext.ExceptionHandled = true;
+                filterContext.HttpContext.Response.Clear();
+            }
+            else
+            {
+                if (!HttpContext.Current.Response.IsRequestBeingRedirected)
+                {
+                    var context = new RequestContext(new HttpContextWrapper(System.Web.HttpContext.Current), new RouteData());
+                    var urlHelper = new UrlHelper(context);
+                    var url = urlHelper.Action("Error", "PageAccess");
+                    System.Web.HttpContext.Current.Response.Redirect(url);
+                }
+            }
 
-        //    // Write error logging code here if you wish.
+            // Write error logging code here if you wish.
 
-        //    //if want to get different of the request
-        //    var currentController = (string)filterContext.RouteData.Values["controller"];
-        //    var currentActionName = (string)filterContext.RouteData.Values["action"];
-        //    var ExcMailTo = "shmoaslam@gmail.com";
-        //    string message = filterContext.Exception.Message;
-        //    string msg = VHS.Services.App_Code.MailSend.SendEmail(ExcMailTo, "Error Details", message,false);
-        //    //Write Mail For Alert to Webmaster:-
-        //}
+            //if want to get different of the request
+            var currentController = (string)filterContext.RouteData.Values["controller"];
+            var currentActionName = (string)filterContext.RouteData.Values["action"];
+            var ExcMailTo = "shmoaslam@gmail.com";
+            string message = filterContext.Exception.Message;
+            string msg = VHS.Services.App_Code.MailSend.SendEmail(ExcMailTo, "Error Details", message, false);
+            //Write Mail For Alert to Webmaster:-
+        }
 
         //If Error Occured SendMail to Admin:-
     }

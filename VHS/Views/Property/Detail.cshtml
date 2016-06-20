@@ -293,9 +293,9 @@
                 document.getElementById("endDate").value = "";
             }
         });
-        $("#endDate").datepick({
+        var endDateCtrl = $("#endDate").datepick({
             dateFormat: 'dd/mm/yyyy',
-            minDate: new Date(new Date().getFullYear(), new Date().getMonth() + 1, new Date().getDate()),
+            minDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1),
             onSelect: function (dates) {
                 var date = new Date(dates)
                 $("#endDate").attr("value", date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate());
@@ -307,13 +307,14 @@
                 }
             },
         });
-        $("#startDate").datepick({
+        var startDateControl = $("#startDate").datepick({
             dateFormat: 'dd/mm/yyyy',
-            minDate: new Date(new Date().getFullYear(), new Date().getMonth() + 1 , new Date().getDate()),
+            minDate: new Date(new Date().getFullYear(), new Date().getMonth()  , new Date().getDate() ),
             onSelect: function (dates) {
                 document.getElementById("endDate").value = "";
                 var date = new Date(dates)
                 $("#startDate").attr("value", date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate());
+                endDateCtrl.datepick('option', 'minDate', new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1));
             },
         });
 

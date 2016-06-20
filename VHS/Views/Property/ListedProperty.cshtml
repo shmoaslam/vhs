@@ -9,6 +9,9 @@
     else if (PropertyFrom == "India") { ActionName = "ListedIndianProperty"; }
     else { ActionName = "ListedProperty"; }
 }
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.js"></script>
+
 <section class="section header-section dark">
     <div class="overlay">
         @if (PropertyFrom == "Spain")
@@ -34,10 +37,11 @@
 <section class="section2 bordered">
     <div class="container clearfix">
         <div class="row">
-            @if (!string.IsNullOrEmpty(PropertyFrom))
-            {
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    @if (PropertyFrom == "Spain")
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                @if (!string.IsNullOrEmpty(PropertyFrom))
+                {
+                    if (PropertyFrom == "Spain")
                     {
                         <article class="element clearfix">
                             <h3>Spain Homestays</h3>
@@ -66,50 +70,86 @@
                             </p>
                         </article>
                     }
-                </div>
-            }
 
+
+                }
+
+                else
+                {
+                    <p>
+                    </p><ol class="breadcrumb">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#" class="active">Listed Properties</a></li>
+                    </ol>
+                    <p></p>
+                }
+            </div>
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 myfilters">
+                @*<div class="filters-main">
+                        @using (Html.BeginForm(ActionName, "Property", FormMethod.Get, new { @class = "form-part", id = "" }))
+                        {
+                            <label class="sm-label-filter">Category</label>
+                            <select class="sm-input myselect" id="Category" name="Category">
+                                <option value="0">Select</option>
+                                <option value="1">Apartment</option>
+                                <option value="2">Beach House</option>
+                                <option value="3">Boat House</option>
+                                <option value="4">Farmhouse</option>
+                                <option value="5">Private Room</option>
+                                <option value="6">Villa</option>
+                                <option value="7">Other</option>
+                            </select>
+
+                            <input type="text" name="Query" id="Query" placeholder="Search" style="width: 170px;height: 36px;" />
+                            <button class="btn-primary">Apply</button>
+                        }
+
+                    </div>*@
                 <div class="filters-main">
                     @using (Html.BeginForm(ActionName, "Property", FormMethod.Get, new { @class = "form-part", id = "" }))
                     {
-                        <label class="sm-label-filter">Category</label>
-                        <select class="sm-input myselect" id="Category" name="Category">
-                            <option value="0">Select</option>
-                            <option value="1">Apartment</option>
-                            <option value="2">Beach House</option>
-                            <option value="3">Boat House</option>
-                            <option value="4">Farmhouse</option>
-                            <option value="5">Private Room</option>
-                            <option value="6">Villa</option>
-                            <option value="7">Other</option>
-                        </select>
-                        @*<label class="sm-label-filter">Bedrooms</label>
-                        <select class="sm-input myselect">
-                            <option value="0">Select</option>
-                            <option value="yes">1</option>
-                            <option value="yes">2</option>
-                            <option value="yes">3</option>
-                            <option value="yes">4</option>
-                            <option value="yes">5</option>
-                            <option value="yes">More than 5</option>
-                        </select>*@
-                        <input type="text" name="Query" id="Query" placeholder="Search" style="width: 170px;height: 36px;" />
-                        <button class="btn-primary">Apply</button>
+                        <span class="s-filters">
+                            <label class="sm-label-filter">Place</label>
+                            <input class="place myselect" name="Query" id="Query" type="text" size="30" placeholder="e.g. Goa, India" autocomplete="off">
+                        </span>
+
+                        <span class="s-filters">
+                            <label class="sm-label-filter">Check in</label>
+                            <input class="sm-input myselect" name="StartDate" id="StartDate">
+                        </span>
+
+                        <span class="s-filters">
+                            <label class="sm-label-filter">Check out</label>
+                            <input class="sm-input myselect" name="EndDate" id="EndDate">
+                        </span>
+
+                        <span class="s-filters">
+                            <label class="sm-label-filter">Guests</label>
+                            <select class="sm-input myselect" id="Guest" name="Guest">
+                                <option value="0">Select</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">More than 15</option>
+                            </select>
+                        </span>
+
+                        <button class="btn-primary" id="btnSearch" >Search</button>
                     }
-                    
                 </div>
-                @*<div class="sort-by">
-                    <form class="form-part" id="" method="post" action="">
-                        <label class="sm-label-filter">Sort by Price</label>
-                        <select class="sm-input myselect">
-                            <option value="0">Select</option>
-                            <option value="yes">High to Low</option>
-                            <option value="yes">Low to High</option>
-                        </select>
-                    </form>
-                </div>*@
             </div>
         </div>
 
@@ -124,8 +164,10 @@
                                 <img src="~/UploadFile/PropertyCoverPhoto/@property.CoverImage" />
                                 <div class="property-price-box">
                                     <span class="property-price-currency">
-                                    @if (property.RegionId == 2) { <text>&euro;</text> }
-                                    else { <text>&#8377;</text>}
+                                        @if (property.RegionId == 2)
+                                        { <text>&euro;</text> }
+                                        else
+                                        { <text>&#8377;</text>}
                                     </span><span class="property-price">@property.Price/-</span>
                                 </div>
                             </p>
@@ -170,4 +212,61 @@
 
     </div>
 </section>
+
+
+@section scripts{
+    <script>
+
+        $("#EndDate").datepick({
+            dateFormat: 'dd/mm/yyyy',
+            minDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()+1),
+            onSelect: function (dates) {
+                var date = new Date(dates)
+                $("#EndDate").attr("value", date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate());
+                var startDate = document.getElementById("StartDate").value;
+                var endDate = document.getElementById("EndDate").value;
+                if ((parseDate(startDate) > parseDate(endDate))) {
+                    alert("End date should be greater than Start date");
+                    document.getElementById("EndDate").value = "";
+                }
+            },
+        });
+        $("#StartDate").datepick({
+            dateFormat: 'dd/mm/yyyy',
+            minDate: new Date(new Date().getFullYear(), new Date().getMonth() , new Date().getDate()),
+            onSelect: function (dates) {
+                document.getElementById("EndDate").value = "";
+                var date = new Date(dates)
+                $("#StartDate").attr("value", date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate());
+            },
+        });
+
+        function parseDate(value) {
+            var parts = value.split("/");
+            return new Date(Number(parts[2]), Number(parts[1]) - 1, Number(parts[0]));
+        }
+
+    </script>
+
+    <script>
+        var myTypeahead = $('#Query').typeahead({
+            minLength: 1,
+            source: function (query, process) {
+                return $.post('@Url.Action("GetPropertyAutocompleteHelp")', { query: query, region: '@PropertyFrom' }, function (data) {
+                    return process(data);
+                });
+            },
+        });
+
+        //$("#btnSearch").on("click", function () {
+        //    var selectedText = $(".typeahead li.active").text().trim();
+        //    $('#Query').val(selectedText);
+        //});
+
+     
+
+    </script>
+}
+
+
 

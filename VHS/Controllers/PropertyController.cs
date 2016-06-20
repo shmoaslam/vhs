@@ -83,7 +83,7 @@ namespace VHS.Controllers
             var propertyViewModel = _property.GetPropertyDisplayModel(id);
             return View(propertyViewModel);
         }
-     
+
 
         public class AvailbilityModel
         {
@@ -93,7 +93,7 @@ namespace VHS.Controllers
 
         [AllowAnonymous]
         public JsonResult CheckAvailbility(string PropertyName, int PropertyId, string StartDate, string EndDate,
-             int GuestNo, int AdultNo, int ChildNo,  string ButtonType)
+             int GuestNo, int AdultNo, int ChildNo, string ButtonType, decimal AprroxPrice)
         {
             var propBooking = new PropertyBooking
             {
@@ -103,11 +103,12 @@ namespace VHS.Controllers
                 EndDate = DateTime.ParseExact(EndDate, "dd/MM/yyyy", CultureInfo.InvariantCulture),
                 StartDate = DateTime.ParseExact(StartDate, "dd/MM/yyyy", CultureInfo.InvariantCulture),
                 PropertyName = PropertyName,
-                GuestNo = GuestNo
+                GuestNo = GuestNo,
+                AprroxPrice = AprroxPrice
             };
             var response = new AvailbilityModel();
 
-         
+
             if (propBooking.StartDate != null && propBooking.EndDate != null)
             {
                 var checkAval = true;
@@ -161,6 +162,13 @@ namespace VHS.Controllers
 
         }
 
+        [AllowAnonymous]
+        public JsonResult GetPropertyAutocompleteHelp(string query, string region)
+        {
+            List<string> autoCompleteHelp = _property.GetPropertyAutocompleteHelp(query, region);
+
+            return Json(autoCompleteHelp);
+        }
         [AllowAnonymous]
         public ActionResult ListedProperty(SearchPropertyModel model)
         {
