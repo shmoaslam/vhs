@@ -88,8 +88,8 @@ namespace VHS.Services
         public IList<PropertyDisplayViewModel> GetProperties(SearchPropertyModel searchModel)
         {
             IList<PropertyDisplayViewModel> models = new List<PropertyDisplayViewModel>();
-            
-            var propertyModel = _unitOfWork.GetProperties(searchModel.Query,searchModel.Region, searchModel.Category);
+
+            var propertyModel = _unitOfWork.GetProperties(searchModel.Query,searchModel.Region, searchModel.Guest);
             if (propertyModel != null)
                 foreach (var model in propertyModel)
                     models.Add(new PropertyDisplayViewModel { Id = model.Id, RegionId = model.RegionId, Title = model.Title, Rating = model.Rating, CoverImage = model.CoverImage, Category = model.Category, Price = model.Price, PersonPerRoom = Convert.ToString(model.Bedroom), GuestCount = model.GuestCount });
@@ -206,6 +206,14 @@ namespace VHS.Services
                 info = categoryName + "," + cityName.City;
             }
             return info;
+        }
+
+        public List<string> GetPropertyAutocompleteHelp(string query, string region)
+        {
+            int regionId = 0;
+            if (region == "India") regionId = 1;
+            else if (region == "Spain") regionId = 2;
+            return _unitOfWork.GetPropertyAutocompleteHelp(query, regionId);
         }
     }
 }

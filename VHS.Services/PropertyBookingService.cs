@@ -62,7 +62,7 @@ namespace VHS.Services
                     bookingConfirmation.GuestCount = propertyBook.GuestNo;
                     bookingConfirmation.StartDate = Convert.ToDateTime( propertyBook.StartDate).ToShortDateString();
                     bookingConfirmation.EndDate = Convert.ToDateTime(propertyBook.EndDate).ToShortDateString();
-                    bookingConfirmation.Property = "VHS" + propertyBook.PropertyId.ToString("D5");
+                    bookingConfirmation.Property = "VH" + propertyBook.PropertyId.ToString("D5");
                     bookingConfirmation.PropertyName = propertyBook.PropertyName;
 
                     _notificationService.BookingConfirmationMail(bookingConfirmation);

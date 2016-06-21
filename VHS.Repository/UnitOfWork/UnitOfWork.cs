@@ -685,11 +685,16 @@ namespace VHS.Repository
 
         #region Store Procedure
 
-        public List<PropertyDisplayViewModel> GetProperties(string query, int region, int category)
+        public List<PropertyDisplayViewModel> GetProperties(string query, int region, int guestCount)
         {
-            return _context.Database.SqlQuery<PropertyDisplayViewModel>("exec GetListingProperty @regionId, @query, @category ", new SqlParameter("@regionId", region), new SqlParameter("@query", string.IsNullOrEmpty(query) ? string.Empty : query) , new SqlParameter("@category", category)).ToList();
+            return _context.Database.SqlQuery<PropertyDisplayViewModel>("exec GetListingProperty @regionId, @query, @guestCount ", new SqlParameter("@regionId", region), new SqlParameter("@query", string.IsNullOrEmpty(query) ? string.Empty : query) , new SqlParameter("@guestCount", guestCount)).ToList();
         }
-        
+
+        public List<string> GetPropertyAutocompleteHelp(string qeury, int regionId)
+        {
+            return _context.Database.SqlQuery<string>("exec GetPropertyAutocompleteHelp @regionId, @query", new SqlParameter("@regionId", regionId), new SqlParameter("@query", qeury)).ToList();
+        }
+
         public PropertyDetialModel GetPropertyDetails(int? id)
         {
             if (id == null) return null;
