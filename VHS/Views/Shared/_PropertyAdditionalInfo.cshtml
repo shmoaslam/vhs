@@ -49,14 +49,25 @@
         @Html.DropDownListFor(m => m.WheelChairId, new SelectList(Model.WheelChairAllowed, "Value", "Text"), "Select")
         <span style="color:red">@Html.ValidationMessageFor(m => m.WheelChairId)</span><br />
         <div style="clear:both;"></div>
-        <label class="full-label"><b>Select Cancellation Policy</b><span class="required">*</span></label>
+		
+		<label class="sm-label">Cancellation Policy<span class="required">*</span></label>
+			<select class="sm-input">
+			<option value="none">Select</option>
+			<option value="easy">Easy</option>
+			<option value="moderate">Moderate</option>
+			<option value="strict">Strict</option>				
+			</select>
+				
+        @*<label class="full-label"><b>Select Cancellation Policy</b><span class="required">*</span></label>
         <div style="clear:both;"></div>
         <span id="cp1">@Html.RadioButtonFor(x=>x.CancellationPolicy, "1") 1. Easy</span>
         <br />
         <span id="cp1">@Html.RadioButtonFor(x => x.CancellationPolicy, "2") 2. Moderate</span>
         <br />
         <span id="cp1">@Html.RadioButtonFor(x => x.CancellationPolicy, "3") 3. Strict</span>
-        <span style="color:red">@Html.ValidationMessageFor(m => m.WheelChairId)</span><br /><br />
+        <span style="color:red">@Html.ValidationMessageFor(m => m.WheelChairId)</span><br /><br />*@
+		
+		
         <div style="clear:both;"></div>
         <label class="full-label">Update map</label>
         <label class="sm-label">Latitude<span class="required">*</span></label>

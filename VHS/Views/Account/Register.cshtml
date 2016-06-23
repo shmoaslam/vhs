@@ -46,10 +46,7 @@
                 @*@Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Confirm password" })
                     @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })*@
                 <div class="input-wrapper clearfix">
-                    <label>
-                        <input class="checkbox" data-val="true" data-val-required="The bTermsCondition field is required." id="bTermsCondition" name="bTermsCondition" type="checkbox" value="true">
-                        <span>I accept <a href="http://velvetthomestays.com/home/tc" target="_blank">Terms & Conditions</a></span>
-                    </label>
+				<span><input class="checkbox" id="tcs" data-val="true" data-val-required="The bTermsCondition field is required." id="bTermsCondition" name="bTermsCondition" type="checkbox" value="true"><label for="tcs">I accept <a href="http://velvetthomestays.com/home/tc" target="_blank">Terms & Conditions</a></label></span>
                 </div>
                 <div class="input-wrapper clearfix">
                     <input type="submit" class="send-btn" value="Sign up" id="signup" name="signup" />
