@@ -217,7 +217,7 @@
 @section scripts{
     <script>
 
-        $("#EndDate").datepick({
+        var endDateCtrl = $("#EndDate").datepick({
             dateFormat: 'dd/mm/yyyy',
             minDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()+1),
             onSelect: function (dates) {
@@ -231,13 +231,14 @@
                 }
             },
         });
-        $("#StartDate").datepick({
+        var startDateControl = $("#StartDate").datepick({
             dateFormat: 'dd/mm/yyyy',
             minDate: new Date(new Date().getFullYear(), new Date().getMonth() , new Date().getDate()),
             onSelect: function (dates) {
                 document.getElementById("EndDate").value = "";
                 var date = new Date(dates)
                 $("#StartDate").attr("value", date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate());
+                endDateCtrl.datepick('option', 'minDate', new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1));
             },
         });
 

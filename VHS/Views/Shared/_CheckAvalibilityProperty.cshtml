@@ -1,16 +1,16 @@
 ﻿@model VHS.Services.Models.PropertyBooking
 
-@using (Ajax.BeginForm("CheckAvailbility", "Property", new AjaxOptions {  HttpMethod = "Post" }, new { @class = "form-part", id="bookingForm" }))
+@using (Ajax.BeginForm("CheckAvailbility", "Property", new AjaxOptions { HttpMethod = "Post" }, new { @class = "form-part", id = "bookingForm" }))
 {
     <p class="sub-heading" id="errormessage" style="display:none"><span class="error-msg"> Username/Password does not match</span></p>
     @Html.AntiForgeryToken()
     <label>Check in</label>
     @Html.HiddenFor(m => m.PropertyId)
     @Html.HiddenFor(m => m.PropertyName, new { id = "propName" })
-    <input type="text" name="StartDate" placeholder="Start Date" id = "startDate" />
+    <input type="text" name="StartDate" placeholder="Start Date" id="startDate" />
     @*@Html.ValidationMessageFor(m => m.StartDate, "", new { @class = "text-danger" })*@<br>
     <label>Check out</label>
-    <input type="text" name="EndDate" placeholder="End Date" id = "endDate" />
+    <input type="text" name="EndDate" placeholder="End Date" id="endDate" />
     @*@Html.ValidationMessageFor(m => m.EndDate, "", new { @class = "text-danger" })*@
     <br />
     <label>Guests</label>
@@ -80,7 +80,7 @@
         else if (totalCountEnter <= standardCount) { $("#extraCountDiv").hide(); return; }
 
     });
-    
+
 
     $("#checkAvailability").on("click", function (e) {
         e.preventDefault();
@@ -88,15 +88,17 @@
         var adultCount = parseInt($("#totalAdultCount").val());
         var childCount = parseInt($("#totalChildCount").val());
         var totalCountEnter = parseInt($("#totalGuestCount").val());
-
-        if (totalCountEnter < (childCount + adultCount + standardCount)) { alert('Please enter proper guest count'); return; }
+        var totalCount = parseInt($("#maxGuest").text());
+        if (totalCountEnter > totalCount) { alert('Please enter lesser number of Guest or choose other property!'); return; }
+        if (totalCountEnter > standardCount)
+            if (totalCountEnter != (childCount + adultCount + standardCount)) { alert('Please enter proper guest count'); return; }
 
         var guestCount = $('#totalGuestCount').val();
-        if (guestCount <= 0) { alert('Please enter guest greater then zero'); return;}
+        if (guestCount <= 0) { alert('Please enter guest greater then zero'); return; }
         var buttonType = $("#checkAvailability").val() == "Check Availability" ? "CA" : "BP";
         $('#imgLoader').show();
         var data = $('#bookingForm').serialize();
-        data += "&ButtonType="+ buttonType
+        data += "&ButtonType=" + buttonType
         $.post('@Url.Action("CheckAvailbility")', data)
         .done(function (data) {
             $('#imgLoader').hide();
@@ -128,7 +130,7 @@
                 case 6:
                     alert("Please login first to book property.");
                     break;
-                
+
 
                 case 0:
                     alert("Please select date to check availability and book property.");
