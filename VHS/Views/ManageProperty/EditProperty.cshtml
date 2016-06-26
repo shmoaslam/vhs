@@ -144,3 +144,16 @@
     </div>
 
 </section>
+
+@*@section scripts{
+<script>
+    var myTypeahead = $('.typeAutoComplete').typeahead({
+        minLength: 1,
+        source: function (query, process) {
+            return $.post('@Url.Action("GetRelatedPropertyAutocompleteHelp")', { query: query }, function (data) {
+                return process(data);
+            });
+        },
+    });
+</script>
+}*@

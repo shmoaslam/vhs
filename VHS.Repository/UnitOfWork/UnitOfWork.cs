@@ -60,6 +60,7 @@ namespace VHS.Repository
         private GenericRepository<Newsletter> _newsletterRepository;
         private GenericRepository<ResetPasswordToken> _resetPasswordToken;
         private GenericRepository<PropertyBooking> _propertyBooking;
+        private GenericRepository<RelatedProperty> _relatedPropertyRepository;
         #endregion
 
         public UnitOfWork()
@@ -615,6 +616,16 @@ namespace VHS.Repository
                 return _propertyBooking;
             }
         }
+
+        public GenericRepository<RelatedProperty> RelatedPropertyRepository
+        {
+            get
+            {
+                if (this._relatedPropertyRepository == null)
+                    this._relatedPropertyRepository = new GenericRepository<RelatedProperty>(_context);
+                return _relatedPropertyRepository;
+            }
+        }
         #endregion
 
         #region Public member methods...
@@ -807,7 +818,7 @@ namespace VHS.Repository
             public decimal PricePerAdult { get; set; }
             public decimal PricePerChild { get; set; }
             public int CancellationPolicy { get; set; }
-
+            public int RegionId { get; set; }
             public int? MininumStay { get; set; }
         }
         public class PropertyListForAdmin

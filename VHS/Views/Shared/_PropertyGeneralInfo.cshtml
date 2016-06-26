@@ -22,65 +22,61 @@
             @Html.ValidationMessageFor(m => m.NoOfGuests)
         </span><br />
         <label>No. of Bedrooms<span class="required">*</span></label>
-                            @Html.TextBoxFor(m => m.NoOfRooms)
-                            <span style="color:red">
-                                @Html.ValidationMessageFor(m => m.NoOfRooms)
-                            </span><br />
-                            <label>No. of Bathrooms<span class="required">*</span></label>
-                            @Html.TextBoxFor(m => m.NoOfBathrooms)
-                            <span style="color:red">
-                                @Html.ValidationMessageFor(m => m.NoOfBathrooms)
-                            </span><br />
+        @Html.TextBoxFor(m => m.NoOfRooms)
+        <span style="color:red">
+            @Html.ValidationMessageFor(m => m.NoOfRooms)
+        </span><br />
+        <label>No. of Bathrooms<span class="required">*</span></label>
+        @Html.TextBoxFor(m => m.NoOfBathrooms)
+        <span style="color:red">
+            @Html.ValidationMessageFor(m => m.NoOfBathrooms)
+        </span><br />
 
-                            <label>Address<span class="required">*</span></label>
-                            @Html.TextAreaFor(m => m.Address)
-                            <span style="color:red">
-                                @Html.ValidationMessageFor(m => m.Address)
-                            </span><br />
-                            <label>City<span class="required">*</span></label>
-                                @Html.TextBoxFor(m => m.City)
-                                <span style="color:red">
-                                    @Html.ValidationMessageFor(m => m.City)
-                                </span><br />
-                                <label>Region<span class="required">*</span></label>
-                                @Html.DropDownListFor(m => m.RegionId, new SelectList(Model.Region, "Value", "Text"), "Select")
-                                <span style="color:red">@Html.ValidationMessageFor(m => m.RegionId)</span><br />
-                                <label>Country<span class="required">*</span></label>
-                                @Html.TextBoxFor(m => m.Country)
-                                <span style="color:red">
-                                    @Html.ValidationMessageFor(m => m.Country)
-                                </span><br />
-                                <label>Zipcode</label>
+        <label>Address<span class="required">*</span></label>
+        @Html.TextAreaFor(m => m.Address)
+        <span style="color:red">
+            @Html.ValidationMessageFor(m => m.Address)
+        </span><br />
+        <label>City<span class="required">*</span></label>
+        @Html.TextBoxFor(m => m.City)
+        @Html.ValidationMessageFor(m => m.City)
+        <br />
+        <label>Region<span class="required">*</span></label>
+        @Html.DropDownListFor(m => m.RegionId, new SelectList(Model.Region, "Value", "Text"), "Select")
+        <span style="color:red">@Html.ValidationMessageFor(m => m.RegionId)</span><br />
+        <label>Country<span class="required">*</span></label>
+        @Html.TextBoxFor(m => m.Country)
+        <span style="color:red">
+            @Html.ValidationMessageFor(m => m.Country)
+        </span><br />
+        <label>Zipcode</label>
 
-                                @Html.TextBoxFor(m => m.ZipCode)
-                                <span style="color:red">
-                                    @Html.ValidationMessageFor(m => m.ZipCode)
-                                </span><br />
-                                <label>Email<span class="required">*</span></label>
-                                @Html.TextBoxFor(m => m.Email)
-                                <span style="color:red">
-                                    @Html.ValidationMessageFor(m => m.Email)
-                                </span><br />
-                                <label>Contact No.<span class="required">*</span></label>
-                                @Html.TextBoxFor(m => m.ContactNo)
-                                <span style="color:red">
-                                    @Html.ValidationMessageFor(m => m.ContactNo)
-                                </span><br />
-                                <label>Upload Property Images<span class="required">*</span><span class="error-msg">Maximum two images</span></label>
-                                @Html.TextBoxFor(m => m.Image, new { type = "file", multiple = "multiple" })
-                                @*<span style="color:red">
-                                    @Html.ValidationMessageFor(m => m.Image)
-                                </span>*@<br />
-                                <label>Price</label>
-                                @Html.TextBoxFor(m => m.Price)
-                                <span style="color:red">
-                                    @Html.ValidationMessageFor(m => m.Price)
-                                </span>
-                                <div class="input-wrapper clearfix text-center">
-                                    <input type="submit" class="send-btn" value="Submit" id="submit-property" name="submit-property" />
-                                    <input type="reset" class="send-btn" value="Reset" id="submit-property" name="submit-property" />
-                                    <p id="imgLoaderGeneralInfo" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
-                                </div>
+        @Html.TextBoxFor(m => m.ZipCode)
+        <span style="color:red">
+            @Html.ValidationMessageFor(m => m.ZipCode)
+        </span><br />
+        <label>Email<span class="required">*</span></label>
+        @Html.TextBoxFor(m => m.Email)
+        <span style="color:red">
+            @Html.ValidationMessageFor(m => m.Email)
+        </span><br />
+        <label>Contact No.<span class="required">*</span></label>
+        @Html.TextBoxFor(m => m.ContactNo)
+        <span style="color:red">
+            @Html.ValidationMessageFor(m => m.ContactNo)
+        </span><br />
+        <label>Upload Property Images<span class="required">*</span><span class="error-msg">Maximum two images</span></label>
+        @Html.TextBoxFor(m => m.Image, new { type = "file", multiple = "multiple" })<br />
+        <label>Price</label>
+        @Html.TextBoxFor(m => m.Price)
+        <span style="color:red">
+            @Html.ValidationMessageFor(m => m.Price)
+        </span>
+        <div class="input-wrapper clearfix text-center">
+            <input type="submit" class="send-btn" value="Submit" id="submit-property" name="submit-property" />
+            <input type="reset" class="send-btn" value="Reset" id="submit-property" name="submit-property" />
+            <p id="imgLoaderGeneralInfo" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
+        </div>
 
     }
 </div>

@@ -30,22 +30,22 @@
     @Html.TextBoxFor(x => x.StartDate, new { @class = "sm-input", type = "date" })
     <label class="sm-label">End date</label>
     @Html.TextBoxFor(x => x.EndDate, new { @class = "sm-input", type = "date" })
-            <label class="sm-label">Price (per day)</label>
-            @Html.TextBoxFor(m => m.Price, new { @class = "sm-input", size = "12" })
-            <label class="sm-label">Weekend Start Day</label>
-            @Html.DropDownListFor(model => model.From, weekEndList, "-- Select --", new { @class = "sm-input" })
-            <label class="sm-label">Weekend End Day</label>
-            @Html.DropDownListFor(model => model.To, weekEndList, "-- Select --", new { @class = "sm-input" })
-            <label class="full-label">Extra Person Price</label>
-            <label class="sm-label">Per Adult</label>
-            @Html.TextBoxFor(x => x.AdultPrice, new { @class = "sm-input" })
-            <label class="sm-label">Per Child</label>
-                @Html.TextBoxFor(x => x.ChildPrice, new { @class = "sm-input" })
-                <div style="clear:both;"></div>
-                <div class="input-wrapper clearfix">
-                    <input type="submit" class="send-btn" value="Update" id="" name="">
-                    <input type="reset" class="send-btn" value="Cancel" id="" name="">
-                </div>
+    <label class="sm-label">Price (per day)</label>
+    @Html.TextBoxFor(m => m.Price, new { @class = "sm-input", size = "12" })
+    <label class="sm-label">Weekend Start Day</label>
+    @Html.DropDownListFor(model => model.From, weekEndList, "-- Select --", new { @class = "sm-input" })
+    <label class="sm-label">Weekend End Day</label>
+    @Html.DropDownListFor(model => model.To, weekEndList, "-- Select --", new { @class = "sm-input" })
+    <label class="full-label">Extra Person Price</label>
+    <label class="sm-label">Per Adult</label>
+    @Html.TextBoxFor(x => x.AdultPrice, new { @class = "sm-input" })
+    <label class="sm-label">Per Child</label>
+    @Html.TextBoxFor(x => x.ChildPrice, new { @class = "sm-input" })
+    <div style="clear:both;"></div>
+    <div class="input-wrapper clearfix">
+        <input type="submit" class="send-btn" value="Update" id="" name="">
+        <input type="reset" class="send-btn" value="Cancel" id="" name="">
+    </div>
 }
 
 <script>

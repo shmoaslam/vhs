@@ -56,16 +56,24 @@ namespace VHS.Services.Models
         public int PropRatingId { get; set; }
         public SelectList ProperyRating { get; set; }
 
+
+
         [Required(ErrorMessage = "Please enter max guest ")]
         public int MaxGuest { get; set; }
 
         public int? MininumStay { get; set; }
 
-        //[Required(ErrorMessage = "Please select cancellation policy ")]
-        public int CancellationPolicy { get; set; }
+        [Required(ErrorMessage = "Please select Cancellation Policy")]
+        public int CancellationPolicyId { get; set; }
+        public SelectList CancellationPolicy { get; set; }
 
 
+    }
 
+    public class ddlCancellationPolicy
+    {
+        public int Value { get; set; }
+        public string Text { get; set; }
     }
     public class ddlCallTime
     {

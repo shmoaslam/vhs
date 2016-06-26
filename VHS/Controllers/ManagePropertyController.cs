@@ -145,6 +145,14 @@ namespace VHS.Controllers
             var propGallaryPhoto = _manageProperty.GetRelatedProperty(id);
             return PartialView("_RelatedProperty", propGallaryPhoto);
         }
+
+        [AllowAnonymous]
+        public JsonResult GetRelatedPropertyAutocompleteHelp(string query)
+        {
+            List<string> autoCompleteHelp = _manageProperty.GetRelatedPropertyAutocompleteHelp(query);
+
+            return Json(autoCompleteHelp);
+        }
         [HttpGet]
         public ActionResult GetPropertyTravleAmbassador(int id)
         {

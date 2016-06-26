@@ -51,5 +51,6 @@ namespace VHS.Interface
         bool ApprovedProperty(PropertyNotification notification);
         RelatedProperty GetRelatedProperty(int id);
         bool UpdateRelatedProperty(RelatedProperty model);
+        List<string> GetRelatedPropertyAutocompleteHelp(string query);
     }
 }

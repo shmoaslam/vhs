@@ -3,22 +3,27 @@
     <p><br></p>
     <h5>Add Related Properties</h5>
     <p>Enter Property IDs</p>
-    @using (Ajax.BeginForm("UpdateRelatedProperty", "ManageProperty", new AjaxOptions { OnBegin = "fnBeginRelatedProperty", HttpMethod = "Post", OnSuccess = "fnSuccessRelatedProperty", OnFailure = "fnFailure", OnComplete = "fnComplete" }, new { @class = "form-part" }))
+    @using (Ajax.BeginForm("UpdateRelatedProperty", "ManageProperty", new AjaxOptions
+                                                                        { OnBegin = "fnBeginRelatedProperty"
+                                                                        , HttpMethod = "Post"
+                                                                        , OnSuccess = "fnSuccessRelatedProperty"
+                                                                        , OnFailure = "fnFailure"
+                                                                        , OnComplete = "fnComplete" }, new { @class = "form-part", id="frmRelatedProperty" }))
     {
         <p class="sub-heading" id="errormessage" style="display:none"><span class="error-msg"> Error occured during update</span></p>
         @Html.HiddenFor(m => m.PropertyId)
         @Html.HiddenFor(m => m.Id)
         <label>Property 1</label>
-        @Html.TextBoxFor(m => m.Related1)
+        @Html.TextBoxFor(m => m.Related1, new { @class = "typeAutoComplete", autocomplete = "off" })
         <label>Property 2</label>
-        @Html.TextBoxFor(m => m.Related2)
+        @Html.TextBoxFor(m => m.Related2, new { @class = "typeAutoComplete", autocomplete = "off" })
         <label>Property 3</label>
-        @Html.TextBoxFor(m => m.Related3)
+        @Html.TextBoxFor(m => m.Related3, new { @class = "typeAutoComplete", autocomplete = "off" })
         <label>Property 4</label>
-        @Html.TextBoxFor(m => m.Related4)
+        @Html.TextBoxFor(m => m.Related4, new { @class = "typeAutoComplete", autocomplete = "off" })
         <div style="clear:both;"></div>
         <div class="input-wrapper clearfix">
-            <input type="submit" class="send-btn" value="Update" id="" name="">
+            <input type="submit" class="send-btn" value="Update" id="" name="" onclick="frmSubmit()">
             <input type="reset" class="send-btn" value="Cancel" id="" name="">
             <p id="imgLoaderFixed" style="color:green;display:none"><img src="~/Images/l2.gif" />please wait....</p>
         </div>
@@ -61,6 +66,21 @@
             $('#imgLoaderFixed').hide();
         }
     }
+
+    function frmSubmit() {
+        alert('test');
+        $("#frmRelatedProperty").submit();
+    }
+</script>
+<script>
+    var myTypeahead = $('.typeAutoComplete').typeahead({
+        minLength: 1,
+        source: function (query, process) {
+            return $.post('@Url.Action("GetRelatedPropertyAutocompleteHelp")', { query: query }, function (data) {
+                return process(data);
+            });
+        },
+    });
 </script>
 <script type="text/javascript" language=javascript>
     $.validator.unobtrusive.parse(document);

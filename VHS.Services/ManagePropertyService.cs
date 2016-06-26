@@ -179,7 +179,7 @@ namespace VHS.Services
             propertyAdditionalInfo.PetsAllowed = GetPetsAllowed();
             propertyAdditionalInfo.WheelChairAllowed = GetWheelChairAllowed();
             propertyAdditionalInfo.ProperyRating = GetPropertyRatingList();
-
+            propertyAdditionalInfo.CancellationPolicy = GetCancellationPolicy();
             var propAdditional = _unitOfWork.PropertyAdditionalRepository.Get(m => m.PropertyId == propertyId);
             if (propAdditional != null)
             {
@@ -199,7 +199,7 @@ namespace VHS.Services
                 propertyAdditionalInfo.Logitude = propAdditional.MapLongitude;
                 propertyAdditionalInfo.Latitude = propAdditional.MapLatitude;
                 propertyAdditionalInfo.PersonPerRoom = propAdditional.PersonPerRoom;
-                propertyAdditionalInfo.CancellationPolicy = propAdditional.CancellationPolicy;
+                propertyAdditionalInfo.CancellationPolicyId = propAdditional.CancellationPolicy;
                 propertyAdditionalInfo.MininumStay = propAdditional.MininumStay;
 
             }
@@ -211,6 +211,9 @@ namespace VHS.Services
 
             return propertyAdditionalInfo;
         }
+
+
+
         public PropertyAmenities GetPropertyAmenities(int propertyId)
         {
             var propertyAmenities = new PropertyAmenities();
@@ -246,7 +249,7 @@ namespace VHS.Services
                 propertyFixedPrice.CurrencyId = Convert.ToInt32(propfixedPrice.Currency);
                 propertyFixedPrice.StartDate = propfixedPrice.StartDate;
                 propertyFixedPrice.StopDate = propfixedPrice.EndDate;
-                 propertyFixedPrice.PricePerAdult = propfixedPrice.PricePerAdult;
+                propertyFixedPrice.PricePerAdult = propfixedPrice.PricePerAdult;
                 propertyFixedPrice.PricePerChild = propfixedPrice.PricePerChild;
             }
 
@@ -329,6 +332,12 @@ namespace VHS.Services
             propertyPhoto.PropertyId = propertyId;
             propertyPhoto.imageGalaryPhoto = photo;
             return propertyPhoto;
+        }
+
+        public List<string> GetRelatedPropertyAutocompleteHelp(string query)
+        {
+            var lists = _unitOfWork.PropertyRepository.GetMany(x => x.IsActive && x.IsApproved).Select(x => x.PropertyUID).ToList();
+            return lists;
         }
 
         public Models.RelatedProperty GetRelatedProperty(int id)
@@ -591,7 +600,16 @@ namespace VHS.Services
             SelectList selesctedListBy = new SelectList(lstPropRating, "Value", "Text");
             return selesctedListBy;
         }
+        private SelectList GetCancellationPolicy()
+        {
+            var lstPropRating = new List<ddlCancellationPolicy>();
+            lstPropRating.Add(new ddlCancellationPolicy { Value = 1, Text = "Easy" });
+            lstPropRating.Add(new ddlCancellationPolicy { Value = 2, Text = "Moderate" });
+            lstPropRating.Add(new ddlCancellationPolicy { Value = 3, Text = "Strict" });
 
+            SelectList selesctedListBy = new SelectList(lstPropRating, "Value", "Text");
+            return selesctedListBy;
+        }
         //Master Aminities List:-
         public IEnumerable<ViewModel.BathRommsModel> GetAllBathRooms(int propertyId)
         {
@@ -708,7 +726,7 @@ namespace VHS.Services
                     MininumStay = propAdditionalInfoInfo.MininumStay,
                     PropertyRating = propAdditionalInfoInfo.PropRatingId.ToString(),
                     MaxGuest = propAdditionalInfoInfo.MaxGuest,
-                    CancellationPolicy = propAdditionalInfoInfo.CancellationPolicy,
+                    CancellationPolicy = propAdditionalInfoInfo.CancellationPolicyId,
                     PropDescription = propAdditionalInfoInfo.PropertyDescription
 
                 });
@@ -734,7 +752,7 @@ namespace VHS.Services
                     propfixedobj.MaxGuest = propAdditionalInfoInfo.MaxGuest;
                     propfixedobj.MininumStay = propAdditionalInfoInfo.MininumStay;
                     propfixedobj.PropertyRating = propAdditionalInfoInfo.PropRatingId.ToString();
-                    propfixedobj.CancellationPolicy = propAdditionalInfoInfo.CancellationPolicy;
+                    propfixedobj.CancellationPolicy = propAdditionalInfoInfo.CancellationPolicyId;
                     _unitOfWork.PropertyAdditionalRepository.Update(propfixedobj);
                 }
             }
@@ -880,7 +898,14 @@ namespace VHS.Services
         }
         public bool UpdateRelatedProperty(Models.RelatedProperty model)
         {
-            return false;
+            bool result = false;
+            if(model != null)
+            {
+                _unitOfWork.RelatedPropertyRepository.Delete(m => m.PropertyId == model.PropertyId);
+                _unitOfWork.RelatedPropertyRepository.Insert(new Core.RelatedProperty { PropertyId = model.PropertyId, Related1 = model.Related1, Related2 = model.Related2, Related3 = model.Related3, Related4 = model.Related4 });
+                return true;
+            }
+            return result;
         }
         public bool UpdatePropCoverPhoto(PropertyCoverPhoto propertyCoverPhoto, List<HttpPostedFileBase> CoverPhoto)
         {
@@ -912,7 +937,7 @@ namespace VHS.Services
             var result = false;
             if (propVarablePrice.PropVarPriceId == 0)
             {
-                _unitOfWork.PropVariablePriceRepository.Insert(new PropertyVraiblePrice { AdultPrice = propVarablePrice.AdultPrice, ChildPrice = propVarablePrice.ChildPrice,  Price = Convert.ToDecimal(propVarablePrice.Price), StartDate = propVarablePrice.StartDate, EndDate = propVarablePrice.StopDate, Description = propVarablePrice.Description, PropertyId = propVarablePrice.PropertyId });
+                _unitOfWork.PropVariablePriceRepository.Insert(new PropertyVraiblePrice { AdultPrice = propVarablePrice.AdultPrice, ChildPrice = propVarablePrice.ChildPrice, Price = Convert.ToDecimal(propVarablePrice.Price), StartDate = propVarablePrice.StartDate, EndDate = propVarablePrice.StopDate, Description = propVarablePrice.Description, PropertyId = propVarablePrice.PropertyId });
             }
             else
             {
@@ -1059,13 +1084,13 @@ namespace VHS.Services
             var adminHomeVm = new AdminHomeViewModel();
             var adminViewModelDb = _unitOfWork.GetPropertyWaitingForApproval();
             var list = new List<PropertyViewModel>();
-            if(adminViewModelDb != null && adminViewModelDb.Count() > 0)
+            if (adminViewModelDb != null && adminViewModelDb.Count() > 0)
             {
                 foreach (var item in adminViewModelDb)
                 {
                     var imagelist = new List<ImageViewModel>();
                     imagelist.Add(new ImageViewModel { ImageName = item.GalaryImage });
-                    list.Add(new PropertyViewModel { PropertyId = item.Id, PropertyName = item.Title, PropertImageList = imagelist,ShortInfo = item.Desc });
+                    list.Add(new PropertyViewModel { PropertyId = item.Id, PropertyName = item.Title, PropertImageList = imagelist, ShortInfo = item.Desc });
                 }
             }
 
@@ -1095,6 +1120,6 @@ namespace VHS.Services
             return result;
         }
 
-       
+
     }
 }

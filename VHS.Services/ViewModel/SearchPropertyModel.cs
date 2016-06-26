@@ -13,7 +13,7 @@ namespace VHS.Services.ViewModel
         public int Region { get; set; }
         public int Guest { get; set; }
         public string StartDate { get; set; }
-
+        public string PropertyUID { get; set; }
         public string EndDate { get; set; }
     }
 }
