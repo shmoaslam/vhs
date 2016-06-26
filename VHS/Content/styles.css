@@ -972,12 +972,50 @@ ul.footer-social-list{
     color: #6b6b6b;
 }
 
+.vh-bg{
+	background:url(../images/home/velvett2.jpg) no-repeat;
+	background-position:center;
+	background-size:700px auto;
+	overflow:hidden;
+	height:100%;
+}
+
+
+@media(max-width:768px){
+.property-cover {
+    margin-top: -120px;
+}
+
+.section.header-section, .centralizing-wrapper{
+	height:250px;
+}	
+}
 
 
 
 @media(max-width:480px){
+.container{
+	padding:15px;
+}	
+.centralizing-wrapper-property{
+	height:200px;
+}
 .property-thumb{
-	width:100%;
+	width:260px;
+}	
+.carousel-control .icon-prev, .carousel-control .icon-next, .carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right{
+	top: 40%;
 }
-	
+.carousel-control .icon-prev, .carousel-control .glyphicon-chevron-left{
+	left: 80%;
 }
+.carousel-control .glyphicon-chevron-right, .carousel-control .icon-next{
+	right:5%;
+}
+
+
+
+
+}
+
+
