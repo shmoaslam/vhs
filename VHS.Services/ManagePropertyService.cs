@@ -334,10 +334,12 @@ namespace VHS.Services
             return propertyPhoto;
         }
 
-        public List<string> GetRelatedPropertyAutocompleteHelp(string query)
+        public List<string> GetRelatedPropertyAutocompleteHelp(string query, int regionId)
         {
-            var lists = _unitOfWork.PropertyRepository.GetMany(x => x.IsActive && x.IsApproved).Select(x => x.PropertyUID).ToList();
-            return lists;
+            if (regionId != 0)
+                return _unitOfWork.PropertyRepository.GetMany(x => x.IsActive && x.IsApproved && x.RegionId == regionId).Select(x => x.PropertyUID).ToList();
+            else
+                return _unitOfWork.PropertyRepository.GetMany(x => x.IsActive && x.IsApproved).Select(x => x.PropertyUID).ToList();
         }
 
         public Models.RelatedProperty GetRelatedProperty(int id)
@@ -899,7 +901,7 @@ namespace VHS.Services
         public bool UpdateRelatedProperty(Models.RelatedProperty model)
         {
             bool result = false;
-            if(model != null)
+            if (model != null)
             {
                 _unitOfWork.RelatedPropertyRepository.Delete(m => m.PropertyId == model.PropertyId);
                 _unitOfWork.RelatedPropertyRepository.Insert(new Core.RelatedProperty { PropertyId = model.PropertyId, Related1 = model.Related1, Related2 = model.Related2, Related3 = model.Related3, Related4 = model.Related4 });

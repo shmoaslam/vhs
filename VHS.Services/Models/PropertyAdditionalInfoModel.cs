@@ -147,7 +147,6 @@ namespace VHS.Services.Models
         public double PricePerNight { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
         public double PricePerWeek { get; set; }
-        [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
         public double PricePerMonth { get; set; }
         public double CleaningFeeDaily { get; set; }
         public double CleaningFeeWeekly { get; set; }
@@ -155,10 +154,8 @@ namespace VHS.Services.Models
         public double PriceOneTime { get; set; }
         public string OtherPrice { get; set; }
         public decimal Comision { get; set; }
-        [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
-        public decimal PricePerAdult { get; set; }
-        [Range(1, int.MaxValue, ErrorMessage = "Value must be grater than zero")]
-        public decimal PricePerChild { get; set; }
+        public decimal? PricePerAdult { get; set; }
+        public decimal? PricePerChild { get; set; }
     }
     public class PropertyVarablePricing
     {

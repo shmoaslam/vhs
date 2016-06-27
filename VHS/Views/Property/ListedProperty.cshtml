@@ -5,8 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var PropertyFrom = ViewBag.PropertyFrom != null ? ViewBag.PropertyFrom : string.Empty;
     string ActionName = "";
-    if (PropertyFrom == "Spain") { ActionName = "ListedSpainProperty"; }
-    else if (PropertyFrom == "India") { ActionName = "ListedIndianProperty"; }
+    int regionId = 0;
+    if (PropertyFrom == "Spain") { ActionName = "ListedSpainProperty"; regionId = 2; }
+    else if (PropertyFrom == "India") { ActionName = "ListedIndianProperty"; regionId = 1; }
     else { ActionName = "ListedProperty"; }
 }
 
@@ -76,17 +77,28 @@
 
                 else
                 {
-                    <p>
-                    </p><ol class="breadcrumb">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#" class="active">Listed Properties</a></li>
-                    </ol>
-                    <p></p>
+                    <article class="element clearfix">
+                        <p>
+                            Planning your next holiday? We’ll take you on a journey that helps you discover as much about yourself, as it does a unique new destination.
+                            You see, a Homestay offers you a memorable getaway, without packing in expensive accommodation costs. All, while allowing you to unearth local culture, cuisine and traditions in a manner thats immersive as it is enriching.
+                        </p>
+                        <p>
+                            At Velvett Homestays, we herald a growing number of people who want their travels to be less invasive and more beneficial to the local communities they engage with.
+                            And we cant wait to welcome you to this ever evolving band of tourists who go beyond the ordinary. Are you ready to belong?
+                        </p>
+                        <p><br></p>
+                    </article>
+                    @*<p>
+                        </p><ol class="breadcrumb">
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#" class="active">Listed Properties</a></li>
+                        </ol>
+                        <p></p>*@
                 }
             </div>
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 myfilters">
-               
+
                 <div class="filters-main">
                     @using (Html.BeginForm(ActionName, "Property", FormMethod.Get, new { @class = "form-part", id = "" }))
                     {
@@ -95,7 +107,7 @@
                             <div class="full-label">
                                 <div class="property-input">
                                     <label class="sm-label-filter">Property ID</label>
-                                    <input class="place myselect" type="text" size="30" placeholder="e.g. VH00016" name="PropertyUID" id="PropertyUID">
+                                    <input class="place myselect" type="text" size="30" placeholder="e.g. VH00016" name="PropertyUID" id="PropertyUID" autocomplete="off">
                                 </div>
                             </div>
 
@@ -103,17 +115,17 @@
 
                             <div class="s-filters">
                                 <label class="sm-label-filter">Place</label>
-                                <input class="place myselect" type="text" size="30" placeholder="e.g. city, state, country"  name="Query" id="Query">
+                                <input class="place myselect" type="text" size="30" placeholder="e.g. city, state, country" name="Query" id="Query" autocomplete="off">
                             </div>
 
                             <span class="s-filters">
                                 <label class="sm-label-filter">Check in</label>
-                                <input class="sm-input myselect" name="StartDate" id="StartDate">
+                                <input class="sm-input myselect" name="StartDate" id="StartDate" autocomplete="off">
                             </span>
 
                             <span class="s-filters">
                                 <label class="sm-label-filter">Check out</label>
-                                <input class="sm-input myselect" name="EndDate" id="EndDate">
+                                <input class="sm-input myselect" name="EndDate" id="EndDate" autocomplete="off">
                             </span>
 
                             <span class="s-filters">
@@ -142,7 +154,7 @@
                             <div class="full-label text-center"><button class="btn-primary">Search</button></div>
 
                         </div>
-                      
+
                     }
                 </div>
             </div>
@@ -214,7 +226,7 @@
 
         var endDateCtrl = $("#EndDate").datepick({
             dateFormat: 'dd/mm/yyyy',
-            minDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()+1),
+            minDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1),
             onSelect: function (dates) {
                 var date = new Date(dates)
                 $("#EndDate").attr("value", date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate());
@@ -228,7 +240,7 @@
         });
         var startDateControl = $("#StartDate").datepick({
             dateFormat: 'dd/mm/yyyy',
-            minDate: new Date(new Date().getFullYear(), new Date().getMonth() , new Date().getDate()),
+            minDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()),
             onSelect: function (dates) {
                 document.getElementById("EndDate").value = "";
                 var date = new Date(dates)
@@ -259,9 +271,19 @@
         //    $('#Query').val(selectedText);
         //});
 
-     
+
 
     </script>
+<script>
+    var myTypeahead = $('#PropertyUID').typeahead({
+        minLength: 1,
+        source: function (query, process) {
+            return $.post('@Url.Action("GetRelatedPropertyAutocompleteHelp", "ManageProperty")', { query: query, regionId : @regionId }, function (data) {
+                return process(data);
+            });
+        },
+    });
+</script>
 }
 
 

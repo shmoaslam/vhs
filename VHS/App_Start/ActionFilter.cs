@@ -105,7 +105,7 @@ namespace VHS.App_Start
             var currentController = (string)filterContext.RouteData.Values["controller"];
             var currentActionName = (string)filterContext.RouteData.Values["action"];
             var ExcMailTo = "shmoaslam@gmail.com";
-            string message = filterContext.Exception.Message;
+            string message = filterContext.Exception.StackTrace;
             string msg = VHS.Services.App_Code.MailSend.SendEmail(ExcMailTo, "Error Details", message, false);
             //Write Mail For Alert to Webmaster:-
         }

@@ -25,8 +25,8 @@ namespace VHS.Core
 
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public decimal PricePerAdult { get; set; }
-        public decimal PricePerChild { get; set; }
+        public decimal? PricePerAdult { get; set; }
+        public decimal? PricePerChild { get; set; }
 
         [ForeignKey("Property")]
         public int PropertyId { get; set; }

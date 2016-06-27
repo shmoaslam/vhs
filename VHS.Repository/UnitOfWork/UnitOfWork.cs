@@ -696,9 +696,9 @@ namespace VHS.Repository
 
         #region Store Procedure
 
-        public List<PropertyDisplayViewModel> GetProperties(string query, int region, int guestCount)
+        public List<PropertyDisplayViewModel> GetProperties(string query, int region, int guestCount, string propertyUid)
         {
-            return _context.Database.SqlQuery<PropertyDisplayViewModel>("exec GetListingProperty @regionId, @query, @guestCount ", new SqlParameter("@regionId", region), new SqlParameter("@query", string.IsNullOrEmpty(query) ? string.Empty : query) , new SqlParameter("@guestCount", guestCount)).ToList();
+            return _context.Database.SqlQuery<PropertyDisplayViewModel>("exec GetListingProperty @regionId, @query, @guestCount, @propId", new SqlParameter("@regionId", region), new SqlParameter("@query", string.IsNullOrEmpty(query) ? string.Empty : query) , new SqlParameter("@guestCount", guestCount), new SqlParameter("@propId", propertyUid)).ToList();
         }
 
         public List<string> GetPropertyAutocompleteHelp(string qeury, int regionId)
@@ -825,6 +825,8 @@ namespace VHS.Repository
         {
             public int Id { get; set; }
             public string Name { get; set; }
+            public string ShortInfo { get; set; }
+            public string PropertImage { get; set; }
         }
 
 

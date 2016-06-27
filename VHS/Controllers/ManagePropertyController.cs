@@ -147,9 +147,9 @@ namespace VHS.Controllers
         }
 
         [AllowAnonymous]
-        public JsonResult GetRelatedPropertyAutocompleteHelp(string query)
+        public JsonResult GetRelatedPropertyAutocompleteHelp(string query, int regionId)
         {
-            List<string> autoCompleteHelp = _manageProperty.GetRelatedPropertyAutocompleteHelp(query);
+            List<string> autoCompleteHelp = _manageProperty.GetRelatedPropertyAutocompleteHelp(query,regionId);
 
             return Json(autoCompleteHelp);
         }
