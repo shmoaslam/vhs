@@ -106,7 +106,7 @@ namespace VHS.Services
             var propertyModel = _unitOfWork.GetPropertyDetails(id);
             propertyViemodle.Id = propertyModel.Id;
             propertyViemodle.CoverImage = propertyModel.CoverImage;
-            propertyViemodle.GalaryImages = propertyModel.GalaryImage.Split(',');
+            propertyViemodle.GalaryImages = !string.IsNullOrEmpty(propertyModel.GalaryImage) ? propertyModel.GalaryImage.Split(',') : null;
             propertyViemodle.Desc = propertyModel.Desc;
             propertyViemodle.CheckIn = propertyModel.CheckIn;
             propertyViemodle.CheckOut = propertyModel.CheckOut;
