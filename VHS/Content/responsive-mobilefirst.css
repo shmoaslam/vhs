@@ -65,7 +65,7 @@ header { position:absolute; }
 
 .margin-wrapper .button { display:none; }
 
-.left-corner-wrapper { position:relative; background:#fff;}
+.left-corner-wrapper { position:relative; }
 h1#logo { display:block; position:relative; left:auto; top:auto; margin:0; width:100%; background:none; text-align:center }
 h1#logo a { display:inline-block; margin:0 auto }
 
@@ -84,4 +84,3 @@ h1#logo a { display:inline-block; margin:0 auto }
 
 .custom-pagination .left, .custom-pagination .right { clear:both; display:block; width:100%; }
 }
-

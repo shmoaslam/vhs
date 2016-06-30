@@ -593,11 +593,9 @@ namespace VHS.Services
         public SelectList GetPropertyRatingList()
         {
             var lstPropRating = new List<ddlPropertyRating>();
-            lstPropRating.Add(new ddlPropertyRating { Value = 1, Text = "3" });
-            lstPropRating.Add(new ddlPropertyRating { Value = 2, Text = "3.5" });
-            lstPropRating.Add(new ddlPropertyRating { Value = 3, Text = "4" });
-            lstPropRating.Add(new ddlPropertyRating { Value = 4, Text = "4.5" });
-            lstPropRating.Add(new ddlPropertyRating { Value = 5, Text = "5" });
+            lstPropRating.Add(new ddlPropertyRating { Value = 2, Text = "Butterfly" });
+            lstPropRating.Add(new ddlPropertyRating { Value = 3, Text = "Deer" });
+            lstPropRating.Add(new ddlPropertyRating { Value = 4, Text = "Eagle" });
 
             SelectList selesctedListBy = new SelectList(lstPropRating, "Value", "Text");
             return selesctedListBy;

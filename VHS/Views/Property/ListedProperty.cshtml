@@ -150,7 +150,7 @@
                                     <option value="16">More than 15</option>
                                 </select>
                             </div>
-							<div class="sbb">&nbsp;</div>
+                            <div class="sbb">&nbsp;</div>
                             <div class="full-label text-center"><button class="btn-primary">Search</button></div>
 
                         </div>
@@ -169,39 +169,31 @@
                         <div class="property-thumb">
                             <p class="property-thumb-img">
                                 <img src="~/UploadFile/PropertyCoverPhoto/@property.CoverImage" />
-                                <div class="property-price-box">
-                                    <span class="property-price-currency">
-                                        @if (property.RegionId == 2)
-                                        { <text>&euro;</text> }
-                                        else
-                                        { <text>&#8377;</text>}
-                                    </span><span class="property-price">@property.Price/-</span>
-                                </div>
-                            </p>
+                            </p><div class="property-price-box">
+                                <span class="property-price-currency">
+                                    @if (property.RegionId == 2)
+                                    { <text>&euro;</text> }
+                                    else
+                                    { <text>&#8377;</text>}
+                                </span><span class="property-price">@property.Price/-</span>
+                            </div>
+                            <p></p>
                             <h3 class="property-thumb-title"><span class="property-id">VH@(property.Id.ToString("D5"))</span>: @property.Title</h3>
                             <p class="property-thumb-info">
                                 <span class="property-category">@property.Category</span>
                                 <span class="property-rooms">@property.PersonPerRoom Bedrooms</span>
                                 <span class="property-guests">@property.GuestCount Guests</span>
                                 <span class="property-rating">
-                                    <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                                    <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                                    <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
                                     @switch (property.Rating)
                                     {
                                         case "2":
-                                            <img class="rated-star" src="~/images/halfstar.png" width="15" alt="star" />
+                                            <img src="~/images/butterfly.png" width="30" title="Pink Butterfly Award" alt="butterfly">
                                             break;
                                         case "3":
-                                            <img class="rated-star" src="~/images/starp.png" width="15" alt="star" />
+                                            <img src="~/images/deer.png" width="30" title="Pink Butterfly Award" alt="butterfly">
                                             break;
                                         case "4":
-                                            <img class="rated-star" src="~/images/starp.png" width="15" alt="star" />
-                                            <img class="rated-star" src="~/images/halfstar.png" width="15" alt="star" />
-                                            break;
-                                        case "5":
-                                            <img class="rated-star" src="~/images/starp.png" width="15" alt="star" />
-                                            <img class="rated-star" src="~/images/starp.png" width="15" alt="star" />
+                                            <img src="~/images/eagle.png" width="30" title="Pink Butterfly Award" alt="butterfly">
                                             break;
                                         default:
                                             break;
@@ -210,11 +202,56 @@
                             </p>
                         </div>
                     </a>
-                }
+                        @*<a href="/Property/Detail/@property.Id">
+                                <div class="property-thumb">
+                                    <p class="property-thumb-img">
+                                        <img src="~/UploadFile/PropertyCoverPhoto/@property.CoverImage" />
+                                        <div class="property-price-box">
+                                            <span class="property-price-currency">
+                                                @if (property.RegionId == 2)
+                                                { <text>&euro;</text> }
+                                                else
+                                                { <text>&#8377;</text>}
+                                            </span><span class="property-price">@property.Price/-</span>
+                                        </div>
+                                    </p>
+                                    <h3 class="property-thumb-title"><span class="property-id">VH@(property.Id.ToString("D5"))</span>: @property.Title</h3>
+                                    <p class="property-thumb-info">
+                                        <span class="property-category">@property.Category</span>
+                                        <span class="property-rooms">@property.PersonPerRoom Bedrooms</span>
+                                        <span class="property-guests">@property.GuestCount Guests</span>
+                                        <span class="property-rating">
+                                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
+                                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
+                                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
+                                            @switch (property.Rating)
+                                            {
+                                                case "2":
+                                                    <img class="rated-star" src="~/images/halfstar.png" width="15" alt="star" />
+                                                    break;
+                                                case "3":
+                                                    <img class="rated-star" src="~/images/starp.png" width="15" alt="star" />
+                                                    break;
+                                                case "4":
+                                                    <img class="rated-star" src="~/images/starp.png" width="15" alt="star" />
+                                                    <img class="rated-star" src="~/images/halfstar.png" width="15" alt="star" />
+                                                    break;
+                                                case "5":
+                                                    <img class="rated-star" src="~/images/starp.png" width="15" alt="star" />
+                                                    <img class="rated-star" src="~/images/starp.png" width="15" alt="star" />
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                        </span>
+                                    </p>
+                                </div>
+                            </a>*@
+                        }
 
 
 
-            </article>
+</article>
         </div>
 
     </div>
@@ -274,16 +311,16 @@
 
 
     </script>
-<script>
-    var myTypeahead = $('#PropertyUID').typeahead({
-        minLength: 1,
-        source: function (query, process) {
-            return $.post('@Url.Action("GetRelatedPropertyAutocompleteHelp", "ManageProperty")', { query: query, regionId : @regionId }, function (data) {
-                return process(data);
-            });
-        },
-    });
-</script>
+    <script>
+        var myTypeahead = $('#PropertyUID').typeahead({
+            minLength: 1,
+            source: function (query, process) {
+                return $.post('@Url.Action("GetRelatedPropertyAutocompleteHelp", "ManageProperty")', { query: query, regionId : @regionId }, function (data) {
+                    return process(data);
+                });
+            },
+        });
+    </script>
 }
 
 

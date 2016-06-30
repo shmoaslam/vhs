@@ -151,19 +151,13 @@ namespace VHS.Services
         private string GetPropertyRating(string rating)
         {
             if (string.IsNullOrEmpty(rating)) return string.Empty;
-
+            
             switch (rating)
             {
-                case "1":
-                    return "3";
                 case "2":
-                    return "3.5";
                 case "3":
-                    return "4";
                 case "4":
-                    return "4.5";
-                case "5":
-                    return "5";
+                    return rating;
                 default:
                     return string.Empty;
             }

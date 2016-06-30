@@ -5,8 +5,8 @@
     {
         @Html.HiddenFor(m => m.PropertyId)
         @Html.HiddenFor(m => m.PropAdditionalId)
-        <p class="sub-heading" id="errormessage" style="display:none"><span class="error-msg"> Error occured during update</span></p><label class="sm-label">Rate this Property (3-5)<span class="required">*</span></label>
-        @Html.DropDownListFor(m => m.PropRatingId, new SelectList(Model.ProperyRating, "Value", "Text"), "Select")
+        <p class="sub-heading" id="errormessage" style="display:none"><span class="error-msg"> Error occured during update</span></p><label class="sm-label">Rate this Property<span class="required">*</span></label>
+        @Html.DropDownListFor(m => m.PropRatingId, new SelectList(Model.ProperyRating, "Value", "Text"), "Select", new { @class = "sm-input" })
         <span style="color:red">@Html.ValidationMessageFor(m => m.PropRatingId)</span><br />
         <label>Add Property Description<span class="required">*</span></label>
         @Html.TextAreaFor(m => m.PropertyDescription)
