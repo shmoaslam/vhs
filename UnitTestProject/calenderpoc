@@ -11,43 +11,7 @@
 
 	var checkInDate = '', checkOutDate = '';	
 	var currentEvent = {};
-	$(document).ready(function() {
-
-		$('#calendar').fullCalendar({
-			header: {
-				left: 'prev,next today',
-				center: 'title',
-				right: 'month,agendaWeek,agendaDay'
-			},
-			defaultDate: '2016-06-12',
-			businessHours: true, // display business hours
-			editable: true,
-			hasTime : false,
-			selectable: true,
-			selectOverlap: function(event) {
-				return ! event.block;
-			},
-			select: function (start, end, jsEvent, view) {
-				
-				if(checkInDate == '') {
-					checkInDate = start;
-				}
-				
-				if(checkInDate._d > end._d) {
-					$("#calendar").fullCalendar('removeEventSource');
-				}
-					
-				$("#calendar").fullCalendar('addEventSource', [{
-					start: checkInDate,
-					end: end,
-					rendering: 'background',
-					block: true,
-					color:'Green',
-					id:'25', 
-				}, ]);
-			},
-
-			events: [
+	var eventsList = [
 				// red areas where no events can be dropped
 				{
 					start: '2016-06-24',
@@ -64,7 +28,48 @@
 					rendering: 'background',
 					color: 'orange'
 				}
-			]
+			];
+	$(document).ready(function() {
+
+		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+			},
+			defaultDate: '2016-06-12',
+			businessHours: true, // display business hours
+			editable: true,
+			selectable: true,
+			
+			select: function (start, end, jsEvent, view) {
+				
+				if(checkInDate == '') {
+					checkInDate = start;
+				}
+				
+				if(checkInDate._d > end._d) {
+					$("#calendar").fullCalendar( 'removeEvents'  );
+					$("#calendar").fullCalendar('addEventSource',eventsList);
+				}
+				else {
+					$("#calendar").fullCalendar( 'removeEvents'  );
+					$("#calendar").fullCalendar('addEventSource',eventsList);
+					$("#calendar").fullCalendar('addEventSource', [{
+						start: checkInDate,
+						end: end,
+						rendering: 'background',
+						block: true,
+						color:'Green',
+						id:'25', 
+					}, ]);
+				}
+				$("#calendar").fullCalendar("unselect");
+			},
+			selectOverlap: function(event) {
+				return ! event.block;
+			},
+			events: eventsList
 		});
 		
 	});
