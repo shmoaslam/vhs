@@ -50,7 +50,7 @@
 				
 				if(checkInDate._d > end._d) {
 					$("#calendar").fullCalendar( 'removeEvents'  );
-					$("#calendar").fullCalendar('addEventSource',eventsList);
+					$("#calendar").fullCalendar('addEventSource',eventsList);checkInDate = '';
 				}
 				else {
 					$("#calendar").fullCalendar( 'removeEvents'  );
