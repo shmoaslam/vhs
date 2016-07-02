@@ -34,9 +34,18 @@ namespace VHS.Services
 
             if (!CheckPropertyAvailbility(propertyBook))
             {
-                _unitOfWork.PropertyBookingRepository.Insert(new Core.PropertyBooking { LoginId = loginId, StartDate = propertyBook.StartDate,
-                    EndDate = propertyBook.EndDate, PropertyId = propertyBook.PropertyId, GuestCount = propertyBook.GuestNo, ChildCount = propertyBook.ChildNo
-                , AdultCount = propertyBook.AdultNo, AproxPrice = propertyBook.AprroxPrice});
+                _unitOfWork.PropertyBookingRepository.Insert(new Core.PropertyBooking
+                {
+                    LoginId = loginId,
+                    StartDate = propertyBook.StartDate,
+                    EndDate = propertyBook.EndDate,
+                    PropertyId = propertyBook.PropertyId,
+                    GuestCount = propertyBook.GuestNo,
+                    ChildCount = propertyBook.ChildNo
+                ,
+                    AdultCount = propertyBook.AdultNo,
+                    AproxPrice = propertyBook.AprroxPrice
+                });
                 _unitOfWork.Save();
                 result = true;
 
@@ -60,7 +69,7 @@ namespace VHS.Services
                     bookingConfirmation.Mobile = _unitOfWork.UserProfileRepository.GetFirst(x => x.LoginId == loginId).Mobile; ;
 
                     bookingConfirmation.GuestCount = propertyBook.GuestNo;
-                    bookingConfirmation.StartDate = Convert.ToDateTime( propertyBook.StartDate).ToShortDateString();
+                    bookingConfirmation.StartDate = Convert.ToDateTime(propertyBook.StartDate).ToShortDateString();
                     bookingConfirmation.EndDate = Convert.ToDateTime(propertyBook.EndDate).ToShortDateString();
                     bookingConfirmation.Property = "VH" + propertyBook.PropertyId.ToString("D5");
                     bookingConfirmation.PropertyName = propertyBook.PropertyName;
@@ -79,9 +88,37 @@ namespace VHS.Services
         public decimal? GetTotalPrice(PropertyBooking propertyBook)
         {
             var totalPrice = _unitOfWork.GetBookingPrice(propertyBook.PropertyId, (DateTime)propertyBook.StartDate, (DateTime)propertyBook.EndDate, propertyBook.AdultNo, propertyBook.ChildNo);
-            return  totalPrice ;
+            return totalPrice;
         }
 
-   
+        public List<CalenderBookings> GetBookingCalender(int id)
+        {
+            if(id == 0 )return null;
+            var bookings = _unitOfWork.GetCalenderBooking(id);
+            var listBookings = new List<CalenderBookings>();
+            if (bookings != null || bookings.Count() > 0)
+                foreach (var booking in bookings)
+                {
+                    listBookings.Add(new CalenderBookings { Color = GetBookingColor(booking.Type), End = booking.End, Start = booking.Start });
+                }
+
+            return listBookings;
+        }
+
+        private string GetBookingColor(int type)
+        {
+            switch (type)
+            {
+                case 0:
+                    return "Orange";
+                case 1:
+                    return "Red";
+                case 2:
+                    return "Black";
+                default:
+                    return string.Empty;
+            }
+            throw new NotImplementedException();
+        }
     }
 }

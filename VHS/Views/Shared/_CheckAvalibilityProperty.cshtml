@@ -1,5 +1,8 @@
 ﻿@model VHS.Services.Models.PropertyBooking
 
+
+<div id="calendar"></div>
+
 @using (Ajax.BeginForm("CheckAvailbility", "Property", new AjaxOptions { HttpMethod = "Post" }, new { @class = "form-part", id = "bookingForm" }))
 {
     <p class="sub-heading" id="errormessage" style="display:none"><span class="error-msg"> Username/Password does not match</span></p>
@@ -154,56 +157,4 @@
     function ShowForgotPassword() {
         window.location.href = '@Url.Action("ForgotPassword", "Account")';
     }
-    //Show the Success:-
-    //function fnBegin() {
-    //    $('#imgLoader').show();
-    //    //Show any loder when process start:-
-    //}
-    //function fnSuccess(response, status, xhr) {
-    //    $('#imgLoader').hide();
-    //    switch (response.Status) {
-
-    //        case 1:
-    //            alert("Property available for this Date");
-    //            $("#totalPrice").val(response.Price);
-    //            break;
-
-    //        case 2:
-    //            alert("Property is no available for this Date.Please try another day ");
-    //            break;
-
-    //        case 3:
-    //            alert("Property booking successfully,Our reppresentative will contact you shortly.");
-    //            break;
-
-    //        case 4:
-    //            alert("Property is no available for this Date.Please try another day and book");
-    //            break;
-
-    //        case 5:
-    //            alert("Please try Later.");
-    //            break;
-
-    //        case 6:
-    //            alert("Please login first to book property.");
-    //            break;
-
-    //        case 0:
-    //            alert("Please select date to check availability and book property.");
-    //            break;
-
-    //        default:
-    //            alert("Please try Later.");
-
-    //    }
-    //}
-    //function fnFailure(xhr, status, err) {
-    //    $('#imgLoader').hide();
-    //    alert("'failure occured!!.Please try after '")
-    //}
-    //function fnComplete() {
-    //    if (response != "1") {
-    //        $('#imgLoader').hide();
-    //    }
-    //}
 </script>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VHS.Services.Models;
+using VHS.Services.ViewModel;
 
 namespace VHS.Services.Interface
 {
@@ -12,5 +13,6 @@ namespace VHS.Services.Interface
         bool CheckPropertyAvailbility(PropertyBooking propertyBooking);
         bool BookProperty(PropertyBooking propertyBooking);
         decimal? GetTotalPrice(PropertyBooking propertyBooking);
+        List<CalenderBookings> GetBookingCalender(int Id);
     }
 }

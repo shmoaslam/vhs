@@ -191,5 +191,30 @@ namespace VHS.Controllers
             ViewBag.PropertyFrom = "India";
             return View("ListedProperty", propertyViewModel);
         }
+        [AllowAnonymous]
+        /// <summary>
+        ///     API: http://arshaw.com/fullcalendar/docs/event_data/Event_Object/
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        public JsonResult GetCalendarEvents(int id)
+        {
+            var eventDetails = _propertyBooking.GetBookingCalender(id);
+
+            var eventList = from item in eventDetails
+                            select new
+                            {
+                                start = item.Start.ToString("s"),
+                                end = item.End.ToString("s"),
+                                allDay = true,
+                                editable = false,
+                                color = item.Color
+                            };
+
+            return Json(eventList.ToArray(), JsonRequestBehavior.AllowGet);
+        }
     }
+
+    
 }

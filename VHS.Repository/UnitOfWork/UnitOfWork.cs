@@ -701,6 +701,11 @@ namespace VHS.Repository
             return _context.Database.SqlQuery<PropertyDisplayViewModel>("exec GetListingProperty @regionId, @query, @guestCount, @propId", new SqlParameter("@regionId", region), new SqlParameter("@query", string.IsNullOrEmpty(query) ? string.Empty : query) , new SqlParameter("@guestCount", guestCount), new SqlParameter("@propId", propertyUid)).ToList();
         }
 
+        public List<CalenderBooking> GetCalenderBooking(int id)
+        {
+            return _context.Database.SqlQuery<CalenderBooking>("exec GetCalenderBookings @propid", new SqlParameter("@propid", id)).ToList();
+        }
+
         public List<string> GetPropertyAutocompleteHelp(string qeury, int regionId)
         {
             return _context.Database.SqlQuery<string>("exec GetPropertyAutocompleteHelp @regionId, @query", new SqlParameter("@regionId", regionId), new SqlParameter("@query", qeury)).ToList();
@@ -779,6 +784,13 @@ namespace VHS.Repository
             public string RmComment { get; set; }
 
 
+        }
+
+        public class CalenderBooking
+        {
+            public DateTime Start { get; set; }
+            public DateTime End { get; set; }
+            public int Type { get; set; }
         }
 
         public class PropertyDisplayViewModel
