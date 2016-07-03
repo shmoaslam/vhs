@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <Content Include="calenderpoc.html" />
     <None Include="packages.config" />
   </ItemGroup>
   <Choose>

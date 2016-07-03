@@ -11,6 +11,6 @@ namespace VHS.Services.ViewModel
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public string Color { get; set; }
-
+        public bool IsBlock { get; set; }
     }
 }

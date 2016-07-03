@@ -99,7 +99,7 @@ namespace VHS.Services
             if (bookings != null || bookings.Count() > 0)
                 foreach (var booking in bookings)
                 {
-                    listBookings.Add(new CalenderBookings { Color = GetBookingColor(booking.Type), End = booking.End, Start = booking.Start });
+                    listBookings.Add(new CalenderBookings { Color = GetBookingColor(booking.Type), End = booking.End, Start = booking.Start , IsBlock = (booking.Type == 1 || booking.Type == 2)});
                 }
 
             return listBookings;
