@@ -92,7 +92,7 @@ namespace VHS.App_Start
             {
                 if (!HttpContext.Current.Response.IsRequestBeingRedirected)
                 {
-                    var context = new RequestContext(new HttpContextWrapper(System.Web.HttpContext.Current), new RouteData());
+                    var context = new RequestContext(new HttpContextWrapper(HttpContext.Current), new RouteData());
                     var urlHelper = new UrlHelper(context);
                     var url = urlHelper.Action("Error", "PageAccess");
                     System.Web.HttpContext.Current.Response.Redirect(url);
