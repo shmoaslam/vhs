@@ -315,6 +315,7 @@
     <Content Include="Images\l2.gif" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\map.jpg" />
+    <Content Include="Images\mng2.jpg" />
     <Content Include="Images\pin.png" />
     <Content Include="Images\posted.png" />
     <Content Include="Images\price.png" />
@@ -333,6 +334,7 @@
     <Content Include="Images\symbol22.png" />
     <Content Include="Images\tmbr.png" />
     <Content Include="Images\tr.png" />
+    <Content Include="Images\travelogists.png" />
     <Content Include="Images\Travelogy\nikhil2.jpg" />
     <Content Include="Images\Travelogy\sagar2.jpg" />
     <Content Include="Images\Travelogy\vandana2.jpg" />
