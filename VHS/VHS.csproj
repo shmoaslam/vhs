@@ -322,6 +322,7 @@
     <Content Include="Images\profile.png" />
     <Content Include="Images\property2.jpg" />
     <Content Include="Images\rating.png" />
+    <Content Include="Images\search.png" />
     <Content Include="Images\signature.png" />
     <Content Include="Images\spain.jpg" />
     <Content Include="Images\star-rating.png" />
@@ -505,6 +506,7 @@
     <Content Include="Views\Home\TCBooking.cshtml" />
     <Content Include="Views\Shared\_RelatedProperty.cshtml" />
     <Content Include="Views\ManageBooking\Detail.cshtml" />
+    <Content Include="Views\Shared\_SearchFilter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

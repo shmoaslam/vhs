@@ -1,0 +1,59 @@
+﻿<div class="filters-main">
+    @using (Html.BeginForm("ListedProperty", "Property", FormMethod.Get, new { @class = "form-part", id = "" }))
+    {
+        <div class="search-box">
+
+            <div class="full-label">
+                <div class="property-input">
+                    <label class="sm-label-filter">Property ID</label>
+                    <input class="place myselect" type="text" size="30" placeholder="e.g. VH00016" name="PropertyUID" id="PropertyUID" autocomplete="off">
+                </div>
+            </div>
+
+            <div class="full-label text-center"><p><br><i>----- OR -----</i></p></div>
+
+            <div class="s-filters">
+                <label class="sm-label-filter">Place</label>
+                <input class="place myselect" type="text" size="30" placeholder="e.g. city, state, country" name="Query" id="Query" autocomplete="off">
+            </div>
+
+            <div class="s-filters">
+                <label class="sm-label-filter">Check in</label>
+                <input class="sm-input myselect" name="StartDate" id="StartDate" autocomplete="off">
+            </div>
+
+            <div class="s-filters">
+                <label class="sm-label-filter">Check out</label>
+                <input class="sm-input myselect" name="EndDate" id="EndDate" autocomplete="off">
+            </div>
+
+            <div class="s-filters">
+                <label class="sm-label-filter">Guests</label>
+                <select class="sm-input myselect" id="Guest" name="Guest">
+                    <option value="0">Select</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">More than 15</option>
+                </select>
+            </div>
+            <div class="sbb">&nbsp;</div>
+            <div class="full-label text-center"><button class="btn-primary">Search</button></div>
+
+        </div>
+
+    }
+</div>
+
