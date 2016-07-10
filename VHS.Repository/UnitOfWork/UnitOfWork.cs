@@ -696,9 +696,28 @@ namespace VHS.Repository
 
         #region Store Procedure
 
-        public List<PropertyDisplayViewModel> GetProperties(string query, int region, int guestCount, string propertyUid)
+        public List<PropertyDisplayViewModel> GetProperties(string query, int region, int guestCount, string propertyUid
+            , bool isAdvancedSearch,  string sleepingids, string bathroomIds, string kitchedids, string generalids
+            , string enterelecids, string outdoorids, string parkingids)
         {
-            return _context.Database.SqlQuery<PropertyDisplayViewModel>("exec GetListingProperty @regionId, @query, @guestCount, @propId", new SqlParameter("@regionId", region), new SqlParameter("@query", string.IsNullOrEmpty(query) ? string.Empty : query) , new SqlParameter("@guestCount", guestCount), new SqlParameter("@propId", propertyUid)).ToList();
+            if(isAdvancedSearch)
+            {
+                
+                return _context.Database.SqlQuery<PropertyDisplayViewModel>("exec GetAdvancedFilter @bathroomIds, @generalIds ,@sleepingIds , @kitchenIds, @enterElecIds, @parkingIds , @outFaciIds, @regionId", new SqlParameter("@regionId", region)
+                    , new SqlParameter("@bathroomIds", string.IsNullOrEmpty(bathroomIds) ? string.Empty :  bathroomIds)
+                    , new SqlParameter("@generalIds", string.IsNullOrEmpty(generalids) ? string.Empty : generalids)
+                    , new SqlParameter("@sleepingIds", string.IsNullOrEmpty(sleepingids) ? string.Empty : sleepingids)
+                    , new SqlParameter("@kitchenIds", string.IsNullOrEmpty(kitchedids) ? string.Empty : kitchedids)
+                    , new SqlParameter("@parkingIds", string.IsNullOrEmpty(parkingids) ? string.Empty : parkingids)
+                    , new SqlParameter("@enterElecIds", string.IsNullOrEmpty(enterelecids) ? string.Empty : enterelecids)
+                    , new SqlParameter("@outFaciIds", string.IsNullOrEmpty(outdoorids) ? string.Empty : outdoorids)
+                    ).ToList(); 
+            }
+            else
+            {
+                return _context.Database.SqlQuery<PropertyDisplayViewModel>("exec GetListingProperty @regionId, @query, @guestCount, @propId", new SqlParameter("@regionId", region), new SqlParameter("@query", string.IsNullOrEmpty(query) ? string.Empty : query), new SqlParameter("@guestCount", guestCount)
+                    , new SqlParameter("@propId", propertyUid)).ToList();
+            }
         }
 
         public List<string> GetPropertyAutocompleteHelp(string qeury, int regionId)

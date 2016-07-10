@@ -170,6 +170,7 @@ namespace VHS.Controllers
             return Json(autoCompleteHelp);
         }
         [AllowAnonymous]
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult ListedProperty(SearchPropertyModel model)
         {
             var propertyViewModel = _property.GetProperties(model);
