@@ -47,7 +47,7 @@
                     {
                         string userdata = userCookie["User"];
                         var _currentUser = JsonConvert.DeserializeObject<VHS.Services.UserInfo>(userdata);
-                    <li>Welcome <span style="color:hotpink">@_currentUser.Name</span></li>
+                        <li>Welcome <span style="color:hotpink">@_currentUser.Name</span></li>
                     }
                 }
                 <li> @Html.ActionLink("Listed Properties", "ListedProperty", "Property")</li>
@@ -97,16 +97,12 @@
         <div id="myModal" class="modal" style="display: none;">
 
             <div class="modal-content">
-
-
                 <div class="search-box-home">
                     <span class="close">×</span>
                     <!--<p class="text-center">Some text in the Modal..</p>	<br/> -->
 
-
-
                     @using (Html.BeginForm("ListedProperty", "Property", FormMethod.Get, new { @class = "form-part", id = "" }))
-    {
+                    {
                         <div>
                             <div class="s-filters">
                                 <label class="sm-label-filter">Place</label>
@@ -145,11 +141,9 @@
                                     <option value="16">More than 15</option>
                                 </select>
                             </div>
-
                             <div class="s-filters"><button class="btn-primary">Search</button></div>
                         </div>
-
-    }
+                    }
                 </div>
 
             </div>
