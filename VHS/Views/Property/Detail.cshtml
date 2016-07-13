@@ -63,6 +63,20 @@
                                     }
                                 </b>
                             </p>
+                            @switch (Model.Rating)
+                            {
+                                case "2":
+                                    <p class="rating"><b>Pink Butterfly Award</b></p>
+                                    break;
+                                case "3":
+                                    <p class="rating"><b>Pink Deer Award</b></p>
+                                    break;
+                                case "4":
+                                    <p class="rating"><b>Pink Eagle Award</b></p>
+                                    break;
+                                default:
+                                    break;
+                            }
                         </div>
                     </div>
                     <div class="clear"></div>

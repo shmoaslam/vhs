@@ -43,6 +43,6 @@ namespace VHS.Services.ViewModel
         public int CancellationPolicy { get; set; }
         public int? MininumStay { get; set; }
         public PropertyBooking objPropertyBooking { get; set; }
-
+        public PropertyAmenities Amenities { get; set; }
     }
 }

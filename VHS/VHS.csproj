@@ -316,6 +316,7 @@
     <Content Include="Images\l2.gif" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\map.jpg" />
+    <Content Include="Images\mng2.jpg" />
     <Content Include="Images\pin.png" />
     <Content Include="Images\posted.png" />
     <Content Include="Images\price.png" />
@@ -323,6 +324,7 @@
     <Content Include="Images\profile.png" />
     <Content Include="Images\property2.jpg" />
     <Content Include="Images\rating.png" />
+    <Content Include="Images\search.png" />
     <Content Include="Images\signature.png" />
     <Content Include="Images\spain.jpg" />
     <Content Include="Images\star-rating.png" />
@@ -333,6 +335,7 @@
     <Content Include="Images\symbol22.png" />
     <Content Include="Images\tmbr.png" />
     <Content Include="Images\tr.png" />
+    <Content Include="Images\travelogists.png" />
     <Content Include="Images\Travelogy\nikhil2.jpg" />
     <Content Include="Images\Travelogy\sagar2.jpg" />
     <Content Include="Images\Travelogy\vandana2.jpg" />
@@ -509,6 +512,7 @@
     <Content Include="Views\Home\TCBooking.cshtml" />
     <Content Include="Views\Shared\_RelatedProperty.cshtml" />
     <Content Include="Views\ManageBooking\Detail.cshtml" />
+    <Content Include="Views\Shared\_SearchFilter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

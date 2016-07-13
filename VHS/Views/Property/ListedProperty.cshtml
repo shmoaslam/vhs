@@ -11,7 +11,6 @@
     else { ActionName = "ListedProperty"; }
 }
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.js"></script>
 
 <section class="section header-section dark">
     <div class="overlay">
@@ -88,19 +87,13 @@
                         </p>
                         <p><br></p>
                     </article>
-                    @*<p>
-                        </p><ol class="breadcrumb">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#" class="active">Listed Properties</a></li>
-                        </ol>
-                        <p></p>*@
                 }
             </div>
 
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 myfilters">
 
                 <div class="filters-main">
-                    @using (Html.BeginForm(ActionName, "Property", FormMethod.Get, new { @class = "form-part", id = "" }))
+                    @using (Html.BeginForm(ActionName, "Property", FormMethod.Post, new { @class = "form-part", id = "" }))
                     {
                         <div class="search-box">
 
@@ -151,8 +144,82 @@
                                 </select>
                             </div>
                             <div class="sbb">&nbsp;</div>
-                            <div class="full-label text-center"><button class="btn-primary">Search</button></div>
+                            <div class="half-label left"><button class="filter-btn" id="btnAdvancedSearchFilter">Add more filters</button></div>
+                            <div class="half-label text-right"><button class="btn-primary" >Search</button></div>
+                            <div style="display:none;" id="divAdvancedSearchFilter">
+                                <input type="hidden" name="IsAdvancedSearch" id="IsAdvancedSearch" value="false" />
+                                <div style="clear:both;"></div>
+                                <div class="col-md-12">
 
+                                    <p class="full-label"><strong>Sleeping Arrangment</strong></p>
+                                    <span class="col-md-3"><input type="checkbox" id="c1" value="1" name="SleepingArrangmentId"><label for="c1">Beds &amp; Mattresses</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c2" value="2" name="SleepingArrangmentId"><label for="c2">Cupboard</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c3" value="3" name="SleepingArrangmentId"><label for="c3">Personal Safe</label></span>
+                                    <div style="clear:both;"></div>
+                                    <p class="full-label"><strong>Bathrooms</strong></p>
+                                    <span class="col-md-3"><input type="checkbox" id="c4" value="1" name="BathRoomsId"><label for="c4">Hot Tub</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c5" value="2" name="BathRoomsId"><label for="c5">Water Supply</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c6" value="3" name="BathRoomsId"><label for="c6">Hot Water Supply</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c7" value="4" name="BathRoomsId"><label for="c7">Bathtub</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c8" value="5" name="BathRoomsId"><label for="c8">Hair Dryer</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c9" value="6" name="BathRoomsId"><label for="c9">Shower</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c10" value="7" name="BathRoomsId"><label for="c10">Towels</label></span>
+                                    <p class="full-label"><strong>Kitchen</strong></p>
+                                    <span class="col-md-3"><input type="checkbox" id="c11" value="1" name="KitchenId"><label for="c11">Gas</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c12" value="2" name="KitchenId"><label for="c12">Crockery And Cutlery</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c13" value="3" name="KitchenId"><label for="c13">Coffee Maker</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c14" value="4" name="KitchenId"><label for="c14">Dish Washer</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c15" value="5" name="KitchenId"><label for="c15">Fridge</label></span>
+                                    <p class="full-label"><strong>General</strong></p>
+                                    <span class="col-md-3"><input type="checkbox" id="c16" value="1" name="GeneralId"><label for="c16">Elevator In Building</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c17" value="2" name="GeneralId"><label for="c17">Indoor Fireplace</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c18" value="3" name="GeneralId"><label for="c18">AC</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c19" value="4" name="GeneralId"><label for="c19">Heating</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c20" value="5" name="GeneralId"><label for="c20">Furniture</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c21" value="6" name="GeneralId"><label for="c21">Dryer</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c22" value="7" name="GeneralId"><label for="c22">Washing Machine</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c23" value="8" name="GeneralId"><label for="c23">Security</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c24" value="9" name="GeneralId"><label for="c24">Butler</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c25" value="10" name="GeneralId"><label for="c25">Cook</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c26" value="11" name="GeneralId"><label for="c26">Doorman</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c27" value="12" name="GeneralId"><label for="c27">House Help</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c28" value="13" name="GeneralId"><label for="c28">First Aid Kit</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c29" value="14" name="GeneralId"><label for="c29">Dental Kit</label></span>
+                                    <p class="full-label"><strong>Entertainment And Electronics</strong></p>
+                                    <span class="col-md-3"><input type="checkbox" id="c30" value="1" name="EnterTaimentId"><label for="c30">Internet</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c31" value="2" name="EnterTaimentId"><label for="c31">WiFi</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c32" value="3" name="EnterTaimentId"><label for="c32">TV</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c33" value="4" name="EnterTaimentId"><label for="c33">Music System</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c34" value="5" name="EnterTaimentId"><label for="c34">Scanner/Printer</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c35" value="6" name="EnterTaimentId"><label for="c35">Phone(Booth/Lines)</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c36" value="7" name="EnterTaimentId"><label for="c36">Projector</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c37" value="8" name="EnterTaimentId"><label for="c37">Fax</label></span>
+                                    <p class="full-label"><strong>Outdoor Facilities</strong></p>
+                                    <span class="col-md-3"><input type="checkbox" id="c38" value="1" name="OutdoorId"><label for="c38">Bar/Restaurant</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c39" value="2" name="OutdoorId"><label for="c39">Gym</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c40" value="3" name="OutdoorId"><label for="c40">Swimming Pool</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c41" value="4" name="OutdoorId"><label for="c41">Barbeque</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c42" value="5" name="OutdoorId"><label for="c42">Balcony</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c43" value="6" name="OutdoorId"><label for="c43">Garden</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c44" value="7" name="OutdoorId"><label for="c44">Terrace</label></span>
+                                    <div style="clear:both;"></div>
+                                    <p class="full-label"><strong>Parking</strong></p>
+									<span class="col-md-3"><input type="checkbox" id="c45" value="4" name="ParkingId"><label for="c45">Valet</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c46" value="5" name="ParkingId"><label for="c46">On Premises</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c47" value="1" name="ParkingId"><label for="c47">Open Parking</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c48" value="3" name="ParkingId"><label for="c48">Covered Parking</label></span>
+                                    <span class="col-md-3"><input type="checkbox" id="c49" value="2" name="ParkingId"><label for="c49">Paid Parking</label></span>                                    
+
+                                </div>
+                                <div style="clear:both;"></div>
+                                <div class="sbb">&nbsp;</div>
+                                <div style="clear:both;"></div>
+                                <div class="input-wrapper clearfix">
+                                    <input type="submit" class="sm-input send-btn" value="Apply" id="" name="">
+                                    <input type="reset" class="sm-input send-btn" value="Clear" id="" name="">
+                                </div>
+                            </div>
+                           
                         </div>
 
                     }
@@ -160,6 +227,7 @@
             </div>
         </div>
 
+		<div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <article class="element clearfix">
 
@@ -187,13 +255,13 @@
                                     @switch (property.Rating)
                                     {
                                         case "2":
-                                            <img src="~/images/butterfly.png" width="30" title="Pink Butterfly Award" alt="butterfly">
+                                    <img src="~/images/butterfly.png" width="30" title="Pink Butterfly Award" alt="butterfly">
                                             break;
                                         case "3":
-                                            <img src="~/images/deer.png" width="30" title="Pink Butterfly Award" alt="butterfly">
+                                    <img src="~/images/deer.png" width="30" title="Pink Butterfly Award" alt="butterfly">
                                             break;
                                         case "4":
-                                            <img src="~/images/eagle.png" width="30" title="Pink Butterfly Award" alt="butterfly">
+                                    <img src="~/images/eagle.png" width="30" title="Pink Butterfly Award" alt="butterfly">
                                             break;
                                         default:
                                             break;
@@ -202,116 +270,88 @@
                             </p>
                         </div>
                     </a>
-                        @*<a href="/Property/Detail/@property.Id">
-                                <div class="property-thumb">
-                                    <p class="property-thumb-img">
-                                        <img src="~/UploadFile/PropertyCoverPhoto/@property.CoverImage" />
-                                        <div class="property-price-box">
-                                            <span class="property-price-currency">
-                                                @if (property.RegionId == 2)
-                                                { <text>&euro;</text> }
-                                                else
-                                                { <text>&#8377;</text>}
-                                            </span><span class="property-price">@property.Price/-</span>
-                                        </div>
-                                    </p>
-                                    <h3 class="property-thumb-title"><span class="property-id">VH@(property.Id.ToString("D5"))</span>: @property.Title</h3>
-                                    <p class="property-thumb-info">
-                                        <span class="property-category">@property.Category</span>
-                                        <span class="property-rooms">@property.PersonPerRoom Bedrooms</span>
-                                        <span class="property-guests">@property.GuestCount Guests</span>
-                                        <span class="property-rating">
-                                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                                            <img class="rated-star" src="/images/starp.png" width="15" alt="star" />
-                                            @switch (property.Rating)
-                                            {
-                                                case "2":
-                                                    <img class="rated-star" src="~/images/halfstar.png" width="15" alt="star" />
-                                                    break;
-                                                case "3":
-                                                    <img class="rated-star" src="~/images/starp.png" width="15" alt="star" />
-                                                    break;
-                                                case "4":
-                                                    <img class="rated-star" src="~/images/starp.png" width="15" alt="star" />
-                                                    <img class="rated-star" src="~/images/halfstar.png" width="15" alt="star" />
-                                                    break;
-                                                case "5":
-                                                    <img class="rated-star" src="~/images/starp.png" width="15" alt="star" />
-                                                    <img class="rated-star" src="~/images/starp.png" width="15" alt="star" />
-                                                    break;
-                                                default:
-                                                    break;
-                                            }
-                                        </span>
-                                    </p>
-                                </div>
-                            </a>*@
-                        }
+                }
 
 
 
-</article>
+            </article>
         </div>
-
+		</div>
+		
     </div>
 </section>
 
 
 @section scripts{
-    <script>
+    @*<script>
 
-        var endDateCtrl = $("#EndDate").datepick({
-            dateFormat: 'dd/mm/yyyy',
-            minDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1),
-            onSelect: function (dates) {
-                var date = new Date(dates)
-                $("#EndDate").attr("value", date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate());
-                var startDate = document.getElementById("StartDate").value;
-                var endDate = document.getElementById("EndDate").value;
-                if ((parseDate(startDate) > parseDate(endDate))) {
-                    alert("End date should be greater than Start date");
+            var endDateCtrl = $("#EndDate").datepick({
+                dateFormat: 'dd/mm/yyyy',
+                minDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1),
+                onSelect: function (dates) {
+                    var date = new Date(dates)
+                    $("#EndDate").attr("value", date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate());
+                    var startDate = document.getElementById("StartDate").value;
+                    var endDate = document.getElementById("EndDate").value;
+                    if ((parseDate(startDate) > parseDate(endDate))) {
+                        alert("End date should be greater than Start date");
+                        document.getElementById("EndDate").value = "";
+                    }
+                },
+            });
+            var startDateControl = $("#StartDate").datepick({
+                dateFormat: 'dd/mm/yyyy',
+                minDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()),
+                onSelect: function (dates) {
                     document.getElementById("EndDate").value = "";
-                }
-            },
-        });
-        var startDateControl = $("#StartDate").datepick({
-            dateFormat: 'dd/mm/yyyy',
-            minDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()),
-            onSelect: function (dates) {
-                document.getElementById("EndDate").value = "";
-                var date = new Date(dates)
-                $("#StartDate").attr("value", date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate());
-                endDateCtrl.datepick('option', 'minDate', new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1));
-            },
-        });
+                    var date = new Date(dates)
+                    $("#StartDate").attr("value", date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate());
+                    endDateCtrl.datepick('option', 'minDate', new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1));
+                },
+            });
 
-        function parseDate(value) {
-            var parts = value.split("/");
-            return new Date(Number(parts[2]), Number(parts[1]) - 1, Number(parts[0]));
-        }
+            function parseDate(value) {
+                var parts = value.split("/");
+                return new Date(Number(parts[2]), Number(parts[1]) - 1, Number(parts[0]));
+            }
 
-    </script>
+        </script>
 
+        <script>
+            var myTypeahead = $('#Query').typeahead({
+                minLength: 1,
+                source: function (query, process) {
+                    return $.post('@Url.Action("GetPropertyAutocompleteHelp")', { query: query, region: '@PropertyFrom' }, function (data) {
+                        return process(data);
+                    });
+                },
+            });
+
+            //$("#btnSearch").on("click", function () {
+            //    var selectedText = $(".typeahead li.active").text().trim();
+            //    $('#Query').val(selectedText);
+            //});
+
+
+
+        </script>*@
     <script>
-        var myTypeahead = $('#Query').typeahead({
-            minLength: 1,
-            source: function (query, process) {
-                return $.post('@Url.Action("GetPropertyAutocompleteHelp")', { query: query, region: '@PropertyFrom' }, function (data) {
-                    return process(data);
-                });
-            },
+
+     
+
+        $('#btnAdvancedSearchFilter').on('click',function (e) {
+            e.preventDefault();
+           
+            
+            $("#divAdvancedSearchFilter").toggle();
+            if($('#divAdvancedSearchFilter').css('display') == 'none')
+                $("#IsAdvancedSearch").val(false);
+            else
+                $("#IsAdvancedSearch").val(true);
+            //alert('t');
+         
         });
 
-        //$("#btnSearch").on("click", function () {
-        //    var selectedText = $(".typeahead li.active").text().trim();
-        //    $('#Query').val(selectedText);
-        //});
-
-
-
-    </script>
-    <script>
         var myTypeahead = $('#PropertyUID').typeahead({
             minLength: 1,
             source: function (query, process) {

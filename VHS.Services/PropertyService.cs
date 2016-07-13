@@ -89,7 +89,15 @@ namespace VHS.Services
         {
             IList<PropertyDisplayViewModel> models = new List<PropertyDisplayViewModel>();
             searchModel.PropertyUID = string.IsNullOrEmpty(searchModel.PropertyUID) ? string.Empty : searchModel.PropertyUID;
-            var propertyModel = _unitOfWork.GetProperties(searchModel.Query,searchModel.Region, searchModel.Guest, searchModel.PropertyUID);
+            
+            var propertyModel = _unitOfWork.GetProperties(searchModel.Query,searchModel.Region, searchModel.Guest, searchModel.PropertyUID , searchModel.IsAdvancedSearch
+                                    , (searchModel.SleepingArrangmentId != null && searchModel.SleepingArrangmentId.Length > 0) ? string.Join(",", searchModel.SleepingArrangmentId) : string.Empty
+                                    , (searchModel.BathRoomsId != null && searchModel.BathRoomsId.Length > 0) ? string.Join(",", searchModel.BathRoomsId) : string.Empty
+                                    , (searchModel.KitchenId != null && searchModel.KitchenId.Length > 0) ? string.Join(",", searchModel.KitchenId) : string.Empty
+                                    , (searchModel.GeneralId != null && searchModel.GeneralId.Length > 0) ? string.Join(",", searchModel.GeneralId) : string.Empty
+                                    , (searchModel.EnterTaimentId != null && searchModel.EnterTaimentId.Length > 0) ? string.Join(",", searchModel.EnterTaimentId) : string.Empty
+                                    , (searchModel.OutdoorId != null && searchModel.OutdoorId.Length > 0) ? string.Join(",", searchModel.OutdoorId) : string.Empty
+                                    , (searchModel.ParkingId != null && searchModel.ParkingId.Length > 0) ? string.Join(",", searchModel.ParkingId) : string.Empty);
             if (propertyModel != null)
                 foreach (var model in propertyModel)
                     models.Add(new PropertyDisplayViewModel { Id = model.Id, RegionId = model.RegionId, Title = model.Title, Rating = model.Rating, CoverImage = model.CoverImage, Category = model.Category, Price = model.Price, PersonPerRoom = Convert.ToString(model.Bedroom), GuestCount = model.GuestCount });

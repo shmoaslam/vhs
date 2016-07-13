@@ -696,9 +696,40 @@ namespace VHS.Repository
 
         #region Store Procedure
 
-        public List<PropertyDisplayViewModel> GetProperties(string query, int region, int guestCount, string propertyUid)
+        public List<PropertyDisplayViewModel> GetProperties(string query, int region, int guestCount, string propertyUid
+            , bool isAdvancedSearch, string sleepingids, string bathroomIds, string kitchedids, string generalids
+            , string enterelecids, string outdoorids, string parkingids)
         {
-            return _context.Database.SqlQuery<PropertyDisplayViewModel>("exec GetListingProperty @regionId, @query, @guestCount, @propId", new SqlParameter("@regionId", region), new SqlParameter("@query", string.IsNullOrEmpty(query) ? string.Empty : query) , new SqlParameter("@guestCount", guestCount), new SqlParameter("@propId", propertyUid)).ToList();
+            if (!isAdvancedSearch)
+                return _context.Database.SqlQuery<PropertyDisplayViewModel>("exec GetListingProperty @regionId, @query, @guestCount, @propId", new SqlParameter("@regionId", region), new SqlParameter("@query", string.IsNullOrEmpty(query) ? string.Empty : query), new SqlParameter("@guestCount", guestCount)
+                                                                        , new SqlParameter("@propId", propertyUid)).ToList();
+
+
+            var resultFromAdvancedSearch = _context.Database.SqlQuery<PropertyDisplayViewModel>("exec GetAdvancedFilter @bathroomIds, @generalIds ,@sleepingIds , @kitchenIds, @enterElecIds, @parkingIds , @outFaciIds, @regionId", new SqlParameter("@regionId", region)
+                                                                        , new SqlParameter("@bathroomIds", string.IsNullOrEmpty(bathroomIds) ? string.Empty : bathroomIds)
+                                                                        , new SqlParameter("@generalIds", string.IsNullOrEmpty(generalids) ? string.Empty : generalids)
+                                                                        , new SqlParameter("@sleepingIds", string.IsNullOrEmpty(sleepingids) ? string.Empty : sleepingids)
+                                                                        , new SqlParameter("@kitchenIds", string.IsNullOrEmpty(kitchedids) ? string.Empty : kitchedids)
+                                                                        , new SqlParameter("@parkingIds", string.IsNullOrEmpty(parkingids) ? string.Empty : parkingids)
+                                                                        , new SqlParameter("@enterElecIds", string.IsNullOrEmpty(enterelecids) ? string.Empty : enterelecids)
+                                                                        , new SqlParameter("@outFaciIds", string.IsNullOrEmpty(outdoorids) ? string.Empty : outdoorids)
+                                                                        ).ToList();
+
+            var resultFromNormalSearch = _context.Database.SqlQuery<PropertyDisplayViewModel>("exec GetListingProperty @regionId, @query, @guestCount, @propId", new SqlParameter("@regionId", region), new SqlParameter("@query", string.IsNullOrEmpty(query) ? string.Empty : query), new SqlParameter("@guestCount", guestCount)
+                , new SqlParameter("@propId", propertyUid)).ToList();
+
+            if (resultFromAdvancedSearch != null && resultFromAdvancedSearch.Count() > 0
+                && resultFromNormalSearch != null && resultFromNormalSearch.Count() > 0)
+            {
+                var advancedSearchIds = resultFromAdvancedSearch.Select(x => x.Id).ToList();
+                var commonResult = resultFromNormalSearch.Where(x => advancedSearchIds.Contains(x.Id));
+                if (commonResult != null && commonResult.Count() > 0)
+                    return commonResult.ToList();
+                else
+                    return null;
+            }
+            else
+                return null;
         }
 
         public List<CalenderBooking> GetCalenderBooking(int id)
@@ -748,7 +779,7 @@ namespace VHS.Repository
 
         public List<ManganeBookingViewModel> GetBookings(int rmId)
         {
-            if(rmId == 0)
+            if (rmId == 0)
                 return _context.Database.SqlQuery<ManganeBookingViewModel>("select pb.Id Id, pb.BookingId, p.Title + ', ' + pa.City PropertyDisplayName, CONVERT(varchar, pb.PropertyId) PropertyId from PropertyBooking pb join Property p on  pb.PropertyId = p.Id join PropertyAddress pa on p.Id = pa.PropertyId and pb.IsComplete = 0").ToList();
             else
                 return _context.Database.SqlQuery<ManganeBookingViewModel>("select pb.Id Id, pb.BookingId, p.Title + ', ' + pa.City PropertyDisplayName, CONVERT(varchar, pb.PropertyId) PropertyId from PropertyBooking pb join Property p on  pb.PropertyId = p.Id join PropertyAddress pa on p.Id = pa.PropertyId and pb.IsComplete = 0 and p.LoginId = @rmId", new SqlParameter("rmId", rmId)).ToList();
