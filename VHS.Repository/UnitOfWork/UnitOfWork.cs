@@ -700,12 +700,13 @@ namespace VHS.Repository
             , bool isAdvancedSearch, string sleepingids, string bathroomIds, string kitchedids, string generalids
             , string enterelecids, string outdoorids, string parkingids)
         {
-            if (!isAdvancedSearch)
-                return _context.Database.SqlQuery<PropertyDisplayViewModel>("exec GetListingProperty @regionId, @query, @guestCount, @propId", new SqlParameter("@regionId", region), new SqlParameter("@query", string.IsNullOrEmpty(query) ? string.Empty : query), new SqlParameter("@guestCount", guestCount)
-                                                                        , new SqlParameter("@propId", propertyUid)).ToList();
+            //if (!isAdvancedSearch)
+            //    return _context.Database.SqlQuery<PropertyDisplayViewModel>("exec GetListingProperty @regionId, @query, @guestCount, @propId", new SqlParameter("@regionId", region), new SqlParameter("@query", string.IsNullOrEmpty(query) ? string.Empty : query), new SqlParameter("@guestCount", guestCount)
+            //                                                            , new SqlParameter("@propId", propertyUid)).ToList();
 
 
-            var resultFromAdvancedSearch = _context.Database.SqlQuery<PropertyDisplayViewModel>("exec GetAdvancedFilter @bathroomIds, @generalIds ,@sleepingIds , @kitchenIds, @enterElecIds, @parkingIds , @outFaciIds, @regionId", new SqlParameter("@regionId", region)
+            return _context.Database.SqlQuery<PropertyDisplayViewModel>("exec GetAdvancedFilter @bathroomIds, @generalIds ,@sleepingIds , @kitchenIds, @enterElecIds, @parkingIds , @outFaciIds, @regionId, @IsAdvancedFilter, @query, @guestCount, @propId"
+                                                                        , new SqlParameter("@regionId", region)
                                                                         , new SqlParameter("@bathroomIds", string.IsNullOrEmpty(bathroomIds) ? string.Empty : bathroomIds)
                                                                         , new SqlParameter("@generalIds", string.IsNullOrEmpty(generalids) ? string.Empty : generalids)
                                                                         , new SqlParameter("@sleepingIds", string.IsNullOrEmpty(sleepingids) ? string.Empty : sleepingids)
@@ -713,23 +714,27 @@ namespace VHS.Repository
                                                                         , new SqlParameter("@parkingIds", string.IsNullOrEmpty(parkingids) ? string.Empty : parkingids)
                                                                         , new SqlParameter("@enterElecIds", string.IsNullOrEmpty(enterelecids) ? string.Empty : enterelecids)
                                                                         , new SqlParameter("@outFaciIds", string.IsNullOrEmpty(outdoorids) ? string.Empty : outdoorids)
+                                                                        , new SqlParameter("@query", string.IsNullOrEmpty(query) ? string.Empty : query)
+                                                                        , new SqlParameter("@guestCount", guestCount)
+                                                                        , new SqlParameter("@propId", propertyUid)
+                                                                        , new SqlParameter("@IsAdvancedFilter", isAdvancedSearch)
                                                                         ).ToList();
 
-            var resultFromNormalSearch = _context.Database.SqlQuery<PropertyDisplayViewModel>("exec GetListingProperty @regionId, @query, @guestCount, @propId", new SqlParameter("@regionId", region), new SqlParameter("@query", string.IsNullOrEmpty(query) ? string.Empty : query), new SqlParameter("@guestCount", guestCount)
-                , new SqlParameter("@propId", propertyUid)).ToList();
+            //var resultFromNormalSearch = _context.Database.SqlQuery<PropertyDisplayViewModel>("exec GetListingProperty @regionId, @query, @guestCount, @propId", new SqlParameter("@regionId", region), new SqlParameter("@query", string.IsNullOrEmpty(query) ? string.Empty : query), new SqlParameter("@guestCount", guestCount)
+            //    , new SqlParameter("@propId", propertyUid)).ToList();
 
-            if (resultFromAdvancedSearch != null && resultFromAdvancedSearch.Count() > 0
-                && resultFromNormalSearch != null && resultFromNormalSearch.Count() > 0)
-            {
-                var advancedSearchIds = resultFromAdvancedSearch.Select(x => x.Id).ToList();
-                var commonResult = resultFromNormalSearch.Where(x => advancedSearchIds.Contains(x.Id));
-                if (commonResult != null && commonResult.Count() > 0)
-                    return commonResult.ToList();
-                else
-                    return null;
-            }
-            else
-                return null;
+            //if (resultFromAdvancedSearch != null && resultFromAdvancedSearch.Count() > 0
+            //    && resultFromNormalSearch != null && resultFromNormalSearch.Count() > 0)
+            //{
+            //    var advancedSearchIds = resultFromAdvancedSearch.Select(x => x.Id).ToList();
+            //    var commonResult = resultFromNormalSearch.Where(x => advancedSearchIds.Contains(x.Id));
+            //    if (commonResult != null && commonResult.Count() > 0)
+            //        return commonResult.ToList();
+            //    else
+            //        return null;
+            //}
+            //else
+            //    return null;
         }
 
         public List<string> GetPropertyAutocompleteHelp(string qeury, int regionId)

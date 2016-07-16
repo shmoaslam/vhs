@@ -509,6 +509,7 @@
     <Content Include="Views\Shared\_RelatedProperty.cshtml" />
     <Content Include="Views\ManageBooking\Detail.cshtml" />
     <Content Include="Views\Shared\_SearchFilter.cshtml" />
+    <Content Include="Views\Property\Rating.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

@@ -161,7 +161,11 @@ namespace VHS.Controllers
             return Json(response);
 
         }
-
+        [AllowAnonymous]
+        public ActionResult Rating()
+        {
+            return View();
+        }
         [AllowAnonymous]
         public JsonResult GetPropertyAutocompleteHelp(string query, string region)
         {
