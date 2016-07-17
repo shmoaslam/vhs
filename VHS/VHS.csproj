@@ -510,6 +510,8 @@
     <Content Include="Views\ManageBooking\Detail.cshtml" />
     <Content Include="Views\Shared\_SearchFilter.cshtml" />
     <Content Include="Views\Property\Rating.cshtml" />
+    <Content Include="Views\Property\Detail1.cshtml" />
+    <Content Include="Views\Shared\_CheckAvalibilityProperty1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

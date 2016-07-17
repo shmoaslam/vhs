@@ -1,0 +1,388 @@
+﻿@model VHS.Services.ViewModel.PropertyDisplayViewModel
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="section header-section-property dark">
+    <div class="overlay"><img class="property-cover" src="/UploadFile/PropertyCoverPhoto/@Model.CoverImage"></div>
+    <div class="container clearfix centered">
+        <div class="col-lg-8 centered aligncenter">
+            <div class="centralizing-wrapper-property">
+                <div class="centralized-content">
+                    <h1>@Model.Title</h1>
+                    <p class="uppercase">@Model.City</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section2 bordered">
+    <div class="container clearfix">
+        <div id="container" class="no-bg">
+            <article class="element clearfix col-lg-12 col-md-12 col-sm-12 col-xs-12 home">
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                    <h3 class="title"><span class="property-id">VH@(Model.Id.ToString("D5"))</span>: <span id="propertyTitle"> @Model.Title</span></h3>
+                    <p>
+                        @Model.Desc
+                    </p>
+                    <p class="address"><b>Located in:</b> @Model.City, @Model.Country</p>
+                    <div class="col-md-12 pull-left">
+                        <div class="col-md-3 col-xs-6 text-center"><p class="intro-pik"><img class="intro-icons" src="/images/category.png" width="20" alt="Category" title="Category" /></p><p class="category"><b>@Model.Category</b></p></div>
+                        <div class="col-md-3 col-xs-6 text-center">
+                            <p class="intro-pik"><img class="intro-icons" src="/images/price.png" width="20" alt="Price" title="Price" /></p><p class="price">
+                                <b>
+                                    Starting from <span class="currency">
+                                        @if (Model.RegionId == 2)
+                                        { <text>&euro;</text> }
+                                        else
+                                        { <text>&#8377;</text>}
+                                    </span> <span id="standardPrice">@Model.Price</span>
+                                </b>
+                            </p>
+                        </div>
+                        <div class="col-md-3 col-xs-6 text-center"><p class="intro-pik"><img class="intro-icons" src="/images/guest.png" width="20" alt="Guests" title="Guests" /></p><p class="guests"><b>Standard Occupancy <span id="standardGuestCount">@Model.GuestCount</span></b></p></div>
+                        <div class="col-md-3 col-xs-6 text-center">
+                            <p class="intro-pik">
+                                <b>
+                                    @switch (Model.Rating)
+                                    {
+                                        case "2":
+                                            <img class="intro-icons" src="~/images/butterfly.png" width="20" alt="Rating" title="Pink Butterfly Award">
+                                            break;
+                                        case "3":
+                                            <img class="intro-icons" src="~/images/deer.png" width="20" alt="Rating" title="Pink Deer Award">
+                                            break;
+                                        case "4":
+                                            <img class="intro-icons" src="~/images/eagle.png" width="20" alt="Rating" title="Pink Eagle Award">
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                </b>
+                            </p>
+                            @switch (Model.Rating)
+                            {
+                                case "2":
+                                    <p class="rating"><b>Pink Butterfly Award</b></p>
+                                    break;
+                                case "3":
+                                    <p class="rating"><b>Pink Deer Award</b></p>
+                                    break;
+                                case "4":
+                                    <p class="rating"><b>Pink Eagle Award</b></p>
+                                    break;
+                                default:
+                                    break;
+                            }
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+
+                    <div class="borderline"></div>
+                    <p class="alignleft"><img class="social-share" src="/images/bg-share.png" width="20" alt="Share" title="Share" /></p>
+                    <ul class="social-list alignleft">
+                        <li> <a href="#"><i class="fa fa-twitter"></i></a> </li>
+                        <li> <a href="#"><i class="fa fa-facebook"></i></a> </li>
+                    </ul>
+                    <p class="alignright"><img class="social-share" src="/images/wishlist.png" width="20" alt="Wishlist" title="Add to Wishlist" /></p>
+
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 border-left-wrapper">
+                    @Html.Partial("_CheckAvalibilityProperty1", Model.objPropertyBooking)
+                </div>
+
+                <div class="clear"><p><br /></p></div>
+
+
+                <!--</article>
+
+                <article class="element clearfix col-lg-12 col-md-12 col-sm-12 col-xs-12 home">-->
+
+
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+
+                    <h3>Gallery</h3>
+                    <div class="head-underline-s"> </div>
+                    @if (Model.GalaryImages != null)
+                    {
+                            <!--slider start-->
+
+                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="15000">
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                                @for (int i = 0; i < Model.GalaryImages.Length; i++)
+                                {
+
+                                    <li data-target="#carousel-example-generic" data-slide-to="@i" @(i == 0 ? "class=active" : "")></li>
+                                }
+                            </ol>
+                            <!-- Slider Content (Wrapper for slides )-->
+                            <div class="carousel-inner">
+                                @for (int i = 0; i < Model.GalaryImages.Length; i++)
+                                {
+                                    <div class="item @(i==0 ?"active" : "")">
+                                        <p class=""><img src="/UploadFile/PropertyGallary/@Model.GalaryImages[i]" alt="" /></p>
+                                        <!--<div class="carousel-caption">
+                                        </div>-->
+                                    </div>
+                                }
+                            </div>
+
+                            <!-- Controls -->
+                            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+
+                        </div>
+
+
+                            <!--slider end-->
+                    }
+                </div>
+
+
+
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 border-left-wrapper">
+
+                    <h3>Important Information</h3>
+                    <div class="head-underline-s"> </div>
+                    <table class="table-responsive col-md-12">
+                        <tr>
+                            <td class="col-md-8 am-pad">Check-in Time : </td>
+                            <td><span class="sm-txt">@Model.CheckIn</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-8 am-pad">Check-out Time : </td>
+                            <td><span class="sm-txt">@Model.CheckOut</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-8 am-pad">Minimum Stay (Night(s)) : </td>
+                            <td><span class="sm-txt">@Model.MininumStay</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-8 am-pad">Max. Guest Occupancy of Property: </td>
+                            <td><span class="sm-txt" id="maxGuest">@Model.MaxGuestCount</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-8 am-pad">Extra per person cost (Adult) : </td>
+                            <td><span class="sm-txt" id="pricePerAdult">@Model.PricePerAdult</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-8 am-pad">Extra per person cost (Child) : </td>
+                            <td><span class="sm-txt" id="pricePerChild">@Model.PricePerChild</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-8 am-pad">Pets Allowed : </td>
+                            <td><span class="sm-txt">@Model.IsPetAllowed</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-8 am-pad">Drinking Allowed : </td>
+                            <td><span class="sm-txt">@Model.IsDrinkingAllowed</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-8 am-pad">Smoking Allowed : </td>
+                            <td><span class="sm-txt">@Model.IsSmokingAllowed</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-8 am-pad">Family/Kid Friendly : </td>
+                            <td><span class="sm-txt">@Model.IsFamilyKidFriendly</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-8 am-pad">Wheelchair Accessible : </td>
+                            <td><span class="sm-txt">@Model.IsWheelchairAccessible</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-8 am-pad">Parking : </td>
+                            <td><span class="sm-txt">@(Model.Parking != null ? string.Join(", ", Model.Parking) : string.Empty)</span></td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+                <div class="clear"></div>
+
+
+            </article>
+
+        </div>
+    </div>
+
+    <div class="container clearfix">
+
+        <div id="" class="no-bg">
+
+            <div class="col-lg-8 col-md-8 col-sm-8">
+
+
+
+
+                <article class="element clearfix">
+                    <h3>Amenities</h3>
+                    <div class="head-underline-s"> </div>
+                    <table class="table-responsive col-md-12">
+                        <tr>
+                            <td class="col-md-4 am-pad"><b>General:</b><br /> <span class="sm-txt">@(Model.General != null ? string.Join(", ", Model.General) : string.Empty)</span></td>
+                            <td class="col-md-4 am-pad"><b>Sleeping Arrangments:</b><br /> <span class="sm-txt">@(Model.SleepingArrangments != null ? string.Join(", ", Model.SleepingArrangments) : string.Empty)</span></td>
+                            <td class="col-md-4 am-pad"><b>Bathroom(s):</b><br /> <span class="sm-txt">@(Model.Bathroom != null ? string.Join(", ", Model.Bathroom) : string.Empty)</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4 am-pad"><b>Kitchen:</b><br /> <span class="sm-txt">@(Model.Kitchen != null ? string.Join(", ", Model.Kitchen) : string.Empty)</span></td>
+                            <td class="col-md-4 am-pad"><b>Entertainment & Electronics:</b><br /> <span class="sm-txt">@(Model.EntertainmentElectronic != null ? string.Join(", ", Model.EntertainmentElectronic) : string.Empty)</span></td>
+                            <td class="col-md-4 am-pad"><b>Outdoor Facilities:</b><br /> <span class="sm-txt">@(Model.Outdoor != null ? string.Join(", ", Model.Outdoor) : string.Empty)</span></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                    </table>
+
+                </article>
+
+                @if (Model.CancellationPolicy != 0)
+            {
+                    <article class="element clearfix">
+                        <h3>Cancellation Policy</h3>
+                        <div class="head-underline-s"> </div>
+                        @switch (Model.CancellationPolicy)
+                        {
+                            case 1:
+                                <p>The guest is not charged for any cancellations done before the day of arrival. Cancellations done on the day of arrival will be charged 20% of the total booking amount.</p>
+                                break;
+                            case 2:
+                                <p>
+                                    Reservation must be cancelled 7 days prior to the planned date of arrival for FIT. One night's stay will be levied for cancellations received upto 2 days prior to arrival. Full stay will be levied for cancellations received within 1 days prior to arrival.
+                                    For group bookings all bookings must be reconfirmed 30 days in advance either by payment or voucher. Any changes/cancellation prior to 30 days of arrival will attract no cancellation charges.
+                                    NOSHOW will be charged in full.
+                                </p>
+                                break;
+                            case 3:
+                                <p>
+                                    Reservations cancelled 7 days prior to booking will not receive any amount in return. If the reservation is cancelled between 7-15 days prior to the date of booking 50% amount will be returned and bookings cancelled before 15 days of the booking date will get fully refunded.
+                                </p>
+                                break;
+
+                        }
+
+                    </article>
+                }
+
+
+            </div>
+
+
+            <div class="col-lg-4 col-md-4 col-sm-4">
+
+            </div>
+        </div>
+    </div>
+</section>
+
+@*<section class="section2 bordered">
+        <div class="container clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h3>Recommended by us</h3>
+                <div class="head-underline-s"> </div>
+                <article class="element clearfix">
+                    <div class="col-md-3">
+                        <p><img src="/images/3.jpg" /></p>
+                        <h5>Property 1</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <p><img src="/images/02.jpg" /></p>
+                        <h5>Property 2</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <p><img src="/images/5.jpg" /></p>
+                        <h5>Property 3</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <p><img src="/images/13.jpg" /></p>
+                        <h5>Property 4</h5>
+                    </div>
+                </article>
+            </div>
+
+        </div>
+    </section>*@
+
+
+
+
+@section scripts{
+    <script>
+        $("#endDate").on('change', function () {
+            var startDate = document.getElementById("startDate").value;
+            var endDate = document.getElementById("endDate").value;
+            if ((Date.parse(startDate) > Date.parse(endDate))) {
+                alert("End date should be greater than Start date");
+                document.getElementById("endDate").value = "";
+            }
+        });
+        var endDateCtrl = $("#endDate").datepick({
+            dateFormat: 'dd/mm/yyyy',
+            minDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1),
+            onSelect: function (dates) {
+                var date = new Date(dates)
+                $("#endDate").attr("value", date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate());
+                var startDate = document.getElementById("startDate").value;
+                var endDate = document.getElementById("endDate").value;
+                if ((parseDate(startDate) > parseDate(endDate))) {
+                    alert("End date should be greater than Start date");
+                    document.getElementById("endDate").value = "";
+                }
+            },
+        });
+        var startDateControl = $("#startDate").datepick({
+            dateFormat: 'dd/mm/yyyy',
+            minDate: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()),
+            onSelect: function (dates) {
+                document.getElementById("endDate").value = "";
+                var date = new Date(dates)
+                $("#startDate").attr("value", date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate());
+                endDateCtrl.datepick('option', 'minDate', new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1));
+            },
+        });
+
+        function parseDate(value) {
+            var parts = value.split("/");
+            return new Date(Number(parts[2]), Number(parts[1]) - 1, Number(parts[0]));
+        }
+
+    </script>
+
+    @*<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var LatLng = new google.maps.LatLng("19.128662", "72.862866");
+                var mapOptions = {
+                    center: LatLng,
+                    zoom: 13,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+                var marker = new google.maps.Marker({
+                    position: LatLng,
+                    map: map,
+                    title: "<div style = 'height:60px;width:200px'><b>Your location:</b><br />Latitude: " + p.coords.latitude + "<br />Longitude: " + p.coords.longitude
+                });
+                google.maps.event.addListener(marker, "click", function (e) {
+                    var infoWindow = new google.maps.InfoWindow();
+                    infoWindow.setContent(marker.title);
+                    infoWindow.open(map, marker);
+                });
+            })
+        </script>*@
+
+}
+

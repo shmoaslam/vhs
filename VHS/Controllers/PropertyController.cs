@@ -84,6 +84,13 @@ namespace VHS.Controllers
             return View(propertyViewModel);
         }
 
+        [AllowAnonymous]
+        public ActionResult Detail1(int? id)
+        {
+            if (id == null) return View();
+            var propertyViewModel = _property.GetPropertyDisplayModel(id);
+            return View(propertyViewModel);
+        }
 
         public class AvailbilityModel
         {
