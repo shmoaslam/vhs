@@ -81,7 +81,35 @@ namespace VHS.Services
             var totalPrice = _unitOfWork.GetBookingPrice(propertyBook.PropertyId, (DateTime)propertyBook.StartDate, (DateTime)propertyBook.EndDate, propertyBook.AdultNo, propertyBook.ChildNo);
             return  totalPrice ;
         }
+        public List<CalenderBookings> GetBookingCalender(int id)
+        {
+            if (id == 0) return null;
+            var bookings = _unitOfWork.GetCalenderBooking(id);
+            var listBookings = new List<CalenderBookings>();
+            if (bookings != null || bookings.Count() > 0)
+                foreach (var booking in bookings)
+                {
+                    listBookings.Add(new CalenderBookings { Color = GetBookingColor(booking.Type), End = booking.End, Start = booking.Start, IsBlock = (booking.Type == 1 || booking.Type == 2) });
+                }
 
-   
+            return listBookings;
+        }
+
+        private string GetBookingColor(int type)
+        {
+            switch (type)
+            {
+                case 0:
+                    return "Orange";
+                case 1:
+                    return "Red";
+                case 2:
+                    return "Black";
+                default:
+                    return string.Empty;
+            }
+            throw new NotImplementedException();
+        }
+
     }
 }

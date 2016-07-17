@@ -784,6 +784,11 @@ namespace VHS.Repository
             else
                 return _context.Database.SqlQuery<ManganeBookingViewModel>("select pb.Id Id, pb.BookingId, p.Title + ', ' + pa.City PropertyDisplayName, CONVERT(varchar, pb.PropertyId) PropertyId from PropertyBooking pb join Property p on  pb.PropertyId = p.Id join PropertyAddress pa on p.Id = pa.PropertyId and pb.IsComplete = 0 and p.LoginId = @rmId", new SqlParameter("rmId", rmId)).ToList();
         }
+        public List<CalenderBooking> GetCalenderBooking(int id)
+        {
+            return _context.Database.SqlQuery<CalenderBooking>("exec GetCalenderBookings @propid", new SqlParameter("@propid", id)).ToList();
+        }
+
         #endregion
 
 
