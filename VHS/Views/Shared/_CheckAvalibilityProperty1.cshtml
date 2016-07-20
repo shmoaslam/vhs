@@ -1,4 +1,5 @@
 ﻿@model VHS.Services.Models.PropertyBooking
+<div id='calendar'></div>
 
 @using (Ajax.BeginForm("CheckAvailbility", "Property", new AjaxOptions { HttpMethod = "Post" }, new { @class = "form-part", id = "bookingForm" }))
 {

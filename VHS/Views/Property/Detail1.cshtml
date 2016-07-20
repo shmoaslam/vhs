@@ -5,7 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+<link href="~/Content/fullcalendar.css" rel="stylesheet" />
+<link href="~/Content/fullcalendar.print.css" rel="stylesheet" />
+<script src="~/Scripts/fullcalendar.min.js"></script>
 <section class="section header-section-property dark">
     <div class="overlay"><img class="property-cover" src="/UploadFile/PropertyCoverPhoto/@Model.CoverImage"></div>
     <div class="container clearfix centered">
@@ -383,6 +385,69 @@
                 });
             })
         </script>*@
+
+
+<script type="text/javascript">
+    $(window).load(function () {
+        var checkInDate = '', checkOutDate = '';	
+        var currentEvents = [];
+        jQuery.ajax({
+            url: "@Url.Action("GetCalendarEvents", new { id =Model.Id})",
+            type: 'GET',
+        dataType: 'json',
+        async : false,
+        data: {
+            id: @Model.Id,
+            },
+        success: function(doc) {
+            currentEvents = doc;
+        }
+    });
+    $('#calendar').fullCalendar({
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+        },
+        defaultDate: '2016-07-12',
+        businessHours: true, // display business hours
+        editable: true,
+        selectable: true,
+
+        select: function (start, end, jsEvent, view) {
+
+            if(checkInDate == '') {
+                checkInDate = start;
+            }
+
+            if(checkInDate._d > end._d) {
+                $("#calendar").fullCalendar( 'removeEvents'  );
+                $("#calendar").fullCalendar('addEventSource',eventsList);
+                checkInDate = ''
+            }
+            else {
+                $("#calendar").fullCalendar('removeEvents');
+                $("#calendar").fullCalendar('addEventSource',eventsList);
+                $("#calendar").fullCalendar('addEventSource', [{
+                    start: checkInDate,
+                    end: end,
+                    rendering: 'background',
+                    block: true,
+                    color:'Green',
+                    id:'25',
+                }, ]);
+            }
+            $("#calendar").fullCalendar("unselect");
+        },
+        selectOverlap: function(event) {
+            return ! event.block;
+        },
+        events: currentEvents
+    });
+    })
+   
+
+</script>		
 
 }
 

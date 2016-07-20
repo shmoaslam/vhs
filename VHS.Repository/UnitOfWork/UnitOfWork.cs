@@ -859,7 +859,7 @@ namespace VHS.Repository
             public decimal PricePerAdult { get; set; }
             public decimal PricePerChild { get; set; }
             public int CancellationPolicy { get; set; }
-            public int RegionId { get; set; }
+            //public int RegionId { get; set; }
             public int? MininumStay { get; set; }
         }
         public class PropertyListForAdmin
@@ -869,7 +869,12 @@ namespace VHS.Repository
             public string ShortInfo { get; set; }
             public string PropertImage { get; set; }
         }
-
+        public class CalenderBooking
+        {
+            public DateTime Start { get; set; }
+            public DateTime End { get; set; }
+            public int Type { get; set; }
+        }
 
         #endregion
     }
