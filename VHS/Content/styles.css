@@ -1006,7 +1006,7 @@ ul.footer-social-list{
 	height:100%;
 }
 .search-box{
-    max-width: 1024px;
+//max-width: 1024px;
     margin: 0 auto;
     padding: 20px 10px;
     /*border: 1px solid #f06eaa;
@@ -1066,7 +1066,7 @@ padding:15px 30px!important;
 	width:300px;margin:15px 30px;
 }
 .tr{
-	max-width:250px;margin-top:90px;
+	max-width:210px;margin-top:90px;
 }
 
 .mng{
