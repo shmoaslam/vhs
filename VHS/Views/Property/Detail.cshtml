@@ -1,4 +1,4 @@
-﻿@model VHS.Services.ViewModel.PropertyDisplayViewModel
+﻿﻿@model VHS.Services.ViewModel.PropertyDisplayViewModel
 
 @{
     ViewBag.Title = "Detail";
@@ -45,24 +45,26 @@
                         </div>
                         <div class="col-md-3 col-xs-6 text-center"><p class="intro-pik"><img class="intro-icons" src="/images/guest.png" width="20" alt="Guests" title="Guests" /></p><p class="guests"><b>Standard Occupancy <span id="standardGuestCount">@Model.GuestCount</span></b></p></div>
                         <div class="col-md-3 col-xs-6 text-center">
-                            <p class="intro-pik">
-                                <b>
-                                    @switch (Model.Rating)
-                                    {
-                                        case "2":
-                                            <img class="intro-icons" src="~/images/butterfly.png" width="20" alt="Rating" title="Pink Butterfly Award">
-                                            break;
-                                        case "3":
-                                            <img class="intro-icons" src="~/images/deer.png" width="20" alt="Rating" title="Pink Deer Award">
-                                            break;
-                                        case "4":
-                                            <img class="intro-icons" src="~/images/eagle.png" width="20" alt="Rating" title="Pink Eagle Award">
-                                            break;
-                                        default:
-                                            break;
-                                    }
-                                </b>
-                            </p>
+                            <a href="@Url.Action("Rating","Property")" target="_blank">
+                                <p class="intro-pik">
+                                    <b>
+                                        @switch (Model.Rating)
+                                        {
+                                            case "2":
+                                                <img class="intro-icons" src="~/images/butterfly.png" width="20" alt="Rating" title="Pink Butterfly Award">
+                                                break;
+                                            case "3":
+                                                <img class="intro-icons" src="~/images/deer.png" width="20" alt="Rating" title="Pink Deer Award">
+                                                break;
+                                            case "4":
+                                                <img class="intro-icons" src="~/images/eagle.png" width="20" alt="Rating" title="Pink Eagle Award">
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    </b>
+                                </p>                           
+                            
                             @switch (Model.Rating)
                             {
                                 case "2":
@@ -77,6 +79,8 @@
                                 default:
                                     break;
                             }
+                          </a>
+
                         </div>
                     </div>
                     <div class="clear"></div>
